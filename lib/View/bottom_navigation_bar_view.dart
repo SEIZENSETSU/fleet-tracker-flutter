@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
+import '../Controller/bottom_navigation_bar_controller.dart';
 
 class BottomNavigationBarView extends StatelessWidget {
-  const BottomNavigationBarView({
-    super.key,
-    required this.navigationShell,
-  });
-
-  final StatefulNavigationShell navigationShell;
+  const BottomNavigationBarView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final BottomNavigationBarController controller =
+        BottomNavigationBarController();
+
     return Scaffold(
-      body: navigationShell,
+      body: controller.navigationShell,
       bottomNavigationBar: NavigationBar(
-        selectedIndex: navigationShell.currentIndex,
+        selectedIndex: controller.navigationShell.currentIndex,
         destinations: const [
           NavigationDestination(icon: Icon(Icons.home), label: 'ホーム'),
           NavigationDestination(icon: Icon(Icons.search), label: '倉庫検索'),
@@ -23,17 +22,16 @@ class BottomNavigationBarView extends StatelessWidget {
           NavigationDestination(icon: Icon(Icons.settings), label: '設定'),
         ],
         onDestinationSelected: (index) {
-          navigationShell.goBranch(
-            index,
-            initialLocation: index == navigationShell.currentIndex,
-          );
+          controller.goBranch(index);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          navigationShell.goBranch(2, initialLocation: true);
+          controller.goBranch(2);
         },
+        foregroundColor: Colors.white,
+        backgroundColor: controller.getFloatingActionButtonColor(2),
         child: const Icon(Icons.add),
       ),
     );

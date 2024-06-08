@@ -1,22 +1,24 @@
-import 'package:fleet_tracker/View/Component/warehouse_detail_view.dart';
-import 'package:fleet_tracker/View/Setting/setting_top_view.dart';
-import 'package:fleet_tracker/View/TrafficInformation/Detail/traffic_information_detail_view.dart';
-import 'package:fleet_tracker/View/UserInput/Detail/user_input_detail_view.dart';
-import 'package:fleet_tracker/View/WarehouseSearch/warehouse_search_top_view.dart';
-import 'package:fleet_tracker/View/bottom_navigation_bar_view.dart';
-import 'package:fleet_tracker/View/top_loading_view.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../View/Component/warehouse_detail_view.dart';
 import '../View/Home/home_view.dart';
+import '../View/Setting/setting_top_view.dart';
+import '../View/TrafficInformation/Detail/traffic_information_detail_view.dart';
 import '../View/TrafficInformation/traffic_information_top_view.dart';
+import '../View/UserInput/Detail/user_input_detail_view.dart';
 import '../View/UserInput/user_input_top_view.dart';
 import '../View/WarehouseSearch/Result/warehouse_search_result_view.dart';
+import '../View/WarehouseSearch/warehouse_search_top_view.dart';
+import '../View/bottom_navigation_bar_view.dart';
+import '../View/top_loading_view.dart';
+import 'navigation_shell.dart';
 import 'routes.dart';
 
 part 'router.g.dart';
 
+/// NavigatorKey
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 final homeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'home');
 final warehouseSearchNavigatorKey =
@@ -27,6 +29,7 @@ final trafficInformationNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'trafficInformation');
 final settingNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'setting');
 
+/// GoRouterProvider
 final routerProvider = Provider(
   (ref) => GoRouter(
     debugLogDiagnostics: true,
@@ -97,14 +100,16 @@ class AppShellRouteData extends StatefulShellRouteData {
     GoRouterState state,
     StatefulNavigationShell navigationShell,
   ) {
-    return BottomNavigationBarView(
-      navigationShell: navigationShell,
-    );
+    /// navigationShellをシングルトンで保持
+    NavigationShell().set(navigationShell);
+
+    // ignore: prefer_const_constructors
+    return BottomNavigationBarView();
   }
 }
 
 //////////////////////////////  Branch  //////////////////////////////
-/// Home
+/// home
 class HomeBranch extends StatefulShellBranchData {
   const HomeBranch();
 
