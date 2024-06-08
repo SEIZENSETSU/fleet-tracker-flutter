@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'Route/router.dart';
 
 void main() async {
-  /// 画面を縦向きに固定
-  // SystemChrome.setPreferredOrientations([
-  //   DeviceOrientation.portraitUp,
-  // ]);
   runApp(const ProviderScope(child: MyApp()));
 }
 

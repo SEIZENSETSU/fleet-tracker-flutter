@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Controller/top_loading_controller.dart';
 import 'package:flutter/material.dart';
 
 class TopLoadingView extends StatelessWidget {
@@ -5,6 +6,10 @@ class TopLoadingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    TopLoadingController(context).firstLoad();
+
+    return const Scaffold(
+      body: Center(child: Text('TopLoadingView')),
+    );
   }
 }

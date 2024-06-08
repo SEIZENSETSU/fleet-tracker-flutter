@@ -16,10 +16,11 @@ class BottomNavigationBarView extends StatelessWidget {
       bottomNavigationBar: NavigationBar(
         selectedIndex: navigationShell.currentIndex,
         destinations: const [
-          NavigationDestination(icon: Icon(Icons.home), label: 'home'),
-          NavigationDestination(icon: Icon(Icons.favorite), label: 'like'),
-          NavigationDestination(icon: Icon(Icons.shopping_cart), label: 'cart'),
-          NavigationDestination(icon: Icon(Icons.person), label: 'profile'),
+          NavigationDestination(icon: Icon(Icons.home), label: 'ホーム'),
+          NavigationDestination(icon: Icon(Icons.search), label: '倉庫検索'),
+          SizedBox(width: 0),
+          NavigationDestination(icon: Icon(Icons.traffic), label: '交通情報'),
+          NavigationDestination(icon: Icon(Icons.settings), label: '設定'),
         ],
         onDestinationSelected: (index) {
           navigationShell.goBranch(
@@ -27,6 +28,13 @@ class BottomNavigationBarView extends StatelessWidget {
             initialLocation: index == navigationShell.currentIndex,
           );
         },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          navigationShell.goBranch(2, initialLocation: true);
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
