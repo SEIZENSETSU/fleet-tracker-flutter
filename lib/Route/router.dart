@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/View/Component/warehouse_detail_view.dart';
 import 'package:fleet_tracker/View/Setting/setting_top_view.dart';
 import 'package:fleet_tracker/View/TrafficInformation/Detail/traffic_information_detail_view.dart';
 import 'package:fleet_tracker/View/UserInput/Detail/user_input_detail_view.dart';
@@ -38,7 +39,7 @@ final routerProvider = Provider(
   branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
     TypedStatefulShellBranch<HomeBranch>(
       routes: [
-        TypedGoRoute<HomeRouteData>(
+        TypedGoRoute<HomeRoute>(
           path: Routes.home,
         ),
       ],
@@ -50,6 +51,9 @@ final routerProvider = Provider(
         ),
         TypedGoRoute<WarehouseSearchResultRoute>(
           path: Routes.warehouseSearchResult,
+        ),
+        TypedGoRoute<WarehouseDetailRoute>(
+          path: Routes.warehouseDetail,
         ),
       ],
     ),
@@ -139,8 +143,8 @@ class SettingBranch extends StatefulShellBranchData {
 //////////////////////////////  Initialize  //////////////////////////////
 
 //////////////////////////////  Home  //////////////////////////////
-class HomeRouteData extends GoRouteData {
-  const HomeRouteData();
+class HomeRoute extends GoRouteData {
+  const HomeRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const HomeView();
@@ -162,6 +166,14 @@ class WarehouseSearchResultRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const WarehouseSearchResultView();
+}
+
+class WarehouseDetailRoute extends GoRouteData {
+  const WarehouseDetailRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const WarehouseDetailView();
 }
 //////////////////////////////  WarehouseSearch  //////////////////////////////
 
@@ -211,7 +223,7 @@ class SettingTopRoute extends GoRouteData {
 }
 //////////////////////////////  Setting  //////////////////////////////
 
-/////////////////////////////////  Root  //////////////////////////////
+//////////////////////////////  Root  //////////////////////////////
 @TypedGoRoute<TopLoadingRoute>(
   path: Routes.root,
 )
@@ -222,4 +234,4 @@ class TopLoadingRoute extends GoRouteData {
   Widget build(BuildContext context, GoRouterState state) =>
       const TopLoadingView();
 }
-//////////////////////////////  Root  //////////////////////////////
+///////////////////////////  Root  //////////////////////////////

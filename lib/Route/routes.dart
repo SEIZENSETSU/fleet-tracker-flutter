@@ -1,6 +1,7 @@
 mixin Routes {
   static const String root = '/';
   static const String home = '/home';
+  static const String warehouseDetail = '/warehouseDetail';
   static const String warehouseSearch = '/warehouseSearch';
   static const String warehouseSearchResult = '/warehouseSearchResult';
   static const String userInput = '/userInput';
