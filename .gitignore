@@ -842,6 +842,7 @@ Temporary Items
 # JEnv             - https://github.com/github/gitignore/blob/main/Global/JEnv.gitignore
 
 ### -------------------------- User Definition --------------------------- ###
+macos/
 linux/
 windows/
 linux/flutter/generated_plugin_registrant.cc
@@ -852,5 +853,6 @@ windows/flutter/generated_plugins.cmake
 # FVM Version Cache
 .fvm/
 
-#macos
-macos/
+# Generated files
+lib/gen/
+lib/Route/router.g.dart
