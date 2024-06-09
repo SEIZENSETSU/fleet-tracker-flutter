@@ -12,7 +12,7 @@ class TopLoadingController {
       DeviceOrientation.portraitUp,
     ]);
 
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 2, milliseconds: 500));
     // ignore: use_build_context_synchronously, prefer_const_constructors
     HomeRoute().go(context);
   }

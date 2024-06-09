@@ -24,9 +24,14 @@ dev_dependencies:
   build_runner: ^2.4.9
   go_router_builder: ^2.6.2
 
+flutter_gen:
+  colors:
+    inputs:
+      - assets/color/colors.xml
+
 flutter:
   uses-material-design: true
 
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/
+    - assets/images/top_loading/

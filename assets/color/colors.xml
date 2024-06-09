@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- アプリ内で使用するカラーを管理するファイルです -->
+<resources>
+    <color name="splash_main">#006C3F</color>
+    <color name="splash_background">#C1E0F1</color>
+</resources>
