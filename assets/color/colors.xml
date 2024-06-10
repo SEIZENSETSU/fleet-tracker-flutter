@@ -3,4 +3,5 @@
 <resources>
     <color name="splash_main">#006C3F</color>
     <color name="splash_background">#C1E0F1</color>
+    <color name="text_black">#202124</color>
 </resources>

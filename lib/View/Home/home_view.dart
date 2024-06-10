@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -12,11 +13,8 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(
-          'こんにちは',
-          style: TextStyle(
-            fontSize: 40,
-          ),
+        child: CustomText(
+          text: 'こんにちは',
         ),
       ),
     );
