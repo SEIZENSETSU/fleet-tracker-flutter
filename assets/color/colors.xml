@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- アプリ内で使用するカラーを管理するファイルです -->
 <resources>
+    <!-- スプラッシュ画面に使うカラー -->
     <color name="splash_main">#006C3F</color>
     <color name="splash_background">#C1E0F1</color>
+    
+    <!-- メインテーマカラー -->
+    <color name="mianTheme_color">#005133</color>
+
+    <!-- テキスト系のカラー -->
     <color name="text_black">#202124</color>
 </resources>
