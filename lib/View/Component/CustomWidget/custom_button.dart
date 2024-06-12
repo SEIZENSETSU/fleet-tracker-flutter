@@ -2,12 +2,13 @@ import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatefulWidget {
-  const CustomButton(
-      {super.key,
-      this.isFilledColor = false,
-      this.primaryColor = Colors.white,
-      required this.text,
-      required this.onTap});
+  const CustomButton({
+    super.key,
+    this.isFilledColor = false,
+    this.primaryColor = Colors.white,
+    required this.text,
+    required this.onTap,
+  });
 
   final Color primaryColor;
   final bool isFilledColor;
