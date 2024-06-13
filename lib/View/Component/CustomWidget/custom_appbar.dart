@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   CustomAppBar({
     Key? key,
-    required this.title,
+    this.title = '',
     this.backgroundColor = ColorName.mianThemeColor,
     this.foregroundColor = Colors.white,
     this.isBackButton = false,
@@ -13,7 +13,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.leadingImage,
     this.actions,
   }) : super(key: key);
-  final String title;
+  final String? title;
   final Color? foregroundColor;
   final Color? backgroundColor;
   final bool? isBackButton;
@@ -50,7 +50,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 )
               : SizedBox(),
           CustomText(
-            text: widget.title,
+            text: widget.title!,
             color: widget.foregroundColor,
             fontWeight: FontWeight.bold,
           ),
