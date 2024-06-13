@@ -2,6 +2,7 @@ import 'package:fleet_tracker/View/Component/CustomCell/trafic_state_button_cell
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../../../Service/Log/log_service.dart';
 
@@ -22,6 +23,8 @@ class TraficStateCell extends StatefulWidget {
 class _TraficStateCellState extends State<TraficStateCell> {
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    Log.echo('size: $size');
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -32,7 +35,7 @@ class _TraficStateCellState extends State<TraficStateCell> {
             Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                  padding: const EdgeInsets.only(left: 20, top: 10),
                   child: Container(
                     height: 40,
                     child: FittedBox(
@@ -48,7 +51,7 @@ class _TraficStateCellState extends State<TraficStateCell> {
               ],
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
             Stack(
               alignment: Alignment.center,
@@ -140,7 +143,7 @@ class _TraficStateCellState extends State<TraficStateCell> {
               ],
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -213,18 +216,24 @@ class _TraficStateCellState extends State<TraficStateCell> {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Container(
-                  width: 150,
-                  child: Center(
-                    child: CustomText(
-                      text: '工場詳細ページへ→',
-                      color: Colors.grey,
-                      fontSize: 10,
+                GestureDetector(
+                  onTap: () {
+                    Log.echo('工場詳細ページへ遷移します');
+                  },
+                  child: Container(
+                    width: 200,
+                    height: 50,
+                    child: const Center(
+                      child: CustomText(
+                        text: '工場詳細ページへ→',
+                        color: Colors.grey,
+                        fontSize: 15,
+                      ),
                     ),
                   ),
                 ),
