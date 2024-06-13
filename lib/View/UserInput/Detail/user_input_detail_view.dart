@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+// 絶対にここは使わない！！ふざけるな！！
+// 本当に使うなよ？
+// 使うなよ？
+// フリじゃないぞ？
 class UserInputDetailView extends StatefulWidget {
   const UserInputDetailView({super.key});
 
