@@ -14,8 +14,11 @@ class _SettingTopViewState extends State<SettingTopView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.white,
       appBar: CustomAppBar(
+        title: '設定',
+        foregroundColor: ColorName.textBlack,
+        backgroundColor: Colors.white,
         actions: [
           IconButton(
             onPressed: () {},

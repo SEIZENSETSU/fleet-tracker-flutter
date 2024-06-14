@@ -6,8 +6,8 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   CustomAppBar({
     Key? key,
     this.title = '',
-    this.backgroundColor = ColorName.mianThemeColor,
-    this.foregroundColor = Colors.white,
+    this.backgroundColor = Colors.white,
+    this.foregroundColor = ColorName.textBlack,
     this.isBackButton = false,
     this.appBarHight = kToolbarHeight,
     this.leadingImage,
@@ -58,11 +58,13 @@ class _CustomAppBarState extends State<CustomAppBar> {
       ),
       automaticallyImplyLeading: widget.isBackButton!,
       backgroundColor: widget.backgroundColor,
-      foregroundColor: widget.foregroundColor,
+
       // スクロール時に色が乗算されるのを防ぐ
       surfaceTintColor: widget.backgroundColor,
       // 設置しても3つくらいまでが限度かなーー？
       actions: widget.actions != null ? widget.actions : null,
+      elevation: 10,
+      shadowColor: Colors.black.withOpacity(0.1),
     );
   }
 }

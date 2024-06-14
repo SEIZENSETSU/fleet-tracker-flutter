@@ -1,5 +1,6 @@
 import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../gen/colors.gen.dart';
 import '../custom_button.dart';
@@ -115,6 +116,7 @@ class ButtonDialog {
                                         }
                                       : () {
                                           // nullなら戻る
+                                          context.pop();
                                         },
                                 ),
                               ),

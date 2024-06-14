@@ -13,7 +13,7 @@ class Strings {
   //  ボタン
   static const String STATE_NORMAL = '平常';
   static const String STATE_PAUSE = '一時停止\n 〜10分';
-  static const String STATE_HALF_AN_HOUR = '〜30分';
+  static const String STATE_HALF_HOUR = '〜30分';
   static const String STATE_AN_HOUR = '〜1時間';
   static const String STATE_IMPOSSIBLE = '入庫不可';
 
