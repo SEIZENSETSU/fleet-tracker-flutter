@@ -29,7 +29,7 @@ class ButtonDialog {
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Container(
-            width: 100,
+            width: 150,
             // height: 200,
             decoration: BoxDecoration(
               border: Border.all(
