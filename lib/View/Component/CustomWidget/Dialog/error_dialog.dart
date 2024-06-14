@@ -11,6 +11,7 @@ class ErrorDialog {
     required BuildContext context,
     required String title,
     required Widget content,
+    required String detail,
   }) {
     showDialog(
       context: context,
@@ -81,11 +82,15 @@ class ErrorDialog {
                         Expanded(
                           flex: 3,
                           child: Container(
-                            color: Colors.blue,
-                            child: Row(
-                              children: [
-                                CustomText(text: 'aaa'),
-                              ],
+                            child: FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Row(
+                                children: [
+                                  CustomText(
+                                    text: detail,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

@@ -10,4 +10,14 @@
 
     <!-- テキスト系のカラー -->
     <color name="text_black">#202124</color>
+
+
+    <!-- 工場遅延状況セル関連 -->
+     <color name="state_normal">#FF4CAF50</color>
+     <color name="state_pause">#FFFF9800</color>
+     <color name="state_halfAnHour">#FFF44336</color>
+     <color name="state_anHour">#FFFF4081</color>
+     <color name="state_impossible">#FF9C27B0</color>
+
+    
 </resources>

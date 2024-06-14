@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/View/Component/CustomCell/trafic_state_button_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
@@ -75,8 +76,8 @@ class _TraficStateCellState extends State<TraficStateCell> {
                           width: 60,
                           height: 60,
                           child: TraficStateButtonCell(
-                            cellColor: Colors.green,
-                            text: '平常',
+                            cellColor: ColorName.stateNormal,
+                            text: Strings.STATE_NORMAL,
                             onTap: () {
                               Log.echo(
                                 'aaa',
@@ -88,8 +89,8 @@ class _TraficStateCellState extends State<TraficStateCell> {
                           width: 60,
                           height: 60,
                           child: TraficStateButtonCell(
-                            cellColor: Colors.orange,
-                            text: '一時停止\n 〜10分',
+                            cellColor: ColorName.statePause,
+                            text: Strings.STATE_PAUSE,
                             onTap: () {
                               Log.echo(
                                 'aaa',
@@ -101,8 +102,8 @@ class _TraficStateCellState extends State<TraficStateCell> {
                           width: 60,
                           height: 60,
                           child: TraficStateButtonCell(
-                            cellColor: Color.fromARGB(255, 196, 49, 39),
-                            text: '〜30分',
+                            cellColor: ColorName.stateHalfAnHour,
+                            text: Strings.STATE_HALF_AN_HOUR,
                             onTap: () {
                               Log.echo(
                                 'aaa',
@@ -114,8 +115,8 @@ class _TraficStateCellState extends State<TraficStateCell> {
                           width: 60,
                           height: 60,
                           child: TraficStateButtonCell(
-                            cellColor: Colors.pinkAccent,
-                            text: '30分以上',
+                            cellColor: ColorName.stateAnHour,
+                            text: Strings.STATE_AN_HOUR,
                             onTap: () {
                               Log.echo(
                                 'aaa',
@@ -127,8 +128,8 @@ class _TraficStateCellState extends State<TraficStateCell> {
                           width: 60,
                           height: 60,
                           child: TraficStateButtonCell(
-                            cellColor: Colors.purple,
-                            text: '入庫不可',
+                            cellColor: ColorName.stateImpossible,
+                            text: Strings.STATE_IMPOSSIBLE,
                             onTap: () {
                               Log.echo(
                                 'aaa',
@@ -230,7 +231,7 @@ class _TraficStateCellState extends State<TraficStateCell> {
                     height: 50,
                     child: const Center(
                       child: CustomText(
-                        text: '工場詳細ページへ→',
+                        text: Strings.GO_WAREHOUSE_PAGE,
                         color: Colors.grey,
                         fontSize: 15,
                       ),

@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Dialog/error_dialog.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/gen/assets.gen.dart';
@@ -25,8 +26,9 @@ class _HomeViewState extends State<HomeView> {
         onTap: () {
           ErrorDialog().showErrorDialog(
             context: context,
-            title: '通信エラーああああああ',
+            title: Strings.CONNECT_ERROR_DIALOG_TITLE,
             content: Assets.images.component.anpan.image(),
+            detail: Strings.CONNECT_ERROR_DIALOG_DETAIL,
           );
         },
         primaryColor: ColorName.mianThemeColor,
