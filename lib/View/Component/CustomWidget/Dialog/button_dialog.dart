@@ -1,19 +1,21 @@
 import 'package:fleet_tracker/Constants/strings.dart';
-import 'package:fleet_tracker/View/Component/CustomWidget/custom_button.dart';
-import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
-import 'package:fleet_tracker/gen/colors.gen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-class ErrorDialog {
-  showErrorDialog({
+import '../../../../gen/colors.gen.dart';
+import '../custom_button.dart';
+import '../custom_text.dart';
+
+class ButtonDialog {
+  showButtonDialog({
     required BuildContext context,
     required String title,
     required Widget content,
     required String detail,
-    Function? buttonAction,
     bool barrierDismissible = false,
+    String rightButtonText = Strings.SUBMIT_BUTTON_TEXT,
+    String leftButtonText = Strings.BACK_BUTTON_TEXT,
+    required Function rightButtonAction,
+    Function? leftButtonAction,
   }) {
     showDialog(
       context: context,
@@ -68,7 +70,7 @@ class ErrorDialog {
                   ),
                 ),
                 Container(
-                  height: 180,
+                  height: 200,
                   color: Colors.white,
                   margin: EdgeInsets.all(10),
                   child: Container(
@@ -99,22 +101,33 @@ class ErrorDialog {
                         ),
                         Expanded(
                           flex: 1,
-                          child: Container(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: CustomButton(
-                                isFilledColor: true,
-                                primaryColor: ColorName.mianThemeColor,
-                                text: Strings.BACK_BUTTON_TEXT,
-                                onTap: buttonAction != null
-                                    ? () {
-                                        // 指定した処理
-                                      }
-                                    : () {
-                                        // 戻る
-                                      },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                width: 100,
+                                child: CustomButton(
+                                  primaryColor: ColorName.mianThemeColor,
+                                  text: leftButtonText,
+                                  onTap: leftButtonAction != null
+                                      ? () {
+                                          // 指定した処理
+                                        }
+                                      : () {
+                                          // nullなら戻る
+                                        },
+                                ),
                               ),
-                            ),
+                              Container(
+                                width: 100,
+                                child: CustomButton(
+                                  isFilledColor: true,
+                                  primaryColor: ColorName.mianThemeColor,
+                                  text: rightButtonText,
+                                  onTap: rightButtonAction,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
