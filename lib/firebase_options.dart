@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -46,28 +47,28 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCn0qdXxCOMOh_VljxIRIH_UMj7oH0SfvU',
-    appId: '1:30635038276:web:39728dc88f24833a588e11',
-    messagingSenderId: '30635038276',
+  static FirebaseOptions web = FirebaseOptions(
+    apiKey: dotenv.env['FIREBASE_API_KEY_WEB']!,
+    appId: dotenv.env['FIREBASE_APP_ID_WEB']!,
+    messagingSenderId: dotenv.env['FIREBASE_MESSAGING_SENDER_ID']!,
     projectId: 'sei-zen-setsu',
     authDomain: 'sei-zen-setsu.firebaseapp.com',
     storageBucket: 'sei-zen-setsu.appspot.com',
     measurementId: 'G-HBQTG5MRNZ',
   );
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBLzm3-71U4DgZRjMV8Xdgs4Xrz_PmpoRM',
-    appId: '1:30635038276:android:640d554982f2ece1588e11',
-    messagingSenderId: '30635038276',
+  static FirebaseOptions android = FirebaseOptions(
+    apiKey: dotenv.env['FIREBASE_API_KEY_ANDROID']!,
+    appId: dotenv.env['FIREBASE_APP_ID_ANDROID']!,
+    messagingSenderId: dotenv.env['FIREBASE_MESSAGING_SENDER_ID']!,
     projectId: 'sei-zen-setsu',
     storageBucket: 'sei-zen-setsu.appspot.com',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDW0y0jJQsyKDgj3v3oJTSd6yiT4eo7XLg',
-    appId: '1:30635038276:ios:21c9122d48adfd2e588e11',
-    messagingSenderId: '30635038276',
+  static FirebaseOptions ios = FirebaseOptions(
+    apiKey: dotenv.env['FIREBASE_API_KEY_IOS']!,
+    appId: dotenv.env['FIREBASE_APP_ID_IOS']!,
+    messagingSenderId: dotenv.env['FIREBASE_MESSAGING_SENDER_ID']!,
     projectId: 'sei-zen-setsu',
     storageBucket: 'sei-zen-setsu.appspot.com',
     iosBundleId: 'jp.ac.hal.fleetTracker',
