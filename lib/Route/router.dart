@@ -7,7 +7,6 @@ import '../View/Home/home_view.dart';
 import '../View/Setting/setting_top_view.dart';
 import '../View/TrafficInformation/Detail/traffic_information_detail_view.dart';
 import '../View/TrafficInformation/traffic_information_top_view.dart';
-import '../View/UserInput/Detail/user_input_detail_view.dart';
 import '../View/UserInput/user_input_top_view.dart';
 import '../View/WarehouseSearch/Result/warehouse_search_result_view.dart';
 import '../View/WarehouseSearch/warehouse_search_top_view.dart';
@@ -45,6 +44,9 @@ final routerProvider = Provider(
         TypedGoRoute<HomeRoute>(
           path: Routes.home,
         ),
+        TypedGoRoute<WarehouseDetailRoute>(
+          path: Routes.warehouseDetail,
+        ),
       ],
     ),
     TypedStatefulShellBranch<WarehouseSearchBranch>(
@@ -65,8 +67,8 @@ final routerProvider = Provider(
         TypedGoRoute<UserInputTopRoute>(
           path: Routes.userInput,
         ),
-        TypedGoRoute<UserInputDetailRoute>(
-          path: Routes.userInputDetail,
+        TypedGoRoute<WarehouseDetailRoute>(
+          path: Routes.warehouseDetail,
         ),
       ],
     ),
@@ -147,6 +149,16 @@ class SettingBranch extends StatefulShellBranchData {
 }
 //////////////////////////////  Initialize  //////////////////////////////
 
+//////////////////////////////  Component  //////////////////////////////
+class WarehouseDetailRoute extends GoRouteData {
+  const WarehouseDetailRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const WarehouseDetailView();
+}
+//////////////////////////////  Component  //////////////////////////////
+
 //////////////////////////////  Home  //////////////////////////////
 class HomeRoute extends GoRouteData {
   const HomeRoute();
@@ -172,14 +184,6 @@ class WarehouseSearchResultRoute extends GoRouteData {
   Widget build(BuildContext context, GoRouterState state) =>
       const WarehouseSearchResultView();
 }
-
-class WarehouseDetailRoute extends GoRouteData {
-  const WarehouseDetailRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const WarehouseDetailView();
-}
 //////////////////////////////  WarehouseSearch  //////////////////////////////
 
 //////////////////////////////  UserInput  //////////////////////////////
@@ -189,14 +193,6 @@ class UserInputTopRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const UserInputTopView();
-}
-
-class UserInputDetailRoute extends GoRouteData {
-  const UserInputDetailRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const UserInputDetailView();
 }
 //////////////////////////////  UserInput  //////////////////////////////
 
