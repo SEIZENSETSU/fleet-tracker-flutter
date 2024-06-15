@@ -30,6 +30,10 @@ flutter_gen:
   colors:
     inputs:
       - assets/color/colors.xml
+  assets:
+    exclude:
+      - .env.develop
+      - .env.release
 
 flutter:
   uses-material-design: true
