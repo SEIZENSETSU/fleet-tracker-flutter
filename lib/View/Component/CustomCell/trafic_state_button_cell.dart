@@ -47,7 +47,7 @@ class _TraficStateButtonCellState extends State<TraficStateButtonCell> {
             ),
             child: Center(
               child: FittedBox(
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.fitHeight,
                 child: CustomText(
                   text: widget.text,
                   fontWeight: FontWeight.w900,

@@ -15,13 +15,16 @@ class _UserInputTopViewState extends State<UserInputTopView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            TraficStateCell(
-              warehouseName: 'エルフーズ東京工場',
-              traficstateCount: [0, 10, 10, 10, 0],
+            Container(
+              width: 400,
+              child: TraficStateCell(
+                warehouseName: 'エルフーズ東京工場',
+                traficstateCount: [0, 10, 10, 10, 0],
+              ),
             ),
             TraficStateCell(
               warehouseName: 'エルフーズ東京工場',
