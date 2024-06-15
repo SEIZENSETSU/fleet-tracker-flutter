@@ -107,6 +107,21 @@ class _TraficStateCellState extends State<TraficStateCell> {
                               shape: BoxShape.circle,
                               color: ColorName.stateNormal,
                             ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Container(
+                                height: 10,
+                                width: 10,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Color.lerp(
+                                    ColorName.stateNormal,
+                                    Colors.white,
+                                    0.5,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                         Expanded(

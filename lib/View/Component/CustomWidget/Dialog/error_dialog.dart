@@ -101,10 +101,10 @@ class ErrorDialog {
                         Expanded(
                           flex: 1,
                           child: Container(
+                            width: 200,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 5),
                               child: CustomButton(
-                                isFilledColor: true,
                                 primaryColor: ColorName.mianThemeColor,
                                 text: Strings.BACK_BUTTON_TEXT,
                                 onTap: buttonAction != null
