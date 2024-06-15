@@ -1,4 +1,4 @@
-import 'package:fleet_tracker/View/Component/CustomCell/common_cell.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/Card/destination_arrow.dart';
 import 'package:fleet_tracker/View/Component/CustomScaffold/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 

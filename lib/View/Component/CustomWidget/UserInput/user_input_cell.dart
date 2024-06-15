@@ -1,5 +1,5 @@
 import 'package:fleet_tracker/Constants/strings.dart';
-import 'package:fleet_tracker/View/Component/CustomCell/trafic_state_button_cell.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/UserInput/user_input_circle_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
@@ -7,10 +7,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../Service/Log/log_service.dart';
+import '../../../../Service/Log/log_service.dart';
 
-class TraficStateCell extends StatefulWidget {
-  const TraficStateCell({
+class UserInputCell extends StatefulWidget {
+  const UserInputCell({
     super.key,
     required this.warehouseName,
     required this.traficstateCount,
@@ -20,10 +20,10 @@ class TraficStateCell extends StatefulWidget {
   final List traficstateCount;
 
   @override
-  State<TraficStateCell> createState() => _TraficStateCellState();
+  State<UserInputCell> createState() => _UserInputCellState();
 }
 
-class _TraficStateCellState extends State<TraficStateCell> {
+class _UserInputCellState extends State<UserInputCell> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -200,7 +200,7 @@ class _TraficStateCellState extends State<TraficStateCell> {
                             widthFactor: 0.9,
                             child: Container(
                               height: 60,
-                              child: TraficStateButtonCell(
+                              child: UserInputCircleCell(
                                 cellColor: ColorName.stateNormal,
                                 text: Strings.STATE_NORMAL,
                                 onTap: () {
@@ -218,7 +218,7 @@ class _TraficStateCellState extends State<TraficStateCell> {
                             widthFactor: 0.9,
                             child: Container(
                               height: 60,
-                              child: TraficStateButtonCell(
+                              child: UserInputCircleCell(
                                 cellColor: ColorName.statePause,
                                 text: Strings.STATE_PAUSE,
                                 onTap: () {
@@ -236,7 +236,7 @@ class _TraficStateCellState extends State<TraficStateCell> {
                             widthFactor: 0.9,
                             child: Container(
                               height: 60,
-                              child: TraficStateButtonCell(
+                              child: UserInputCircleCell(
                                 cellColor: ColorName.stateHalfAnHour,
                                 text: Strings.STATE_HALF_HOUR,
                                 onTap: () {
@@ -254,7 +254,7 @@ class _TraficStateCellState extends State<TraficStateCell> {
                             widthFactor: 0.9,
                             child: Container(
                               height: 60,
-                              child: TraficStateButtonCell(
+                              child: UserInputCircleCell(
                                 cellColor: ColorName.stateAnHour,
                                 text: Strings.STATE_AN_HOUR,
                                 onTap: () {
@@ -272,7 +272,7 @@ class _TraficStateCellState extends State<TraficStateCell> {
                             widthFactor: 0.9,
                             child: Container(
                               height: 60,
-                              child: TraficStateButtonCell(
+                              child: UserInputCircleCell(
                                 cellColor: ColorName.stateImpossible,
                                 text: Strings.STATE_IMPOSSIBLE,
                                 onTap: () {

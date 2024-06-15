@@ -1,8 +1,8 @@
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:flutter/material.dart';
 
-class TraficStateButtonCell extends StatefulWidget {
-  const TraficStateButtonCell({
+class UserInputCircleCell extends StatefulWidget {
+  const UserInputCircleCell({
     super.key,
     required this.cellColor,
     required this.text,
@@ -13,10 +13,10 @@ class TraficStateButtonCell extends StatefulWidget {
   final String text;
   final Function onTap;
   @override
-  State<TraficStateButtonCell> createState() => _TraficStateButtonCellState();
+  State<UserInputCircleCell> createState() => _UserInputCircleCellState();
 }
 
-class _TraficStateButtonCellState extends State<TraficStateButtonCell> {
+class _UserInputCircleCellState extends State<UserInputCircleCell> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

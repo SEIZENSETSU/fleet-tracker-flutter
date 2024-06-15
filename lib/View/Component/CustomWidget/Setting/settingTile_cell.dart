@@ -2,7 +2,7 @@ import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../CustomWidget/custom_text.dart';
+import '../custom_text.dart';
 
 class SettingTileCell {
   Widget settingCell(

@@ -1,5 +1,5 @@
-import 'package:fleet_tracker/View/Component/CustomCell/trafic_state_button_cell.dart';
-import 'package:fleet_tracker/View/Component/CustomCell/trafic_state_cell.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/UserInput/user_input_circle_cell.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/UserInput/user_input_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
@@ -21,24 +21,24 @@ class _UserInputTopViewState extends State<UserInputTopView> {
           children: [
             Container(
               width: 400,
-              child: TraficStateCell(
+              child: UserInputCell(
                 warehouseName: 'エルフーズ東京工場',
                 traficstateCount: [0, 10, 10, 10, 0],
               ),
             ),
-            TraficStateCell(
+            UserInputCell(
               warehouseName: 'エルフーズ東京工場',
               traficstateCount: [0, 10, 10, 10, 0],
             ),
-            TraficStateCell(
+            UserInputCell(
               warehouseName: 'エルフーズ東京工場',
               traficstateCount: [0, 10, 10, 10, 0],
             ),
-            TraficStateCell(
+            UserInputCell(
               warehouseName: 'エルフーズ東京工場',
               traficstateCount: [0, 10, 10, 10, 0],
             ),
-            TraficStateCell(
+            UserInputCell(
               warehouseName: 'エルフーズ東京工場',
               traficstateCount: [0, 10, 10, 10, 0],
             ),

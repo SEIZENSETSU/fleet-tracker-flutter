@@ -1,4 +1,4 @@
-import 'package:fleet_tracker/View/Component/CustomCell/setting/settingTile_cell.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/Setting/settingTile_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
