@@ -1,5 +1,7 @@
-import 'package:fleet_tracker/View/Component/CustomWidget/Card/destination_arrow.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/Card/destination_card.dart';
 import 'package:fleet_tracker/View/Component/CustomScaffold/custom_scaffold.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
+import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
 class TrafficInformationTopView extends StatefulWidget {
@@ -15,8 +17,19 @@ class _TrafficInformationStateTopViewState
   @override
   Widget build(BuildContext context) {
     List<Widget> cellList = [
-      for (int i = 0; i < 10; i++) CommonCell(title: 'title $i'),
+      for (int i = 0; i < 10; i++) DestinationCard(title: 'title $i'),
     ];
-    return CustomScaffold(contentList: cellList);
+    return Scaffold(
+      appBar: CustomAppBar(),
+      backgroundColor: ColorName.scaffoldBackground,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            DestinationCard(title: 'あああ'),
+          ],
+        ),
+      ),
+    );
   }
 }
