@@ -44,6 +44,9 @@ final routerProvider = Provider(
         TypedGoRoute<HomeRoute>(
           path: Routes.home,
         ),
+        TypedGoRoute<WarehouseDetailRoute>(
+          path: Routes.warehouseDetail,
+        ),
       ],
     ),
     TypedStatefulShellBranch<WarehouseSearchBranch>(
@@ -63,6 +66,9 @@ final routerProvider = Provider(
       routes: [
         TypedGoRoute<UserInputTopRoute>(
           path: Routes.userInput,
+        ),
+        TypedGoRoute<WarehouseDetailRoute>(
+          path: Routes.warehouseDetail,
         ),
       ],
     ),
@@ -143,6 +149,16 @@ class SettingBranch extends StatefulShellBranchData {
 }
 //////////////////////////////  Initialize  //////////////////////////////
 
+//////////////////////////////  Component  //////////////////////////////
+class WarehouseDetailRoute extends GoRouteData {
+  const WarehouseDetailRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const WarehouseDetailView();
+}
+//////////////////////////////  Component  //////////////////////////////
+
 //////////////////////////////  Home  //////////////////////////////
 class HomeRoute extends GoRouteData {
   const HomeRoute();
@@ -168,14 +184,6 @@ class WarehouseSearchResultRoute extends GoRouteData {
   Widget build(BuildContext context, GoRouterState state) =>
       const WarehouseSearchResultView();
 }
-
-class WarehouseDetailRoute extends GoRouteData {
-  const WarehouseDetailRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const WarehouseDetailView();
-}
 //////////////////////////////  WarehouseSearch  //////////////////////////////
 
 //////////////////////////////  UserInput  //////////////////////////////
@@ -186,7 +194,6 @@ class UserInputTopRoute extends GoRouteData {
   Widget build(BuildContext context, GoRouterState state) =>
       const UserInputTopView();
 }
-
 //////////////////////////////  UserInput  //////////////////////////////
 
 //////////////////////////////  TrafficInformation  //////////////////////////////
