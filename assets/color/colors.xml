@@ -23,7 +23,7 @@
      <color name="state_impossible">#FF9C27B0</color>
 
     <!-- 行き先セルに使う色 -->
-    <color name="destinationShadow_color">#DDDDDD</color>
+    <color name="destinationshadow_color">#DDDDDD</color>
 
     
 </resources>
