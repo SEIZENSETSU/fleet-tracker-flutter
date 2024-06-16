@@ -1,15 +1,12 @@
 import 'package:fleet_tracker/Constants/Enum/warehouse_delay_state_enum.dart';
-import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/destination_arrow.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
-import '../../../../gen/assets.gen.dart';
 import '../../../../gen/colors.gen.dart';
 
-class DestinationCard extends StatefulWidget {
+class DestinationCard extends StatelessWidget {
   DestinationCard({
     super.key,
     required this.title,
@@ -23,14 +20,8 @@ class DestinationCard extends StatefulWidget {
   final double distance;
 
   @override
-  State<DestinationCard> createState() => _DestinationCardState();
-}
-
-class _DestinationCardState extends State<DestinationCard> {
-  @override
   Widget build(BuildContext context) {
-    WarehouseDelayStateType stateType =
-        WarehouseDelayStateType(widget.delayStateType);
+    WarehouseDelayStateType stateType = WarehouseDelayStateType(delayStateType);
     return Container(
       height: 300,
       width: 300,
@@ -54,7 +45,7 @@ class _DestinationCardState extends State<DestinationCard> {
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: DestinationArrow(
-                  angle: widget.angle,
+                  angle: angle,
                 ),
               ),
             ),
@@ -70,7 +61,7 @@ class _DestinationCardState extends State<DestinationCard> {
                       width: double.infinity,
                       child: Center(
                         child: CustomText(
-                          text: widget.title,
+                          text: title,
                         ),
                       ),
                     ),
@@ -79,8 +70,7 @@ class _DestinationCardState extends State<DestinationCard> {
                     flex: 1,
                     child: Container(
                       width: double.infinity,
-                      child: Center(
-                          child: CustomText(text: '${widget.distance}km')),
+                      child: Center(child: CustomText(text: '${distance}km')),
                     ),
                   ),
                   Expanded(
