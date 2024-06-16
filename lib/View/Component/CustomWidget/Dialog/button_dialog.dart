@@ -39,7 +39,7 @@ class ButtonDialog {
               color: Colors.white,
               boxShadow: const [
                 BoxShadow(
-                  color: ColorName.mianThemeColor,
+                  color: ColorName.mainthemeColor,
                   spreadRadius: 1.0,
                   blurRadius: 0,
                   offset: Offset(5, 5),
@@ -52,7 +52,7 @@ class ButtonDialog {
               children: [
                 Container(
                   height: 50,
-                  color: ColorName.mianThemeColor.withOpacity(0.1),
+                  color: ColorName.mainthemeColor.withOpacity(0.1),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -108,7 +108,7 @@ class ButtonDialog {
                               Container(
                                 width: 100,
                                 child: CustomButton(
-                                  primaryColor: ColorName.mianThemeColor,
+                                  primaryColor: ColorName.mainthemeColor,
                                   text: leftButtonText,
                                   onTap: leftButtonAction != null
                                       ? () {
@@ -124,7 +124,7 @@ class ButtonDialog {
                                 width: 100,
                                 child: CustomButton(
                                   isFilledColor: true,
-                                  primaryColor: ColorName.mianThemeColor,
+                                  primaryColor: ColorName.mainthemeColor,
                                   text: rightButtonText,
                                   onTap: rightButtonAction,
                                 ),

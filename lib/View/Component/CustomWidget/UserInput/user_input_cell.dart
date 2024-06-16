@@ -180,7 +180,7 @@ class _UserInputCellState extends State<UserInputCell> {
                           child: Container(
                             height: 40,
                             decoration: BoxDecoration(
-                              color: ColorName.mianThemeColor.withAlpha(50),
+                              color: ColorName.mainthemeColor.withAlpha(50),
                             ),
                           ),
                         ),

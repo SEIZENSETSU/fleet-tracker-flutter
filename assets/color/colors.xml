@@ -6,7 +6,7 @@
     <color name="splash_background">#C1E0F1</color>
     
     <!-- メインテーマカラー -->
-    <color name="mianTheme_color">#005133</color>
+    <color name="maintheme_color">#005133</color>
 
     <!-- scaffold -->
     <color name="scaffold_background">#f9f9f9</color>

@@ -14,7 +14,7 @@ class CustomScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorName.mianThemeColor,
+      backgroundColor: ColorName.mainthemeColor,
       appBar: CustomAppBar(),
       body: Stack(
         children: [

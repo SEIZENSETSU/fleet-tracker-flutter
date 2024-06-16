@@ -83,7 +83,7 @@ class SettingTileCell {
             child: CupertinoSwitch(
               value: switchValue,
               onChanged: cellAction,
-              activeColor: ColorName.mianThemeColor,
+              activeColor: ColorName.mainthemeColor,
             ),
           ),
         ],

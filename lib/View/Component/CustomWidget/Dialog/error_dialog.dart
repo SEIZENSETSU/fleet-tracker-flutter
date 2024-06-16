@@ -37,7 +37,7 @@ class ErrorDialog {
               color: Colors.white,
               boxShadow: const [
                 BoxShadow(
-                  color: ColorName.mianThemeColor,
+                  color: ColorName.mainthemeColor,
                   spreadRadius: 1.0,
                   blurRadius: 0,
                   offset: Offset(5, 5),
@@ -50,7 +50,7 @@ class ErrorDialog {
               children: [
                 Container(
                   height: 50,
-                  color: ColorName.mianThemeColor.withOpacity(0.1),
+                  color: ColorName.mainthemeColor.withOpacity(0.1),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -105,7 +105,7 @@ class ErrorDialog {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 5),
                               child: CustomButton(
-                                primaryColor: ColorName.mianThemeColor,
+                                primaryColor: ColorName.mainthemeColor,
                                 text: Strings.BACK_BUTTON_TEXT,
                                 onTap: buttonAction != null
                                     ? () {
