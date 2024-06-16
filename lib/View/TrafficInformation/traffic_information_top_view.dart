@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Constants/Enum/warehouse_delay_state_enum.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/destination_card.dart';
 import 'package:fleet_tracker/View/Component/CustomScaffold/custom_scaffold.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
@@ -17,7 +18,11 @@ class _TrafficInformationStateTopViewState
   @override
   Widget build(BuildContext context) {
     List<Widget> cellList = [
-      for (int i = 0; i < 10; i++) DestinationCard(title: 'title $i'),
+      for (int i = 0; i < 10; i++)
+        DestinationCard(
+          title: 'title $i',
+          delayStateType: WarehouseDelayState.normal,
+        ),
     ];
     return Scaffold(
       appBar: CustomAppBar(),
@@ -26,7 +31,10 @@ class _TrafficInformationStateTopViewState
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            DestinationCard(title: 'あああ'),
+            DestinationCard(
+              title: 'あああ',
+              delayStateType: WarehouseDelayState.normal,
+            ),
           ],
         ),
       ),

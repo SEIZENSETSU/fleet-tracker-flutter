@@ -1,9 +1,12 @@
 import 'package:fleet_tracker/Constants/strings.dart';
+import 'package:fleet_tracker/Service/API/Geolocation/geolocator_service.dart';
+import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Dialog/button_dialog.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Dialog/error_dialog.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import '../../gen/colors.gen.dart';
 import '../Component/CustomWidget/custom_button.dart';
 
@@ -31,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
               ErrorDialog().showErrorDialog(
                 context: context,
                 title: Strings.CONNECT_ERROR_DIALOG_TITLE,
-                content: Assets.images.component.anpan.image(),
+                content: Assets.images.component.connectErrorIcon.image(),
                 detail: Strings.CONNECT_ERROR_DIALOG_DETAIL,
               );
             },
@@ -52,6 +55,24 @@ class _HomeViewState extends State<HomeView> {
             primaryColor: ColorName.mianThemeColor,
             isFilledColor: true,
           ),
+          CustomButton(
+            primaryColor: ColorName.mianThemeColor,
+            text: 'geolocator許可',
+            onTap: () async {
+              bool isEnabled =
+                  await GeolocatorService().isGeolocationServiceEnabled();
+              Log.toast('位置情報権限 : ${isEnabled}');
+            },
+          ),
+          CustomButton(
+            primaryColor: ColorName.mianThemeColor,
+            text: '現在の経度緯度取得',
+            onTap: () async {
+              Position geo = await GeolocatorService().getCurrentPosition();
+              Log.toast('緯度 : ${geo.latitude}');
+              Log.toast('経度 : ${geo.longitude}');
+            },
+          )
         ],
       )),
     );

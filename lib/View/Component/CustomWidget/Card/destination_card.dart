@@ -1,4 +1,6 @@
+import 'package:fleet_tracker/Constants/Enum/warehouse_delay_state_enum.dart';
 import 'package:fleet_tracker/Constants/strings.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/Card/destination_arrow.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +13,10 @@ class DestinationCard extends StatefulWidget {
   const DestinationCard({
     super.key,
     required this.title,
+    required this.delayStateType,
   });
   final String title;
+  final WarehouseDelayState delayStateType;
 
   @override
   State<DestinationCard> createState() => _DestinationCardState();
@@ -43,12 +47,7 @@ class _DestinationCardState extends State<DestinationCard> {
             child: Container(
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.black),
-                  ),
-                ),
+                child: DestinationArrow(),
               ),
             ),
           ),

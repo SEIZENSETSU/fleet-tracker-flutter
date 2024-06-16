@@ -40,7 +40,7 @@ class ErrorDialog {
                   color: ColorName.mianThemeColor,
                   spreadRadius: 1.0,
                   blurRadius: 0,
-                  offset: Offset(15, 15),
+                  offset: Offset(5, 5),
                 )
               ],
             ),
