@@ -7,7 +7,6 @@ import '../View/Home/home_view.dart';
 import '../View/Setting/setting_top_view.dart';
 import '../View/TrafficInformation/Detail/traffic_information_detail_view.dart';
 import '../View/TrafficInformation/traffic_information_top_view.dart';
-import '../View/UserInput/Detail/user_input_detail_view.dart';
 import '../View/UserInput/user_input_top_view.dart';
 import '../View/WarehouseSearch/Result/warehouse_search_result_view.dart';
 import '../View/WarehouseSearch/warehouse_search_top_view.dart';
@@ -64,9 +63,6 @@ final routerProvider = Provider(
       routes: [
         TypedGoRoute<UserInputTopRoute>(
           path: Routes.userInput,
-        ),
-        TypedGoRoute<UserInputDetailRoute>(
-          path: Routes.userInputDetail,
         ),
       ],
     ),
@@ -191,13 +187,6 @@ class UserInputTopRoute extends GoRouteData {
       const UserInputTopView();
 }
 
-class UserInputDetailRoute extends GoRouteData {
-  const UserInputDetailRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const UserInputDetailView();
-}
 //////////////////////////////  UserInput  //////////////////////////////
 
 //////////////////////////////  TrafficInformation  //////////////////////////////
