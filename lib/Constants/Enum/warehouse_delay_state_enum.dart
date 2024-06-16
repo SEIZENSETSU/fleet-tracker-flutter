@@ -34,7 +34,7 @@ class WarehouseDelayStateType {
     }
   }
 
-  String? title() {
+  String title() {
     switch (type) {
       case WarehouseDelayState.normal:
         return Strings.STATE_NORMAL_TITLE;
@@ -47,11 +47,11 @@ class WarehouseDelayStateType {
       case WarehouseDelayState.impossible:
         return Strings.STATE_IMPOSSIBLE_TITLE;
       default:
-        return null;
+        return '';
     }
   }
 
-  Color? color() {
+  Color color() {
     switch (type) {
       case WarehouseDelayState.normal:
         return ColorName.stateNormal;
@@ -64,7 +64,7 @@ class WarehouseDelayStateType {
       case WarehouseDelayState.impossible:
         return ColorName.stateImpossible;
       default:
-        return null;
+        return Colors.white;
     }
   }
 }

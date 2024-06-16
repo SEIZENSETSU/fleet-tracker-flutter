@@ -81,7 +81,7 @@ class DestinationCard extends StatelessWidget {
                       child: Center(
                         child: CustomText(
                           color: Colors.white,
-                          text: stateType.title()!,
+                          text: stateType.title(),
                         ),
                       ),
                     ),
