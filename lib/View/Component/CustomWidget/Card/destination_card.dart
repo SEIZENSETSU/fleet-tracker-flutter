@@ -10,13 +10,17 @@ import '../../../../gen/assets.gen.dart';
 import '../../../../gen/colors.gen.dart';
 
 class DestinationCard extends StatefulWidget {
-  const DestinationCard({
+  DestinationCard({
     super.key,
     required this.title,
     required this.delayStateType,
+    required this.angle,
+    required this.distance,
   });
   final String title;
-  final WarehouseDelayState delayStateType;
+  final String delayStateType;
+  final int angle;
+  final double distance;
 
   @override
   State<DestinationCard> createState() => _DestinationCardState();
@@ -25,6 +29,8 @@ class DestinationCard extends StatefulWidget {
 class _DestinationCardState extends State<DestinationCard> {
   @override
   Widget build(BuildContext context) {
+    WarehouseDelayStateType stateType =
+        WarehouseDelayStateType(widget.delayStateType);
     return Container(
       height: 300,
       width: 300,
@@ -47,7 +53,9 @@ class _DestinationCardState extends State<DestinationCard> {
             child: Container(
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: DestinationArrow(),
+                child: DestinationArrow(
+                  angle: widget.angle,
+                ),
               ),
             ),
           ),
@@ -60,25 +68,30 @@ class _DestinationCardState extends State<DestinationCard> {
                     flex: 1,
                     child: Container(
                       width: double.infinity,
-                      child: Center(child: CustomText(text: '工場エリア')),
+                      child: Center(
+                        child: CustomText(
+                          text: widget.title,
+                        ),
+                      ),
                     ),
                   ),
                   Expanded(
                     flex: 1,
                     child: Container(
                       width: double.infinity,
-                      child: Center(child: CustomText(text: '100km')),
+                      child: Center(
+                          child: CustomText(text: '${widget.distance}km')),
                     ),
                   ),
                   Expanded(
                     flex: 2,
                     child: Container(
                       width: double.infinity,
-                      color: ColorName.stateNormal,
+                      color: stateType.color(),
                       child: Center(
                         child: CustomText(
                           color: Colors.white,
-                          text: Strings.STATE_NORMAL,
+                          text: stateType.title()!,
                         ),
                       ),
                     ),

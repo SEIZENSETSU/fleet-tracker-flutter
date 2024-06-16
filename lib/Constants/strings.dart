@@ -11,11 +11,11 @@ class Strings {
 
   /// 工場遅延状況セル関連
   //  ボタン
-  static const String STATE_NORMAL = '平常';
-  static const String STATE_PAUSE = '一時停止\n 〜10分';
-  static const String STATE_HALF_HOUR = '〜30分';
-  static const String STATE_AN_HOUR = '〜1時間';
-  static const String STATE_IMPOSSIBLE = '入庫不可';
+  static const String STATE_NORMAL_TITLE = '平常';
+  static const String STATE_PAUSE_TITLE = '一時停止\n 〜10分';
+  static const String STATE_HALF_HOUR_TITLE = '〜30分';
+  static const String STATE_AN_HOUR_TITLE = '〜1時間';
+  static const String STATE_IMPOSSIBLE_TITLE = '入庫不可';
 
   //  セル
   static const String GO_WAREHOUSE_PAGE = '工場詳細ページへ→';

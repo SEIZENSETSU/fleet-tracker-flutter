@@ -17,25 +17,64 @@ class _TrafficInformationStateTopViewState
     extends State<TrafficInformationTopView> {
   @override
   Widget build(BuildContext context) {
-    List<Widget> cellList = [
-      for (int i = 0; i < 10; i++)
-        DestinationCard(
-          title: 'title $i',
-          delayStateType: WarehouseDelayState.normal,
-        ),
-    ];
     return Scaffold(
       appBar: CustomAppBar(),
       backgroundColor: ColorName.scaffoldBackground,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            DestinationCard(
-              title: 'あああ',
-              delayStateType: WarehouseDelayState.normal,
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              DestinationCard(
+                title: '東京エリア',
+                delayStateType: 'normal',
+                angle: 0,
+                distance: 90,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              DestinationCard(
+                title: '東北エリア',
+                delayStateType: 'pause',
+                angle: 90,
+                distance: 10.2,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              DestinationCard(
+                title: '名古屋エリア',
+                delayStateType: 'halfHour',
+                angle: 30,
+                distance: 8,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              DestinationCard(
+                title: '九州エリア',
+                delayStateType: 'anHour',
+                angle: 260,
+                distance: 77.4,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              DestinationCard(
+                title: '北海道エリア',
+                delayStateType: 'impossible',
+                angle: 330,
+                distance: 36,
+              ),
+              SizedBox(
+                height: 200,
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -127,7 +127,7 @@ class _UserInputCellState extends State<UserInputCell> {
                         Expanded(
                           flex: 9,
                           child: CustomText(
-                            text: Strings.STATE_NORMAL,
+                            text: Strings.STATE_NORMAL_TITLE,
                           ),
                         ),
                       ],
@@ -202,7 +202,7 @@ class _UserInputCellState extends State<UserInputCell> {
                               height: 60,
                               child: UserInputCircleCell(
                                 cellColor: ColorName.stateNormal,
-                                text: Strings.STATE_NORMAL,
+                                text: Strings.STATE_NORMAL_TITLE,
                                 onTap: () {
                                   Log.echo(
                                     'aaa',
@@ -220,7 +220,7 @@ class _UserInputCellState extends State<UserInputCell> {
                               height: 60,
                               child: UserInputCircleCell(
                                 cellColor: ColorName.statePause,
-                                text: Strings.STATE_PAUSE,
+                                text: Strings.STATE_PAUSE_TITLE,
                                 onTap: () {
                                   Log.echo(
                                     'aaa',
@@ -238,7 +238,7 @@ class _UserInputCellState extends State<UserInputCell> {
                               height: 60,
                               child: UserInputCircleCell(
                                 cellColor: ColorName.stateHalfAnHour,
-                                text: Strings.STATE_HALF_HOUR,
+                                text: Strings.STATE_HALF_HOUR_TITLE,
                                 onTap: () {
                                   Log.echo(
                                     'aaa',
@@ -256,7 +256,7 @@ class _UserInputCellState extends State<UserInputCell> {
                               height: 60,
                               child: UserInputCircleCell(
                                 cellColor: ColorName.stateAnHour,
-                                text: Strings.STATE_AN_HOUR,
+                                text: Strings.STATE_AN_HOUR_TITLE,
                                 onTap: () {
                                   Log.echo(
                                     'aaa',
@@ -274,7 +274,7 @@ class _UserInputCellState extends State<UserInputCell> {
                               height: 60,
                               child: UserInputCircleCell(
                                 cellColor: ColorName.stateImpossible,
-                                text: Strings.STATE_IMPOSSIBLE,
+                                text: Strings.STATE_IMPOSSIBLE_TITLE,
                                 onTap: () {
                                   Log.echo(
                                     'aaa',
