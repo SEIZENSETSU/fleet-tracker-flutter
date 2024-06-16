@@ -112,7 +112,7 @@ class ButtonDialog {
                                   text: leftButtonText,
                                   onTap: leftButtonAction != null
                                       ? () {
-                                          // 指定した処理
+                                          leftButtonAction();
                                         }
                                       : () {
                                           // nullなら戻る
