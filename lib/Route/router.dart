@@ -187,7 +187,8 @@ class UserInputTopRoute extends GoRouteData {
   const UserInputTopRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) => UserInputTopView();
+  Widget build(BuildContext context, GoRouterState state) =>
+      const UserInputTopView();
 }
 
 class UserInputDetailRoute extends GoRouteData {
