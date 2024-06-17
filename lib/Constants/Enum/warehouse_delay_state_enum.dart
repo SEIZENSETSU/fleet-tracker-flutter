@@ -11,7 +11,7 @@ enum WarehouseDelayState {
 }
 
 class WarehouseDelayStateType {
-  WarehouseDelayState? type;
+  late WarehouseDelayState type;
   WarehouseDelayStateType(String rowType) {
     switch (rowType) {
       case 'normal':
@@ -30,7 +30,7 @@ class WarehouseDelayStateType {
         type = WarehouseDelayState.impossible;
         break;
       default:
-        type = null;
+        throw Exception('Unknown type: $rowType');
     }
   }
 
