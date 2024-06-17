@@ -14,8 +14,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // BackgroundTask.instance
-  //     .setBackgroundHandler(BackgroundLocatorService().backgroundHandler);
+  await BackgroundLocatorService().initialize();
   runApp(const ProviderScope(child: MyApp()));
 }
 
