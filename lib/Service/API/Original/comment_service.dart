@@ -9,7 +9,8 @@ abstract class BaseCommentService {
   late Uri uri;
   final Map<String, String> headers = {'Content-type': 'application/json'};
 
-  Future<List<Comment>?> getCommentList(int warehouse_id) async {
+  //コメント取得
+  Future<List<Comment>?> getCommentList({required int warehouse_id}) async {
     uri = Uri.https(baseUrl, '/comments', {'warehouse_id': warehouse_id.toString()});
 
     try {
@@ -38,9 +39,9 @@ abstract class BaseCommentService {
     }
   }
 
-  Future<void> postComment(String uid, int warehouse_id, String contents) async {
+  //コメント登録
+  Future<void> postComment({required String uid, required int warehouse_id, required String contents}) async {
     uri = Uri.https(baseUrl, '/comment');
-
     String body = json.encode({'uid': uid, 'warehouse_id': warehouse_id, 'contents': contents});
 
     try {
@@ -55,7 +56,8 @@ abstract class BaseCommentService {
     }
   }
 
-  Future<void> deleteComment(int comment_id) async {
+  //コメント削除
+  Future<void> deleteComment({required int comment_id}) async {
     uri = Uri.https(baseUrl, '/comment', {'comment_id': comment_id.toString()});
 
     try {
@@ -71,44 +73,16 @@ abstract class BaseCommentService {
   }
 }
 
+//Mock用
 class MockCommentService extends BaseCommentService {
   MockCommentService() {
     baseUrl = 'swagger-node-tnvlhcq2ja-uc.a.run.app';
   }
-
-  @override
-  Future<List<Comment>?> getCommentList(int warehouse_id) async {
-    return await super.getCommentList(warehouse_id);
-  }
-
-  @override
-  Future<void> postComment(String uid, int warehouse_id, String contents) async {
-    return await super.postComment(uid, warehouse_id, contents);
-  }
-
-  @override
-  Future<void> deleteComment(int comment_id) async {
-    return await super.deleteComment(comment_id);
-  }
 }
 
+//本番用
 class ProdCommentService extends BaseCommentService {
   ProdCommentService() {
     baseUrl = 'HONBAN.com';
-  }
-
-  @override
-  Future<List<Comment>?> getCommentList(int warehouse_id) async {
-    return await super.getCommentList(warehouse_id);
-  }
-
-  @override
-  Future<void> postComment(String uid, int warehouse_id, String contents) async {
-    return await super.postComment(uid, warehouse_id, contents);
-  }
-
-  @override
-  Future<void> deleteComment(int comment_id) async {
-    return await super.deleteComment(comment_id);
   }
 }
