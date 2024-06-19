@@ -30,7 +30,10 @@ class _TrafficInformationStateTopViewState
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorName.scaffoldBackground,
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(
+        title: '交通遅延',
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.info))],
+      ),
       body: ListView.builder(
           itemCount: area.length,
           itemBuilder: (context, index) {

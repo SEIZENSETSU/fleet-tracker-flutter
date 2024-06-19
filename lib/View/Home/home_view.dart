@@ -39,7 +39,7 @@ class _HomeViewState extends State<HomeView> {
                 top: 10,
               ),
               child: CustomText(
-                text: 'メインの機能',
+                text: '基本機能',
                 fontSize: 20,
               ),
             ),
