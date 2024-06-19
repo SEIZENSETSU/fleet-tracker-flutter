@@ -43,7 +43,7 @@ class _TrafficInformationStateTopViewState
                     context: context,
                     title: '遅延情報なし',
                     content: Assets.images.trackColor.image(),
-                    detail: '現在の遅延情報はありません。');
+                    detail: '現在の遅延情報はありません。\n交通状況の変化に注意して運転してください。');
               },
               child: Container(
                 decoration: BoxDecoration(
