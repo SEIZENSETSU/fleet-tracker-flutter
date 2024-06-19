@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../custom_text.dart';
 
 class SettingTileCell {
-  Widget settingCell(
+  Widget common(
     String subTitle, {
     bool isTapped = false,
     Function()? onTap,
@@ -30,7 +30,7 @@ class SettingTileCell {
     );
   }
 
-  Widget settingCellDetail({
+  Widget withDetail({
     required String title,
     required String detail,
     Function()? onTap,
@@ -62,7 +62,7 @@ class SettingTileCell {
     );
   }
 
-  Widget settingCellWithSwitch({
+  Widget withSwitch({
     required String subTitle,
     required void Function(bool) cellAction,
     required bool switchValue,
