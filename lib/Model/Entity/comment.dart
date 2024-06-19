@@ -1,4 +1,10 @@
 class Comment {
+  final int? id;
+  final String uid;
+  final int warehouseId;
+  final String contents;
+  final String? createdAt;
+
   Comment({
     this.id,
     required this.uid,
@@ -6,9 +12,4 @@ class Comment {
     required this.contents,
     this.createdAt,
   });
-  final int? id;
-  final String uid;
-  final int warehouseId;
-  final String contents;
-  final String? createdAt;
 }
