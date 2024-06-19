@@ -2,7 +2,7 @@ import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
-class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   CustomAppBar({
     super.key,
     this.title = '',
@@ -22,47 +22,42 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   List<IconButton>? actions;
 
   @override
-  State<CustomAppBar> createState() => _CustomAppBarState();
-
-  @override
   Size get preferredSize => Size.fromHeight(appBarHight!); // ここでAppBarの高さを指定
-}
 
-class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Row(
         children: [
-          widget.leadingImage != null
+          leadingImage != null
               ? Padding(
                   padding: const EdgeInsets.only(right: 20),
                   child: Container(
-                    height: widget.appBarHight!,
-                    width: widget.appBarHight!,
+                    height: appBarHight!,
+                    width: appBarHight!,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: widget.leadingImage!,
+                        image: leadingImage!,
                       ),
                     ),
                   ),
                 )
               : SizedBox(),
           CustomText(
-            text: widget.title!,
-            color: widget.foregroundColor,
+            text: title!,
+            color: foregroundColor,
             fontWeight: FontWeight.bold,
           ),
         ],
       ),
-      automaticallyImplyLeading: widget.isBackButton!,
-      backgroundColor: widget.backgroundColor,
+      automaticallyImplyLeading: isBackButton!,
+      backgroundColor: backgroundColor,
 
       // スクロール時に色が乗算されるのを防ぐ
-      surfaceTintColor: widget.backgroundColor,
+      surfaceTintColor: backgroundColor,
       // 設置しても3つくらいまでが限度かなーー？
-      actions: widget.actions != null ? widget.actions : null,
+      actions: actions != null ? actions : null,
       elevation: 10,
       shadowColor: Colors.black.withOpacity(0.1),
     );
