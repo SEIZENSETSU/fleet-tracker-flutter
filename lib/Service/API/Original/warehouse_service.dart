@@ -100,7 +100,7 @@ abstract class BaseWarehouseService {
 //Mock用
 class MockWarehouseService extends BaseWarehouseService {
   MockWarehouseService() {
-    baseUrl = 'swagger-node-tnvlhcq2ja-uc.a.run.app';
+    baseUrl = 'fleet-tracker-api-docs-tnvlhcq2ja-uc.a.run.app';
   }
 }
 
