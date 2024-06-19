@@ -30,8 +30,11 @@ class SettingTileCell {
     );
   }
 
-  Widget settingCellDetail(
-      {required String title, required String detail, Function()? onTap}) {
+  Widget settingCellDetail({
+    required String title,
+    required String detail,
+    Function()? onTap,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
