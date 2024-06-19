@@ -16,10 +16,11 @@ class BottomNavigationBarView extends StatelessWidget {
         selectedIndex: controller.navigationShell.currentIndex,
         destinations: const [
           NavigationDestination(icon: Icon(Icons.home), label: 'ホーム'),
-          NavigationDestination(icon: Icon(Icons.search), label: '倉庫検索'),
+          // NavigationDestination(icon: Icon(Icons.search), label: '倉庫検索'),
+          SizedBox(width: 0),
           SizedBox(width: 0),
           NavigationDestination(icon: Icon(Icons.traffic), label: '交通情報'),
-          NavigationDestination(icon: Icon(Icons.settings), label: '設定'),
+          // NavigationDestination(icon: Icon(Icons.settings), label: '設定'),
         ],
         onDestinationSelected: (index) {
           controller.goBranch(index);
