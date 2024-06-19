@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- アプリ内で使用するカラーを管理するファイルです -->
 <resources>
+    <!-- スプラッシュ画面に使うカラー -->
     <color name="splash_main">#006C3F</color>
     <color name="splash_background">#C1E0F1</color>
+    
+    <!-- メインテーマカラー -->
+    <color name="maintheme_color">#005133</color>
+
+    <!-- scaffold -->
+    <color name="scaffold_background">#f9f9f9</color>
+
+    <!-- テキスト系のカラー -->
+    <color name="text_black">#202124</color>
+
+
+    <!-- 工場遅延状況セル関連 -->
+     <color name="state_normal">#FF4CAF50</color>
+     <color name="state_pause">#FFFF9800</color>
+     <color name="state_halfAnHour">#FFF44336</color>
+     <color name="state_anHour">#FFFF4081</color>
+     <color name="state_impossible">#FF9C27B0</color>
+
+    <!-- 行き先セルに使う色 -->
+    <color name="destinationshadow_color">#DDDDDD</color>
+
+    
 </resources>
