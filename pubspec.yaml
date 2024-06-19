@@ -17,6 +17,7 @@ dependencies:
   flutter_riverpod: ^2.5.1
   firebase_core: ^3.0.0
   flutter_dotenv: ^5.1.0
+  flutter_launcher_icons: ^0.13.1
 
 
 dev_dependencies:
@@ -26,6 +27,12 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner: ^2.4.9
   go_router_builder: ^2.6.2
+
+flutter_icons:       
+  android: true
+  ios: true
+  image_path: "assets/images/icon.png"
+  adaptive_icon_background: "#ffffff"
 
 flutter_gen:
   colors:
