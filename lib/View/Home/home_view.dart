@@ -19,27 +19,27 @@ class _HomeViewState extends State<HomeView> {
           children: <Widget>[
             ElevatedButton(
                 onPressed: () {
-                  MockCommentService().getCommentList(warehouseId: 1);
+                  CommentService().getCommentList(warehouseId: 1);
                 },
                 child: const Text('getComment')),
             ElevatedButton(
                 onPressed: () {
-                  MockCommentService().postComment(uid: 'user1', warehouseId: 1, contents: 'contents');
+                  CommentService().postComment(uid: 'user1', warehouseId: 1, contents: 'contents');
                 },
                 child: const Text('postComment')),
             ElevatedButton(
                 onPressed: () {
-                  MockCommentService().deleteComment(commentId: 1);
+                  CommentService().deleteComment(commentId: 1);
                 },
                 child: const Text('deleteComment')),
             ElevatedButton(
                 onPressed: () {
-                  MockWarehouseService().searchWarehouseList(userLatitude: 1.0, userLongitude: 1.0);
+                  WarehouseService().searchWarehouseList(userLatitude: 1.0, userLongitude: 1.0);
                 },
                 child: const Text('searchWarehouseList')),
             ElevatedButton(
                 onPressed: () {
-                  MockWarehouseService().getWarehouseList(1);
+                  WarehouseService().getWarehouseList(1);
                 },
                 child: const Text('getWarehouseList')),
           ],
