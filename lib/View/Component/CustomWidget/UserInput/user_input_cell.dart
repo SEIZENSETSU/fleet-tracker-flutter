@@ -9,7 +9,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../../../Service/Log/log_service.dart';
 
-class UserInputCell extends StatefulWidget {
+class UserInputCell extends StatelessWidget {
   const UserInputCell({
     super.key,
     required this.warehouseName,
@@ -19,11 +19,6 @@ class UserInputCell extends StatefulWidget {
   final String warehouseName;
   final List traficstateCount;
 
-  @override
-  State<UserInputCell> createState() => _UserInputCellState();
-}
-
-class _UserInputCellState extends State<UserInputCell> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -73,7 +68,7 @@ class _UserInputCellState extends State<UserInputCell> {
                             child: Container(
                               // color: const Color.fromARGB(255, 219, 217, 217),
                               child: CustomText(
-                                text: widget.warehouseName,
+                                text: warehouseName,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -310,7 +305,7 @@ class _UserInputCellState extends State<UserInputCell> {
                           ),
                           child: Center(
                             child: CustomText(
-                              text: widget.traficstateCount[0].toString(),
+                              text: traficstateCount[0].toString(),
                             ),
                           ),
                         ),
@@ -327,7 +322,7 @@ class _UserInputCellState extends State<UserInputCell> {
                           ),
                           child: Center(
                             child: CustomText(
-                              text: widget.traficstateCount[1].toString(),
+                              text: traficstateCount[1].toString(),
                             ),
                           ),
                         ),
@@ -344,7 +339,7 @@ class _UserInputCellState extends State<UserInputCell> {
                           ),
                           child: Center(
                             child: CustomText(
-                              text: widget.traficstateCount[2].toString(),
+                              text: traficstateCount[2].toString(),
                             ),
                           ),
                         ),
@@ -361,7 +356,7 @@ class _UserInputCellState extends State<UserInputCell> {
                           ),
                           child: Center(
                             child: CustomText(
-                              text: widget.traficstateCount[3].toString(),
+                              text: traficstateCount[3].toString(),
                             ),
                           ),
                         ),
@@ -378,7 +373,7 @@ class _UserInputCellState extends State<UserInputCell> {
                           ),
                           child: Center(
                             child: CustomText(
-                              text: widget.traficstateCount[4].toString(),
+                              text: traficstateCount[4].toString(),
                             ),
                           ),
                         ),
