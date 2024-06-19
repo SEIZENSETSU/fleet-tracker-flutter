@@ -123,11 +123,12 @@ class ButtonDialog {
                               Container(
                                 width: 100,
                                 child: CustomButton(
-                                  isFilledColor: true,
-                                  primaryColor: ColorName.mainthemeColor,
-                                  text: rightButtonText,
-                                  onTap: rightButtonAction,
-                                ),
+                                    isFilledColor: true,
+                                    primaryColor: ColorName.mainthemeColor,
+                                    text: rightButtonText,
+                                    onTap: () {
+                                      rightButtonAction();
+                                    }),
                               ),
                             ],
                           ),
