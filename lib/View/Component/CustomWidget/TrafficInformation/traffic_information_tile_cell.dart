@@ -23,89 +23,94 @@ class TrafficInformationTileCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double _deviceWidth = MediaQuery.of(context).size.width;
-    List<bool> tapCheckList = [
-      true,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false
-    ];
 
-    return Column(
-      children: <Widget>[
-        GestureDetector(
-          onTap: () {
-            print(prefecturalRoadList);
-            print(index);
-            tapCheckList[index] != tapCheckList[index];
-            print(tapCheckList[index]);
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              border: BorderDirectional(
-                bottom: BorderSide(
-                  width: 1,
-                  color: Colors.grey,
-                ),
+    return Container(
+      decoration: BoxDecoration(
+        border: BorderDirectional(
+          bottom: BorderSide(
+            width: 1,
+            color: Colors.grey,
+          ),
+        ),
+      ),
+      width: _deviceWidth,
+      child: ExpansionTile(
+        trailing: Container(
+          width: _deviceWidth * 0.2,
+          height: _deviceWidth * 0.08,
+          decoration: BoxDecoration(
+            border: BorderDirectional(
+              bottom: BorderSide(
+                width: 1,
+                color: Colors.blue,
+              ),
+              top: BorderSide(
+                width: 1,
+                color: Colors.blue,
               ),
             ),
-            width: _deviceWidth,
-            child: Row(
-              children: <Widget>[
-                SizedBox(
-                  width: _deviceWidth * 0.2,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Image.network(imageUrl),
-                  ),
-                ),
-                SizedBox(
-                  width: _deviceWidth * 0.3,
-                  height: _deviceWidth * 0.06,
-                  child: FittedBox(
-                      alignment: Alignment.centerLeft,
-                      fit: BoxFit.fitHeight,
-                      child: CustomText(
-                        text: prefectureName,
-                      )),
-                ),
-                SizedBox(
-                  width: _deviceWidth * 0.2,
-                  height: _deviceWidth * 0.06,
-                  child: FittedBox(
-                    alignment: Alignment.centerLeft,
-                    fit: BoxFit.fitHeight,
-                    child: CustomText(text: '${count}件'),
-                  ),
-                ),
-                SizedBox(
-                  width: _deviceWidth * 0.3,
-                  height: _deviceWidth * 0.08,
-                  child: const FittedBox(
-                    alignment: Alignment.centerRight,
-                    fit: BoxFit.fitHeight,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        right: 8,
-                      ),
-                      child: Icon(
-                        Icons.expand_more,
-                        color: ColorName.mainthemeColor,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+          ),
+          child: const FittedBox(
+            alignment: Alignment.centerRight,
+            fit: BoxFit.fitHeight,
+            child: Padding(
+              padding: EdgeInsets.only(
+                right: 8,
+              ),
+              child: Icon(
+                Icons.expand_more,
+                color: ColorName.mainthemeColor,
+              ),
             ),
           ),
         ),
-        Visibility(
-          visible: tapCheckList[index],
-          child: Column(
+        tilePadding: EdgeInsets.all(0),
+        title: Container(
+          decoration: BoxDecoration(
+            border: BorderDirectional(
+              bottom: BorderSide(
+                width: 1,
+                color: Colors.red,
+              ),
+              top: BorderSide(
+                width: 1,
+                color: Colors.red,
+              ),
+            ),
+          ),
+          child: Row(
+            children: <Widget>[
+              SizedBox(
+                width: _deviceWidth * 0.2,
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Image.network(imageUrl),
+                ),
+              ),
+              SizedBox(
+                width: _deviceWidth * 0.3,
+                height: _deviceWidth * 0.06,
+                child: FittedBox(
+                    alignment: Alignment.centerLeft,
+                    fit: BoxFit.fitHeight,
+                    child: CustomText(
+                      text: prefectureName,
+                    )),
+              ),
+              SizedBox(
+                width: _deviceWidth * 0.2,
+                height: _deviceWidth * 0.06,
+                child: FittedBox(
+                  alignment: Alignment.centerLeft,
+                  fit: BoxFit.fitHeight,
+                  child: CustomText(text: '${count}件'),
+                ),
+              ),
+            ],
+          ),
+        ),
+        children: <Widget>[
+          Column(
             children: <Widget>[
               for (int i = 0; i < prefecturalRoadList.length; i++) ...{
                 PrefecturalRoadTile(
@@ -113,10 +118,8 @@ class TrafficInformationTileCell extends StatelessWidget {
               }
             ],
           ),
-        ),
-      ],
+        ],
+      ),
     );
-
-    ;
   }
 }

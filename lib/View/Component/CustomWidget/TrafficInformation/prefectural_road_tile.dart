@@ -14,7 +14,6 @@ class PrefecturalRoadTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         print(prefecturalRoadName);
-        print('aaaaaa');
       },
       child: Container(
         width: _deviceWidth,
