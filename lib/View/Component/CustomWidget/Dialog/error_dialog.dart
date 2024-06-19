@@ -110,6 +110,7 @@ class ErrorDialog {
                                 onTap: buttonAction != null
                                     ? () {
                                         // 指定した処理
+                                        buttonAction();
                                       }
                                     : () {
                                         // 戻る
