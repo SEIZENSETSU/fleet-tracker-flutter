@@ -12,8 +12,8 @@ abstract class BaseWarehouseService {
   final Map<String, String> headers = {'Content-type': 'application/json'};
 
   //倉庫情報取得
-  Future<Warehouse?> getWarehouseInfo({required int warehouse_id}) async {
-    uri = Uri.https(baseUrl, '/warehouse', {'warehouse_id': warehouse_id.toString()});
+  Future<Warehouse?> getWarehouseInfo({required int warehouseId}) async {
+    uri = Uri.https(baseUrl, '/warehouse', {'warehouse_id': warehouseId.toString()});
 
     try {
       response = await http.get(uri);
@@ -23,11 +23,11 @@ abstract class BaseWarehouseService {
       }
       Map<String, dynamic> jsonResponse = json.decode(response.body);
       Warehouse warehouse = Warehouse(
-        warehouse_id: jsonResponse['warehouse_id'],
-        warehouse_area_id: jsonResponse['warehouse_area_id'],
-        warehouse_name: jsonResponse['warehouse_name'],
-        warehouse_latitude: jsonResponse['warehouse_latitude'],
-        warehouse_longitude: jsonResponse['warehouse_longitude'],
+        id: jsonResponse['warehouse_id'],
+        areaId: jsonResponse['warehouse_area_id'],
+        name: jsonResponse['warehouse_name'],
+        latitude: jsonResponse['warehouse_latitude'],
+        longitude: jsonResponse['warehouse_longitude'],
       );
       Log.echo('取得成功');
       return warehouse;
@@ -38,8 +38,8 @@ abstract class BaseWarehouseService {
   }
 
   //倉庫一覧情報取得
-  Future<List<Warehouse?>?> getWarehouseList(int warehouse_area_id) async {
-    uri = Uri.https(baseUrl, '/warehouses', {'warehouse_area_id': warehouse_area_id.toString()});
+  Future<List<Warehouse?>?> getWarehouseList(int warehouseAreaId) async {
+    uri = Uri.https(baseUrl, '/warehouses', {'warehouse_area_id': warehouseAreaId.toString()});
 
     try {
       response = await http.get(uri);
@@ -51,11 +51,11 @@ abstract class BaseWarehouseService {
       List<dynamic> jsonResponse = json.decode(response.body);
       for (dynamic warehouseData in jsonResponse) {
         Warehouse warehouse = Warehouse(
-          warehouse_id: warehouseData['warehouse_id'],
-          warehouse_area_id: warehouseData['warehouse_area_id'],
-          warehouse_name: warehouseData['warehouse_name'],
-          warehouse_latitude: warehouseData['warehouse_latitude'],
-          warehouse_longitude: warehouseData['warehouse_longitude'],
+          id: warehouseData['warehouse_id'],
+          areaId: warehouseData['warehouse_area_id'],
+          name: warehouseData['warehouse_name'],
+          latitude: warehouseData['warehouse_latitude'],
+          longitude: warehouseData['warehouse_longitude'],
         );
         warehouseList.add(warehouse);
       }
@@ -68,14 +68,14 @@ abstract class BaseWarehouseService {
   }
 
   //倉庫検索
-  Future<Map<String, dynamic>?> searchWarehouseList({int? favorite_warehouse_ids, required double user_latitude, required double user_longitude}) async {
+  Future<Map<String, dynamic>?> searchWarehouseList({int? favoriteWarehouseIds, required double userLatitude, required double userLongitude}) async {
     Map<String, String> queryParams = {
-      'user_latitude': user_latitude.toString(),
-      'user_longitude': user_longitude.toString(),
+      'user_latitude': userLatitude.toString(),
+      'user_longitude': userLongitude.toString(),
     };
 
-    if (favorite_warehouse_ids != null && favorite_warehouse_ids != 0) {
-      queryParams['favorite_warehouse_ids'] = favorite_warehouse_ids.toString();
+    if (favoriteWarehouseIds != null && favoriteWarehouseIds != 0) {
+      queryParams['favorite_warehouse_ids'] = favoriteWarehouseIds.toString();
     }
 
     Uri uri = Uri.https(baseUrl, '/warehouses/search', queryParams);

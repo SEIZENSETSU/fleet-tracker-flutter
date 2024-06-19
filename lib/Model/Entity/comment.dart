@@ -1,14 +1,14 @@
 class Comment {
   Comment({
-    required this.comment_id,
+    this.id,
     required this.uid,
-    required this.warehouse_id,
+    required this.warehouseId,
     required this.contents,
-    required this.created_at,
+    this.createdAt,
   });
-  final int comment_id;
+  final int? id;
   final String uid;
-  final int warehouse_id;
+  final int warehouseId;
   final String contents;
-  final String created_at;
+  final String? createdAt;
 }

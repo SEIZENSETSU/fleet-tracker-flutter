@@ -10,8 +10,8 @@ abstract class BaseCommentService {
   final Map<String, String> headers = {'Content-type': 'application/json'};
 
   //コメント取得
-  Future<List<Comment>?> getCommentList({required int warehouse_id}) async {
-    uri = Uri.https(baseUrl, '/comments', {'warehouse_id': warehouse_id.toString()});
+  Future<List<Comment>?> getCommentList({required int warehouseId}) async {
+    uri = Uri.https(baseUrl, '/comments', {'warehouse_id': warehouseId.toString()});
 
     try {
       response = await http.get(uri);
@@ -23,11 +23,11 @@ abstract class BaseCommentService {
       List<dynamic> jsonResponse = json.decode(response.body);
       for (dynamic commentData in jsonResponse) {
         Comment comment = Comment(
-          comment_id: commentData['comment_id'],
+          id: commentData['comment_id'],
           uid: commentData['uid'],
-          warehouse_id: commentData['warehouse_id'],
+          warehouseId: commentData['warehouse_id'],
           contents: commentData['contents'],
-          created_at: commentData['created_at'],
+          createdAt: commentData['created_at'],
         );
         commentList.add(comment);
       }
@@ -40,33 +40,38 @@ abstract class BaseCommentService {
   }
 
   //コメント登録
-  Future<void> postComment({required String uid, required int warehouse_id, required String contents}) async {
+  Future<void> postComment({required String uid, required int warehouseId, required String contents}) async {
     uri = Uri.https(baseUrl, '/comment');
-    String body = json.encode({'uid': uid, 'warehouse_id': warehouse_id, 'contents': contents});
+    Map<String, dynamic> comment = {
+      'uid': uid,
+      'warehouse_id': warehouseId,
+      'contents': contents,
+    };
 
     try {
-      response = await http.post(uri, headers: headers, body: body);
+      response = await http.post(uri, headers: headers, body: jsonEncode(comment));
+
       if (response.statusCode != 201) {
         Log.echo('データを投稿することができませんでした。');
-        return null;
+      } else {
+        Log.echo('コメントを投稿しました');
       }
-      Log.echo('コメントを投稿しました');
     } catch (e) {
-      Log.echo('予期せぬエラーが発生しました');
+      Log.echo('予期せぬエラーが発生しました$e');
     }
   }
 
   //コメント削除
-  Future<void> deleteComment({required int comment_id}) async {
-    uri = Uri.https(baseUrl, '/comment', {'comment_id': comment_id.toString()});
+  Future<void> deleteComment({required int commentId}) async {
+    uri = Uri.https(baseUrl, '/comment', {'comment_id': commentId.toString()});
 
     try {
       response = await http.delete(uri, headers: headers);
       if (response.statusCode != 204) {
         Log.echo('コメントを削除することができませんでした');
-        return;
+      } else {
+        Log.echo('コメントを削除しました');
       }
-      Log.echo('コメントを削除しました');
     } catch (e) {
       Log.echo('予期せぬエラーが発生しました');
     }
@@ -76,7 +81,7 @@ abstract class BaseCommentService {
 //Mock用
 class MockCommentService extends BaseCommentService {
   MockCommentService() {
-    baseUrl = 'swagger-node-tnvlhcq2ja-uc.a.run.app';
+    baseUrl = 'fleet-tracker-api-docs-tnvlhcq2ja-uc.a.run.app';
   }
 }
 

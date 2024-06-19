@@ -1,14 +1,14 @@
 class Warehouse {
   Warehouse({
-    required this.warehouse_id,
-    required this.warehouse_area_id,
-    required this.warehouse_name,
-    required this.warehouse_latitude,
-    required this.warehouse_longitude,
+    required this.id,
+    required this.areaId,
+    required this.name,
+    required this.latitude,
+    required this.longitude,
   });
-  final int warehouse_id;
-  final int warehouse_area_id;
-  final String warehouse_name;
-  final double warehouse_latitude;
-  final double warehouse_longitude;
+  final int id;
+  final int areaId;
+  final String name;
+  final double latitude;
+  final double longitude;
 }
