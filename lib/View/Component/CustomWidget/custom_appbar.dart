@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   CustomAppBar({
-    Key? key,
+    super.key,
     this.title = '',
     this.backgroundColor = Colors.white,
     this.foregroundColor = ColorName.textBlack,
@@ -12,7 +12,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.appBarHight = kToolbarHeight,
     this.leadingImage,
     this.actions,
-  }) : super(key: key);
+  });
   final String? title;
   final Color? foregroundColor;
   final Color? backgroundColor;
