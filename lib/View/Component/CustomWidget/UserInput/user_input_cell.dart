@@ -162,7 +162,14 @@ class UserInputCell extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 15,
+            ),
+            CustomText(
+              text: '今の遅延状況は？ボタンを押して投稿！',
+              fontSize: 14,
+            ),
+            SizedBox(
+              height: 15,
             ),
             Stack(
               alignment: Alignment.center,

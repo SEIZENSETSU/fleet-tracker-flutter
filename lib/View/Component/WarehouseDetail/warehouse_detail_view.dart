@@ -4,6 +4,7 @@ import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart'
 import 'package:fleet_tracker/View/Component/CustomWidget/UserInput/user_input_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
+import 'package:fleet_tracker/View/Component/WarehouseDetail/comment_tile_cell.dart';
 import 'package:fleet_tracker/View/Component/WarehouseDetail/warehouse_map.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/cupertino.dart';
@@ -209,6 +210,19 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
               ),
               Container(
                 height: 400,
+                color: ColorName.destinationshadowColor,
+                child: FractionallySizedBox(
+                  heightFactor: 0.9,
+                  child: Container(
+                    child: CommentTileCell(
+                      userComment: 'なんか遅延してたよここ',
+                      createAt: '2024年6月21日 9時20分',
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 50,
               )
             ],
           ),
