@@ -22,11 +22,12 @@ class _UserInputTopViewState extends State<UserInputTopView> {
           toWarehousePage: () {
             WarehouseDetailRoute(
               $extra: Warehouse(
-                  id: 1,
-                  areaId: 1,
-                  name: 'エルフーズ東京',
-                  latitude: 30.2323,
-                  longitude: 89.777),
+                id: 1,
+                areaId: 1,
+                name: 'エルフーズ東京',
+                latitude: 35.681236,
+                longitude: 139.767125,
+              ),
               traficstateCount: [10, 2, 34, 1, 0],
               delayStateType: 'pause',
             ).push(context);
