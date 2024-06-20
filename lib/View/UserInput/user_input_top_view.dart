@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/View/Component/CustomWidget/UserInput/user_input_cell.dart';
 import 'package:flutter/material.dart';
 
 class UserInputTopView extends StatefulWidget {
@@ -10,6 +11,14 @@ class UserInputTopView extends StatefulWidget {
 class _UserInputTopViewState extends State<UserInputTopView> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Center(
+        child: UserInputCell(
+          warehouseName: 'エルフーズ東京',
+          traficstateCount: [10, 2, 34, 1, 0],
+          delayStateType: 'pause',
+        ),
+      ),
+    );
   }
 }

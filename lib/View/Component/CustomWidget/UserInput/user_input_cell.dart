@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../../../Constants/Enum/warehouse_delay_state_enum.dart';
 import '../../../../Service/Log/log_service.dart';
 
 class UserInputCell extends StatelessWidget {
@@ -14,14 +15,17 @@ class UserInputCell extends StatelessWidget {
     super.key,
     required this.warehouseName,
     required this.traficstateCount,
+    required this.delayStateType,
   });
 
   final String warehouseName;
   final List traficstateCount;
+  final String delayStateType;
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    WarehouseDelayStateType stateType = WarehouseDelayStateType(delayStateType);
     Log.echo('size: $size');
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -89,7 +93,7 @@ class UserInputCell extends StatelessWidget {
                 children: [
                   Container(
                     height: 30,
-                    color: ColorName.stateNormal.withAlpha(60),
+                    color: stateType.color().withAlpha(60),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -100,7 +104,7 @@ class UserInputCell extends StatelessWidget {
                             width: 20,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: ColorName.stateNormal,
+                              color: stateType.color(),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(2.0),
@@ -110,7 +114,7 @@ class UserInputCell extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Color.lerp(
-                                    ColorName.stateNormal,
+                                    stateType.color(),
                                     Colors.white,
                                     0.5,
                                   ),
@@ -122,7 +126,7 @@ class UserInputCell extends StatelessWidget {
                         Expanded(
                           flex: 9,
                           child: CustomText(
-                            text: Strings.STATE_NORMAL_TITLE,
+                            text: stateType.title(),
                           ),
                         ),
                       ],
@@ -132,10 +136,10 @@ class UserInputCell extends StatelessWidget {
                     height: 30,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: ColorName.stateNormal.withAlpha(60),
+                      color: stateType.color().withAlpha(60),
                       border: Border(
                         top: BorderSide(
-                          color: ColorName.stateNormal,
+                          color: stateType.color(),
                         ),
                       ),
                     ),
