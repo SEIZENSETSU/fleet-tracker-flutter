@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import '../../../Model/Entity/user.dart';
 import '../../Log/log_service.dart';
 
 class UserService {
@@ -13,7 +14,7 @@ class UserService {
 
   /// ユーザー情報取得
   /// [uid] ユーザーID
-  Future<Map<String, dynamic>?> getUserInfo({required String uid}) async {
+  Future<User?> getUserInfo({required String uid}) async {
     Uri uri = Uri.https(baseUrl, '/user', {'uid': uid});
 
     try {
@@ -24,9 +25,10 @@ class UserService {
       if (response.statusCode != 200) {
         throw Exception('Get failed.');
       }
-      Map<String, dynamic> user = jsonDecode(response.body);
-      Log.echo('ユーザー情報を取得しました');
-      Log.echo(user['user_name']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+
+      User user = User.fromJson(jsonResponse);
+      Log.echo('取得成功');
       return user;
     } catch (e) {
       Log.echo('エラーが発生しました $e');
