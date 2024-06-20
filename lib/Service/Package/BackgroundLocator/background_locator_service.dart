@@ -1,16 +1,13 @@
 import 'package:background_task/background_task.dart';
-import 'package:flutter/material.dart';
 
+import '../../../Constants/strings.dart';
 import '../../Log/log_service.dart';
 
 class BackgroundLocatorService {
+  //初期設定
   Future<void> initialize() async {
-    WidgetsFlutterBinding.ensureInitialized();
     BackgroundTask.instance.setBackgroundHandler(backgroundHandler);
-    setAndroidNotification(
-      title: 'バックグラウンド処理',
-      message: 'バックグラウンド処理を実行中',
-    );
+    setAndroidNotification();
   }
 
   // 位置情報が検知されると発火する
@@ -21,8 +18,8 @@ class BackgroundLocatorService {
 
   //Androidの通知設定
   Future<void> setAndroidNotification({
-    required String title,
-    required String message,
+    String title = Strings.ANDROID_NOTIFICATION_TITLE,
+    String message = Strings.ANDROID_NOTIFICATION_MESSAGE,
   }) async {
     await BackgroundTask.instance.setAndroidNotification(
       title: title,

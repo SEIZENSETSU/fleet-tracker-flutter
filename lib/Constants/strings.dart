@@ -19,4 +19,8 @@ class Strings {
 
   //  セル
   static const String GO_WAREHOUSE_PAGE = '工場詳細ページへ→';
+
+  // Androidへの通知
+  static const String ANDROID_NOTIFICATION_TITLE = '工場詳細ページへ→';
+  static const String ANDROID_NOTIFICATION_MESSAGE = '工場詳細ページへ→';
 }
