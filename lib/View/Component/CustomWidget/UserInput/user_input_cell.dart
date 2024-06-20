@@ -16,13 +16,13 @@ class UserInputCell extends StatelessWidget {
     required this.warehouseName,
     required this.traficstateCount,
     required this.delayStateType,
-    required this.toWarehousePage,
+    this.toWarehousePage,
   });
 
   final String warehouseName;
   final List traficstateCount;
   final String delayStateType;
-  final Function toWarehousePage;
+  final Function? toWarehousePage;
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +32,7 @@ class UserInputCell extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: 330,
-        decoration: BoxDecoration(
-            border: Border.all(
-          color: Colors.grey,
-        )),
+        // height: 330,
         child: Column(
           children: [
             Align(
@@ -392,28 +388,32 @@ class UserInputCell extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Log.echo('工場詳細ページへ遷移します');
-                    toWarehousePage();
-                  },
-                  child: Container(
-                    width: 200,
-                    height: 50,
-                    child: const Center(
-                      child: CustomText(
-                        text: Strings.GO_WAREHOUSE_PAGE,
-                        color: Colors.grey,
-                        fontSize: 15,
+            toWarehousePage != null
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: toWarehousePage != null
+                            ? () {
+                                Log.echo('工場詳細ページへ遷移します');
+                                toWarehousePage!();
+                              }
+                            : () {},
+                        child: Container(
+                          width: 200,
+                          height: 50,
+                          child: const Center(
+                            child: CustomText(
+                              text: Strings.GO_WAREHOUSE_PAGE,
+                              color: Colors.grey,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-              ],
-            )
+                    ],
+                  )
+                : Container(),
           ],
         ),
       ),
