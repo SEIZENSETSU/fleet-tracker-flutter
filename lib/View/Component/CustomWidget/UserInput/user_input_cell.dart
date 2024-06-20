@@ -16,11 +16,13 @@ class UserInputCell extends StatelessWidget {
     required this.warehouseName,
     required this.traficstateCount,
     required this.delayStateType,
+    required this.toWarehousePage,
   });
 
   final String warehouseName;
   final List traficstateCount;
   final String delayStateType;
+  final Function toWarehousePage;
 
   @override
   Widget build(BuildContext context) {
@@ -396,6 +398,7 @@ class UserInputCell extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Log.echo('工場詳細ページへ遷移します');
+                    toWarehousePage();
                   },
                   child: Container(
                     width: 200,
