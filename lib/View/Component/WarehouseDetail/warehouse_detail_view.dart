@@ -3,6 +3,7 @@ import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/UserInput/user_input_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/custom_button.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/View/Component/WarehouseDetail/comment_tile_cell.dart';
 import 'package:fleet_tracker/View/Component/WarehouseDetail/warehouse_map.dart';
@@ -30,6 +31,7 @@ class WarehouseDetailView extends StatefulWidget {
 }
 
 class _WarehouseDetailViewState extends State<WarehouseDetailView> {
+  List commentList = [0, 0, 0, 0, 0, 0, 0];
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -210,17 +212,71 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
               ),
               Container(
                 height: 400,
-                color: ColorName.destinationshadowColor,
-                child: FractionallySizedBox(
-                  heightFactor: 0.9,
-                  child: Container(
-                    child: CommentTileCell(
-                      userComment: 'なんか遅延してたよここ',
-                      createAt: '2024年6月21日 9時20分',
+                color: const Color.fromRGBO(221, 221, 221, 1),
+                child: ListView.builder(
+                    itemCount: commentList.length,
+                    itemBuilder: (context, index) {
+                      if (commentList.length != 0) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          child: CommentTileCell(
+                            userComment: 'なんか遅延してたよここ',
+                            createAt: '2024年6月21日 9時20分',
+                            userName: '充電コード無くした人',
+                          ),
+                        );
+                      } else {
+                        return CustomText(text: 'この工場へのつぶやきはまだありません。');
+                      }
+                    }),
+              ),
+              Container(
+                height: 70,
+                decoration: BoxDecoration(
+                  color: ColorName.mainthemeColor.withAlpha(60),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextField(
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CustomButton(
+                              text: '投稿',
+                              isFilledColor: true,
+                              primaryColor: ColorName.mainthemeColor,
+                              onTap: () {
+                                // コメントを投稿する
+                                Log.toast('コメントを投稿しました');
+                              }),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Divider(),
               SizedBox(
                 height: 50,
               )
