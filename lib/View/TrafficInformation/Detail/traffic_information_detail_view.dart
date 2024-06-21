@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/View/Component/CustomWidget/TrafficInformation/Detail/jam_info_content_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/TrafficInformation/Detail/jam_info_title.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class _TrafficInformationStateDetailView
       body: Column(
         children: <Widget>[
           JamInfoTitle(),
+          JamInfoContentCard(),
         ],
       ),
     );

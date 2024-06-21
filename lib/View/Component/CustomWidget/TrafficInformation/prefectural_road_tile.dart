@@ -1,6 +1,5 @@
 import 'package:fleet_tracker/Route/router.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
-import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

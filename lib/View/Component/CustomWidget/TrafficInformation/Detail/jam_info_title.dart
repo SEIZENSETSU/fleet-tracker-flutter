@@ -11,19 +11,40 @@ class JamInfoTitle extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.red,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: Colors.grey,
+            width: 2,
+          ),
         ),
         width: _deviceWidth,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            CustomText(
-              text: '東京湾アクアライン',
-              color: Colors.white,
+            Container(
+              width: _deviceWidth * 0.9,
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.grey,
+                    width: 1,
+                  ),
+                ),
+              ),
+              child: Align(
+                alignment: Alignment.center,
+                child: CustomText(
+                  text: '圏央道',
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+              ),
             ),
             CustomText(
               text: '19時30分',
-              color: Colors.white,
+              color: Colors.black,
+              fontSize: 20,
             ),
           ],
         ),

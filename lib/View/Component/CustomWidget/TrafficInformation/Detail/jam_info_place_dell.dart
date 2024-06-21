@@ -1,0 +1,75 @@
+import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
+import 'package:flutter/material.dart';
+
+class JamInfoPlaceCell extends StatelessWidget {
+  const JamInfoPlaceCell({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    double _deviceWidth = MediaQuery.of(context).size.width;
+    String test = '5km';
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: Colors.grey, width: 1),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 10,
+          bottom: 10,
+        ),
+        child: Column(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(
+                left: 10,
+                bottom: 10,
+              ),
+              width: _deviceWidth,
+              child: CustomText(
+                text: '境古河IC→五霞IC',
+                fontSize: 18,
+                color: Colors.blueAccent,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 10,
+              ),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.orange,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: CustomText(
+                        text: '通行止',
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Visibility(
+                    visible: test != '',
+                    child: CustomText(
+                      text: '${test}',
+                      fontSize: 20,
+                      color: Colors.orange,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
