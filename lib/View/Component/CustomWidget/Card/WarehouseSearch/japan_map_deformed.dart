@@ -63,8 +63,12 @@ class JapanMapDefomed extends StatelessWidget {
                     flex: 1,
                     child: SizedBox(),
                   ),
-                  Expanded(
+                  const Expanded(
                     flex: 1,
+                    child: SizedBox(),
+                  ),
+                  Expanded(
+                    flex: 2,
                     child: Container(
                       child: FractionallySizedBox(
                         widthFactor: 1,
