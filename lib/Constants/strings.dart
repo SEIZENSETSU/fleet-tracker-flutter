@@ -19,4 +19,8 @@ class Strings {
 
   //  セル
   static const String GO_WAREHOUSE_PAGE = '工場詳細ページへ→';
+
+  // Androidへの通知
+  static const String ANDROID_NOTIFICATION_TITLE = 'バックグラウンド処理';
+  static const String ANDROID_NOTIFICATION_MESSAGE = 'バックグラウンド処理を実行中';
 }
