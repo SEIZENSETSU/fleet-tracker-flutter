@@ -12,7 +12,7 @@ class JapanMapDefomed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size.height * 0.5,
+      height: size.height * 0.6,
       color: Color.fromARGB(255, 160, 212, 255),
       child: Column(
         children: [

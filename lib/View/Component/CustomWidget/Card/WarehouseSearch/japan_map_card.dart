@@ -22,6 +22,16 @@ class JapanMapCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: ColorName.mainthemeColor,
           borderRadius: BorderRadius.circular(5),
+          border: Border.all(
+            color: const Color.fromARGB(255, 189, 189, 189),
+          ),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black,
+              blurRadius: 0,
+              offset: Offset(3, 3),
+            )
+          ],
         ),
         child: Center(
           child: CustomText(
