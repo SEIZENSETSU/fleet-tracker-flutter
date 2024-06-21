@@ -22,14 +22,4 @@ class Warehouse {
       longitude: json['warehouse_longitude'],
     );
   }
-
-  factory Warehouse.fromMap(Map<String, dynamic> map) {
-    return Warehouse(
-      id: map['warehouse_id'],
-      areaId: map['warehouse_area_id'],
-      name: map['warehouse_name'],
-      latitude: map['warehouse_latitude'],
-      longitude: map['warehouse_longitude'],
-    );
-  }
 }
