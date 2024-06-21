@@ -35,6 +35,8 @@ class TrafficInformationTileCell extends StatelessWidget {
       ),
       width: _deviceWidth,
       child: ExpansionTile(
+        iconColor: Colors.grey,
+        collapsedIconColor: ColorName.mainthemeColor,
         tilePadding: EdgeInsets.all(0),
         title: Row(
           children: <Widget>[
