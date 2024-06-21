@@ -189,11 +189,20 @@ class WarehouseSearchTopRoute extends GoRouteData {
 }
 
 class WarehouseSearchResultRoute extends GoRouteData {
-  const WarehouseSearchResultRoute();
+  const WarehouseSearchResultRoute({
+    required this.areaName,
+    required this.areaId,
+  });
+
+  final String areaName;
+  final int areaId;
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      const WarehouseSearchResultView();
+      WarehouseSearchResultView(
+        are: areaName,
+        areaId: areaId,
+      );
 }
 //////////////////////////////  WarehouseSearch  //////////////////////////////
 

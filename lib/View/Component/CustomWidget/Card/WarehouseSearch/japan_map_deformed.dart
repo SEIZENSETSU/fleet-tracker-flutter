@@ -13,7 +13,7 @@ class JapanMapDefomed extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: size.height * 0.5,
-      color: const Color.fromARGB(255, 112, 191, 255),
+      color: Color.fromARGB(255, 160, 212, 255),
       child: Column(
         children: [
           Expanded(
@@ -91,10 +91,6 @@ class JapanMapDefomed extends StatelessWidget {
             child: Container(
               child: Row(
                 children: [
-                  const Expanded(
-                    flex: 1,
-                    child: SizedBox(),
-                  ),
                   Expanded(
                     flex: 3,
                     child: FractionallySizedBox(
@@ -122,7 +118,7 @@ class JapanMapDefomed extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: FractionallySizedBox(
                       widthFactor: 1,
                       heightFactor: 1,
