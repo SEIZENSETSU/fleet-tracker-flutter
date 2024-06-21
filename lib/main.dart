@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:background_task/background_task.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fleet_tracker/Service/Package/BackgroundLocator/background_locator_service.dart';
 import 'package:flutter/foundation.dart';
@@ -15,6 +16,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  WidgetsFlutterBinding.ensureInitialized();
   await BackgroundLocatorService().initialize();
   runApp(const ProviderScope(child: MyApp()));
 }
