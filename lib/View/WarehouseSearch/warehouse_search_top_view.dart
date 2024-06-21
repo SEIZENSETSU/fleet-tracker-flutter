@@ -56,12 +56,20 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
             ),
             Container(
               width: size.width * 0.9,
-              child: Padding(
+              child: const Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
                   // フォーカス関連は時間かかるのでスキップ
                   // autofocus: true,
                   decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: '工場名、エリア名、地名',
+                    hintStyle: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Noto_Sans_JP',
+                    ),
                     icon: Icon(
                       Icons.search,
                     ),
@@ -116,7 +124,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
               ),
             ),
             Container(
-              height: 500,
+              constraints: BoxConstraints(minHeight: 100),
               child: Flexible(
                 child: ListView.builder(
                     itemCount: 5,
@@ -193,6 +201,9 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                     }),
               ),
             ),
+            SizedBox(
+              height: 50,
+            )
           ],
         ),
       ),
