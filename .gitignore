@@ -856,3 +856,7 @@ windows/flutter/generated_plugins.cmake
 # Generated files
 lib/gen/
 lib/Route/router.g.dart
+
+# lock files
+pubspec.lock
+ios/Podfile.lock
