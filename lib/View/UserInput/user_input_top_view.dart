@@ -53,7 +53,7 @@ class _UserInputTopViewState extends State<UserInputTopView> {
                     ),
                   ),
                 ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
             ],
