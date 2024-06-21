@@ -243,6 +243,8 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextField(
+                            // フォーカス関連は時間かかるのでスキップ
+                            // autofocus: true,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.white,
