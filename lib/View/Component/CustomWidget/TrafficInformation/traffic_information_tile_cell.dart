@@ -35,21 +35,9 @@ class TrafficInformationTileCell extends StatelessWidget {
       ),
       width: _deviceWidth,
       child: ExpansionTile(
-        trailing: Container(
+        trailing: SizedBox(
           width: _deviceWidth * 0.2,
           height: _deviceWidth * 0.08,
-          decoration: BoxDecoration(
-            border: BorderDirectional(
-              bottom: BorderSide(
-                width: 1,
-                color: Colors.blue,
-              ),
-              top: BorderSide(
-                width: 1,
-                color: Colors.blue,
-              ),
-            ),
-          ),
           child: const FittedBox(
             alignment: Alignment.centerRight,
             fit: BoxFit.fitHeight,
@@ -65,49 +53,38 @@ class TrafficInformationTileCell extends StatelessWidget {
           ),
         ),
         tilePadding: EdgeInsets.all(0),
-        title: Container(
-          decoration: BoxDecoration(
-            border: BorderDirectional(
-              bottom: BorderSide(
-                width: 1,
-                color: Colors.red,
-              ),
-              top: BorderSide(
-                width: 1,
-                color: Colors.red,
+        title: Row(
+          children: <Widget>[
+            SizedBox(
+              width: _deviceWidth * 0.2,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Image.network(imageUrl),
               ),
             ),
-          ),
-          child: Row(
-            children: <Widget>[
-              SizedBox(
-                width: _deviceWidth * 0.2,
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Image.network(imageUrl),
-                ),
-              ),
-              SizedBox(
-                width: _deviceWidth * 0.3,
-                height: _deviceWidth * 0.06,
-                child: FittedBox(
-                    alignment: Alignment.centerLeft,
-                    fit: BoxFit.fitHeight,
-                    child: CustomText(
-                      text: prefectureName,
-                    )),
-              ),
-              SizedBox(
-                width: _deviceWidth * 0.2,
-                height: _deviceWidth * 0.06,
+            SizedBox(
+              width: _deviceWidth * 0.3,
+              height: _deviceWidth * 0.06,
+              child: FittedBox(
+                  alignment: Alignment.centerLeft,
+                  fit: BoxFit.fitHeight,
+                  child: CustomText(
+                    text: prefectureName,
+                  )),
+            ),
+            SizedBox(
+              width: _deviceWidth * 0.2,
+              height: _deviceWidth * 0.06,
+              child: Visibility(
+                visible: count != 0,
                 child: FittedBox(
                   alignment: Alignment.centerLeft,
                   fit: BoxFit.fitHeight,
                   child: CustomText(text: '${count}件'),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
         children: <Widget>[
           Column(

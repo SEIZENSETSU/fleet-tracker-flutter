@@ -17,7 +17,7 @@ class PrefecturalRoadTile extends StatelessWidget {
       },
       child: Container(
         width: _deviceWidth,
-        height: _deviceWidth * 0.1,
+        height: _deviceWidth * 0.15,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -27,14 +27,14 @@ class PrefecturalRoadTile extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 border: BorderDirectional(
-                  bottom: BorderSide(
+                  top: BorderSide(
                     width: 1,
                     color: Colors.grey,
                   ),
                 ),
               ),
               width: _deviceWidth * 0.8,
-              height: _deviceWidth * 0.1,
+              height: _deviceWidth * 0.15,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -52,12 +52,15 @@ class PrefecturalRoadTile extends StatelessWidget {
                   SizedBox(
                     width: _deviceWidth * 0.1,
                     height: _deviceWidth * 0.06,
-                    child: FittedBox(
-                      alignment: Alignment.centerRight,
-                      fit: BoxFit.fitHeight,
-                      child: Icon(
-                        Icons.warning,
-                        color: Colors.amber,
+                    child: Visibility(
+                      visible: true,
+                      child: FittedBox(
+                        alignment: Alignment.centerRight,
+                        fit: BoxFit.fitHeight,
+                        child: Icon(
+                          Icons.warning,
+                          color: Colors.amber,
+                        ),
                       ),
                     ),
                   ),

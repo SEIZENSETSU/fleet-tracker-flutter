@@ -120,8 +120,6 @@ class _TrafficInformationStateTopViewState
       '瀬戸中央道',
       '西瀬戸道',
       '山陽道',
-      '関門トンネル',
-      '関門橋',
     ],
     '四国': [
       '瀬戸中央道',
@@ -135,7 +133,6 @@ class _TrafficInformationStateTopViewState
       '今治小松道',
     ],
     '九州・沖縄': [
-      '関門トンネル',
       '九州道',
       '東九州道',
       '日出バイパス',
@@ -149,7 +146,7 @@ class _TrafficInformationStateTopViewState
     ],
   };
   String imageUrl = 'https://www.c-ihighway.jp/smp/img/MAP/hokkaido.png';
-  int count = 300;
+  int count = 50;
 
   @override
   Widget build(BuildContext context) {
