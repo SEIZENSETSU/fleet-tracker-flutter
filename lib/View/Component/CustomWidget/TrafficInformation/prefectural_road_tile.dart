@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Route/router.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class PrefecturalRoadTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         print(prefecturalRoadName);
+        TrafficInformationDetailRoute().push(context);
       },
       child: Container(
         width: _deviceWidth,
@@ -22,7 +24,7 @@ class PrefecturalRoadTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-              width: _deviceWidth * 0.2,
+              width: _deviceWidth * 0.1,
             ),
             Container(
               decoration: BoxDecoration(
@@ -33,19 +35,22 @@ class PrefecturalRoadTile extends StatelessWidget {
                   ),
                 ),
               ),
-              width: _deviceWidth * 0.8,
+              width: _deviceWidth * 0.9,
               height: _deviceWidth * 0.15,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
-                    width: _deviceWidth * 0.6,
+                    width: _deviceWidth * 0.7,
                     height: _deviceWidth * 0.06,
                     child: FittedBox(
                       alignment: Alignment.centerLeft,
                       fit: BoxFit.fitHeight,
-                      child: CustomText(
-                        text: prefecturalRoadName,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: CustomText(
+                          text: prefecturalRoadName,
+                        ),
                       ),
                     ),
                   ),
@@ -71,7 +76,7 @@ class PrefecturalRoadTile extends StatelessWidget {
                       fit: BoxFit.fitHeight,
                       child: Icon(
                         Icons.arrow_forward_ios,
-                        color: ColorName.mainthemeColor,
+                        color: Colors.grey,
                       ),
                     ),
                   ),

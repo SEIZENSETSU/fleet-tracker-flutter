@@ -35,23 +35,6 @@ class TrafficInformationTileCell extends StatelessWidget {
       ),
       width: _deviceWidth,
       child: ExpansionTile(
-        trailing: SizedBox(
-          width: _deviceWidth * 0.2,
-          height: _deviceWidth * 0.08,
-          child: const FittedBox(
-            alignment: Alignment.centerRight,
-            fit: BoxFit.fitHeight,
-            child: Padding(
-              padding: EdgeInsets.only(
-                right: 8,
-              ),
-              child: Icon(
-                Icons.expand_more,
-                color: ColorName.mainthemeColor,
-              ),
-            ),
-          ),
-        ),
         tilePadding: EdgeInsets.all(0),
         title: Row(
           children: <Widget>[

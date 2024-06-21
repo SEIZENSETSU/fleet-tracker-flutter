@@ -1,4 +1,5 @@
 import 'package:fleet_tracker/View/Component/CustomWidget/TrafficInformation/traffic_information_tile_cell.dart';
+import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
 class TrafficInformationTopView extends StatefulWidget {
@@ -150,19 +151,24 @@ class _TrafficInformationStateTopViewState
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: prefectureNameMap.length,
-      itemBuilder: (BuildContext context, int index) {
-        String prefectureName = prefectureNameMap.keys.elementAt(index);
-        List<String> prefecturalRoadList = prefectureNameMap[prefectureName]!;
-        return TrafficInformationTileCell(
-          imageUrl: imageUrl,
-          count: count,
-          prefectureName: prefectureName,
-          prefecturalRoadList: prefecturalRoadList,
-          index: index,
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: ColorName.mainthemeColor,
+      ),
+      body: ListView.builder(
+        itemCount: prefectureNameMap.length,
+        itemBuilder: (BuildContext context, int index) {
+          String prefectureName = prefectureNameMap.keys.elementAt(index);
+          List<String> prefecturalRoadList = prefectureNameMap[prefectureName]!;
+          return TrafficInformationTileCell(
+            imageUrl: imageUrl,
+            count: count,
+            prefectureName: prefectureName,
+            prefecturalRoadList: prefecturalRoadList,
+            index: index,
+          );
+        },
+      ),
     );
   }
 }
