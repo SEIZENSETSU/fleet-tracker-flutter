@@ -1,4 +1,5 @@
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
+import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
 class JamInfoTitle extends StatelessWidget {
@@ -11,7 +12,7 @@ class JamInfoTitle extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: Container(
         decoration: BoxDecoration(
-          color: Color(0xFF228769),
+          color: ColorName.jamInfoTitleColor,
           borderRadius: BorderRadius.circular(8),
         ),
         width: deviceWidth,
@@ -38,7 +39,7 @@ class JamInfoTitle extends StatelessWidget {
                       padding: const EdgeInsets.all(2),
                       child: CustomText(
                         text: '関東',
-                        color: Color(0xFF228769),
+                        color: ColorName.jamInfoTitleColor,
                         fontSize: 28,
                       ),
                     ),

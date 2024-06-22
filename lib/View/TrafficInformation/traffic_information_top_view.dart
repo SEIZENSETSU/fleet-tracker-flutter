@@ -1,6 +1,5 @@
 import 'package:fleet_tracker/View/Component/CustomWidget/TrafficInformation/traffic_information_tile_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
-import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
 class TrafficInformationTopView extends StatefulWidget {

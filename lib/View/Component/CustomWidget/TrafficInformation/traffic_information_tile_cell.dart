@@ -25,7 +25,7 @@ class TrafficInformationTileCell extends StatelessWidget {
     double deviceWidth = MediaQuery.of(context).size.width;
 
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         border: BorderDirectional(
           bottom: BorderSide(
             width: 1,
@@ -37,7 +37,7 @@ class TrafficInformationTileCell extends StatelessWidget {
       child: ExpansionTile(
         iconColor: Colors.grey,
         collapsedIconColor: ColorName.mainthemeColor,
-        tilePadding: EdgeInsets.all(0),
+        tilePadding: const EdgeInsets.all(0),
         title: Row(
           children: <Widget>[
             SizedBox(
