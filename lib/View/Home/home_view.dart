@@ -36,7 +36,6 @@ class _HomeViewState extends State<HomeView> {
                 alignment: Alignment.centerLeft,
                 child: CustomText(
                   text: '現在地から一番近くのエリア',
-                  color: Colors.grey,
                   fontSize: 14,
                 ),
               ),
@@ -61,7 +60,6 @@ class _HomeViewState extends State<HomeView> {
                 alignment: Alignment.centerLeft,
                 child: CustomText(
                   text: '機能',
-                  color: Colors.grey,
                   fontSize: 14,
                 ),
               ),
