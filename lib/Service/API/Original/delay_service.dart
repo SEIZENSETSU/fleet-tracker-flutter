@@ -18,7 +18,7 @@ class DelayService {
 
   /// 遅延情報取得
   /// [warehouseAreaId] 倉庫エリアID
-  Future<List<DelayInformation?>?> getDelayInformation({
+  Future<List<DelayInformation>?> getDelayInformation({
     required int warehouseAreaId,
   }) async {
     Uri uri = Uri.https(
@@ -34,14 +34,14 @@ class DelayService {
       }
       List<dynamic> jsonResponse = json.decode(response.body);
 
-      List<DelayInformation?> delayInformationList = [];
+      List<DelayInformation> delayInformationList = [];
       for (dynamic delayInformationData in jsonResponse) {
         DelayInformation delayInformation = DelayInformation.fromJson(delayInformationData);
         delayInformationList.add(delayInformation);
       }
 
       Log.echo('取得成功');
-      Log.echo(delayInformationList[0]!.delayTimeDetail[0].delayState);
+      Log.echo(delayInformationList[0].delayTimeDetail[0].delayState);
       return delayInformationList;
     } catch (e) {
       Log.echo('エラーが発生しました $e');
