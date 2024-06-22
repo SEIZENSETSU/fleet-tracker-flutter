@@ -11,40 +11,66 @@ class JamInfoTitle extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: Colors.grey,
-            width: 2,
-          ),
+          color: Color(0xFF228769),
+          borderRadius: BorderRadius.circular(8),
         ),
         width: deviceWidth,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        height: 70,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              width: deviceWidth * 0.9,
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Colors.grey,
-                    width: 1,
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 6,
+                left: 6,
+                right: 10,
+              ),
+              child: Container(
+                width: deviceWidth * 0.18,
+                height: 40,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: Center(
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: CustomText(
+                        text: '関東',
+                        color: Color(0xFF228769),
+                        fontSize: 28,
+                      ),
+                    ),
                   ),
                 ),
               ),
-              child: Align(
-                alignment: Alignment.center,
-                child: CustomText(
-                  text: '圏央道',
-                  color: Colors.black,
-                  fontSize: 20,
-                ),
-              ),
             ),
-            CustomText(
-              text: '19時30分',
-              color: Colors.black,
-              fontSize: 20,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  child: Row(
+                    children: <Widget>[
+                      CustomText(
+                        text: '東京湾アクアライン',
+                        color: Colors.white,
+                        fontSize: 25,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 4,
+                  ),
+                  child: CustomText(
+                    text: '最終更新 19:30 (JST)',
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
             ),
           ],
         ),

@@ -1,9 +1,12 @@
-import 'package:fleet_tracker/View/Component/CustomWidget/TrafficInformation/Detail/jam_info_place_dell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:flutter/material.dart';
 
 class JamInfoContentCard extends StatelessWidget {
-  const JamInfoContentCard({super.key});
+  const JamInfoContentCard(
+      {super.key, required this.children, required this.title});
+
+  final List<Widget> children;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +17,14 @@ class JamInfoContentCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              spreadRadius: 2,
+              blurRadius: 20,
+              offset: Offset(1, 1),
+            ),
+          ],
         ),
         child: Container(
           width: deviceWidth,
@@ -39,17 +50,13 @@ class JamInfoContentCard extends StatelessWidget {
                     bottom: 10,
                   ),
                   child: CustomText(
-                    text: '渋滞状況',
+                    text: title,
                     fontSize: 20,
                   ),
                 ),
               ),
               Column(
-                children: <Widget>[
-                  for (int i = 0; i < 4; i++) ...{
-                    JamInfoPlaceCell(),
-                  }
-                ],
+                children: children,
               ),
             ],
           ),

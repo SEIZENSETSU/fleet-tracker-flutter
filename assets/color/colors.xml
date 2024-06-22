@@ -25,5 +25,10 @@
     <!-- 行き先セルに使う色 -->
     <color name="destinationshadow_color">#DDDDDD</color>
 
+    <!-- SAPA名に使う色 -->
+    <color name="sapaName_color">#093816</color>
+
+    
+
     
 </resources>
