@@ -49,7 +49,7 @@ class _SettingTopViewState extends State<SettingTopView> {
             switchValue: true,
           ),
           SettingTileCell().withSwitch(
-            subTitle: '',
+            subTitle: '遅延情報通知',
             cellAction: (bool) {},
             switchValue: true,
           ),
