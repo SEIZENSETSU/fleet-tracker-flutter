@@ -1,4 +1,5 @@
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
+import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 
 class SapaInfoTitle extends StatelessWidget {
@@ -6,14 +7,14 @@ class SapaInfoTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(
+    return Padding(
+      padding: const EdgeInsets.only(
         top: 6,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(
               left: 10,
             ),
@@ -24,7 +25,7 @@ class SapaInfoTitle extends StatelessWidget {
           ),
           Row(
             children: <Widget>[
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(
                   right: 10,
                 ),
@@ -38,29 +39,25 @@ class SapaInfoTitle extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   right: 10,
                 ),
                 child: SizedBox(
                   width: 25,
                   height: 25,
-                  child: Icon(
-                    Icons.pedal_bike,
-                    color: Colors.black,
-                  ),
+                  child: Assets.images.component.smallCarCongestionIcon
+                      .image(color: Colors.black),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   right: 10,
                 ),
                 child: SizedBox(
                   width: 25,
                   height: 25,
-                  child: Icon(
-                    Icons.drive_eta,
-                    color: Colors.black,
-                  ),
+                  child: Assets.images.component.largeCarCongestionIcon
+                      .image(color: Colors.black),
                 ),
               ),
             ],
