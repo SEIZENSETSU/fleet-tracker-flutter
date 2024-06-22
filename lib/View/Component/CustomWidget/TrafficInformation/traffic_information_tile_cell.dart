@@ -22,7 +22,7 @@ class TrafficInformationTileCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _deviceWidth = MediaQuery.of(context).size.width;
+    double deviceWidth = MediaQuery.of(context).size.width;
 
     return Container(
       decoration: BoxDecoration(
@@ -33,7 +33,7 @@ class TrafficInformationTileCell extends StatelessWidget {
           ),
         ),
       ),
-      width: _deviceWidth,
+      width: deviceWidth,
       child: ExpansionTile(
         iconColor: Colors.grey,
         collapsedIconColor: ColorName.mainthemeColor,
@@ -41,15 +41,15 @@ class TrafficInformationTileCell extends StatelessWidget {
         title: Row(
           children: <Widget>[
             SizedBox(
-              width: _deviceWidth * 0.2,
+              width: deviceWidth * 0.2,
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Image.network(imageUrl),
               ),
             ),
             SizedBox(
-              width: _deviceWidth * 0.3,
-              height: _deviceWidth * 0.06,
+              width: deviceWidth * 0.3,
+              height: deviceWidth * 0.06,
               child: FittedBox(
                   alignment: Alignment.centerLeft,
                   fit: BoxFit.fitHeight,
@@ -58,8 +58,8 @@ class TrafficInformationTileCell extends StatelessWidget {
                   )),
             ),
             SizedBox(
-              width: _deviceWidth * 0.2,
-              height: _deviceWidth * 0.06,
+              width: deviceWidth * 0.2,
+              height: deviceWidth * 0.06,
               child: Visibility(
                 visible: count != 0,
                 child: FittedBox(

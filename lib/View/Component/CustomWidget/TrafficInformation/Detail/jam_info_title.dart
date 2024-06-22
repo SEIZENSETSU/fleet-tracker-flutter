@@ -6,7 +6,7 @@ class JamInfoTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _deviceWidth = MediaQuery.of(context).size.width;
+    double deviceWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Container(
@@ -18,12 +18,12 @@ class JamInfoTitle extends StatelessWidget {
             width: 2,
           ),
         ),
-        width: _deviceWidth,
+        width: deviceWidth,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              width: _deviceWidth * 0.9,
+              width: deviceWidth * 0.9,
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(

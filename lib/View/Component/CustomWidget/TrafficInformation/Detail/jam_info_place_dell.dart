@@ -6,7 +6,7 @@ class JamInfoPlaceCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _deviceWidth = MediaQuery.of(context).size.width;
+    double deviceWidth = MediaQuery.of(context).size.width;
     String test = '5km';
     return Container(
       decoration: BoxDecoration(
@@ -26,11 +26,34 @@ class JamInfoPlaceCell extends StatelessWidget {
                 left: 10,
                 bottom: 10,
               ),
-              width: _deviceWidth,
-              child: CustomText(
-                text: '境古河IC→五霞IC',
-                fontSize: 18,
-                color: Colors.blueAccent,
+              width: deviceWidth,
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.blueAccent,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: CustomText(
+                        text: '北習志野方向',
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 10,
+                    ),
+                    child: CustomText(
+                      text: '境古河IC→五霞IC',
+                      fontSize: 18,
+                      color: Colors.blueAccent,
+                    ),
+                  ),
+                ],
               ),
             ),
             Padding(

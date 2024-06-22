@@ -10,20 +10,20 @@ class PrefecturalRoadTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _deviceWidth = MediaQuery.of(context).size.width;
+    double deviceWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
         print(prefecturalRoadName);
         TrafficInformationDetailRoute().push(context);
       },
       child: Container(
-        width: _deviceWidth,
-        height: _deviceWidth * 0.15,
+        width: deviceWidth,
+        height: deviceWidth * 0.15,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-              width: _deviceWidth * 0.1,
+              width: deviceWidth * 0.1,
             ),
             Container(
               decoration: BoxDecoration(
@@ -34,14 +34,14 @@ class PrefecturalRoadTile extends StatelessWidget {
                   ),
                 ),
               ),
-              width: _deviceWidth * 0.9,
-              height: _deviceWidth * 0.15,
+              width: deviceWidth * 0.9,
+              height: deviceWidth * 0.15,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
-                    width: _deviceWidth * 0.7,
-                    height: _deviceWidth * 0.06,
+                    width: deviceWidth * 0.7,
+                    height: deviceWidth * 0.06,
                     child: FittedBox(
                       alignment: Alignment.centerLeft,
                       fit: BoxFit.fitHeight,
@@ -54,8 +54,8 @@ class PrefecturalRoadTile extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: _deviceWidth * 0.1,
-                    height: _deviceWidth * 0.06,
+                    width: deviceWidth * 0.1,
+                    height: deviceWidth * 0.06,
                     child: Visibility(
                       visible: true,
                       child: FittedBox(
@@ -69,8 +69,8 @@ class PrefecturalRoadTile extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: _deviceWidth * 0.1,
-                    height: _deviceWidth * 0.05,
+                    width: deviceWidth * 0.1,
+                    height: deviceWidth * 0.05,
                     child: FittedBox(
                       fit: BoxFit.fitHeight,
                       child: Icon(

@@ -20,11 +20,13 @@ class _TrafficInformationStateDetailView
         backgroundColor: ColorName.mainthemeColor,
       ),
       backgroundColor: ColorName.scaffoldBackground,
-      body: Column(
-        children: <Widget>[
-          JamInfoTitle(),
-          JamInfoContentCard(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            JamInfoTitle(),
+            JamInfoContentCard(),
+          ],
+        ),
       ),
     );
   }
