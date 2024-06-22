@@ -32,7 +32,13 @@ class _SettingTopViewState extends State<SettingTopView> {
               ),
             ),
           ),
-          SettingTileCell().withDetail(title: 'ユーザー名', detail: '充電コード無くした人'),
+          SettingTileCell().withDetail(
+            title: 'ユーザー名',
+            detail: '充電コード無くした人',
+            onTap: () {
+              // コメント投稿をする際の表示名を変更できる項目
+            },
+          ),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Align(
@@ -45,14 +51,38 @@ class _SettingTopViewState extends State<SettingTopView> {
           ),
           SettingTileCell().withSwitch(
             subTitle: 'エリア通知',
-            cellAction: (bool) {},
+            cellAction: (bool) {
+              // エリア内に入る or エリアから出るで通知
+            },
             switchValue: true,
           ),
           SettingTileCell().withSwitch(
             subTitle: '遅延情報通知',
-            cellAction: (bool) {},
+            cellAction: (bool) {
+              // 渋滞情報に変更があったら通知
+            },
             switchValue: true,
           ),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: CustomText(
+                text: 'その他',
+                fontSize: 14,
+              ),
+            ),
+          ),
+          SettingTileCell().common('使い方', onTap: () {
+            // dialog or ページを用意してこのアプリの使い方を説明する項目
+          }),
+          SettingTileCell().common('お問い合わせ', onTap: () {
+            // お問い合わせを送信するページ
+          }),
+          SettingTileCell().common('アプリをレビューする', onTap: () {
+            // ストアページのレビューへ遷移
+          }),
+          SettingTileCell().withDetail(title: 'アプリバージョン', detail: 'v1.0.0'),
         ],
       ),
     );
