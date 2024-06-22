@@ -54,7 +54,7 @@ class SettingTileCell {
               text: detail,
               fontWeight: FontWeight.w600,
               fontSize: 14,
-              color: ColorName.textBlack,
+              color: Colors.grey,
             ),
           ],
         ),
