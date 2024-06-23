@@ -2,7 +2,6 @@ import 'package:fleet_tracker/View/Component/CustomWidget/TrafficInformation/pre
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class TrafficInformationTileCell extends StatelessWidget {
   const TrafficInformationTileCell({
@@ -26,6 +25,7 @@ class TrafficInformationTileCell extends StatelessWidget {
 
     return Container(
       decoration: const BoxDecoration(
+        color: Colors.white,
         border: BorderDirectional(
           bottom: BorderSide(
             width: 1,

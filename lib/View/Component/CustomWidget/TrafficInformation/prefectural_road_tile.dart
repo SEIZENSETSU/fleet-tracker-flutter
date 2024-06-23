@@ -1,7 +1,6 @@
 import 'package:fleet_tracker/Route/router.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class PrefecturalRoadTile extends StatelessWidget {
   const PrefecturalRoadTile({super.key, required this.prefecturalRoadName});
@@ -18,6 +17,9 @@ class PrefecturalRoadTile extends StatelessWidget {
       child: Container(
         width: deviceWidth,
         height: deviceWidth * 0.15,
+        decoration: BoxDecoration(
+          color: Colors.white,
+        ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[

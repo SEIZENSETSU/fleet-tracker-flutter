@@ -43,7 +43,7 @@ class SapaInfoTile extends StatelessWidget {
                   ),
                   child: CustomText(
                     text: '(那須方向)',
-                    fontSize: 14,
+                    fontSize: 12,
                     color: ColorName.sapaNameColor,
                   ),
                 ),
