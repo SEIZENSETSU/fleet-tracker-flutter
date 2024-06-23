@@ -1,4 +1,5 @@
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
+import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
 class JamInfoContentCard extends StatelessWidget {
@@ -12,25 +13,24 @@ class JamInfoContentCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(10),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
-              color: Colors.grey,
-              spreadRadius: 2,
-              blurRadius: 20,
-              offset: Offset(1, 1),
+              color: ColorName.destinationshadowColor,
+              spreadRadius: 1.0,
+              blurRadius: 5,
             ),
           ],
         ),
         child: Container(
           width: deviceWidth,
-          margin: EdgeInsets.only(
+          margin: const EdgeInsets.only(
             top: 10,
-            bottom: 10,
+            bottom: 20,
           ),
           child: Column(
             children: <Widget>[

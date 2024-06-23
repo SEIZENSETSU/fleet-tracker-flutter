@@ -28,6 +28,9 @@ class _TrafficInformationStateDetailView
         child: Column(
           children: <Widget>[
             JamInfoTitle(),
+            SizedBox(
+              height: 20,
+            ),
             JamInfoContentCard(
               children: <Widget>[
                 for (int i = 0; i < 2; i++) ...{
@@ -35,6 +38,9 @@ class _TrafficInformationStateDetailView
                 },
               ],
               title: '渋滞情報',
+            ),
+            SizedBox(
+              height: 20,
             ),
             JamInfoContentCard(
               children: <Widget>[
