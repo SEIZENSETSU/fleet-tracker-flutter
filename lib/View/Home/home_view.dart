@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Constants/Enum/weather_state_enum.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/destination_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
@@ -93,18 +94,45 @@ class _HomeViewState extends State<HomeView> {
                       width: size.width * 0.4,
                       height: 80,
                       child: CommonCard(
+                        cardColor: WeatherStateType('sun').color(),
                         content: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            CustomText(
-                              text: '現在',
-                              fontSize: 10,
-                            ),
                             Container(
-                              width: 60,
-                              height: 60,
-                              color: Colors.red,
-                              child: Image.asset(
-                                Assets.images.component.sunIcon.path,
+                              child: Column(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.all(4.0),
+                                    child: CustomText(
+                                      text: '現在の天気',
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: CustomText(
+                                      text: WeatherStateType('sun').title(),
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                width: 60,
+                                height: 60,
+                                decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white),
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(50.0),
+                                    child: WeatherStateType('sun').image(),
+                                  ),
+                                ),
                               ),
                             ),
                           ],
@@ -122,7 +150,49 @@ class _HomeViewState extends State<HomeView> {
                       width: size.width * 0.4,
                       height: 80,
                       child: CommonCard(
-                        content: CustomText(text: 'bbb'),
+                        cardColor: WeatherStateType('rain').color(),
+                        content: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              child: Column(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.all(4.0),
+                                    child: CustomText(
+                                      text: '1時間後の天気',
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: CustomText(
+                                      text: WeatherStateType('rain').title(),
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                width: 60,
+                                height: 60,
+                                decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white),
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(50.0),
+                                    child: WeatherStateType('rain').image(),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
