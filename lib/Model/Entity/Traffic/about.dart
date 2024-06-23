@@ -3,11 +3,11 @@ import 'summary.dart';
 
 class TrafficAbout {
   final TrafficSummary summary;
-  final List<TrafficArea> data;
+  final List<TrafficArea> dataList;
 
   TrafficAbout({
     required this.summary,
-    required this.data,
+    required this.dataList,
   });
 
   factory TrafficAbout.fromJson(
@@ -15,7 +15,7 @@ class TrafficAbout {
   ) {
     return TrafficAbout(
       summary: TrafficSummary.fromJson(json['summary']),
-      data: json['data'].map<TrafficArea>((x) => TrafficArea.fromJson(x)).toList(),
+      dataList: json['data'].map<TrafficArea>((x) => TrafficArea.fromJson(x)).toList(),
     );
   }
 }
