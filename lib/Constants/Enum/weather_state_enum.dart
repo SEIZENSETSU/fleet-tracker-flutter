@@ -1,4 +1,5 @@
 import 'package:fleet_tracker/gen/assets.gen.dart';
+import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
 enum WeatherStateEnum {
@@ -58,11 +59,11 @@ class WeatherStateType {
   Color color() {
     switch (type) {
       case WeatherStateEnum.sun:
-        return const Color.fromARGB(255, 255, 213, 87);
+        return ColorName.sunColor;
       case WeatherStateEnum.cloud:
-        return Color.fromARGB(255, 190, 190, 190);
+        return ColorName.cloudColor;
       case WeatherStateEnum.rain:
-        return const Color.fromARGB(255, 109, 186, 248);
+        return ColorName.rainColor;
       default:
         return Colors.amber;
     }

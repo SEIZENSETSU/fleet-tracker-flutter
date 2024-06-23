@@ -25,5 +25,12 @@
     <!-- 行き先セルに使う色 -->
     <color name="destinationshadow_color">#DDDDDD</color>
 
+    <!-- 天気に使う色 -->
+     <color name="sun_color">#ffd557</color>
+     <color name="cloud_color">#bebebe</color>
+     <color name="rain_color">#6dbaf8</color>
+
+
+
     
 </resources>
