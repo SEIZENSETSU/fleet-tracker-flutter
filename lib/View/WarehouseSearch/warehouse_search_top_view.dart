@@ -3,6 +3,7 @@ import 'package:fleet_tracker/View/Component/CustomWidget/Card/WarehouseSearch/j
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/WarehouseSearch/japan_map_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/custom_button.dart';
 import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/cupertino.dart';
@@ -70,9 +71,6 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Noto_Sans_JP',
                     ),
-                    icon: Icon(
-                      Icons.search,
-                    ),
                     filled: true,
                     fillColor: Colors.white,
                     enabledBorder: OutlineInputBorder(
@@ -80,6 +78,22 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                     ),
                   ),
                 ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              height: 40,
+              width: size.width * 0.8,
+              child: CustomButton(
+                isFilledColor: true,
+                primaryColor: ColorName.mainthemeColor,
+                text: '検索',
+                onTap: () {
+                  // キーワード検索で検索結果画面にいく
+                  WarehouseSearchResultRoute(keyword: 'エルフーズ').push(context);
+                },
               ),
             ),
             const SizedBox(
