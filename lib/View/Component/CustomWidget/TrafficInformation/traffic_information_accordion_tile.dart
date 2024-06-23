@@ -10,14 +10,12 @@ class TrafficInformationTileCell extends StatelessWidget {
     required this.count,
     required this.prefectureName,
     required this.prefecturalRoadList,
-    required this.index,
   });
 
   final String imageUrl;
   final int count;
   final String prefectureName;
   final List<String> prefecturalRoadList;
-  final int index;
 
   @override
   Widget build(BuildContext context) {

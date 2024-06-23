@@ -2,8 +2,10 @@ import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:flutter/material.dart';
 
 class SapaInfoCongestionIcon extends StatelessWidget {
-  const SapaInfoCongestionIcon({super.key, required this.congestion});
+  const SapaInfoCongestionIcon(
+      {super.key, required this.congestion, required this.iconColor});
   final String congestion;
+  final Color iconColor;
 
   @override
   Widget build(BuildContext context) {

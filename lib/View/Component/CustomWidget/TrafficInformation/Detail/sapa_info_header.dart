@@ -2,8 +2,8 @@ import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 
-class SapaInfoTitle extends StatelessWidget {
-  const SapaInfoTitle({super.key});
+class SapaInfoHeader extends StatelessWidget {
+  const SapaInfoHeader({super.key});
 
   @override
   Widget build(BuildContext context) {

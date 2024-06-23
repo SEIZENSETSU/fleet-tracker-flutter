@@ -1,8 +1,8 @@
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:flutter/material.dart';
 
-class JamInfoPlaceCell extends StatelessWidget {
-  const JamInfoPlaceCell({super.key});
+class JamInfoPlaceTile extends StatelessWidget {
+  const JamInfoPlaceTile({super.key});
 
   @override
   Widget build(BuildContext context) {

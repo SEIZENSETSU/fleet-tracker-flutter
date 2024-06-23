@@ -2,8 +2,8 @@ import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
-class JamInfoContentCard extends StatelessWidget {
-  const JamInfoContentCard(
+class InfoContentCard extends StatelessWidget {
+  const InfoContentCard(
       {super.key, required this.children, required this.title});
 
   final List<Widget> children;

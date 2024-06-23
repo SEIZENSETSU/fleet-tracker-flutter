@@ -55,19 +55,28 @@ class SapaInfoTile extends StatelessWidget {
                   padding: const EdgeInsets.only(
                     right: 10,
                   ),
-                  child: SapaInfoCongestionIcon(congestion: '空'),
+                  child: SapaInfoCongestionIcon(
+                    congestion: '空',
+                    iconColor: Colors.green,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
                     right: 10,
                   ),
-                  child: SapaInfoCongestionIcon(congestion: '空'),
+                  child: SapaInfoCongestionIcon(
+                    congestion: '空',
+                    iconColor: Colors.green,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
                     right: 10,
                   ),
-                  child: SapaInfoCongestionIcon(congestion: '空'),
+                  child: SapaInfoCongestionIcon(
+                    congestion: '空',
+                    iconColor: Colors.green,
+                  ),
                 ),
               ],
             )

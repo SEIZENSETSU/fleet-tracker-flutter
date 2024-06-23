@@ -1,4 +1,4 @@
-import 'package:fleet_tracker/View/Component/CustomWidget/TrafficInformation/traffic_information_tile_cell.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/TrafficInformation/traffic_information_accordion_tile.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
@@ -163,7 +163,6 @@ class _TrafficInformationStateTopViewState
             count: count,
             prefectureName: prefectureName,
             prefecturalRoadList: prefecturalRoadList,
-            index: index,
           );
         },
       ),
