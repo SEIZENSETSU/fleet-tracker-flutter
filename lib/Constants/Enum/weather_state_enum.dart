@@ -30,7 +30,10 @@ class WeatherStateType {
       case WeatherState.sun:
         return Image.asset(Assets.images.component.sunIcon.path);
       case WeatherState.cloud:
-        return Image.asset(Assets.images.component.cloudIcon.path);
+        return Image.asset(
+          Assets.images.component.cloudIcon.path,
+          color: Colors.grey,
+        );
       case WeatherState.rain:
         return Image.asset(Assets.images.component.rainIcon.path);
 
@@ -57,7 +60,7 @@ class WeatherStateType {
       case WeatherState.sun:
         return const Color.fromARGB(255, 255, 213, 87);
       case WeatherState.cloud:
-        return Colors.grey;
+        return Color.fromARGB(255, 190, 190, 190);
       case WeatherState.rain:
         return const Color.fromARGB(255, 109, 186, 248);
       default:

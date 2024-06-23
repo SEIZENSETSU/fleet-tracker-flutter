@@ -150,7 +150,7 @@ class _HomeViewState extends State<HomeView> {
                       width: size.width * 0.4,
                       height: 80,
                       child: CommonCard(
-                        cardColor: WeatherStateType('rain').color(),
+                        cardColor: WeatherStateType('cloud').color(),
                         content: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -186,7 +186,7 @@ class _HomeViewState extends State<HomeView> {
                                   fit: BoxFit.contain,
                                   child: Padding(
                                     padding: const EdgeInsets.all(50.0),
-                                    child: WeatherStateType('rain').image(),
+                                    child: WeatherStateType('cloud').image(),
                                   ),
                                 ),
                               ),
