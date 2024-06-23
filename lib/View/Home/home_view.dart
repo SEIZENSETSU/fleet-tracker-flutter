@@ -32,7 +32,7 @@ class _HomeViewState extends State<HomeView> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               //
-              // エリアの天気情報の表示部
+              // 現在時刻・現在地の表示部
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Align(
@@ -46,6 +46,73 @@ class _HomeViewState extends State<HomeView> {
               Container(
                 color: Colors.white,
                 height: 100,
+                child: SizedBox(
+                  width: size.width * 0.9,
+                  child: CommonCard(
+                    content: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          width: size.width * 0.5,
+                          height: 90,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 30,
+                                child: const Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: CustomText(
+                                    text: '現在地',
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height: 30,
+                                child: const Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: CustomText(
+                                    text: '千葉県習志野',
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height: 30,
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 8.0,
+                                    vertical: 4.0,
+                                  ),
+                                  child: CustomText(
+                                    text: '〇〇道を走行中',
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: size.width * 0.3,
+                          height: 70,
+                          color: Color.fromARGB(255, 232, 231, 231),
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: CustomText(
+                                text: '10:00',
+                                color: ColorName.mainthemeColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
               //
               // 近くのエリア表示部
@@ -142,7 +209,7 @@ class _HomeViewState extends State<HomeView> {
                     SizedBox(
                       width: size.width * 0.1,
                       height: size.width * 0.1,
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_forward,
                       ),
                     ),
@@ -150,7 +217,7 @@ class _HomeViewState extends State<HomeView> {
                       width: size.width * 0.4,
                       height: 80,
                       child: CommonCard(
-                        cardColor: WeatherStateType('cloud').color(),
+                        cardColor: WeatherStateType('rain').color(),
                         content: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -180,13 +247,14 @@ class _HomeViewState extends State<HomeView> {
                                 width: 60,
                                 height: 60,
                                 decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white),
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                ),
                                 child: FittedBox(
                                   fit: BoxFit.contain,
                                   child: Padding(
                                     padding: const EdgeInsets.all(50.0),
-                                    child: WeatherStateType('cloud').image(),
+                                    child: WeatherStateType('rain').image(),
                                   ),
                                 ),
                               ),
@@ -213,7 +281,7 @@ class _HomeViewState extends State<HomeView> {
               Container(
                 height: 80,
                 width: size.width * 0.9,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                 ),
                 child: Row(
@@ -305,6 +373,11 @@ class _HomeViewState extends State<HomeView> {
                     )
                   ],
                 ),
+              ),
+              //
+              // 余白
+              SizedBox(
+                height: 50,
               )
             ],
           ),
