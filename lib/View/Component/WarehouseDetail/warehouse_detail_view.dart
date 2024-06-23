@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Model/Entity/warehouse.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
@@ -8,9 +9,7 @@ import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/View/Component/WarehouseDetail/comment_tile_cell.dart';
 import 'package:fleet_tracker/View/Component/WarehouseDetail/warehouse_map.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../../Constants/Enum/warehouse_delay_state_enum.dart';
 
@@ -72,7 +71,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: CustomText(
-                    text: '遅延状況',
+                    text: Strings.DELAY_STATUS,
                     color: ColorName.textBlack,
                     fontSize: 14,
                   ),
@@ -105,7 +104,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: CustomText(
-                    text: '操作',
+                    text: Strings.OPERATION_ACTIONS,
                     color: ColorName.textBlack,
                     fontSize: 14,
                   ),
@@ -203,7 +202,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: CustomText(
-                    text: 'この工場に関するつぶやき',
+                    text: Strings.TWEET_ABOUT_FACTORY,
                     color: ColorName.textBlack,
                     fontSize: 14,
                   ),
@@ -215,9 +214,9 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                 child: ListView.builder(
                     itemCount: commentList.length,
                     itemBuilder: (context, index) {
-                      if (commentList.length != 0) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 15),
+                      if (commentList.isNotEmpty) {
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 15),
                           child: CommentTileCell(
                             userComment: 'なんか遅延してたよここ',
                             createAt: '2024年6月21日 9時20分',
@@ -239,8 +238,8 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                     Expanded(
                       flex: 3,
                       child: Container(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
                           child: TextField(
                             // フォーカス関連は時間かかるのでスキップ
                             // autofocus: true,

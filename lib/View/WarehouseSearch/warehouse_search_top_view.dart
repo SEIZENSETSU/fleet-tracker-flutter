@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/WarehouseSearch/japan_map_deformed.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
@@ -49,7 +50,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: CustomText(
-                  text: 'キーワードから探す',
+                  text: Strings.SEARCH_WITH_KEYWORD,
                   color: ColorName.textBlack,
                   fontSize: 14,
                 ),
@@ -110,7 +111,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: CustomText(
-                  text: '地方から探す',
+                  text: Strings.SEARCH_WITH_REGION,
                   color: ColorName.textBlack,
                   fontSize: 14,
                 ),
@@ -131,7 +132,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: CustomText(
-                  text: 'お気に入りから探す',
+                  text: Strings.SEARCH_WITH_REGION,
                   color: ColorName.textBlack,
                   fontSize: 14,
                 ),

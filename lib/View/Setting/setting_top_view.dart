@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Setting/setting_tile_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
@@ -27,7 +28,7 @@ class _SettingTopViewState extends State<SettingTopView> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: CustomText(
-                text: 'アカウント設定',
+                text: Strings.SETTING_ACOUNT_INFO,
                 fontSize: 14,
               ),
             ),
@@ -44,7 +45,7 @@ class _SettingTopViewState extends State<SettingTopView> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: CustomText(
-                text: '通知設定',
+                text: Strings.SETTING_NOTIFICATION,
                 fontSize: 14,
               ),
             ),
@@ -68,7 +69,7 @@ class _SettingTopViewState extends State<SettingTopView> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: CustomText(
-                text: 'その他',
+                text: Strings.SETTING_OTHER,
                 fontSize: 14,
               ),
             ),

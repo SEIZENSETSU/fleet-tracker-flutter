@@ -1,13 +1,10 @@
 import 'package:fleet_tracker/Constants/Enum/weather_state_enum.dart';
+import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/destination_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
-import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 import '../Component/CustomWidget/custom_text.dart';
 
 class HomeView extends StatefulWidget {
@@ -38,7 +35,7 @@ class _HomeViewState extends State<HomeView> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: CustomText(
-                    text: '現在地・現在時刻',
+                    text: Strings.CURRENT_LOCATION_AND_TIME,
                     fontSize: 14,
                   ),
                 ),
@@ -97,11 +94,11 @@ class _HomeViewState extends State<HomeView> {
                         Container(
                           width: size.width * 0.3,
                           height: 70,
-                          color: Color.fromARGB(255, 232, 231, 231),
-                          child: FittedBox(
+                          color: const Color.fromARGB(255, 232, 231, 231),
+                          child: const FittedBox(
                             fit: BoxFit.contain,
                             child: Padding(
-                              padding: const EdgeInsets.all(4.0),
+                              padding: EdgeInsets.all(4.0),
                               child: CustomText(
                                 text: '10:00',
                                 color: ColorName.mainthemeColor,
@@ -121,7 +118,7 @@ class _HomeViewState extends State<HomeView> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: CustomText(
-                    text: '現在地から一番近くのエリア',
+                    text: Strings.NEAR_BY_AREAS,
                     fontSize: 14,
                   ),
                 ),
@@ -283,7 +280,7 @@ class _HomeViewState extends State<HomeView> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: CustomText(
-                    text: '機能',
+                    text: Strings.APP_FUNCTION,
                     fontSize: 14,
                   ),
                 ),

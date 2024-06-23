@@ -19,4 +19,28 @@ class Strings {
 
   //  セル
   static const String GO_WAREHOUSE_PAGE = '工場詳細ページへ→';
+
+  // ホーム
+  static const String CURRENT_LOCATION_AND_TIME = '現在地・現在時刻';
+  static const String NEAR_BY_AREAS = '現在地から一番近くのエリア';
+  static const String WEATHER_OF_AREAS = 'エリアの天気';
+  static const String APP_FUNCTION = '機能';
+
+  // 倉庫検索
+  static const String SEARCH_WITH_KEYWORD = 'キーワードから探す';
+  static const String SEARCH_WITH_REGION = '地方から探す';
+  static const String SEARCH_WITH_FAVORITE = 'お気に入りから探す';
+  static const String WAREHOUSE_LIST = '倉庫一覧';
+
+  // 遅延状況登録
+  static const String DELAY_STATUS = '遅延状況';
+  static const String OPERATION_ACTIONS = '操作';
+  static const String TWEET_ABOUT_FACTORY = 'この工場に関するつぶやき';
+
+  // 交通情報
+
+  // 設定
+  static const String SETTING_ACOUNT_INFO = 'アカウント設定';
+  static const String SETTING_NOTIFICATION = '通知設定';
+  static const String SETTING_OTHER = 'その他';
 }

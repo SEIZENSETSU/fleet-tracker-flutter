@@ -1,9 +1,8 @@
+import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../../Model/Entity/warehouse.dart';
 import '../../../Route/router.dart';
@@ -45,7 +44,7 @@ class _WarehouseSearchResultViewState extends State<WarehouseSearchResultView> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: CustomText(
-                  text: '倉庫一覧',
+                  text: Strings.WAREHOUSE_LIST,
                   color: ColorName.textBlack,
                   fontSize: 14,
                 ),
