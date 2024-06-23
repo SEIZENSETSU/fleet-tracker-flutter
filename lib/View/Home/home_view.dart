@@ -129,7 +129,17 @@ class _HomeViewState extends State<HomeView> {
               Stack(
                 alignment: AlignmentDirectional.center,
                 children: [
-                  Container(height: 400, color: Colors.white),
+                  Container(
+                    height: 400,
+                    color: Colors.white,
+                    // 後日検討するために残しておきます
+                    // decoration: BoxDecoration(
+                    //   image: DecorationImage(
+                    //     image: Assets.images.component.sunBackground.provider(),
+                    //     opacity: 0.5,
+                    //   ),
+                    // ),
+                  ),
                   DestinationCard(
                     title: '東関東エリア',
                     delayStateType: 'normal',
