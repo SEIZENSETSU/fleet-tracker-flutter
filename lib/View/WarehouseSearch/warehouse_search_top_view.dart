@@ -49,7 +49,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 alignment: Alignment.centerLeft,
                 child: CustomText(
                   text: 'キーワードから探す',
-                  color: Colors.grey,
+                  color: ColorName.textBlack,
                   fontSize: 14,
                 ),
               ),
@@ -97,7 +97,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 alignment: Alignment.centerLeft,
                 child: CustomText(
                   text: '地方から探す',
-                  color: Colors.grey,
+                  color: ColorName.textBlack,
                   fontSize: 14,
                 ),
               ),
@@ -118,7 +118,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 alignment: Alignment.centerLeft,
                 child: CustomText(
                   text: 'お気に入りから探す',
-                  color: Colors.grey,
+                  color: ColorName.textBlack,
                   fontSize: 14,
                 ),
               ),

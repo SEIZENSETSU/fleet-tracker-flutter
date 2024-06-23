@@ -40,7 +40,6 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
     return Scaffold(
       backgroundColor: ColorName.scaffoldBackground,
       appBar: CustomAppBar(
-        // backgroundColor: stateType.color().withAlpha(60),
         isBackButton: true,
         title: widget.warehouse.name,
         actions: [
@@ -76,14 +75,13 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                   alignment: Alignment.centerLeft,
                   child: CustomText(
                     text: '遅延状況',
-                    color: Colors.grey,
+                    color: ColorName.textBlack,
                     fontSize: 14,
                   ),
                 ),
               ),
               Container(
                 width: size.width * 0.95,
-                // height: size.height * 0.4,
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: CommonCard(
@@ -110,7 +108,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                   alignment: Alignment.centerLeft,
                   child: CustomText(
                     text: '操作',
-                    color: Colors.grey,
+                    color: ColorName.textBlack,
                     fontSize: 14,
                   ),
                 ),
@@ -154,39 +152,42 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                         ),
                       ),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: FractionallySizedBox(
-                        heightFactor: 1,
-                        child: GestureDetector(
-                          onTap: () {
-                            // 何にしようかな
-                            Log.echo('${widget.warehouse.areaId}を表示とかでもいい？');
-                          },
-                          child: const Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: CommonCard(
-                              content: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 10, right: 5),
-                                    child: Icon(
-                                      Icons.factory,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: CustomText(text: '倉庫情報'),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
+                    //
+                    // 工場への操作が今のところ未定なため隠す
+                    // ここ剥がせば綺麗に二つ横並び
+                    // Expanded(
+                    //   flex: 1,
+                    //   child: FractionallySizedBox(
+                    //     heightFactor: 1,
+                    //     child: GestureDetector(
+                    //       onTap: () {
+                    //         // 何にしようかな
+                    //         Log.echo('${widget.warehouse.areaId}を表示とかでもいい？');
+                    //       },
+                    //       child: const Padding(
+                    //         padding: const EdgeInsets.all(4.0),
+                    //         child: CommonCard(
+                    //           content: Row(
+                    //             mainAxisAlignment: MainAxisAlignment.start,
+                    //             children: [
+                    //               Padding(
+                    //                 padding:
+                    //                     EdgeInsets.only(left: 10, right: 5),
+                    //                 child: Icon(
+                    //                   Icons.factory,
+                    //                 ),
+                    //               ),
+                    //               Padding(
+                    //                 padding: const EdgeInsets.all(4.0),
+                    //                 child: CustomText(text: '倉庫情報'),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // )
                   ],
                 ),
               ),
@@ -205,7 +206,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                   alignment: Alignment.centerLeft,
                   child: CustomText(
                     text: 'この工場に関するつぶやき',
-                    color: Colors.grey,
+                    color: ColorName.textBlack,
                     fontSize: 14,
                   ),
                 ),
