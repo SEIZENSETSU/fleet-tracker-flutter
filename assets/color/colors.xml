@@ -25,5 +25,14 @@
     <!-- 行き先セルに使う色 -->
     <color name="destinationshadow_color">#DDDDDD</color>
 
+    <!-- SAPA名に使う色 -->
+    <color name="sapa_name_color">#093816</color>
+
+    <!-- 渋滞情報ページタイトルに使う色 -->
+    <color name="jam_info_title_color">#228769</color>
+    
+
+    
+
     
 </resources>
