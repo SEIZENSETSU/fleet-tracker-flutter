@@ -149,42 +149,6 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                         ),
                       ),
                     ),
-                    //
-                    // 工場への操作が今のところ未定なため隠す
-                    // ここ剥がせば綺麗に二つ横並び
-                    // Expanded(
-                    //   flex: 1,
-                    //   child: FractionallySizedBox(
-                    //     heightFactor: 1,
-                    //     child: GestureDetector(
-                    //       onTap: () {
-                    //         // 何にしようかな
-                    //         Log.echo('${widget.warehouse.areaId}を表示とかでもいい？');
-                    //       },
-                    //       child: const Padding(
-                    //         padding: const EdgeInsets.all(4.0),
-                    //         child: CommonCard(
-                    //           content: Row(
-                    //             mainAxisAlignment: MainAxisAlignment.start,
-                    //             children: [
-                    //               Padding(
-                    //                 padding:
-                    //                     EdgeInsets.only(left: 10, right: 5),
-                    //                 child: Icon(
-                    //                   Icons.factory,
-                    //                 ),
-                    //               ),
-                    //               Padding(
-                    //                 padding: const EdgeInsets.all(4.0),
-                    //                 child: CustomText(text: '倉庫情報'),
-                    //               ),
-                    //             ],
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // )
                   ],
                 ),
               ),

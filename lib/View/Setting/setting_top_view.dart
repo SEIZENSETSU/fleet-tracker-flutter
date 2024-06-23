@@ -83,6 +83,9 @@ class _SettingTopViewState extends State<SettingTopView> {
           SettingTileCell().common('アプリをレビューする', onTap: () {
             // ストアページのレビューへ遷移
           }),
+          SettingTileCell().common('ライセンス', onTap: () {
+            // ライセンスを表示
+          }),
           SettingTileCell().withDetail(title: 'アプリバージョン', detail: 'v1.0.0'),
         ],
       ),
