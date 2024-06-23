@@ -25,15 +25,29 @@ class SapaInfoTile extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 10,
-              ),
-              child: CustomText(
-                text: '那須高原SA',
-                fontSize: 18,
-                color: ColorName.sapaNameColor,
-              ),
+            Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 10,
+                  ),
+                  child: CustomText(
+                    text: '那須高原SA',
+                    fontSize: 18,
+                    color: ColorName.sapaNameColor,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 10,
+                  ),
+                  child: CustomText(
+                    text: '(那須方向)',
+                    fontSize: 14,
+                    color: ColorName.sapaNameColor,
+                  ),
+                ),
+              ],
             ),
             Row(
               children: <Widget>[

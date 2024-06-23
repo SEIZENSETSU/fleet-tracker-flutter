@@ -16,7 +16,7 @@ class JamInfoTitle extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         width: deviceWidth,
-        height: 70,
+        height: 80,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -49,6 +49,7 @@ class JamInfoTitle extends StatelessWidget {
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Container(
                   child: Row(
