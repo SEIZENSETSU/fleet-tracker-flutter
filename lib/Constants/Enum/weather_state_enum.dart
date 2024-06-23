@@ -28,17 +28,17 @@ class WeatherStateType {
   Image image() {
     switch (type) {
       case WeatherState.sun:
-        return Image.asset(Assets.images.component.sunIcon.path);
+        return Image.asset(Assets.images.icon.sunIcon.path);
       case WeatherState.cloud:
         return Image.asset(
-          Assets.images.component.cloudIcon.path,
+          Assets.images.icon.cloudIcon.path,
           color: Colors.grey,
         );
       case WeatherState.rain:
-        return Image.asset(Assets.images.component.rainIcon.path);
+        return Image.asset(Assets.images.icon.rainIcon.path);
 
       default:
-        return Image.asset(Assets.images.component.sunIcon.path);
+        return Image.asset(Assets.images.icon.sunIcon.path);
     }
   }
 

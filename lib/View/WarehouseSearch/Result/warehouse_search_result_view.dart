@@ -156,7 +156,7 @@ class _WarehouseSearchResultViewState extends State<WarehouseSearchResultView> {
                                           heightFactor: 0.5,
                                           child: Container(
                                             child: Assets
-                                                .images.component.factoryIcon
+                                                .images.icon.factoryIcon
                                                 .image(),
                                           ),
                                         ),

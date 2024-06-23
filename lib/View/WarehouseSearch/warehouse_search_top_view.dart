@@ -180,8 +180,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                                     child: FractionallySizedBox(
                                       heightFactor: 0.5,
                                       child: Container(
-                                        child: Assets
-                                            .images.component.factoryIcon
+                                        child: Assets.images.icon.factoryIcon
                                             .image(),
                                       ),
                                     ),

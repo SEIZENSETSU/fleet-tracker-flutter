@@ -54,8 +54,8 @@ class UserInputCell extends StatelessWidget {
                           child: Container(
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: Assets.images.component.factoryIcon
-                                    .provider(),
+                                image:
+                                    Assets.images.icon.factoryIcon.provider(),
                               ),
                             ),
                           ),

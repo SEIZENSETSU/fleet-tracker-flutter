@@ -42,7 +42,7 @@ class CommentTileCell extends StatelessWidget {
                       color: Colors.grey,
                     ),
                     child: Container(
-                      child: Assets.images.component.userIcon.image(),
+                      child: Assets.images.icon.userIcon.image(),
                     ),
                   ),
                 ),

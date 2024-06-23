@@ -29,7 +29,7 @@ class DestinationArrow extends StatelessWidget {
             fit: BoxFit.contain,
             child: Padding(
               padding: const EdgeInsets.all(200.0),
-              child: Assets.images.component.destinationArrowIcon.image(),
+              child: Assets.images.icon.destinationArrowIcon.image(),
             ),
           ),
         ),
