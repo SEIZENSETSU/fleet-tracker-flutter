@@ -36,7 +36,7 @@ class JamInfoContentCard extends StatelessWidget {
             children: <Widget>[
               Container(
                 width: deviceWidth,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
                       width: 3,
