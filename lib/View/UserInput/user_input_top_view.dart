@@ -20,7 +20,7 @@ class _UserInputTopViewState extends State<UserInputTopView> {
     return Scaffold(
       backgroundColor: ColorName.scaffoldBackground,
       appBar: CustomAppBar(
-        backgroundColor: ColorName.mainthemeColor,
+        title: 'エリア内倉庫一覧',
       ),
       body: Center(
         child: SingleChildScrollView(
