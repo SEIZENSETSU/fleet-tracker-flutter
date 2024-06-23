@@ -1,24 +1,24 @@
 import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 
-enum WeatherState {
+enum WeatherStateEnum {
   sun,
   cloud,
   rain,
 }
 
 class WeatherStateType {
-  late WeatherState type;
+  late WeatherStateEnum type;
   WeatherStateType(String rowType) {
     switch (rowType) {
       case 'sun':
-        type = WeatherState.sun;
+        type = WeatherStateEnum.sun;
         break;
       case 'cloud':
-        type = WeatherState.cloud;
+        type = WeatherStateEnum.cloud;
         break;
       case 'rain':
-        type = WeatherState.rain;
+        type = WeatherStateEnum.rain;
         break;
       default:
         throw Exception('Unknown type: $rowType');
@@ -27,14 +27,14 @@ class WeatherStateType {
 
   Image image() {
     switch (type) {
-      case WeatherState.sun:
+      case WeatherStateEnum.sun:
         return Image.asset(Assets.images.icon.sunIcon.path);
-      case WeatherState.cloud:
+      case WeatherStateEnum.cloud:
         return Image.asset(
           Assets.images.icon.cloudIcon.path,
           color: Colors.grey,
         );
-      case WeatherState.rain:
+      case WeatherStateEnum.rain:
         return Image.asset(Assets.images.icon.rainIcon.path);
 
       default:
@@ -44,11 +44,11 @@ class WeatherStateType {
 
   String title() {
     switch (type) {
-      case WeatherState.sun:
+      case WeatherStateEnum.sun:
         return '晴れ';
-      case WeatherState.cloud:
+      case WeatherStateEnum.cloud:
         return 'くもり';
-      case WeatherState.rain:
+      case WeatherStateEnum.rain:
         return '雨';
       default:
         return '';
@@ -57,11 +57,11 @@ class WeatherStateType {
 
   Color color() {
     switch (type) {
-      case WeatherState.sun:
+      case WeatherStateEnum.sun:
         return const Color.fromARGB(255, 255, 213, 87);
-      case WeatherState.cloud:
+      case WeatherStateEnum.cloud:
         return Color.fromARGB(255, 190, 190, 190);
-      case WeatherState.rain:
+      case WeatherStateEnum.rain:
         return const Color.fromARGB(255, 109, 186, 248);
       default:
         return Colors.amber;
