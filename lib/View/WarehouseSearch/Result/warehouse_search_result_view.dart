@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../../Model/Entity/warehouse.dart';
+import '../../../Route/router.dart';
 import '../../../gen/assets.gen.dart';
 import '../../Component/CustomWidget/Card/common_card.dart';
 
@@ -49,27 +51,50 @@ class _WarehouseSearchResultViewState extends State<WarehouseSearchResultView> {
                 ),
               ),
             ),
-            Container(
-              height: 50,
-              width: size.width * 0.5,
-              decoration: BoxDecoration(
-                color: ColorName.mainthemeColor,
-                borderRadius: BorderRadius.circular(20),
+            //
+            // 地域検索かキーワード検索かで切り替える
+            if (widget.area != null)
+              Container(
+                height: 50,
+                width: size.width * 0.5,
+                decoration: BoxDecoration(
+                  color: ColorName.mainthemeColor,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.location_on,
+                      color: Colors.red,
+                    ),
+                    CustomText(
+                      text: widget.area!,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.location_on,
-                    color: Colors.red,
+            if (widget.keyword != null)
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  height: 50,
+                  width: size.width * 0.5,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.search,
+                      ),
+                      CustomText(
+                        text: '"${widget.keyword!}"を含む',
+                        fontSize: 14,
+                      ),
+                    ],
                   ),
-                  CustomText(
-                    text: widget.area!,
-                    color: Colors.white,
-                  ),
-                ],
+                ),
               ),
-            ),
             const SizedBox(
               height: 20,
             ),
@@ -110,6 +135,20 @@ class _WarehouseSearchResultViewState extends State<WarehouseSearchResultView> {
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 20),
                                 child: CommonCard(
+                                  onTap: () {
+                                    // カードをタップして倉庫詳細ページへ遷移
+                                    WarehouseDetailRoute(
+                                      $extra: Warehouse(
+                                        id: 1,
+                                        areaId: 1,
+                                        name: 'エルフーズ東京',
+                                        latitude: 35.681236,
+                                        longitude: 139.767125,
+                                      ),
+                                      traficstateCount: [10, 2, 34, 1, 0],
+                                      delayStateType: 'pause',
+                                    ).push(context);
+                                  },
                                   content: Row(
                                     children: [
                                       Expanded(
