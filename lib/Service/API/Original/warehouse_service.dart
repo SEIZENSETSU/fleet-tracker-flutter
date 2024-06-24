@@ -101,9 +101,9 @@ class WarehouseService {
       }
       Map<String, dynamic> jsonResponse = json.decode(response.body);
 
-      WarehouseSearchInfo warehouseSearchResponse = WarehouseSearchInfo.fromJson(jsonResponse);
+      WarehouseSearchInfo warehouseSearchInfo = WarehouseSearchInfo.fromJson(jsonResponse);
       Log.echo('取得成功');
-      return warehouseSearchResponse;
+      return warehouseSearchInfo;
     } catch (e) {
       Log.echo('エラーが発生しました $e');
       return null;

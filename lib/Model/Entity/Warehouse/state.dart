@@ -1,12 +1,12 @@
 import 'package:fleet_tracker/Constants/Enum/warehouse_delay_state_enum.dart';
-import 'package:fleet_tracker/Model/Entity/Warehouse/delay.dart';
+import 'package:fleet_tracker/Model/Entity/delay_time_detail.dart';
 
 class WarehouseState {
   final int warehouseId;
   final int warehouseAreaId;
   final String warehouseName;
   final WarehouseDelayState averageDelayState;
-  final List<WarehouseDelayInfo> delayTimeDetail;
+  final List<DelayTimeDetail> delayTimeDetails;
   final int distance;
 
   WarehouseState({
@@ -14,7 +14,7 @@ class WarehouseState {
     required this.warehouseAreaId,
     required this.warehouseName,
     required this.averageDelayState,
-    required this.delayTimeDetail,
+    required this.delayTimeDetails,
     required this.distance,
   });
 
@@ -24,7 +24,7 @@ class WarehouseState {
       warehouseAreaId: json['warehouse_area_id'],
       warehouseName: json['warehouse_name'],
       averageDelayState: WarehouseDelayStateType(json['average_delay_state']).type,
-      delayTimeDetail: json['delay_time_detail'].map<WarehouseDelayInfo>((x) => WarehouseDelayInfo.fromJson(x)).toList(),
+      delayTimeDetails: json['delay_time_detail'].map<DelayTimeDetail>((x) => DelayTimeDetail.fromJson(x)).toList(),
       distance: json['distance'],
     );
   }

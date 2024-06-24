@@ -41,7 +41,6 @@ class DelayService {
       }
 
       Log.echo('取得成功');
-      Log.echo(delayInformationList[0].delayTimeDetail[0].delayState);
       return delayInformationList;
     } catch (e) {
       Log.echo('エラーが発生しました $e');

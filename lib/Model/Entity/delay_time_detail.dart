@@ -1,5 +1,7 @@
+import 'package:fleet_tracker/Constants/Enum/warehouse_delay_state_enum.dart';
+
 class DelayTimeDetail {
-  final String delayState;
+  final WarehouseDelayState delayState;
   final int answerCount;
 
   DelayTimeDetail({
@@ -9,7 +11,7 @@ class DelayTimeDetail {
 
   factory DelayTimeDetail.fromJson(Map<String, dynamic> json) {
     return DelayTimeDetail(
-      delayState: json['delay_state'],
+      delayState: WarehouseDelayStateType(json['delay_state']).type,
       answerCount: json['answer_count'],
     );
   }
