@@ -30,6 +30,9 @@
      <color name="cloud_color">#bebebe</color>
      <color name="rain_color">#6dbaf8</color>
 
+    <!-- 日本地図に使う色 -->
+     <color name="japan_map_card_border">#bdbdbd</color>
+
 
 
     

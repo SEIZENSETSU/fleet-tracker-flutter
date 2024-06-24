@@ -23,7 +23,7 @@ class JapanMapCard extends StatelessWidget {
           color: ColorName.mainthemeColor,
           borderRadius: BorderRadius.circular(5),
           border: Border.all(
-            color: const Color.fromARGB(255, 189, 189, 189),
+            color: ColorName.japanMapCardBorder,
           ),
           boxShadow: const [
             BoxShadow(
