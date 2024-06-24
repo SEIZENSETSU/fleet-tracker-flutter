@@ -9,9 +9,9 @@ class WarehouseSearchInfo {
 
   WarehouseSearchInfo({
     required this.isInvading,
-    required this.warehouses,
+    this.warehouses,
     required this.favoriteWarehouses,
-    required this.warehouseAreas,
+    this.warehouseAreas,
   });
 
   factory WarehouseSearchInfo.fromJson(
