@@ -174,7 +174,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
               ),
               Container(
                 height: 400,
-                color: const Color.fromRGBO(221, 221, 221, 1),
+                color: ColorName.commentAreaBackground,
                 child: ListView.builder(
                     itemCount: commentList.length,
                     itemBuilder: (context, index) {
