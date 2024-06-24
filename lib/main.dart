@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/Service/Package/BackgroundLocator/background_locator_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +16,13 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   WidgetsFlutterBinding.ensureInitialized();
-  Log.echo('main', symbol: '🚀');
+
+  /// BackgroundLocatorServiceの初期化
   await BackgroundLocatorService().initialize();
+
+  /// Isolateからのメッセージを受信する
+  BackgroundLocatorService().observer();
+
   runApp(const ProviderScope(child: MyApp()));
 }
 
