@@ -6,6 +6,7 @@ import 'package:fleet_tracker/View/Component/CustomWidget/UserInput/user_input_c
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_button.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/spacer_and_divider.dart';
 import 'package:fleet_tracker/View/Component/WarehouseDetail/comment_tile.dart';
 import 'package:fleet_tracker/View/Component/WarehouseDetail/warehouse_map.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
@@ -57,13 +58,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                 latitude: widget.warehouse.latitude,
                 longitude: widget.warehouse.longitude,
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Divider(),
-              const SizedBox(
-                height: 10,
-              ),
+              const SpacerAndDivider(topHeight: 10, bottomHeight: 10),
               //
               // 倉庫遅延状況セル表示部分
               const Padding(
@@ -90,13 +85,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Divider(),
-              const SizedBox(
-                height: 10,
-              ),
+              const SpacerAndDivider(topHeight: 10, bottomHeight: 10),
               //
               // 操作ボタン表示部分
               const Padding(
@@ -152,13 +141,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Divider(),
-              const SizedBox(
-                height: 10,
-              ),
+              const SpacerAndDivider(topHeight: 10, bottomHeight: 10),
               //
               // コメント表示部
               const Padding(

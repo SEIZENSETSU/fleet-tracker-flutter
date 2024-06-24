@@ -5,6 +5,7 @@ import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart'
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/WarehouseSearch/japan_map_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_button.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/spacer_and_divider.dart';
 import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/cupertino.dart';
@@ -97,13 +98,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 },
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Divider(),
-            const SizedBox(
-              height: 10,
-            ),
+            const SpacerAndDivider(topHeight: 20, bottomHeight: 10),
             //
             // 地方から探す表示部分
             const Padding(
@@ -118,13 +113,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
               ),
             ),
             const JapanMapDefomed(),
-            const SizedBox(
-              height: 20,
-            ),
-            const Divider(),
-            const SizedBox(
-              height: 10,
-            ),
+            const SpacerAndDivider(topHeight: 20, bottomHeight: 10),
             //
             // お気に入りから探す表示部分
             const Padding(
@@ -132,7 +121,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: CustomText(
-                  text: Strings.SEARCH_WITH_REGION,
+                  text: Strings.SEARCH_WITH_FAVORITE,
                   color: ColorName.textBlack,
                   fontSize: 14,
                 ),
