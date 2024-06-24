@@ -5,12 +5,11 @@ import 'japan_map_card.dart';
 class JapanMapDefomed extends StatelessWidget {
   const JapanMapDefomed({
     super.key,
-    required this.size,
   });
-  final Size size;
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height * 0.6,
       color: Color.fromARGB(255, 160, 212, 255),

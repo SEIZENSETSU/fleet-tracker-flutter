@@ -117,7 +117,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 ),
               ),
             ),
-            JapanMapDefomed(size: size),
+            const JapanMapDefomed(),
             const SizedBox(
               height: 20,
             ),
