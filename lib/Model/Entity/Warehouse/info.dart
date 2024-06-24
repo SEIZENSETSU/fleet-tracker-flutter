@@ -1,7 +1,7 @@
 import 'package:fleet_tracker/Constants/Enum/warehouse_delay_state_enum.dart';
 import 'package:fleet_tracker/Model/Entity/delay_time_detail.dart';
 
-class WarehouseState {
+class WarehouseInfo {
   final int warehouseId;
   final int warehouseAreaId;
   final String warehouseName;
@@ -9,7 +9,7 @@ class WarehouseState {
   final List<DelayTimeDetail> delayTimeDetails;
   final int distance;
 
-  WarehouseState({
+  WarehouseInfo({
     required this.warehouseId,
     required this.warehouseAreaId,
     required this.warehouseName,
@@ -18,8 +18,8 @@ class WarehouseState {
     required this.distance,
   });
 
-  factory WarehouseState.fromJson(Map<String, dynamic> json) {
-    return WarehouseState(
+  factory WarehouseInfo.fromJson(Map<String, dynamic> json) {
+    return WarehouseInfo(
       warehouseId: json['warehouse_id'],
       warehouseAreaId: json['warehouse_area_id'],
       warehouseName: json['warehouse_name'],

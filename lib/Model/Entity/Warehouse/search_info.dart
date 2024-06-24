@@ -1,10 +1,10 @@
 import 'package:fleet_tracker/Model/Entity/Warehouse/area_search_info.dart';
-import 'package:fleet_tracker/Model/Entity/Warehouse/state.dart';
+import 'package:fleet_tracker/Model/Entity/Warehouse/info.dart';
 
 class WarehouseSearchInfo {
   final bool isInvading;
-  final List<WarehouseState>? warehouses;
-  final List<WarehouseState> favoriteWarehouses;
+  final List<WarehouseInfo>? warehouses;
+  final List<WarehouseInfo> favoriteWarehouses;
   final List<WarehouseAreaSearchInfo>? warehouseAreas;
 
   WarehouseSearchInfo({
@@ -19,8 +19,8 @@ class WarehouseSearchInfo {
   ) {
     return WarehouseSearchInfo(
       isInvading: json['is_invading'],
-      warehouses: json['warehouses'].map<WarehouseState>((x) => WarehouseState.fromJson(x)).toList(),
-      favoriteWarehouses: json['favorite_warehouses'].map<WarehouseState>((x) => WarehouseState.fromJson(x)).toList(),
+      warehouses: json['warehouses'].map<WarehouseInfo>((x) => WarehouseInfo.fromJson(x)).toList(),
+      favoriteWarehouses: json['favorite_warehouses'].map<WarehouseInfo>((x) => WarehouseInfo.fromJson(x)).toList(),
       warehouseAreas: json['warehouse_areas'].map<WarehouseAreaSearchInfo>((x) => WarehouseAreaSearchInfo.fromJson(x)).toList(),
     );
   }
