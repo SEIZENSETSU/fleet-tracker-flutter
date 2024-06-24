@@ -14,9 +14,7 @@ class WarehouseSearchInfo {
     this.warehouseAreas,
   });
 
-  factory WarehouseSearchInfo.fromJson(
-    Map<String, dynamic> json,
-  ) {
+  factory WarehouseSearchInfo.fromJson(Map<String, dynamic> json) {
     return WarehouseSearchInfo(
       isInvading: json['is_invading'],
       warehouses: json['warehouses'].map<WarehouseInfo>((x) => WarehouseInfo.fromJson(x)).toList(),

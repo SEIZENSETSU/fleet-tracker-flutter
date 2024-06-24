@@ -1,4 +1,4 @@
-import 'package:fleet_tracker/Model/Entity/Traffic/traffic_road_information.dart';
+import 'package:fleet_tracker/Model/Entity/Traffic/road.dart';
 
 class TrafficArea {
   final int id;

@@ -1,4 +1,5 @@
-import 'detailData.dart';
+import 'package:fleet_tracker/Model/Entity/Traffic/detail_data.dart';
+
 import 'summary.dart';
 
 class TrafficDetail {

@@ -1,4 +1,4 @@
-import 'package:fleet_tracker/Model/Entity/Traffic/sapaData.dart.dart';
+import 'package:fleet_tracker/Model/Entity/Traffic/sapa_data.dart';
 
 import 'summary.dart';
 

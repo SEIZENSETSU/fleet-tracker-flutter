@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:fleet_tracker/Model/Entity/Warehouse/search_info.dart';
+import 'package:fleet_tracker/Model/Entity/local_area.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -107,6 +108,32 @@ class WarehouseService {
     } catch (e) {
       Log.echo('エラーが発生しました $e');
       return null;
+    }
+  }
+
+  Future<List<LocalArea>> getLocalAreaList() async {
+    Uri uri = Uri.https(
+      baseUrl,
+      '/areas/warehouses',
+    );
+
+    try {
+      http.Response response = await http.get(uri);
+      if (response.statusCode != 200) {
+        throw Exception('Fetch failed.');
+      }
+      List<dynamic> jsonResponse = json.decode(response.body);
+
+      List<LocalArea> localAreaList = [];
+      for (dynamic localAreaData in jsonResponse) {
+        LocalArea localArea = LocalArea.fromJson(localAreaData);
+        localAreaList.add(localArea);
+      }
+      Log.echo('取得成功');
+      return localAreaList;
+    } catch (e) {
+      Log.echo('エラーが発生しました $e');
+      return [];
     }
   }
 }
