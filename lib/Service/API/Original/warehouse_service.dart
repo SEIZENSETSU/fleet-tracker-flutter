@@ -111,7 +111,7 @@ class WarehouseService {
     }
   }
 
-  Future<List<LocalArea>> getLocalAreaList() async {
+  Future<List<LocalArea>?> getLocalAreaList() async {
     Uri uri = Uri.https(
       baseUrl,
       '/areas/warehouses',
@@ -133,7 +133,7 @@ class WarehouseService {
       return localAreaList;
     } catch (e) {
       Log.echo('エラーが発生しました $e');
-      return [];
+      return null;
     }
   }
 }
