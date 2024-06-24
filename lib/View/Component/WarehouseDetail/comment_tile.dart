@@ -7,8 +7,8 @@ import 'package:flutter/widgets.dart';
 
 import '../../../gen/colors.gen.dart';
 
-class CommentTileCell extends StatelessWidget {
-  const CommentTileCell({
+class CommentTile extends StatelessWidget {
+  const CommentTile({
     super.key,
     required this.userComment,
     required this.createAt,

@@ -6,7 +6,7 @@ import 'package:fleet_tracker/View/Component/CustomWidget/UserInput/user_input_c
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_button.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
-import 'package:fleet_tracker/View/Component/WarehouseDetail/comment_tile_cell.dart';
+import 'package:fleet_tracker/View/Component/WarehouseDetail/comment_tile.dart';
 import 'package:fleet_tracker/View/Component/WarehouseDetail/warehouse_map.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
@@ -181,7 +181,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                       if (commentList.isNotEmpty) {
                         return const Padding(
                           padding: EdgeInsets.symmetric(vertical: 15),
-                          child: CommentTileCell(
+                          child: CommentTile(
                             userComment: 'なんか遅延してたよここ',
                             createAt: '2024年6月21日 9時20分',
                             userName: '充電コード無くした人',
