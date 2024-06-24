@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:fleet_tracker/Model/Entity/Warehouse/search_response.dart';
+import 'package:fleet_tracker/Model/Entity/Warehouse/search_info.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -74,7 +74,7 @@ class WarehouseService {
   /// [favoriteWarehouseIds] お気に入り倉庫ID
   /// [userLatitude] ユーザー緯度
   /// [userLongitude] ユーザー経度
-  Future<WarehouseSearchResponse?> searchWarehouseList({
+  Future<WarehouseSearchInfo?> searchWarehouseList({
     int? favoriteWarehouseIds,
     required double userLatitude,
     required double userLongitude,
@@ -101,7 +101,7 @@ class WarehouseService {
       }
       Map<String, dynamic> jsonResponse = json.decode(response.body);
 
-      WarehouseSearchResponse warehouseSearchResponse = WarehouseSearchResponse.fromJson(jsonResponse);
+      WarehouseSearchInfo warehouseSearchResponse = WarehouseSearchInfo.fromJson(jsonResponse);
       Log.echo('取得成功');
       return warehouseSearchResponse;
     } catch (e) {

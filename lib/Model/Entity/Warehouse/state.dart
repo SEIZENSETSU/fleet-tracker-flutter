@@ -6,7 +6,7 @@ class WarehouseState {
   final int warehouseAreaId;
   final String warehouseName;
   final WarehouseDelayState averageDelayState;
-  final List<WarehouseDelay> delayTimeDetail;
+  final List<WarehouseDelayInfo> delayTimeDetail;
   final int distance;
 
   WarehouseState({
@@ -24,7 +24,7 @@ class WarehouseState {
       warehouseAreaId: json['warehouse_area_id'],
       warehouseName: json['warehouse_name'],
       averageDelayState: WarehouseDelayStateType(json['average_delay_state']).type,
-      delayTimeDetail: json['delay_time_detail'].map<WarehouseDelay>((x) => WarehouseDelay.fromJson(x)).toList(),
+      delayTimeDetail: json['delay_time_detail'].map<WarehouseDelayInfo>((x) => WarehouseDelayInfo.fromJson(x)).toList(),
       distance: json['distance'],
     );
   }
