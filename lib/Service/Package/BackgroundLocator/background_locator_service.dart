@@ -5,20 +5,20 @@ import '../../Log/log_service.dart';
 
 /// コールバックハンドラーを定義
 Future<void> backgroundHandler(Location data) async {
-  Log.echo('🍑backgroundHandler: ${DateTime.now()}, $data');
+  Log.echo('backgroundHandler: ${DateTime.now()}, $data', symbol: '💎');
 }
 
 class BackgroundLocatorService {
-  ///初期設定
+  /// 初期設定
   Future<void> initialize() async {
-    BackgroundTask.instance.setBackgroundHandler(backgroundHandler);
+    await BackgroundTask.instance.setBackgroundHandler(backgroundHandler);
     setAndroidNotification();
-    start();
+    // await start();
   }
 
-  ///Androidの通知設定
-  ///【title】通知タイルのタイトル
-  ///【message】通知タイルの内容
+  /// Androidの通知設定
+  /// [title] 通知タイルのタイトル
+  /// [message] 通知タイルの内容
   Future<void> setAndroidNotification({
     String title = Strings.ANDROID_NOTIFICATION_TITLE,
     String message = Strings.ANDROID_NOTIFICATION_MESSAGE,
@@ -34,7 +34,7 @@ class BackgroundLocatorService {
     await BackgroundTask.instance.start();
   }
 
-  ///停止
+  /// 停止
   Future<void> stop() async {
     await BackgroundTask.instance.stop();
   }
