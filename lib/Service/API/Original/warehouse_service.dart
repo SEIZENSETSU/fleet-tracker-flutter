@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../Model/Entity/local_area.dart';
 import '../../../Model/Entity/warehouse.dart';
 import '../../Log/log_service.dart';
 
@@ -99,6 +100,33 @@ class WarehouseService {
       Log.echo('取得成功');
       Log.echo(jsonResponse['warehouses'][0]['warehouse_name']);
       return jsonResponse;
+    } catch (e) {
+      Log.echo('エラーが発生しました $e');
+      return null;
+    }
+  }
+
+  /// ローカルエリアおよび倉庫エリアでグループ化された倉庫の一覧情報を取得
+  Future<List<LocalArea>?> getLocalAreaList() async {
+    Uri uri = Uri.https(
+      baseUrl,
+      '/areas/warehouses',
+    );
+
+    try {
+      http.Response response = await http.get(uri);
+      if (response.statusCode != 200) {
+        throw Exception('Fetch failed.');
+      }
+      List<dynamic> jsonResponse = json.decode(response.body);
+
+      List<LocalArea> localAreaList = [];
+      for (dynamic localAreaData in jsonResponse) {
+        LocalArea localArea = LocalArea.fromJson(localAreaData);
+        localAreaList.add(localArea);
+      }
+      Log.echo('取得成功');
+      return localAreaList;
     } catch (e) {
       Log.echo('エラーが発生しました $e');
       return null;
