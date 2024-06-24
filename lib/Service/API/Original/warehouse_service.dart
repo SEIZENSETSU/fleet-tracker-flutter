@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:fleet_tracker/Model/Entity/Warehouse/search_info.dart';
+import 'package:fleet_tracker/Model/Entity/local_area.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../Model/Entity/warehouse.dart';
+import '../../../Model/Entity/Warehouse/warehouse.dart';
 import '../../Log/log_service.dart';
 
 class WarehouseService {
@@ -42,7 +44,7 @@ class WarehouseService {
 
   /// 倉庫一覧情報取得
   /// [warehouseAreaId] 倉庫エリアID
-  Future<List<Warehouse?>?> getWarehouseList(int warehouseAreaId) async {
+  Future<List<Warehouse>?> getWarehouseList(int warehouseAreaId) async {
     Uri uri = Uri.https(
       baseUrl,
       '/warehouses',
@@ -56,7 +58,7 @@ class WarehouseService {
       }
       List<dynamic> jsonResponse = json.decode(response.body);
 
-      List<Warehouse?> warehouseList = [];
+      List<Warehouse> warehouseList = [];
       for (dynamic warehouseData in jsonResponse) {
         Warehouse warehouse = Warehouse.fromJson(warehouseData);
         warehouseList.add(warehouse);
@@ -73,7 +75,7 @@ class WarehouseService {
   /// [favoriteWarehouseIds] お気に入り倉庫ID
   /// [userLatitude] ユーザー緯度
   /// [userLongitude] ユーザー経度
-  Future<Map<String, dynamic>?> searchWarehouseList({
+  Future<WarehouseSearchInfo?> searchWarehouseList({
     int? favoriteWarehouseIds,
     required double userLatitude,
     required double userLongitude,
@@ -87,7 +89,11 @@ class WarehouseService {
       queryParams['favorite_warehouse_ids'] = '$favoriteWarehouseIds';
     }
 
-    Uri uri = Uri.https(baseUrl, '/warehouses/search', queryParams);
+    Uri uri = Uri.https(
+      baseUrl,
+      '/warehouses/search',
+      queryParams,
+    );
 
     try {
       http.Response response = await http.get(uri);
@@ -96,9 +102,35 @@ class WarehouseService {
       }
       Map<String, dynamic> jsonResponse = json.decode(response.body);
 
+      WarehouseSearchInfo warehouseSearchInfo = WarehouseSearchInfo.fromJson(jsonResponse);
       Log.echo('取得成功');
-      Log.echo(jsonResponse['warehouses'][0]['warehouse_name']);
-      return jsonResponse;
+      return warehouseSearchInfo;
+    } catch (e) {
+      Log.echo('エラーが発生しました $e');
+      return null;
+    }
+  }
+
+  Future<List<LocalArea>?> getLocalAreaList() async {
+    Uri uri = Uri.https(
+      baseUrl,
+      '/areas/warehouses',
+    );
+
+    try {
+      http.Response response = await http.get(uri);
+      if (response.statusCode != 200) {
+        throw Exception('Fetch failed.');
+      }
+      List<dynamic> jsonResponse = json.decode(response.body);
+
+      List<LocalArea> localAreaList = [];
+      for (dynamic localAreaData in jsonResponse) {
+        LocalArea localArea = LocalArea.fromJson(localAreaData);
+        localAreaList.add(localArea);
+      }
+      Log.echo('取得成功');
+      return localAreaList;
     } catch (e) {
       Log.echo('エラーが発生しました $e');
       return null;
