@@ -1,4 +1,4 @@
-import 'package:fleet_tracker/Model/Entity/Traffic/traffic_road_information.dart';
+import 'package:fleet_tracker/Model/Entity/Traffic/road.dart';
 
 class TrafficArea {
   final int id;
@@ -18,7 +18,9 @@ class TrafficArea {
       id: json['area_id'],
       name: json['area_name'],
       totalIssues: json['total_issues'],
-      roads: json['roads'].map<TrafficRoad>((x) => TrafficRoad.fromJson(x)).toList(),
+      roads: json['roads']
+          .map<TrafficRoad>((x) => TrafficRoad.fromJson(x))
+          .toList(),
     );
   }
 }
