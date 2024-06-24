@@ -32,6 +32,7 @@
 
     <!-- 日本地図に使う色 -->
      <color name="japan_map_card_border">#bdbdbd</color>
+      <color name="japan_map_deformed_background">#a0d4ff</color>
 
 
 

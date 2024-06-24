@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'japan_map_card.dart';
@@ -12,7 +13,7 @@ class JapanMapDefomed extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height * 0.6,
-      color: Color.fromARGB(255, 160, 212, 255),
+      color: ColorName.japanMapDeformedBackground,
       child: Column(
         children: [
           Expanded(
