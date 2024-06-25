@@ -23,9 +23,23 @@ class WarehouseInfo {
       warehouseId: json['warehouse_id'],
       warehouseAreaId: json['warehouse_area_id'],
       warehouseName: json['warehouse_name'],
-      averageDelayState: WarehouseDelayStateType(json['average_delay_state']).type,
-      delayTimeDetails: json['delay_time_detail'].map<DelayTimeDetail>((x) => DelayTimeDetail.fromJson(x)).toList(),
+      averageDelayState:
+          WarehouseDelayStateType(json['average_delay_state']).type,
+      delayTimeDetails: json['delay_time_detail']
+          .map<DelayTimeDetail>((x) => DelayTimeDetail.fromJson(x))
+          .toList(),
       distance: json['distance'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'warehouse_id': warehouseId,
+      'warehouse_area_id': warehouseAreaId,
+      'warehouse_name': warehouseName,
+      'average_delay_state': averageDelayState.index,
+      'delay_time_detail': delayTimeDetails.map((x) => x.toJson()).toList(),
+      'distance': distance,
+    };
   }
 }

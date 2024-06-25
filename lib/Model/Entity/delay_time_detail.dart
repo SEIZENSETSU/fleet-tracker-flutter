@@ -15,4 +15,11 @@ class DelayTimeDetail {
       answerCount: json['answer_count'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'delay_state': delayState.index,
+      'answer_count': answerCount,
+    };
+  }
 }

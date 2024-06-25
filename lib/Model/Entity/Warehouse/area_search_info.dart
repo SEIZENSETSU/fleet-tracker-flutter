@@ -17,8 +17,18 @@ class WarehouseAreaSearchInfo {
     return WarehouseAreaSearchInfo(
       warehouseAreaId: json['warehouse_area_id'],
       warehouseAreaName: json['warehouse_area_name'],
-      averageDelayState: WarehouseDelayStateType(json['average_delay_state']).type,
+      averageDelayState:
+          WarehouseDelayStateType(json['average_delay_state']).type,
       distance: json['distance'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'warehouse_area_id': warehouseAreaId,
+      'warehouse_area_name': warehouseAreaName,
+      'average_delay_state': averageDelayState.index,
+      'distance': distance,
+    };
   }
 }
