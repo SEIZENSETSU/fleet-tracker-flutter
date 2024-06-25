@@ -15,6 +15,7 @@ class TrafficInformationService {
     baseUrl = dotenv.env['TRAFFIC_INFORMATION_API_BASEURL']!;
   }
 
+  /// 交通情報取得
   Future<TrafficAbout?> getTrafficInformation() async {
     Uri uri = Uri.https(
       baseUrl,
@@ -23,10 +24,11 @@ class TrafficInformationService {
 
     try {
       http.Response response = await http.get(uri);
+      final String responseUtf8 = utf8.decode(response.bodyBytes);
       if (response.statusCode != 200) {
         throw Exception('Fetch failed.');
       }
-      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      Map<String, dynamic> jsonResponse = json.decode(responseUtf8);
 
       TrafficAbout trafficAbout = TrafficAbout.fromJson(jsonResponse);
 
@@ -38,6 +40,8 @@ class TrafficInformationService {
     }
   }
 
+  /// 交通詳細情報取得
+  /// [roadId] 道路ID
   Future<TrafficDetail?> getTrafficDetail({required int roadId}) async {
     Uri uri = Uri.https(
       baseUrl,
@@ -47,10 +51,11 @@ class TrafficInformationService {
 
     try {
       http.Response response = await http.get(uri);
+      final String responseUtf8 = utf8.decode(response.bodyBytes);
       if (response.statusCode != 200) {
         throw Exception('Fetch failed.');
       }
-      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      Map<String, dynamic> jsonResponse = json.decode(responseUtf8);
 
       TrafficDetail trafficAbout = TrafficDetail.fromJson(jsonResponse);
 
@@ -62,6 +67,8 @@ class TrafficInformationService {
     }
   }
 
+  /// サービスエリアパーキングエリア情報取得
+  /// [roadId] 道路ID
   Future<TrafficSapa?> getTrafficSapa({required int roadId}) async {
     Uri uri = Uri.https(
       baseUrl,
@@ -71,10 +78,11 @@ class TrafficInformationService {
 
     try {
       http.Response response = await http.get(uri);
+      final String responseUtf8 = utf8.decode(response.bodyBytes);
       if (response.statusCode != 200) {
         throw Exception('Fetch failed.');
       }
-      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      Map<String, dynamic> jsonResponse = json.decode(responseUtf8);
 
       TrafficSapa trafficSapa = TrafficSapa.fromJson(jsonResponse);
 

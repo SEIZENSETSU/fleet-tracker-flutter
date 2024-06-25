@@ -27,16 +27,18 @@ class CommentService {
 
     try {
       http.Response response = await http.get(uri);
+      final String responseUtf8 = utf8.decode(response.bodyBytes);
       if (response.statusCode != 200) {
         throw Exception('Fetch failed.');
       }
 
-      List<dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> jsonResponse = json.decode(responseUtf8);
       List<Comment> commentList = [];
       for (dynamic commentData in jsonResponse) {
         Comment comment = Comment.fromJson(commentData);
         commentList.add(comment);
       }
+
       Log.echo('取得成功');
       return commentList;
     } catch (e) {
