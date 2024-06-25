@@ -18,7 +18,7 @@ class DelayTimeDetail {
 
   Map<String, dynamic> toJson() {
     return {
-      'delay_state': delayState.index,
+      'delay_state': delayState.name,
       'answer_count': answerCount,
     };
   }

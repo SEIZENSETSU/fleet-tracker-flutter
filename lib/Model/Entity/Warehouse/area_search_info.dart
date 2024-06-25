@@ -27,7 +27,7 @@ class WarehouseAreaSearchInfo {
     return {
       'warehouse_area_id': warehouseAreaId,
       'warehouse_area_name': warehouseAreaName,
-      'average_delay_state': averageDelayState.index,
+      'average_delay_state': averageDelayState.name,
       'distance': distance,
     };
   }

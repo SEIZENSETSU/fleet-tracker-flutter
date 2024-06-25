@@ -37,7 +37,7 @@ class WarehouseInfo {
       'warehouse_id': warehouseId,
       'warehouse_area_id': warehouseAreaId,
       'warehouse_name': warehouseName,
-      'average_delay_state': averageDelayState.index,
+      'average_delay_state': averageDelayState.name,
       'delay_time_detail': delayTimeDetails.map((x) => x.toJson()).toList(),
       'distance': distance,
     };
