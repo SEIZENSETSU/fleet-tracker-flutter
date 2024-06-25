@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Model/Data/location_data.dart';
 import 'package:fleet_tracker/Route/router.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +11,7 @@ import '../Service/Package/BackgroundLocator/background_locator_service.dart';
 import '../View/Component/CustomWidget/Dialog/error_dialog.dart';
 
 class TopLoadingController {
-  BackgroundLocatorService backgroundLocatorService =
+  BackgroundLocatorService get backgroundLocatorService =>
       BackgroundLocatorService();
 
   final BuildContext context;
@@ -58,6 +59,9 @@ class TopLoadingController {
         return false;
       }
     }
+
+    /// シングルトンに位置情報を強制的にSetする
+    await LocationData().setData(force: true);
 
     /// BackgroundLocatorServiceを開始
     backgroundLocatorService.start();

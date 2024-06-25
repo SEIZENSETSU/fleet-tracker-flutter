@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fleet_tracker/Model/Data/location_data.dart';
 import 'package:fleet_tracker/Service/Package/BackgroundLocator/background_locator_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'Route/router.dart';
+import 'Service/Log/log_service.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -17,10 +19,17 @@ Future<void> main() async {
   );
   WidgetsFlutterBinding.ensureInitialized();
 
+  /// 位置情報を強制的にSetする
+  try {
+    await LocationData().setData(force: true);
+  } catch (e) {
+    Log.echo('$e', symbol: '❗');
+  }
+
   /// BackgroundLocatorServiceの初期化
   await BackgroundLocatorService().initialize();
 
-  /// Isolateからのメッセージを受信する
+  /// Isolateからのメッセージ受信を開始
   BackgroundLocatorService().observer();
 
   runApp(const ProviderScope(child: MyApp()));
