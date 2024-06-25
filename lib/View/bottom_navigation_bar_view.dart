@@ -1,4 +1,7 @@
+import 'package:fleet_tracker/Model/Data/Warehouse/search_info_data.dart';
+import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../Controller/bottom_navigation_bar_controller.dart';
 
@@ -50,13 +53,23 @@ class _BottomNavigationBarViewState extends State<BottomNavigationBarView>
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _controller.goBranch(2);
+      floatingActionButton: Consumer(
+        builder: (context, ref, _) {
+          final warehouseSearchInfo =
+              ref.watch(warehouseSearchInfoDataProvider);
+          Log.toast('isInvading: ${warehouseSearchInfo.getData().isInvading}');
+          return FloatingActionButton(
+            onPressed: () {
+              if (!warehouseSearchInfo.getData().isInvading) {
+                return;
+              }
+              _controller.goBranch(2);
+            },
+            foregroundColor: Colors.white,
+            backgroundColor: _controller.getFloatingActionButtonColor(2),
+            child: const Icon(Icons.add),
+          );
         },
-        foregroundColor: Colors.white,
-        backgroundColor: _controller.getFloatingActionButtonColor(2),
-        child: const Icon(Icons.add),
       ),
     );
   }
