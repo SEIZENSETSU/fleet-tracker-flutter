@@ -1,6 +1,13 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../Entity/Warehouse/search_info.dart';
 
-class WarehouseSearchInfoData {
+/// WarehouseSearchInfoDataを監視するProvider
+final warehouseSearchInfoDataProvider =
+    ChangeNotifierProvider((ref) => WarehouseSearchInfoData());
+
+class WarehouseSearchInfoData extends ChangeNotifier {
   static final WarehouseSearchInfoData _instance =
       WarehouseSearchInfoData._internal();
   factory WarehouseSearchInfoData() => _instance;
@@ -18,5 +25,6 @@ class WarehouseSearchInfoData {
     WarehouseSearchInfo? data,
   }) {
     _data = data;
+    notifyListeners();
   }
 }

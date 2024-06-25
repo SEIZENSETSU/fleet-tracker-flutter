@@ -1,7 +1,12 @@
 import 'package:fleet_tracker/Model/Entity/location.dart';
 import 'package:fleet_tracker/Service/Package/Location/geolocator_service.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LocationData {
+/// LocationDataを監視するProvider
+final locationDataProvider = ChangeNotifierProvider((ref) => LocationData());
+
+class LocationData extends ChangeNotifier {
   static final LocationData _instance = LocationData._internal();
   factory LocationData() => _instance;
   LocationData._internal();
@@ -28,5 +33,6 @@ class LocationData {
       data = await locationPackageService.getLocationAsCustom();
     }
     _data = data;
+    notifyListeners();
   }
 }
