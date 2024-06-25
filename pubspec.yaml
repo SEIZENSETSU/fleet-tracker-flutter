@@ -21,7 +21,8 @@ dependencies:
   background_task: ^0.1.1+1
   permission_handler: ^11.3.1
   shared_preferences: ^2.2.3
-  location: ^6.0.2
+  geolocator: ^12.0.0
+  
 
 dev_dependencies:
   flutter_test:

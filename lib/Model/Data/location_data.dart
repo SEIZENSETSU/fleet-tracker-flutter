@@ -1,12 +1,12 @@
 import 'package:fleet_tracker/Model/Entity/location.dart';
-import 'package:fleet_tracker/Service/Package/Location/location_package_service.dart';
+import 'package:fleet_tracker/Service/Package/Location/geolocator_service.dart';
 
 class LocationData {
   static final LocationData _instance = LocationData._internal();
   factory LocationData() => _instance;
   LocationData._internal();
 
-  LocationPackageService get locationPackageService => LocationPackageService();
+  GeolocatorService get locationPackageService => GeolocatorService();
 
   Location? _data;
 
