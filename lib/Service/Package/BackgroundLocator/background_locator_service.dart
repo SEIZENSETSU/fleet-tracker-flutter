@@ -55,13 +55,19 @@ class BackgroundLocatorService {
 
     /// メッセージを受信
     port.listen((message) {
-      Log.echo('backgroundLocatorService: $message', symbol: '🔊');
-
       /// 位置情報をデコード
       Location location = Location.fromJson(message);
+      Location currentLocation = LocationData().getData();
 
-      /// シングルトンに位置情報を保存
-      LocationData().setData(location);
+      /// 30秒以内の位置情報は無視する
+      if (!location.time
+          .isAfter(currentLocation.time.add(const Duration(seconds: 30)))) {
+        return;
+      }
+
+      /// 位置情報を更新
+      LocationData().setData(data: location);
+      Log.echo('Locaton Updated: $message', symbol: '🔊');
     });
   }
 
