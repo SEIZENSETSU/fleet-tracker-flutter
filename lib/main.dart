@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fleet_tracker/Service/Package/BackgroundLocator/background_locator_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -7,11 +10,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'Route/router.dart';
 import 'firebase_options.dart';
 
-void main() async {
+Future<void> main() async {
   await dotenv.load(fileName: kDebugMode ? '.env.develop' : '.env.release');
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  WidgetsFlutterBinding.ensureInitialized();
+  await BackgroundLocatorService().initialize();
   runApp(const ProviderScope(child: MyApp()));
 }
 

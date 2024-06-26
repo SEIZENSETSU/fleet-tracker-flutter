@@ -43,4 +43,8 @@ class Strings {
   static const String SETTING_ACOUNT_INFO = 'アカウント設定';
   static const String SETTING_NOTIFICATION = '通知設定';
   static const String SETTING_OTHER = 'その他';
+
+  // Androidへの通知
+  static const String ANDROID_NOTIFICATION_TITLE = 'バックグラウンド処理';
+  static const String ANDROID_NOTIFICATION_MESSAGE = 'バックグラウンド処理を実行中';
 }
