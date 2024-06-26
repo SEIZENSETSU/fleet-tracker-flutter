@@ -22,12 +22,14 @@ class UserService {
         uri,
         headers: headers,
       );
+      final String responseUtf8 = utf8.decode(response.bodyBytes);
       if (response.statusCode != 200) {
         throw Exception('Get failed.');
       }
-      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      Map<String, dynamic> jsonResponse = json.decode(responseUtf8);
 
       User user = User.fromJson(jsonResponse);
+
       Log.echo('取得成功');
       return user;
     } catch (e) {

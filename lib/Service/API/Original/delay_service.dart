@@ -29,10 +29,11 @@ class DelayService {
 
     try {
       http.Response response = await http.get(uri);
+      final String responseUtf8 = utf8.decode(response.bodyBytes);
       if (response.statusCode != 200) {
         throw Exception('Fetch failed.');
       }
-      List<dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> jsonResponse = json.decode(responseUtf8);
 
       List<DelayInformation> delayInformationList = [];
       for (dynamic delayInformationData in jsonResponse) {
@@ -48,6 +49,9 @@ class DelayService {
     }
   }
 
+  /// 遅延情報登録
+  /// [warehouseId] 倉庫ID
+  /// [delayState] 遅延状態
   Future<int?> postDelayInformation({
     required int warehouseId,
     required String delayState,

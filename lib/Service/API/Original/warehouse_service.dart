@@ -28,12 +28,14 @@ class WarehouseService {
 
     try {
       http.Response response = await http.get(uri);
+      final String responseUtf8 = utf8.decode(response.bodyBytes);
       if (response.statusCode != 200) {
         throw Exception('Fetch failed.');
       }
-      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      Map<String, dynamic> jsonResponse = json.decode(responseUtf8);
 
       Warehouse warehouse = Warehouse.fromJson(jsonResponse);
+
       Log.echo('取得成功');
       return warehouse;
     } catch (e) {
@@ -53,16 +55,18 @@ class WarehouseService {
 
     try {
       http.Response response = await http.get(uri);
+      final String responseUtf8 = utf8.decode(response.bodyBytes);
       if (response.statusCode != 200) {
         throw Exception('Fetch failed.');
       }
-      List<dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> jsonResponse = json.decode(responseUtf8);
 
       List<Warehouse> warehouseList = [];
       for (dynamic warehouseData in jsonResponse) {
         Warehouse warehouse = Warehouse.fromJson(warehouseData);
         warehouseList.add(warehouse);
       }
+
       Log.echo('取得成功');
       return warehouseList;
     } catch (e) {
@@ -97,12 +101,14 @@ class WarehouseService {
 
     try {
       http.Response response = await http.get(uri);
+      final String responseUtf8 = utf8.decode(response.bodyBytes);
       if (response.statusCode != 200) {
         throw Exception('Fetch failed.');
       }
-      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      Map<String, dynamic> jsonResponse = json.decode(responseUtf8);
 
       WarehouseSearchInfo warehouseSearchInfo = WarehouseSearchInfo.fromJson(jsonResponse);
+
       Log.echo('取得成功');
       return warehouseSearchInfo;
     } catch (e) {
@@ -111,6 +117,7 @@ class WarehouseService {
     }
   }
 
+  /// 倉庫遅延情報取得
   Future<List<LocalArea>?> getLocalAreaList() async {
     Uri uri = Uri.https(
       baseUrl,
@@ -119,16 +126,18 @@ class WarehouseService {
 
     try {
       http.Response response = await http.get(uri);
+      final String responseUtf8 = utf8.decode(response.bodyBytes);
       if (response.statusCode != 200) {
         throw Exception('Fetch failed.');
       }
-      List<dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> jsonResponse = json.decode(responseUtf8);
 
       List<LocalArea> localAreaList = [];
       for (dynamic localAreaData in jsonResponse) {
         LocalArea localArea = LocalArea.fromJson(localAreaData);
         localAreaList.add(localArea);
       }
+
       Log.echo('取得成功');
       return localAreaList;
     } catch (e) {
