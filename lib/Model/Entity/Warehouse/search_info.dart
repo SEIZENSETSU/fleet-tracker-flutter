@@ -17,9 +17,25 @@ class WarehouseSearchInfo {
   factory WarehouseSearchInfo.fromJson(Map<String, dynamic> json) {
     return WarehouseSearchInfo(
       isInvading: json['is_invading'],
-      warehouses: json['warehouses'].map<WarehouseInfo>((x) => WarehouseInfo.fromJson(x)).toList(),
-      favoriteWarehouses: json['favorite_warehouses'].map<WarehouseInfo>((x) => WarehouseInfo.fromJson(x)).toList(),
-      warehouseAreas: json['warehouse_areas'].map<WarehouseAreaSearchInfo>((x) => WarehouseAreaSearchInfo.fromJson(x)).toList(),
+      warehouses: json['warehouses']
+          .map<WarehouseInfo>((x) => WarehouseInfo.fromJson(x))
+          .toList(),
+      favoriteWarehouses: json['favorite_warehouses']
+          .map<WarehouseInfo>((x) => WarehouseInfo.fromJson(x))
+          .toList(),
+      warehouseAreas: json['warehouse_areas']
+          .map<WarehouseAreaSearchInfo>(
+              (x) => WarehouseAreaSearchInfo.fromJson(x))
+          .toList(),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'is_invading': isInvading,
+      'warehouses': warehouses!.map((x) => x.toJson()).toList(),
+      'favorite_warehouses': favoriteWarehouses.map((x) => x.toJson()).toList(),
+      'warehouse_areas': warehouseAreas!.map((x) => x.toJson()).toList(),
+    };
   }
 }

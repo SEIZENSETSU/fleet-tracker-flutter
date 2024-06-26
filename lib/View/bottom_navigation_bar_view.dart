@@ -1,15 +1,40 @@
+import 'package:fleet_tracker/Model/Data/Warehouse/search_info_data.dart';
+import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../Controller/bottom_navigation_bar_controller.dart';
 
-class BottomNavigationBarView extends StatelessWidget {
+class BottomNavigationBarView extends StatefulWidget {
   const BottomNavigationBarView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final BottomNavigationBarController controller =
-        BottomNavigationBarController();
+  State<BottomNavigationBarView> createState() =>
+      _BottomNavigationBarViewState();
+}
 
+class _BottomNavigationBarViewState extends State<BottomNavigationBarView>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    BottomNavigationBarController().appLifecycleState(state);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    BottomNavigationBarController controller = BottomNavigationBarController();
     return Scaffold(
       body: controller.navigationShell,
       bottomNavigationBar: NavigationBar(
@@ -26,13 +51,23 @@ class BottomNavigationBarView extends StatelessWidget {
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          controller.goBranch(2);
+      floatingActionButton: Consumer(
+        builder: (context, ref, _) {
+          final warehouseSearchInfo =
+              ref.watch(warehouseSearchInfoDataProvider);
+
+          return FloatingActionButton(
+            onPressed: () {
+              if (!warehouseSearchInfo.getData().isInvading) {
+                return;
+              }
+              controller.goBranch(2);
+            },
+            foregroundColor: Colors.white,
+            backgroundColor: controller.getFloatingActionButtonColor(2),
+            child: const Icon(Icons.add),
+          );
         },
-        foregroundColor: Colors.white,
-        backgroundColor: controller.getFloatingActionButtonColor(2),
-        child: const Icon(Icons.add),
       ),
     );
   }

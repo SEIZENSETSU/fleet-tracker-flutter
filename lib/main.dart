@@ -16,7 +16,13 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   WidgetsFlutterBinding.ensureInitialized();
+
+  /// BackgroundLocatorServiceの初期化
   await BackgroundLocatorService().initialize();
+
+  /// Isolateからのメッセージ受信を開始
+  BackgroundLocatorService().observer();
+
   runApp(const ProviderScope(child: MyApp()));
 }
 
