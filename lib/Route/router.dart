@@ -2,7 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../View/Component/warehouse_detail_view.dart';
+import '../Model/Entity/warehouse.dart';
+import '../View/Component/WarehouseDetail/warehouse_detail_view.dart';
 import '../View/Home/home_view.dart';
 import '../View/Setting/setting_top_view.dart';
 import '../View/TrafficInformation/Detail/traffic_information_detail_view.dart';
@@ -151,11 +152,21 @@ class SettingBranch extends StatefulShellBranchData {
 
 //////////////////////////////  Component  //////////////////////////////
 class WarehouseDetailRoute extends GoRouteData {
-  const WarehouseDetailRoute();
-
+  WarehouseDetailRoute({
+    required this.$extra,
+    required this.traficstateCount,
+    required this.delayStateType,
+  });
+  final Warehouse $extra;
+  final List<int>? traficstateCount;
+  final String delayStateType;
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      const WarehouseDetailView();
+      WarehouseDetailView(
+        warehouse: $extra,
+        traficstateCount: traficstateCount!,
+        delayStateType: delayStateType,
+      );
 }
 //////////////////////////////  Component  //////////////////////////////
 
@@ -178,11 +189,23 @@ class WarehouseSearchTopRoute extends GoRouteData {
 }
 
 class WarehouseSearchResultRoute extends GoRouteData {
-  const WarehouseSearchResultRoute();
+  const WarehouseSearchResultRoute({
+    this.areaName,
+    this.areaId,
+    this.keyword,
+  });
+
+  final String? areaName;
+  final int? areaId;
+  final String? keyword;
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      const WarehouseSearchResultView();
+      WarehouseSearchResultView(
+        area: areaName,
+        areaId: areaId,
+        keyword: keyword,
+      );
 }
 //////////////////////////////  WarehouseSearch  //////////////////////////////
 

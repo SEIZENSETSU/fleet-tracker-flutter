@@ -25,14 +25,23 @@
     <!-- 行き先セルに使う色 -->
     <color name="destinationshadow_color">#DDDDDD</color>
 
+    <!-- 天気に使う色 -->
+     <color name="sun_color">#ffd557</color>
+     <color name="cloud_color">#bebebe</color>
+     <color name="rain_color">#6dbaf8</color>
+
+    <!-- 日本地図に使う色 -->
+     <color name="japan_map_card_border">#bdbdbd</color>
+     <color name="japan_map_deformed_background">#a0d4ff</color>
+     
+    <!-- 倉庫詳細ページ -->
+     <color name="comment_area_background">#dddddd</color>
+
     <!-- SAPA名に使う色 -->
     <color name="sapa_name_color">#093816</color>
 
     <!-- 渋滞情報ページタイトルに使う色 -->
     <color name="jam_info_title_color">#228769</color>
-    
-
-    
 
     
 </resources>

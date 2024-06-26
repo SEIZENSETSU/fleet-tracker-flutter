@@ -18,6 +18,8 @@ dependencies:
   http: ^1.2.1
   firebase_core: ^3.0.0
   flutter_dotenv: ^5.1.0
+  flutter_map: ^7.0.1
+  latlong2: ^0.9.1
   background_task: ^0.1.1+1
 
 dev_dependencies:
@@ -44,6 +46,7 @@ flutter:
     - .env.develop
     - .env.release
     - assets/images/
+    - assets/images/icons/
     - assets/images/top_loading/
     - assets/images/component/
 
