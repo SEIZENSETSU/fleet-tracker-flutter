@@ -158,13 +158,13 @@ class WarehouseDetailRoute extends GoRouteData {
     required this.delayStateType,
   });
   final Warehouse $extra;
-  final List<int> traficstateCount;
+  final List<int>? traficstateCount;
   final String delayStateType;
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       WarehouseDetailView(
         warehouse: $extra,
-        traficstateCount: traficstateCount,
+        traficstateCount: traficstateCount!,
         delayStateType: delayStateType,
       );
 }
