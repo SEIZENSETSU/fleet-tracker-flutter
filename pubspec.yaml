@@ -45,7 +45,7 @@ flutter:
     - .env.develop
     - .env.release
     - assets/images/
-    - assets/images/icon/
+    - assets/images/icons/
     - assets/images/top_loading/
     - assets/images/component/
 
