@@ -4,7 +4,7 @@ import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
-import '../../../Model/Entity/warehouse.dart';
+import '../../../Model/Entity/Warehouse/warehouse.dart';
 import '../../../Route/router.dart';
 import '../../../gen/assets.gen.dart';
 import '../../Component/CustomWidget/Card/common_card.dart';
@@ -139,7 +139,6 @@ class _WarehouseSearchResultViewState extends State<WarehouseSearchResultView> {
                                     WarehouseDetailRoute(
                                       $extra: Warehouse(
                                         id: 1,
-                                        areaId: 1,
                                         name: 'エルフーズ東京',
                                         latitude: 35.681236,
                                         longitude: 139.767125,
@@ -156,7 +155,7 @@ class _WarehouseSearchResultViewState extends State<WarehouseSearchResultView> {
                                           heightFactor: 0.5,
                                           child: Container(
                                             child: Assets
-                                                .images.icon.factoryIcon
+                                                .images.icons.factoryIcon
                                                 .image(),
                                           ),
                                         ),

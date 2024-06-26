@@ -42,7 +42,7 @@ class CommentTile extends StatelessWidget {
                       color: Colors.grey,
                     ),
                     child: Container(
-                      child: Assets.images.icon.userIcon.image(),
+                      child: Assets.images.icons.userIcon.image(),
                     ),
                   ),
                 ),

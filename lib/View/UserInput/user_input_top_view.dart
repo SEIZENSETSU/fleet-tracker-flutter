@@ -1,10 +1,11 @@
-import 'package:fleet_tracker/Model/Entity/warehouse.dart';
 import 'package:fleet_tracker/Route/router.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/UserInput/user_input_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
+
+import '../../Model/Entity/Warehouse/warehouse.dart';
 
 class UserInputTopView extends StatefulWidget {
   const UserInputTopView({super.key});
@@ -40,7 +41,6 @@ class _UserInputTopViewState extends State<UserInputTopView> {
                           WarehouseDetailRoute(
                             $extra: Warehouse(
                               id: 1,
-                              areaId: 1,
                               name: 'エルフーズ東京',
                               latitude: 35.681236,
                               longitude: 139.767125,

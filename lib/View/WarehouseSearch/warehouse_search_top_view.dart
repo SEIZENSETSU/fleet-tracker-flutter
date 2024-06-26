@@ -12,7 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../Model/Entity/warehouse.dart';
+import '../../Model/Entity/Warehouse/warehouse.dart';
 import '../../Route/router.dart';
 import '../Component/CustomWidget/custom_text.dart';
 
@@ -147,7 +147,6 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                           WarehouseDetailRoute(
                             $extra: Warehouse(
                               id: 1,
-                              areaId: 1,
                               name: 'エルフーズ東京',
                               latitude: 35.681236,
                               longitude: 139.767125,
@@ -169,7 +168,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                                     child: FractionallySizedBox(
                                       heightFactor: 0.5,
                                       child: Container(
-                                        child: Assets.images.icon.factoryIcon
+                                        child: Assets.images.icons.factoryIcon
                                             .image(),
                                       ),
                                     ),

@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../Model/Entity/warehouse.dart';
+import '../Model/Entity/Warehouse/warehouse.dart';
 import '../View/Component/WarehouseDetail/warehouse_detail_view.dart';
 import '../View/Home/home_view.dart';
 import '../View/Setting/setting_top_view.dart';

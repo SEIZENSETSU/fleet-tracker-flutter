@@ -1,5 +1,4 @@
 import 'package:fleet_tracker/Constants/strings.dart';
-import 'package:fleet_tracker/Model/Entity/warehouse.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/UserInput/user_input_cell.dart';
@@ -13,6 +12,7 @@ import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Constants/Enum/warehouse_delay_state_enum.dart';
+import '../../../Model/Entity/Warehouse/warehouse.dart';
 
 class WarehouseDetailView extends StatefulWidget {
   const WarehouseDetailView({
