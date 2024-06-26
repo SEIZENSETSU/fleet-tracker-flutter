@@ -15,12 +15,9 @@ class BottomNavigationBarView extends StatefulWidget {
 
 class _BottomNavigationBarViewState extends State<BottomNavigationBarView>
     with WidgetsBindingObserver {
-  late BottomNavigationBarController _controller;
-
   @override
   void initState() {
     super.initState();
-    _controller = BottomNavigationBarController();
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -32,15 +29,16 @@ class _BottomNavigationBarViewState extends State<BottomNavigationBarView>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    _controller.appLifecycleState(state);
+    BottomNavigationBarController().appLifecycleState(state);
   }
 
   @override
   Widget build(BuildContext context) {
+    BottomNavigationBarController controller = BottomNavigationBarController();
     return Scaffold(
-      body: _controller.navigationShell,
+      body: controller.navigationShell,
       bottomNavigationBar: NavigationBar(
-        selectedIndex: _controller.navigationShell.currentIndex,
+        selectedIndex: controller.navigationShell.currentIndex,
         destinations: const [
           NavigationDestination(icon: Icon(Icons.home), label: 'ホーム'),
           NavigationDestination(icon: Icon(Icons.search), label: '倉庫検索'),
@@ -49,7 +47,7 @@ class _BottomNavigationBarViewState extends State<BottomNavigationBarView>
           NavigationDestination(icon: Icon(Icons.settings), label: '設定'),
         ],
         onDestinationSelected: (index) {
-          _controller.goBranch(index);
+          controller.goBranch(index);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -57,16 +55,16 @@ class _BottomNavigationBarViewState extends State<BottomNavigationBarView>
         builder: (context, ref, _) {
           final warehouseSearchInfo =
               ref.watch(warehouseSearchInfoDataProvider);
-          Log.toast('isInvading: ${warehouseSearchInfo.getData().isInvading}');
+
           return FloatingActionButton(
             onPressed: () {
               if (!warehouseSearchInfo.getData().isInvading) {
                 return;
               }
-              _controller.goBranch(2);
+              controller.goBranch(2);
             },
             foregroundColor: Colors.white,
-            backgroundColor: _controller.getFloatingActionButtonColor(2),
+            backgroundColor: controller.getFloatingActionButtonColor(2),
             child: const Icon(Icons.add),
           );
         },
