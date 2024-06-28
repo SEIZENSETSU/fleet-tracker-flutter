@@ -2,7 +2,7 @@ import 'package:fleet_tracker/Model/Entity/Warehouse/area_search_info.dart';
 import 'package:fleet_tracker/Model/Entity/Warehouse/info.dart';
 
 class WarehouseSearchInfo {
-  final bool isInvading;
+  bool isInvading;
   final List<WarehouseInfo>? warehouses;
   final List<WarehouseInfo> favoriteWarehouses;
   final List<WarehouseAreaSearchInfo>? warehouseAreas;
