@@ -1,8 +1,9 @@
 import 'package:fleet_tracker/Constants/strings.dart';
+import 'package:fleet_tracker/Controller/WarehouseSearch/warehouse_search_top_controller.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/WarehouseSearch/japan_map_deformed.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/Card/WarehouseSearch/local_search_card_group.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
-import 'package:fleet_tracker/View/Component/CustomWidget/Card/WarehouseSearch/japan_map_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_button.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/spacer_and_divider.dart';
@@ -25,6 +26,8 @@ class WarehouseSearchTopView extends StatefulWidget {
 }
 
 class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
+  WarehouseSearchTopController warehouseSearchTopController =
+      WarehouseSearchTopController();
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -34,7 +37,12 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
         title: '倉庫検索',
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              warehouseSearchTopController.mapSwitch =
+                  !warehouseSearchTopController.mapSwitch;
+              print(warehouseSearchTopController.mapSwitch);
+              setState(() {});
+            },
             icon: Icon(
               Icons.grid_view,
             ),
@@ -112,7 +120,18 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 ),
               ),
             ),
-            const JapanMapDefomed(),
+            Visibility(
+              visible: !warehouseSearchTopController.mapSwitch,
+              child: SizedBox(
+                width: size.width,
+                height: size.width,
+                child: LocalSearchCardGroup(),
+              ),
+            ),
+            Visibility(
+              visible: warehouseSearchTopController.mapSwitch,
+              child: const JapanMapDefomed(),
+            ),
             const SpacerAndDivider(topHeight: 20, bottomHeight: 10),
             //
             // お気に入りから探す表示部分
