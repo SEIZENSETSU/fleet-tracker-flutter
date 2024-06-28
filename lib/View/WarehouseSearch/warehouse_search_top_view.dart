@@ -125,7 +125,11 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
               child: SizedBox(
                 width: size.width,
                 height: size.width,
-                child: LocalSearchCardGroup(),
+                child: LocalSearchCardGroup(
+                  areaNameList: warehouseSearchTopController.areaNameList,
+                  areaImageUrlList:
+                      warehouseSearchTopController.areaImageUrlList,
+                ),
               ),
             ),
             Visibility(
