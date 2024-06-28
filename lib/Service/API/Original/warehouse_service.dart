@@ -112,23 +112,6 @@ class WarehouseService {
     WarehouseSearchInfo warehouseSearchInfo =
         WarehouseSearchInfo.fromJson(jsonResponse);
 
-    ///　開発用エリアtrue/false
-    ///
-    if (kDebugMode) {
-      // Future(
-      //   () async {
-      //     bool? isInvandingCheck;
-      //     isInvandingCheck =
-      //         await SharedPreferencesService().getBool('isInArea');
-      //     if (isInvandingCheck != null) {
-      //       Log.echo(isInvandingCheck.toString());
-      //       warehouseSearchInfo.isInvading = isInvandingCheck;
-      //     }
-      //   },
-      // );
-      // warehouseSearchInfo.isInvading = false;
-    }
-
     Log.echo('取得成功');
     return warehouseSearchInfo;
   }
