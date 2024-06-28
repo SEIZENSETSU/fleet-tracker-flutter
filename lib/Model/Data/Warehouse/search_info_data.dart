@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../Entity/Warehouse/search_info.dart';
 
-/// WarehouseSearchInfoDataを監視するProvider
+/// WarehouseSearchInfovider
 final warehouseSearchInfoDataProvider =
     ChangeNotifierProvider((ref) => WarehouseSearchInfoData());
 

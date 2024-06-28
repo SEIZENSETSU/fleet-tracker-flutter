@@ -4,7 +4,7 @@ class WarehouseAreaSearchInfo {
   final int warehouseAreaId;
   final String warehouseAreaName;
   final WarehouseDelayState averageDelayState;
-  final int distance;
+  final double distance;
 
   WarehouseAreaSearchInfo({
     required this.warehouseAreaId,

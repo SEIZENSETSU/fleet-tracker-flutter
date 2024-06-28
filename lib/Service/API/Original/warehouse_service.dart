@@ -1,7 +1,10 @@
 import 'dart:convert';
 
+import 'package:fleet_tracker/Controller/Setting/setting_top_controller.dart';
 import 'package:fleet_tracker/Model/Entity/Warehouse/search_info.dart';
 import 'package:fleet_tracker/Model/Entity/local_area.dart';
+import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -99,22 +102,35 @@ class WarehouseService {
       queryParams,
     );
 
-    try {
-      http.Response response = await http.get(uri);
-      final String responseUtf8 = utf8.decode(response.bodyBytes);
-      if (response.statusCode != 200) {
-        throw Exception('Fetch failed.');
-      }
-      Map<String, dynamic> jsonResponse = json.decode(responseUtf8);
-
-      WarehouseSearchInfo warehouseSearchInfo = WarehouseSearchInfo.fromJson(jsonResponse);
-
-      Log.echo('取得成功');
-      return warehouseSearchInfo;
-    } catch (e) {
-      Log.echo('エラーが発生しました $e');
-      return null;
+    http.Response response = await http.get(uri);
+    final String responseUtf8 = utf8.decode(response.bodyBytes);
+    if (response.statusCode != 200) {
+      throw Exception('Fetch failed.');
     }
+    Map<String, dynamic> jsonResponse = json.decode(responseUtf8);
+
+    WarehouseSearchInfo warehouseSearchInfo =
+        WarehouseSearchInfo.fromJson(jsonResponse);
+
+    ///　開発用エリアtrue/false
+    ///
+    if (kDebugMode) {
+      // Future(
+      //   () async {
+      //     bool? isInvandingCheck;
+      //     isInvandingCheck =
+      //         await SharedPreferencesService().getBool('isInArea');
+      //     if (isInvandingCheck != null) {
+      //       Log.echo(isInvandingCheck.toString());
+      //       warehouseSearchInfo.isInvading = isInvandingCheck;
+      //     }
+      //   },
+      // );
+      // warehouseSearchInfo.isInvading = false;
+    }
+
+    Log.echo('取得成功');
+    return warehouseSearchInfo;
   }
 
   /// 倉庫遅延情報取得
