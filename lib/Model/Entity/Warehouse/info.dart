@@ -7,7 +7,7 @@ class WarehouseInfo {
   final String warehouseName;
   final WarehouseDelayState averageDelayState;
   final List<DelayTimeDetail> delayTimeDetails;
-  final int distance;
+  final double distance;
 
   WarehouseInfo({
     required this.warehouseId,
