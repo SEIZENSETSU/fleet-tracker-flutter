@@ -18,8 +18,10 @@ class SettingTopView extends StatefulWidget {
 
 class _SettingTopViewState extends State<SettingTopView> {
   SettingTopController controller = SettingTopController();
+
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ColorName.scaffoldBackground,
       appBar: CustomAppBar(
@@ -50,7 +52,7 @@ class _SettingTopViewState extends State<SettingTopView> {
               isTapped: true,
               onTap: () {
                 Log.echo('開発ボタン');
-                controller.showDebugModal(context: context);
+                controller.showDebugModal(context: context, size: size);
               },
             ),
           const Padding(

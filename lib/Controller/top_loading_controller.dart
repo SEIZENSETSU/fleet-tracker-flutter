@@ -3,6 +3,7 @@ import 'package:fleet_tracker/Model/Data/location_data.dart';
 import 'package:fleet_tracker/Model/Entity/Warehouse/search_info.dart';
 import 'package:fleet_tracker/Model/Entity/location.dart';
 import 'package:fleet_tracker/Route/router.dart';
+import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -17,6 +18,7 @@ class TopLoadingController {
   BackgroundLocatorService get backgroundLocatorService =>
       BackgroundLocatorService();
   WarehouseService get warehouseService => WarehouseService();
+  SharedPreferencesService pref = SharedPreferencesService();
 
   final BuildContext context;
   bool permissionStatus = false;
@@ -45,6 +47,10 @@ class TopLoadingController {
 
     /// 位置情報を取得
     Location location = LocationData().getData();
+
+    /// shred_prefernce チェック
+    final isJapanMapDeformed = await pref.getBool('isJapanMapDeformed') ?? true;
+    pref.setBool('isJapanMapDeformed', isJapanMapDeformed);
 
     /// 初回API通信
     WarehouseSearchInfo? searchInfo =
