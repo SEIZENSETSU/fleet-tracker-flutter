@@ -1,4 +1,5 @@
 import 'package:fleet_tracker/Controller/top_loading_controller.dart';
+import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,11 @@ class TopLoadingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TopLoadingController(context).firstLoad();
+    try {
+      TopLoadingController(context).firstLoad();
+    } catch (e) {
+      Log.echo('TopLoading Error: $e', symbol: '❌');
+    }
 
     final double deviceHeight = MediaQuery.of(context).size.height;
 

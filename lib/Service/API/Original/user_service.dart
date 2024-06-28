@@ -42,7 +42,7 @@ class UserService {
   /// [uid] ユーザーID
   /// [userName] ユーザー名
   /// [fcmTokenId] FCMトークンID
-  Future<int?> registerUser({
+  Future<User?> registerUser({
     required String uid,
     required String userName,
     required String fcmTokenId,
@@ -61,12 +61,16 @@ class UserService {
         headers: headers,
         body: jsonEncode(user),
       );
-
+      final String responseUtf8 = utf8.decode(response.bodyBytes);
       if (response.statusCode != 201) {
         throw Exception('Register failed.');
       }
+
+      Map<String, dynamic> jsonResponse = json.decode(responseUtf8);
+      User registeredUser = User.fromJson(jsonResponse);
+
       Log.echo('ユーザー情報を登録しました');
-      return response.statusCode;
+      return registeredUser;
     } catch (e) {
       Log.echo('エラーが発生しました $e');
       return null;
