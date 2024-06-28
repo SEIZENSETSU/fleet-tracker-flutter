@@ -19,7 +19,7 @@ class WarehouseAreaSearchInfo {
       warehouseAreaName: json['warehouse_area_name'],
       averageDelayState:
           WarehouseDelayStateType(json['average_delay_state']).type,
-      distance: json['distance'],
+      distance: double.parse(json['distance']),
     );
   }
 

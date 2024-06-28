@@ -28,7 +28,7 @@ class WarehouseInfo {
       delayTimeDetails: json['delay_time_detail']
           .map<DelayTimeDetail>((x) => DelayTimeDetail.fromJson(x))
           .toList(),
-      distance: json['distance'],
+      distance: double.parse(json['distance']),
     );
   }
 
