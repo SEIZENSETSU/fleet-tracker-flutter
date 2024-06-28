@@ -102,18 +102,22 @@ class WarehouseService {
       queryParams,
     );
 
-    http.Response response = await http.get(uri);
-    final String responseUtf8 = utf8.decode(response.bodyBytes);
-    if (response.statusCode != 200) {
-      throw Exception('Fetch failed.');
+    try {
+      http.Response response = await http.get(uri);
+      final String responseUtf8 = utf8.decode(response.bodyBytes);
+      if (response.statusCode != 200) {
+        throw Exception('Fetch failed.');
+      }
+      Map<String, dynamic> jsonResponse = json.decode(responseUtf8);
+
+      WarehouseSearchInfo warehouseSearchInfo =
+          WarehouseSearchInfo.fromJson(jsonResponse);
+      Log.echo('取得成功');
+      return warehouseSearchInfo;
+    } catch (e) {
+      Log.echo('エラーが発生しました $e');
+      return null;
     }
-    Map<String, dynamic> jsonResponse = json.decode(responseUtf8);
-
-    WarehouseSearchInfo warehouseSearchInfo =
-        WarehouseSearchInfo.fromJson(jsonResponse);
-
-    Log.echo('取得成功');
-    return warehouseSearchInfo;
   }
 
   /// 倉庫遅延情報取得
