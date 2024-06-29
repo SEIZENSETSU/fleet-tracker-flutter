@@ -57,32 +57,29 @@ class CustomModal {
                         bottom: BorderSide(color: Colors.grey),
                       ),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            context.pop(context);
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Container(
-                              width: size.height * 0.05,
-                              height: size.height * 0.05,
-                              decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: ColorName.cloudColor),
-                              child: const FittedBox(
-                                fit: BoxFit.contain,
-                                child: CustomText(
-                                  text: '×',
-                                  fontWeight: FontWeight.normal,
-                                ),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          context.pop(context);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Container(
+                            width: size.height * 0.05,
+                            height: size.height * 0.05,
+                            decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: ColorName.cloudColor),
+                            child: const FittedBox(
+                              fit: BoxFit.contain,
+                              child: Icon(
+                                Icons.close,
                               ),
                             ),
                           ),
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ],
