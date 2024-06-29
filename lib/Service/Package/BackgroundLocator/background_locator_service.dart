@@ -122,15 +122,18 @@ class BackgroundLocatorService {
       Log.echo('Observer: WarehouseSearchInfoData updated', symbol: '🔄');
 
       /// debug: isInvadingの強制
-      SharedPreferencesService prefs = SharedPreferencesService();
-      bool? forceInvadingMode =
-          await prefs.getBool(SharedPreferencesKeysEnum.forceInvadingMode.name);
-      bool? forceIsInvading =
-          await prefs.getBool(SharedPreferencesKeysEnum.forceIsInvading.name);
+      if (kDebugMode) {
+        SharedPreferencesService prefs = SharedPreferencesService();
+        bool? forceInvadingMode = await prefs
+            .getBool(SharedPreferencesKeysEnum.forceInvadingMode.name);
+        bool? forceIsInvading =
+            await prefs.getBool(SharedPreferencesKeysEnum.forceIsInvading.name);
 
-      if (forceInvadingMode!) {
-        WarehouseSearchInfoData().setIsInvading(forceIsInvading!);
-        Log.echo('Observer: isInvading forced $forceIsInvading', symbol: '🚧');
+        if (forceInvadingMode!) {
+          WarehouseSearchInfoData().setIsInvading(forceIsInvading!);
+          Log.echo('Observer: isInvading forced $forceIsInvading',
+              symbol: '🚧');
+        }
       }
     });
   }
