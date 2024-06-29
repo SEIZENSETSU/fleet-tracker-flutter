@@ -16,10 +16,10 @@ class CustomModal {
     required Widget content,
     Color? modalColor = Colors.white,
     Color? barrierColor,
-    bool? expand = true,
+    bool expand = true,
   }) {
     showCupertinoModalBottomSheet(
-      expand: expand!,
+      expand: expand,
       context: context,
       isDismissible: false,
       enableDrag: false,
