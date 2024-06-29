@@ -90,7 +90,10 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 text: '検索',
                 onTap: () {
                   // キーワード検索で検索結果画面にいく
-                  WarehouseSearchResultRoute(keyword: 'エルフーズ').push(context);
+                  WarehouseSearchResultRoute(
+                          keyword: warehouseSearchTopController
+                              .textEditingController.text)
+                      .push(context);
                 },
               ),
             ),
