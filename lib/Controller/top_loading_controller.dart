@@ -38,6 +38,8 @@ class TopLoadingController {
       DeviceOrientation.portraitUp,
     ]);
 
+    LocalNotificationsService().requestPermissions();
+
     permissionStatus = await checkLocationPermission();
     if (!permissionStatus) {
       ErrorDialog().showErrorDialog(
