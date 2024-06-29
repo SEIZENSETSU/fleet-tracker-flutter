@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
 import 'package:fleet_tracker/Model/Data/Warehouse/search_info_data.dart';
 import 'package:fleet_tracker/Model/Data/location_data.dart';
 import 'package:fleet_tracker/Model/Data/user_data.dart';
@@ -7,6 +8,8 @@ import 'package:fleet_tracker/Model/Entity/location.dart';
 import 'package:fleet_tracker/Route/router.dart';
 import 'package:fleet_tracker/Service/API/Original/user_service.dart';
 import 'package:fleet_tracker/Service/Firebase/Authentication/authentication_service.dart';
+import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -36,6 +39,16 @@ class TopLoadingController {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
+
+    /// SharedPreferences Initialize
+    SharedPreferencesService prefs = SharedPreferencesService();
+    if (kDebugMode) {
+      await prefs.getBool(SharedPreferencesKeysEnum.forceInvadingMode.name) ??
+          prefs.setBool(
+              SharedPreferencesKeysEnum.forceInvadingMode.name, false);
+      await prefs.getBool(SharedPreferencesKeysEnum.forceIsInvading.name) ??
+          prefs.setBool(SharedPreferencesKeysEnum.forceIsInvading.name, false);
+    }
 
     permissionStatus = await checkLocationPermission();
     if (!permissionStatus) {

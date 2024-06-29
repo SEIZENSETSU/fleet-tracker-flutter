@@ -2,6 +2,8 @@ import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:background_task/background_task.dart' as background_task;
+import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
+import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -118,6 +120,21 @@ class BackgroundLocatorService {
       /// mainIsolate: APIの結果を更新
       WarehouseSearchInfoData().setData(data: searchInfo);
       Log.echo('Observer: WarehouseSearchInfoData updated', symbol: '🔄');
+
+      /// debug: isInvadingの強制
+      if (kDebugMode) {
+        SharedPreferencesService prefs = SharedPreferencesService();
+        bool? forceInvadingMode = await prefs
+            .getBool(SharedPreferencesKeysEnum.forceInvadingMode.name);
+        bool? forceIsInvading =
+            await prefs.getBool(SharedPreferencesKeysEnum.forceIsInvading.name);
+
+        if (forceInvadingMode!) {
+          WarehouseSearchInfoData().setIsInvading(forceIsInvading!);
+          Log.echo('Observer: isInvading forced $forceIsInvading',
+              symbol: '🚧');
+        }
+      }
     });
   }
 

@@ -1,0 +1,4 @@
+enum SharedPreferencesKeysEnum {
+  forceInvadingMode,
+  forceIsInvading,
+}
