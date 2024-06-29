@@ -1,6 +1,5 @@
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class CustomTextfield extends StatefulWidget {
   const CustomTextfield({
@@ -22,16 +21,12 @@ class _CustomTextfieldState extends State<CustomTextfield> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      // フォーカス関連は時間かかるのでスキップ
-      // autofocus: true,
       controller: widget.controller,
       onChanged: (value) {
-        //一旦、あとでstlに戻す
         setState(() {});
       },
       textAlignVertical: TextAlignVertical.center,
-      style: TextStyle(
-        decoration: TextDecoration.underline,
+      style: const TextStyle(
         decorationColor: ColorName.mainthemeColor,
       ),
       decoration: InputDecoration(
@@ -41,9 +36,9 @@ class _CustomTextfieldState extends State<CustomTextfield> {
           color: ColorName.mainthemeColor,
         ),
         suffixIcon: Visibility(
-          visible: widget.controller.text.length != 0,
+          visible: widget.controller.text.isNotEmpty,
           child: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.cancel_rounded,
               color: Colors.grey,
             ),

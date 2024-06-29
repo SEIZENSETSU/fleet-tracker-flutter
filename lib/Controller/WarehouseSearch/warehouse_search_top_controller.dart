@@ -5,7 +5,7 @@ class WarehouseSearchTopController {
   SharedPreferencesService sharedPreferencesService =
       SharedPreferencesService();
 
-  final TextEditingController testController = TextEditingController();
+  final TextEditingController textEditingController = TextEditingController();
   late bool mapSwitch;
   List<String> areaNameList = [
     '北海道',
