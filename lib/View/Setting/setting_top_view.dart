@@ -49,7 +49,6 @@ class _SettingTopViewState extends State<SettingTopView> {
           if (kDebugMode)
             SettingTileCell().common(
               '開発用設定',
-              isTapped: true,
               onTap: () {
                 Log.echo('開発ボタン');
                 controller.showDebugModal(context: context, size: size);
