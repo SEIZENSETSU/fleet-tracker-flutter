@@ -1,5 +1,7 @@
+import 'package:fleet_tracker/Constants/Enum/function_type_enum.dart';
 import 'package:fleet_tracker/Constants/Enum/weather_state_enum.dart';
 import 'package:fleet_tracker/Constants/strings.dart';
+import 'package:fleet_tracker/Controller/Home/home_controller.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/destination_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
@@ -15,6 +17,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  HomeController controller = HomeController();
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -300,6 +303,8 @@ class _HomeViewState extends State<HomeView> {
                       child: CommonCard(
                         onTap: () {
                           // 倉庫検索タブへ遷移
+                          controller.pushFunctionCard(
+                              FunctionType('search').branchIndex());
                         },
                         content: const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -321,6 +326,8 @@ class _HomeViewState extends State<HomeView> {
                       child: CommonCard(
                         onTap: () {
                           // コメント・遅延登録画面へ遷移
+                          controller.pushFunctionCard(
+                              FunctionType('userInput').branchIndex());
                         },
                         content: const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -342,6 +349,8 @@ class _HomeViewState extends State<HomeView> {
                       child: CommonCard(
                         onTap: () {
                           // 交通情報タブへ遷移
+                          controller.pushFunctionCard(
+                              FunctionType('trafficInformation').branchIndex());
                         },
                         content: const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -363,6 +372,8 @@ class _HomeViewState extends State<HomeView> {
                       child: CommonCard(
                         onTap: () {
                           // 設定タブへ遷移
+                          controller.pushFunctionCard(
+                              FunctionType('setting').branchIndex());
                         },
                         content: const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
