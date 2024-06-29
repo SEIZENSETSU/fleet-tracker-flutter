@@ -8,13 +8,16 @@ class LocalNotificationsService {
   void initialize() {
     const initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
-    // final DarwinInitializationSettings initializationSettingsDarwin =
-    //     DarwinInitializationSettings(
-    //         onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    const DarwinInitializationSettings initializationSettingsDarwin =
+        DarwinInitializationSettings(
+      requestSoundPermission: false,
+      requestBadgePermission: false,
+      requestAlertPermission: false,
+    );
     const InitializationSettings initializationSettings =
         InitializationSettings(
       android: initializationSettingsAndroid,
-      // iOS: initializationSettingsDarwin,
+      iOS: initializationSettingsDarwin,
     );
     flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
@@ -32,7 +35,7 @@ class LocalNotificationsService {
               IOSFlutterLocalNotificationsPlugin>()
           ?.requestPermissions(
             alert: true,
-            badge: true,
+            badge: false,
             sound: true,
           );
     } else if (Platform.isAndroid) {
