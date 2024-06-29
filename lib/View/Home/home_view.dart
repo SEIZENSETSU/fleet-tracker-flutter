@@ -18,6 +18,18 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   HomeController controller = HomeController();
+  String currentAddress = '';
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future(
+      () async {
+        currentAddress = await controller.getCurrentAddress();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -70,10 +82,10 @@ class _HomeViewState extends State<HomeView> {
                               ),
                               Container(
                                 height: 30,
-                                child: const Padding(
+                                child: Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: CustomText(
-                                    text: '千葉県習志野',
+                                    text: currentAddress,
                                     fontSize: 15,
                                   ),
                                 ),
