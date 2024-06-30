@@ -6,6 +6,7 @@ import 'package:fleet_tracker/View/Component/CustomWidget/Card/WarehouseSearch/l
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_button.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/custom_textfield.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/spacer_and_divider.dart';
 import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
@@ -65,28 +66,15 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: size.width * 0.9,
-              child: const Padding(
+              child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  // フォーカス関連は時間かかるのでスキップ
-                  // autofocus: true,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: '工場名、エリア名、地名',
-                    hintStyle: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Noto_Sans_JP',
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
+                child: CustomTextfield(
+                  hintText: '工場名、エリア名、地名',
+                  backgroundcolor: Colors.white,
+                  controller:
+                      warehouseSearchTopController.textEditingController,
                 ),
               ),
             ),
@@ -102,7 +90,10 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 text: '検索',
                 onTap: () {
                   // キーワード検索で検索結果画面にいく
-                  WarehouseSearchResultRoute(keyword: 'エルフーズ').push(context);
+                  WarehouseSearchResultRoute(
+                          keyword: warehouseSearchTopController
+                              .textEditingController.text)
+                      .push(context);
                 },
               ),
             ),
