@@ -8,7 +8,7 @@ class HomeController {
     BottomNavigationBarController().goBranch(index);
   }
 
-  Future getCurrentAddress() async {
+  Future<String> getCurrentAddress() async {
     /// 日本語設定
     await GeocodingPlatform.instance!.setLocaleIdentifier("JP");
     final placemark = await placemarkFromCoordinates(
