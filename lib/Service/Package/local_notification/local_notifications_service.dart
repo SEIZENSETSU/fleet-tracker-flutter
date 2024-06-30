@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class LocalNotificationsService {
@@ -46,7 +47,8 @@ class LocalNotificationsService {
     }
   }
 
-  Future<void> showNotification() async {
+  Future<void> showNotification(
+      {required String title, required String body}) async {
     const AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
       'your channel id',
@@ -63,8 +65,8 @@ class LocalNotificationsService {
     );
     await flutterLocalNotificationsPlugin.show(
       0,
-      'plain title',
-      'plain body',
+      title,
+      body,
       notificationDetails,
       payload: 'item x',
     );
