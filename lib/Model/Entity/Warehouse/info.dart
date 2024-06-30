@@ -7,7 +7,7 @@ class WarehouseInfo {
   final String warehouseName;
   final WarehouseDelayState averageDelayState;
   final List<DelayTimeDetail> delayTimeDetails;
-  final int distance;
+  final double distance;
 
   WarehouseInfo({
     required this.warehouseId,
@@ -28,7 +28,7 @@ class WarehouseInfo {
       delayTimeDetails: json['delay_time_detail']
           .map<DelayTimeDetail>((x) => DelayTimeDetail.fromJson(x))
           .toList(),
-      distance: json['distance'],
+      distance: double.parse(json['distance'].toString()),
     );
   }
 

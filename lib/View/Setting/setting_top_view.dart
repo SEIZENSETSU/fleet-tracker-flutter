@@ -1,7 +1,10 @@
 import 'package:fleet_tracker/Constants/strings.dart';
+import 'package:fleet_tracker/Controller/Setting/setting_top_controller.dart';
+import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Setting/setting_tile_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../Component/CustomWidget/custom_text.dart';
@@ -14,8 +17,11 @@ class SettingTopView extends StatefulWidget {
 }
 
 class _SettingTopViewState extends State<SettingTopView> {
+  SettingTopController controller = SettingTopController();
+
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ColorName.scaffoldBackground,
       appBar: CustomAppBar(
@@ -40,6 +46,14 @@ class _SettingTopViewState extends State<SettingTopView> {
               // コメント投稿をする際の表示名を変更できる項目
             },
           ),
+          if (kDebugMode)
+            SettingTileCell().common(
+              '開発用設定',
+              onTap: () {
+                Log.echo('開発ボタン');
+                controller.showDebugModal(context: context, size: size);
+              },
+            ),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Align(

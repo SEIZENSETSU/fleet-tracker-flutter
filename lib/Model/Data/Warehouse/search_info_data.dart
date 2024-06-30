@@ -27,4 +27,14 @@ class WarehouseSearchInfoData extends ChangeNotifier {
     _data = data;
     notifyListeners();
   }
+
+  /// 開発用エリア内切り替えsetter
+  void setIsInvading(bool flag) {
+    _data = WarehouseSearchInfo(
+      isInvading: flag,
+      favoriteWarehouses:
+          WarehouseSearchInfoData().getData().favoriteWarehouses,
+    );
+    notifyListeners();
+  }
 }
