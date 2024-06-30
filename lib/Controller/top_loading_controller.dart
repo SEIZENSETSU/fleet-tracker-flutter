@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
+import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Model/Data/Warehouse/search_info_data.dart';
 import 'package:fleet_tracker/Model/Data/location_data.dart';
 import 'package:fleet_tracker/Model/Data/user_data.dart';
@@ -9,9 +10,10 @@ import 'package:fleet_tracker/Route/router.dart';
 import 'package:fleet_tracker/Service/API/Original/user_service.dart';
 import 'package:fleet_tracker/Service/Firebase/Authentication/authentication_service.dart';
 import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
+import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 
