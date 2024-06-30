@@ -40,9 +40,9 @@ class TopLoadingController {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    LocalNotificationsService().initialize();
 
-    await LocalNotificationsService().requestPermissions();
+    /// LocalNotifications Initialize
+    await LocalNotificationsService().initialize();
 
     /// SharedPreferences Initialize
     SharedPreferencesService prefs = SharedPreferencesService();
