@@ -36,26 +36,23 @@ class ErrorDialog {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
+              children: <Widget>[
                 Container(
+                  width: 150,
                   height: 50,
                   color: ColorName.mainthemeColor,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.only(left: 10),
-                        height: 30,
-                        width: 200,
-                        child: FittedBox(
-                          fit: BoxFit.contain,
-                          child: CustomText(
-                            text: title,
-                            color: Colors.white,
-                          ),
-                        ),
+                  child: Container(
+                    padding: const EdgeInsets.only(left: 10),
+                    height: 30,
+                    width: 200,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: CustomText(
+                        text: title,
+                        color: Colors.white,
+                        fontSize: 22,
                       ),
-                    ],
+                    ),
                   ),
                 ),
                 Container(
@@ -63,11 +60,11 @@ class ErrorDialog {
                   color: Colors.white,
                   margin: const EdgeInsets.all(10),
                   child: Column(
-                    children: [
+                    children: <Widget>[
                       Expanded(
                         flex: 3,
                         child: Row(
-                          children: [
+                          children: <Widget>[
                             Expanded(
                               flex: 1,
                               child: Padding(
@@ -81,14 +78,10 @@ class ErrorDialog {
                             ),
                             Expanded(
                               flex: 3,
-                              child: Row(
-                                children: [
-                                  Flexible(
-                                    child: CustomText(
-                                      text: detail,
-                                    ),
-                                  ),
-                                ],
+                              child: Flexible(
+                                child: CustomText(
+                                  text: detail,
+                                ),
                               ),
                             ),
                           ],

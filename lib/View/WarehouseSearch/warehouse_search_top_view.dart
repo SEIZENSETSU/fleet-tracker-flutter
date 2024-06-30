@@ -41,7 +41,6 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
             onPressed: () {
               warehouseSearchTopController.mapSwitch =
                   !warehouseSearchTopController.mapSwitch;
-              print(warehouseSearchTopController.mapSwitch);
               setState(() {});
             },
             icon: Icon(
