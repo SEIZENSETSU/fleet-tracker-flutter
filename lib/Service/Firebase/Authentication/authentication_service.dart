@@ -28,4 +28,9 @@ class FirebaseAuthenticationService {
   String? getUid() {
     return _instance.currentUser?.uid;
   }
+
+  /// IDトークンを取得する
+  Future<String?> getIdToken() async {
+    return _instance.currentUser?.getIdToken();
+  }
 }
