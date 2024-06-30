@@ -136,16 +136,16 @@ class _WarehouseSearchResultViewState extends State<WarehouseSearchResultView> {
                                 child: CommonCard(
                                   onTap: () {
                                     // カードをタップして倉庫詳細ページへ遷移
-                                    WarehouseDetailRoute(
-                                      $extra: Warehouse(
-                                        id: 1,
-                                        name: 'エルフーズ東京',
-                                        latitude: 35.681236,
-                                        longitude: 139.767125,
-                                      ),
-                                      traficstateCount: [10, 2, 34, 1, 0],
-                                      delayStateType: 'pause',
-                                    ).push(context);
+                                    // WarehouseDetailRoute(
+                                    //   $extra: Warehouse(
+                                    //     id: 1,
+                                    //     name: 'エルフーズ東京',
+                                    //     latitude: 35.681236,
+                                    //     longitude: 139.767125,
+                                    //   ),
+                                    //   traficstateCountList: [],
+                                    //   delayStateType: 'pause',
+                                    // ).push(context);
                                   },
                                   content: Row(
                                     children: [

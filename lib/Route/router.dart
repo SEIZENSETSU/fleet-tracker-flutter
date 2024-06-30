@@ -1,7 +1,10 @@
+import 'package:fleet_tracker/Model/Entity/Warehouse/search_info.dart';
+import 'package:fleet_tracker/Model/Entity/delay_time_detail.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../Model/Entity/Warehouse/info.dart';
 import '../Model/Entity/Warehouse/warehouse.dart';
 import '../View/Component/WarehouseDetail/warehouse_detail_view.dart';
 import '../View/Home/home_view.dart';
@@ -154,18 +157,13 @@ class SettingBranch extends StatefulShellBranchData {
 class WarehouseDetailRoute extends GoRouteData {
   WarehouseDetailRoute({
     required this.$extra,
-    required this.traficstateCount,
-    required this.delayStateType,
   });
-  final Warehouse $extra;
-  final List<int>? traficstateCount;
-  final String delayStateType;
+  final WarehouseInfo $extra;
+
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       WarehouseDetailView(
-        warehouse: $extra,
-        traficstateCount: traficstateCount!,
-        delayStateType: delayStateType,
+        warehouseInfo: $extra,
       );
 }
 //////////////////////////////  Component  //////////////////////////////

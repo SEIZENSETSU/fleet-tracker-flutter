@@ -2,6 +2,7 @@ import 'package:fleet_tracker/Constants/Enum/function_type_enum.dart';
 import 'package:fleet_tracker/Constants/Enum/weather_state_enum.dart';
 import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Controller/Home/home_controller.dart';
+import 'package:fleet_tracker/Service/API/Original/warehouse_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/destination_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
@@ -60,30 +61,13 @@ class _HomeViewState extends State<HomeView> {
                         child: CommonCard(
                           content: UserInputCell(
                             warehouseName: data.warehouseName,
-                            traficstateCount: [
-                              data.delayTimeDetails[0].answerCount,
-                              data.delayTimeDetails[0].answerCount,
-                              data.delayTimeDetails[0].answerCount,
-                              data.delayTimeDetails[0].answerCount,
-                              data.delayTimeDetails[0].answerCount,
-                            ],
+
+                            /// 後ほど
+                            traficstateCountList: data.delayTimeDetails,
                             delayStateType: data.averageDelayState.name,
                             toWarehousePage: () {
                               WarehouseDetailRoute(
-                                $extra: Warehouse(
-                                  id: data.warehouseId,
-                                  name: data.warehouseName,
-                                  latitude: 35.681236,
-                                  longitude: 139.767125,
-                                ),
-                                traficstateCount: [
-                                  data.delayTimeDetails[0].answerCount,
-                                  data.delayTimeDetails[0].answerCount,
-                                  data.delayTimeDetails[0].answerCount,
-                                  data.delayTimeDetails[0].answerCount,
-                                  data.delayTimeDetails[0].answerCount,
-                                ],
-                                delayStateType: data.averageDelayState.name,
+                                $extra: data,
                               ).push(context);
                             },
                           ),

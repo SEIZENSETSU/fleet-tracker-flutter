@@ -1,4 +1,8 @@
 import 'package:fleet_tracker/Constants/strings.dart';
+import 'package:fleet_tracker/Model/Entity/Warehouse/search_info.dart';
+import 'package:fleet_tracker/Model/Entity/delay_time_detail.dart';
+import 'package:fleet_tracker/Route/router.dart';
+import 'package:fleet_tracker/Service/API/Original/warehouse_service.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/UserInput/user_input_cell.dart';
@@ -12,34 +16,44 @@ import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Constants/Enum/warehouse_delay_state_enum.dart';
+import '../../../Model/Entity/Warehouse/info.dart';
 import '../../../Model/Entity/Warehouse/warehouse.dart';
 
 class WarehouseDetailView extends StatefulWidget {
   const WarehouseDetailView({
     super.key,
-    required this.warehouse,
-    required this.traficstateCount,
-    required this.delayStateType,
+    required this.warehouseInfo,
   });
-  final Warehouse warehouse;
-  final List traficstateCount;
-  final String delayStateType;
+  final WarehouseInfo warehouseInfo;
   @override
   State<WarehouseDetailView> createState() => _WarehouseDetailViewState();
 }
 
 class _WarehouseDetailViewState extends State<WarehouseDetailView> {
+  Warehouse? warehouse;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future(
+      () async {
+        warehouse = await WarehouseService()
+            .getWarehouseInfo(warehouseId: widget.warehouseInfo.warehouseId);
+      },
+    );
+  }
+
   List commentList = [0, 0, 0, 0, 0, 0, 0];
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     WarehouseDelayStateType stateType =
-        WarehouseDelayStateType(widget.delayStateType);
+        WarehouseDelayStateType(widget.warehouseInfo.averageDelayState.name);
     return Scaffold(
       backgroundColor: ColorName.scaffoldBackground,
       appBar: CustomAppBar(
         isBackButton: true,
-        title: widget.warehouse.name,
+        title: widget.warehouseInfo.warehouseName,
         actions: [
           IconButton(
             onPressed: () {},
@@ -55,8 +69,8 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
               // 倉庫のマップ表示部
 
               WarehouseMap(
-                latitude: widget.warehouse.latitude,
-                longitude: widget.warehouse.longitude,
+                latitude: warehouse!.latitude,
+                longitude: warehouse!.longitude,
               ),
               const SpacerAndDivider(topHeight: 10, bottomHeight: 10),
               //
@@ -78,9 +92,11 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                   padding: const EdgeInsets.all(4.0),
                   child: CommonCard(
                     content: UserInputCell(
-                      warehouseName: widget.warehouse.name,
-                      traficstateCount: widget.traficstateCount,
-                      delayStateType: widget.delayStateType,
+                      warehouseName: widget.warehouseInfo.warehouseName,
+                      traficstateCountList:
+                          widget.warehouseInfo.delayTimeDetails,
+                      delayStateType:
+                          widget.warehouseInfo.averageDelayState.name,
                     ),
                   ),
                 ),
@@ -111,7 +127,8 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                         child: GestureDetector(
                           onTap: () {
                             // お気に入り登録
-                            Log.echo('${widget.warehouse.name}をお気に入り登録をしました');
+                            Log.echo(
+                                '${widget.warehouseInfo.warehouseName}をお気に入り登録をしました');
                           },
                           child: const Padding(
                             padding: const EdgeInsets.all(4.0),
