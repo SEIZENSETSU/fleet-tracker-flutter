@@ -21,6 +21,7 @@ import '../Model/Entity/user.dart';
 import '../Service/API/Original/warehouse_service.dart';
 import '../Service/Log/log_service.dart';
 import '../Service/Package/BackgroundLocator/background_locator_service.dart';
+import '../Service/Package/LocalNotification/local_notifications_service.dart';
 import '../View/Component/CustomWidget/Dialog/error_dialog.dart';
 
 class TopLoadingController {
@@ -41,6 +42,9 @@ class TopLoadingController {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
+
+    /// LocalNotifications Initialize
+    await LocalNotificationsService().initialize();
 
     /// SharedPreferences Initialize
     SharedPreferencesService prefs = SharedPreferencesService();
