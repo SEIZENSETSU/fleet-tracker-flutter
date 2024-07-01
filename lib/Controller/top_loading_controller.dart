@@ -52,35 +52,6 @@ class TopLoadingController {
           prefs.setBool(SharedPreferencesKeysEnum.forceIsInvading.name, false);
     }
 
-    permissionStatus = await checkLocationPermission();
-    if (!permissionStatus) {
-      ErrorDialog().showErrorDialog(
-        context: context,
-        title: 'エラー',
-        content: Assets.images.icons.errorDialogIcon.image(color: Colors.red),
-        detail: '位置情報の許可が必要です',
-        buttonText: Strings.BACK_BUTTON_TEXT,
-        buttonAction: () {
-          SystemNavigator.pop();
-        },
-      );
-      throw Exception('Location permission denied');
-    }
-
-    /// 位置情報を取得
-    Location location = LocationData().getData();
-
-    /// 初回API通信
-    WarehouseSearchInfo? searchInfo =
-        await warehouseService.searchWarehouseList(
-            userLatitude: location.lat, userLongitude: location.lng);
-    if (searchInfo == null) {
-      throw Exception('Search failed.');
-    }
-
-    /// 倉庫情報をシングルトンにSet
-    WarehouseSearchInfoData().setData(data: searchInfo);
-
     /// ユーザー情報を取得
     firebase_auth.User? authUser = authenticationService.getUser();
     User? userInfo;
@@ -113,6 +84,34 @@ class TopLoadingController {
 
     /// ユーザー情報をシングルトンにSet
     UserData().setData(data: userInfo);
+
+    permissionStatus = await checkLocationPermission();
+    if (!permissionStatus) {
+      ErrorDialog().showErrorDialog(
+        context: context,
+        title: 'エラー',
+        content: const Placeholder(),
+        detail: '位置情報の許可が必要です',
+        buttonAction: () {
+          SystemNavigator.pop();
+        },
+      );
+      throw Exception('Location permission denied');
+    }
+
+    /// 位置情報を取得
+    Location location = LocationData().getData();
+
+    /// 初回API通信
+    WarehouseSearchInfo? searchInfo =
+        await warehouseService.searchWarehouseList(
+            userLatitude: location.lat, userLongitude: location.lng);
+    if (searchInfo == null) {
+      throw Exception('Search failed.');
+    }
+
+    /// 倉庫情報をシングルトンにSet
+    WarehouseSearchInfoData().setData(data: searchInfo);
 
     await Future.delayed(const Duration(seconds: 1));
     // ignore: use_build_context_synchronously, prefer_const_constructors
