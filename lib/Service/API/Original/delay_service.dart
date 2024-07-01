@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fleet_tracker/Service/Firebase/Authentication/authentication_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -7,6 +8,8 @@ import '../../../Model/Entity/delay_information.dart';
 import '../../Log/log_service.dart';
 
 class DelayService {
+  FirebaseAuthenticationService get authService => FirebaseAuthenticationService();
+
   late String baseUrl;
   final Map<String, String> headers = {
     'Content-type': 'application/json',
@@ -28,6 +31,9 @@ class DelayService {
     );
 
     try {
+      final String idToken = await authService.getIdToken() ?? '';
+      headers['Authorization'] = 'Bearer $idToken';
+
       http.Response response = await http.get(uri);
       final String responseUtf8 = utf8.decode(response.bodyBytes);
       if (response.statusCode != 200) {
@@ -63,6 +69,9 @@ class DelayService {
     };
 
     try {
+      final String idToken = await authService.getIdToken() ?? '';
+      headers['Authorization'] = 'Bearer $idToken';
+
       http.Response response = await http.post(
         uri,
         headers: headers,

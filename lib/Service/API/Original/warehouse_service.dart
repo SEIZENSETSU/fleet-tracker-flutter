@@ -1,11 +1,8 @@
 import 'dart:convert';
 
-import 'package:fleet_tracker/Controller/Setting/setting_top_controller.dart';
 import 'package:fleet_tracker/Model/Entity/Warehouse/search_info.dart';
 import 'package:fleet_tracker/Model/Entity/local_area.dart';
 import 'package:fleet_tracker/Service/Firebase/Authentication/authentication_service.dart';
-import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,8 +10,7 @@ import '../../../Model/Entity/Warehouse/warehouse.dart';
 import '../../Log/log_service.dart';
 
 class WarehouseService {
-  FirebaseAuthenticationService get authService =>
-      FirebaseAuthenticationService();
+  FirebaseAuthenticationService get authService => FirebaseAuthenticationService();
   late String baseUrl;
 
   final Map<String, String> headers = {
@@ -133,8 +129,7 @@ class WarehouseService {
       }
       Map<String, dynamic> jsonResponse = json.decode(responseUtf8);
 
-      WarehouseSearchInfo warehouseSearchInfo =
-          WarehouseSearchInfo.fromJson(jsonResponse);
+      WarehouseSearchInfo warehouseSearchInfo = WarehouseSearchInfo.fromJson(jsonResponse);
       Log.echo('取得成功');
       return warehouseSearchInfo;
     } catch (e) {
