@@ -51,8 +51,8 @@ class LocalNotificationsService {
   }
 
   /// 通知バーの設定
-  ///【title】通知のタイトル
-  ///【body】通知の内容
+  /// 【title】通知のタイトル
+  /// 【body】通知の内容
   Future<void> showNotification(
       {required String title, required String body}) async {
     const AndroidNotificationDetails androidNotificationDetails =
