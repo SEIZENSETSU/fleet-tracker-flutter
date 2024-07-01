@@ -57,7 +57,9 @@ class TopLoadingController {
       ErrorDialog().showErrorDialog(
         context: context,
         title: 'エラー',
-        content: Assets.images.icons.errorDialogIcon.image(color: Colors.red),
+        content: Assets.images.icons.errorDialogIcon.image(
+          color: Colors.red,
+        ),
         detail: '位置情報の許可が必要です',
         buttonText: Strings.BACK_BUTTON_TEXT,
         buttonAction: () {
