@@ -78,7 +78,7 @@ class DelayService {
       http.Response response = await http.post(
         uri,
         headers: headers,
-        body: json.encode(delayInformation),
+        body: jsonEncode(delayInformation),
       );
       if (response.statusCode != 201) {
         throw Exception('Fetch failed.');
