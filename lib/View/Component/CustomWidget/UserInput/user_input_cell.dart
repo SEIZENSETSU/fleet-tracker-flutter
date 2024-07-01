@@ -1,4 +1,5 @@
 import 'package:fleet_tracker/Constants/strings.dart';
+import 'package:fleet_tracker/Model/Entity/delay_time_detail.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/UserInput/user_input_circle_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/assets.gen.dart';
@@ -14,13 +15,13 @@ class UserInputCell extends StatelessWidget {
   const UserInputCell({
     super.key,
     required this.warehouseName,
-    required this.traficstateCount,
+    required this.traficstateCountList,
     required this.delayStateType,
     this.toWarehousePage,
   });
 
   final String warehouseName;
-  final List traficstateCount;
+  final List<DelayTimeDetail> traficstateCountList;
   final String delayStateType;
   final Function? toWarehousePage;
 
@@ -314,7 +315,9 @@ class UserInputCell extends StatelessWidget {
                           ),
                           child: Center(
                             child: CustomText(
-                              text: traficstateCount[0].toString(),
+                              text: traficstateCountList[0]
+                                  .answerCount
+                                  .toString(),
                             ),
                           ),
                         ),
@@ -331,7 +334,9 @@ class UserInputCell extends StatelessWidget {
                           ),
                           child: Center(
                             child: CustomText(
-                              text: traficstateCount[1].toString(),
+                              text: traficstateCountList[1]
+                                  .answerCount
+                                  .toString(),
                             ),
                           ),
                         ),
@@ -348,7 +353,9 @@ class UserInputCell extends StatelessWidget {
                           ),
                           child: Center(
                             child: CustomText(
-                              text: traficstateCount[2].toString(),
+                              text: traficstateCountList[2]
+                                  .answerCount
+                                  .toString(),
                             ),
                           ),
                         ),
@@ -365,7 +372,9 @@ class UserInputCell extends StatelessWidget {
                           ),
                           child: Center(
                             child: CustomText(
-                              text: traficstateCount[3].toString(),
+                              text: traficstateCountList[3]
+                                  .answerCount
+                                  .toString(),
                             ),
                           ),
                         ),
@@ -382,7 +391,9 @@ class UserInputCell extends StatelessWidget {
                           ),
                           child: Center(
                             child: CustomText(
-                              text: traficstateCount[4].toString(),
+                              text: traficstateCountList[4]
+                                  .answerCount
+                                  .toString(),
                             ),
                           ),
                         ),

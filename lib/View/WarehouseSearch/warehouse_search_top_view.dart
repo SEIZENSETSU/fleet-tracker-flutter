@@ -157,16 +157,16 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                           //
                           // お気に入り工場リストからインスタンス化して値を渡す
 
-                          WarehouseDetailRoute(
-                            $extra: Warehouse(
-                              id: 1,
-                              name: 'エルフーズ東京',
-                              latitude: 35.681236,
-                              longitude: 139.767125,
-                            ),
-                            traficstateCount: [10, 2, 34, 1, 0],
-                            delayStateType: 'pause',
-                          ).push(context);
+                          // WarehouseDetailRoute(
+                          //   $extra: Warehouse(
+                          //     id: 1,
+                          //     name: 'エルフーズ東京',
+                          //     latitude: 35.681236,
+                          //     longitude: 139.767125,
+                          //   ),
+                          //   traficstateCountList: [],
+                          //   delayStateType: 'pause',
+                          // ).push(context);
                         },
                         child: Container(
                           height: size.height * 0.1,
