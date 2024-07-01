@@ -68,6 +68,7 @@ class _HomeViewState extends State<HomeView> {
                             toWarehousePage: () {
                               WarehouseDetailRoute(
                                 $extra: data,
+                                functionType: 'search',
                               ).push(context);
                             },
                           ),

@@ -1,5 +1,6 @@
 import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Model/Entity/delay_time_detail.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/Dialog/error_dialog.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/UserInput/user_input_circle_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/assets.gen.dart';
@@ -18,12 +19,14 @@ class UserInputCell extends StatelessWidget {
     required this.traficstateCountList,
     required this.delayStateType,
     this.toWarehousePage,
+    this.enableAction = true,
   });
 
   final String warehouseName;
   final List<DelayTimeDetail> traficstateCountList;
   final String delayStateType;
   final Function? toWarehousePage;
+  final bool enableAction;
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +154,7 @@ class UserInputCell extends StatelessWidget {
                             children: [
                               CustomText(
                                 fontSize: 10,
-                                text: '現在、遅延に関する情報はありません。',
+                                text: stateType.detail(),
                               ),
                             ],
                           ),
@@ -166,7 +169,7 @@ class UserInputCell extends StatelessWidget {
               height: 15,
             ),
             CustomText(
-              text: '今の遅延状況は？ボタンを押して投稿！',
+              text: enableAction ? '今の遅延状況は？ボタンを押して投稿！' : '現在の工場の遅延状態はこちら!',
               fontSize: 14,
             ),
             SizedBox(
@@ -209,9 +212,18 @@ class UserInputCell extends StatelessWidget {
                                 cellColor: ColorName.stateNormal,
                                 text: Strings.STATE_NORMAL_TITLE,
                                 onTap: () {
-                                  Log.echo(
-                                    'aaa',
-                                  );
+                                  if (!enableAction) {
+                                    ErrorDialog().showErrorDialog(
+                                        context: context,
+                                        title: '倉庫検索から操作はできません',
+                                        content: Assets
+                                            .images.icons.errorDialogIcon
+                                            .image(),
+                                        detail: '該当のエリア内に移動してから再試行してください。',
+                                        buttonText: '戻る');
+                                  } else {
+                                    //平常のボタン処理
+                                  }
                                 },
                               ),
                             ),
@@ -227,9 +239,18 @@ class UserInputCell extends StatelessWidget {
                                 cellColor: ColorName.statePause,
                                 text: Strings.STATE_PAUSE_TITLE,
                                 onTap: () {
-                                  Log.echo(
-                                    'aaa',
-                                  );
+                                  if (!enableAction) {
+                                    ErrorDialog().showErrorDialog(
+                                        context: context,
+                                        title: '倉庫検索から操作はできません',
+                                        content: Assets
+                                            .images.icons.errorDialogIcon
+                                            .image(),
+                                        detail: '該当のエリア内に移動してから再試行してください。',
+                                        buttonText: '戻る');
+                                  } else {
+                                    // 一時停止ボタン処理
+                                  }
                                 },
                               ),
                             ),
@@ -245,9 +266,18 @@ class UserInputCell extends StatelessWidget {
                                 cellColor: ColorName.stateHalfAnHour,
                                 text: Strings.STATE_HALF_HOUR_TITLE,
                                 onTap: () {
-                                  Log.echo(
-                                    'aaa',
-                                  );
+                                  if (!enableAction) {
+                                    ErrorDialog().showErrorDialog(
+                                        context: context,
+                                        title: '倉庫検索から操作はできません',
+                                        content: Assets
+                                            .images.icons.errorDialogIcon
+                                            .image(),
+                                        detail: '該当のエリア内に移動してから再試行してください。',
+                                        buttonText: '戻る');
+                                  } else {
+                                    // 30ふんボタン処理
+                                  }
                                 },
                               ),
                             ),
@@ -263,9 +293,18 @@ class UserInputCell extends StatelessWidget {
                                 cellColor: ColorName.stateAnHour,
                                 text: Strings.STATE_AN_HOUR_TITLE,
                                 onTap: () {
-                                  Log.echo(
-                                    'aaa',
-                                  );
+                                  if (!enableAction) {
+                                    ErrorDialog().showErrorDialog(
+                                        context: context,
+                                        title: '倉庫検索から操作はできません',
+                                        content: Assets
+                                            .images.icons.errorDialogIcon
+                                            .image(),
+                                        detail: '該当のエリア内に移動してから再試行してください。',
+                                        buttonText: '戻る');
+                                  } else {
+                                    // 一時間ボタン処理
+                                  }
                                 },
                               ),
                             ),
@@ -281,9 +320,18 @@ class UserInputCell extends StatelessWidget {
                                 cellColor: ColorName.stateImpossible,
                                 text: Strings.STATE_IMPOSSIBLE_TITLE,
                                 onTap: () {
-                                  Log.echo(
-                                    'aaa',
-                                  );
+                                  if (!enableAction) {
+                                    ErrorDialog().showErrorDialog(
+                                        context: context,
+                                        title: '倉庫検索から操作はできません',
+                                        content: Assets
+                                            .images.icons.errorDialogIcon
+                                            .image(),
+                                        detail: '該当のエリア内に移動してから再試行してください。',
+                                        buttonText: '戻る');
+                                  } else {
+                                    // 入庫不可ボタン処理
+                                  }
                                 },
                               ),
                             ),

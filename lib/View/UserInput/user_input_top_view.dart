@@ -45,6 +45,7 @@ class _UserInputTopViewState extends State<UserInputTopView> {
                           toWarehousePage: () {
                             WarehouseDetailRoute(
                               $extra: data,
+                              functionType: 'userInput',
                             ).push(context);
                           },
                         ),

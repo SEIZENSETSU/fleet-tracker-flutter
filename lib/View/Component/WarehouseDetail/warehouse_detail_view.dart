@@ -20,19 +20,18 @@ import 'package:fleet_tracker/View/Component/WarehouseDetail/comment_tile.dart';
 import 'package:fleet_tracker/View/Component/WarehouseDetail/warehouse_map.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../Constants/Enum/warehouse_delay_state_enum.dart';
 import '../../../Model/Data/Warehouse/search_info_data.dart';
 import '../../../Model/Entity/Warehouse/info.dart';
-import '../../../Model/Entity/Warehouse/warehouse.dart';
 
 class WarehouseDetailView extends StatefulWidget {
-  const WarehouseDetailView({
-    super.key,
-    required this.warehouseInfo,
-  });
+  const WarehouseDetailView(
+      {super.key, required this.warehouseInfo, required this.functionType});
+  final String functionType;
   final WarehouseInfo warehouseInfo;
   @override
   State<WarehouseDetailView> createState() => _WarehouseDetailViewState();
@@ -40,23 +39,10 @@ class WarehouseDetailView extends StatefulWidget {
 
 class _WarehouseDetailViewState extends State<WarehouseDetailView> {
   WarehouseDetailController controller = WarehouseDetailController();
-  Warehouse? warehouse;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // Idから倉庫情報(緯度経度とコメント一覧)を取得したい
-    Future(
-      () async {
-        warehouse = await WarehouseService()
-            .getWarehouseInfo(warehouseId: widget.warehouseInfo.warehouseId);
-      },
-    );
-  }
-
-  List commentList = [0, 0, 0, 0, 0, 0, 0];
   @override
   Widget build(BuildContext context) {
+    /// コメント投稿と遅延情報登録の可否判定
+    controller.initialize(widget.functionType);
     final Size size = MediaQuery.of(context).size;
     WarehouseDelayStateType stateType =
         WarehouseDelayStateType(widget.warehouseInfo.averageDelayState.name);
@@ -133,6 +119,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                                 widget.warehouseInfo.delayTimeDetails,
                             delayStateType:
                                 widget.warehouseInfo.averageDelayState.name,
+                            enableAction: controller.enableAction,
                           ),
                         ),
                       ),
@@ -249,7 +236,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                               return Container(
                                 height: 400,
                                 color: ColorName.commentAreaBackground,
-                                child: Center(
+                                child: const Center(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -267,49 +254,52 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                             return CirclarProgressIndicatorCell(height: 400);
                           }
                         }),
-                    Container(
-                      height: 70,
-                      decoration: BoxDecoration(
-                        color: ColorName.mainthemeColor.withAlpha(60),
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              child: const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: TextField(
-                                  // フォーカス関連は時間かかるのでスキップ
-                                  // autofocus: true,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
+                    Visibility(
+                      visible: controller.enableAction,
+                      child: Container(
+                        height: 70,
+                        decoration: BoxDecoration(
+                          color: ColorName.mainthemeColor.withAlpha(60),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 3,
+                              child: Container(
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: TextField(
+                                    // フォーカス関連は時間かかるのでスキップ
+                                    // autofocus: true,
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: CustomButton(
-                                    text: '投稿',
-                                    isFilledColor: true,
-                                    primaryColor: ColorName.mainthemeColor,
-                                    onTap: () {
-                                      // コメントを投稿する
-                                      Log.toast('コメントを投稿しました');
-                                    }),
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: CustomButton(
+                                      text: '投稿',
+                                      isFilledColor: true,
+                                      primaryColor: ColorName.mainthemeColor,
+                                      onTap: () {
+                                        // コメントを投稿する
+                                        Log.toast('コメントを投稿しました');
+                                      }),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(
