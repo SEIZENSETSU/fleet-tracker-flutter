@@ -90,7 +90,10 @@ class TopLoadingController {
       ErrorDialog().showErrorDialog(
         context: context,
         title: 'エラー',
-        content: const Placeholder(),
+        buttonText: Strings.BACK_BUTTON_TEXT,
+        content: Assets.images.icons.errorDialogIcon.image(
+          color: Colors.red,
+        ),
         detail: '位置情報の許可が必要です',
         buttonAction: () {
           SystemNavigator.pop();
