@@ -6,7 +6,8 @@ import '../../Firebase/Authentication/authentication_service.dart';
 import '../../Log/log_service.dart';
 
 class UserService {
-  FirebaseAuthenticationService get authService => FirebaseAuthenticationService();
+  FirebaseAuthenticationService get authService =>
+      FirebaseAuthenticationService();
   late String baseUrl;
   final Map<String, String> headers = {
     'Content-type': 'application/json',

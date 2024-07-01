@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../Model/Data/Warehouse/search_info_data.dart';
-import '../../Model/Entity/Warehouse/warehouse.dart';
 
 class UserInputTopView extends StatefulWidget {
   const UserInputTopView({super.key});
@@ -40,9 +39,9 @@ class _UserInputTopViewState extends State<UserInputTopView> {
                       padding: const EdgeInsets.all(4.0),
                       child: CommonCard(
                         content: UserInputCell(
-                          warehouseName: 'エルフーズ東京',
-                          traficstateCountList: [],
-                          delayStateType: 'pause',
+                          warehouseName: data.warehouseName,
+                          traficstateCountList: data.delayTimeDetails,
+                          delayStateType: data.averageDelayState.name,
                           toWarehousePage: () {
                             WarehouseDetailRoute(
                               $extra: data,
