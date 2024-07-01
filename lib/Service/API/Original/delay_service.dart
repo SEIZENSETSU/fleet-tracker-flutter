@@ -34,7 +34,10 @@ class DelayService {
       final String idToken = await authService.getIdToken() ?? '';
       headers['Authorization'] = 'Bearer $idToken';
 
-      http.Response response = await http.get(uri);
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
       final String responseUtf8 = utf8.decode(response.bodyBytes);
       if (response.statusCode != 200) {
         throw Exception('Fetch failed.');
