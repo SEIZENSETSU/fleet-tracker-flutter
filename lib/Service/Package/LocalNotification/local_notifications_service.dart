@@ -1,13 +1,12 @@
 import 'dart:io';
 
-import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class LocalNotificationsService {
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  ///フォアグラウンド設定とパーミッションを行うInitialize
+  /// フォアグラウンド設定とパーミッションを行うInitialize
   Future<void> initialize() async {
     const initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -32,7 +31,7 @@ class LocalNotificationsService {
     await requestPermissions();
   }
 
-  ///通知のパーミッション
+  /// 通知のパーミッション
   Future<void> requestPermissions() async {
     if (Platform.isIOS) {
       await flutterLocalNotificationsPlugin
@@ -51,7 +50,7 @@ class LocalNotificationsService {
     }
   }
 
-  ///通知バーの設定
+  /// 通知バーの設定
   ///【title】通知のタイトル
   ///【body】通知の内容
   Future<void> showNotification(
@@ -79,7 +78,7 @@ class LocalNotificationsService {
     );
   }
 
-  ///通知の状態を返す
+  /// 通知の状態を返す
   Future<bool> checkNotificationPermission() async {
     PermissionStatus permissionStatus = await Permission.notification.status;
     if (permissionStatus.isGranted) {
@@ -88,7 +87,7 @@ class LocalNotificationsService {
     return false;
   }
 
-  ///通知のオン
+  /// 通知のオン
   Future<void> requestNotificationPermission() async {
     PermissionStatus permissionStatus = await Permission.notification.status;
     if (permissionStatus.isDenied ||
@@ -98,7 +97,7 @@ class LocalNotificationsService {
     }
   }
 
-  ///通知のオフ
+  /// 通知のオフ
   Future<void> cancel() async {
     await flutterLocalNotificationsPlugin.cancelAll();
   }
