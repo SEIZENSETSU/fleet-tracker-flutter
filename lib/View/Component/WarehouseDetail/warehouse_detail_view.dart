@@ -81,21 +81,22 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                 //
                 // 倉庫のマップ表示部
                 FutureBuilder(
-                    future: WarehouseService().getWarehouseInfo(
-                        warehouseId: widget.warehouseInfo.warehouseId),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState != ConnectionState.done) {
-                        return CircularProgressIndicator();
-                      }
-                      if (snapshot.hasData) {
-                        return WarehouseMap(
-                          latitude: snapshot.data!.latitude,
-                          longitude: snapshot.data!.longitude,
-                        );
-                      } else {
-                        return CircularProgressIndicator();
-                      }
-                    }),
+                  future: WarehouseService().getWarehouseInfo(
+                      warehouseId: widget.warehouseInfo.warehouseId),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState != ConnectionState.done) {
+                      return CircularProgressIndicator();
+                    }
+                    if (snapshot.hasData) {
+                      return WarehouseMap(
+                        latitude: snapshot.data!.latitude,
+                        longitude: snapshot.data!.longitude,
+                      );
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  },
+                ),
 
                 const SpacerAndDivider(topHeight: 10, bottomHeight: 10),
                 //

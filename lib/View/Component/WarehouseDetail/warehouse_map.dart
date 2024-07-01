@@ -4,13 +4,13 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 class WarehouseMap extends StatelessWidget {
-  WarehouseMap({
+  const WarehouseMap({
     super.key,
     required this.latitude,
     required this.longitude,
   });
-  double latitude;
-  double longitude;
+  final double latitude;
+  final double longitude;
 
   @override
   Widget build(BuildContext context) {
