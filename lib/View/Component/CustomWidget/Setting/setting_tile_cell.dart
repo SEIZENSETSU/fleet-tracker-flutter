@@ -7,11 +7,10 @@ import '../custom_text.dart';
 class SettingTileCell {
   Widget common(
     String subTitle, {
-    bool isTapped = false,
     Function()? onTap,
   }) {
     return GestureDetector(
-      onTap: isTapped ? onTap : null,
+      onTap: onTap,
       child: Container(
         color: Colors.white,
         width: double.infinity,

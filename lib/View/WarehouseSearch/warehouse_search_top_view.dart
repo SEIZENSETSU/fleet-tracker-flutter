@@ -1,10 +1,12 @@
 import 'package:fleet_tracker/Constants/strings.dart';
+import 'package:fleet_tracker/Controller/WarehouseSearch/warehouse_search_top_controller.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/WarehouseSearch/japan_map_deformed.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/Card/WarehouseSearch/local_search_card_group.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
-import 'package:fleet_tracker/View/Component/CustomWidget/Card/WarehouseSearch/japan_map_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_button.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/custom_textfield.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/spacer_and_divider.dart';
 import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
@@ -25,6 +27,8 @@ class WarehouseSearchTopView extends StatefulWidget {
 }
 
 class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
+  WarehouseSearchTopController warehouseSearchTopController =
+      WarehouseSearchTopController();
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -34,7 +38,11 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
         title: '倉庫検索',
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              warehouseSearchTopController.mapSwitch =
+                  !warehouseSearchTopController.mapSwitch;
+              setState(() {});
+            },
             icon: Icon(
               Icons.grid_view,
             ),
@@ -57,28 +65,15 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: size.width * 0.9,
-              child: const Padding(
+              child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  // フォーカス関連は時間かかるのでスキップ
-                  // autofocus: true,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: '工場名、エリア名、地名',
-                    hintStyle: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Noto_Sans_JP',
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
+                child: CustomTextfield(
+                  hintText: '工場名、エリア名、地名',
+                  backgroundcolor: Colors.white,
+                  controller:
+                      warehouseSearchTopController.textEditingController,
                 ),
               ),
             ),
@@ -94,7 +89,10 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 text: '検索',
                 onTap: () {
                   // キーワード検索で検索結果画面にいく
-                  WarehouseSearchResultRoute(keyword: 'エルフーズ').push(context);
+                  WarehouseSearchResultRoute(
+                          keyword: warehouseSearchTopController
+                              .textEditingController.text)
+                      .push(context);
                 },
               ),
             ),
@@ -112,7 +110,22 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 ),
               ),
             ),
-            const JapanMapDefomed(),
+            Visibility(
+              visible: !warehouseSearchTopController.mapSwitch,
+              child: SizedBox(
+                width: size.width,
+                height: size.width,
+                child: LocalSearchCardGroup(
+                  areaNameList: warehouseSearchTopController.areaNameList,
+                  areaImageUrlList:
+                      warehouseSearchTopController.areaImageUrlList,
+                ),
+              ),
+            ),
+            Visibility(
+              visible: warehouseSearchTopController.mapSwitch,
+              child: const JapanMapDefomed(),
+            ),
             const SpacerAndDivider(topHeight: 20, bottomHeight: 10),
             //
             // お気に入りから探す表示部分
