@@ -15,7 +15,7 @@ class WeatherInformationService {
     apiKey = dotenv.env['WEATHER_INFORMATION_API_KEY']!;
   }
 
-  Future<WeatherList?> getWeatherInformaion({required String userLatitude, required String userLongitude}) async {
+  Future<WeatherList?> getWeatherInformation({required String userLatitude, required String userLongitude}) async {
     Uri uri = Uri.https(
       baseUrl,
       'weather/V1/place',
