@@ -151,13 +151,15 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                               child: GestureDetector(
                                 onTap: () {
                                   // お気に入り登録
-                                  Log.echo(
-                                      '${widget.warehouseInfo.warehouseName}をお気に入り登録をしました');
                                 },
-                                child: const Padding(
+                                child: Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: CommonCard(
-                                    content: Row(
+                                    onTap: () async {
+                                      await controller.favoriteButtonAction(
+                                          widget.warehouseInfo.warehouseId);
+                                    },
+                                    content: const Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [

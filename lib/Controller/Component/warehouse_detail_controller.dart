@@ -1,5 +1,7 @@
 import 'package:fleet_tracker/Constants/Enum/function_type_enum.dart';
 import 'package:fleet_tracker/Controller/bottom_navigation_bar_controller.dart';
+import 'package:fleet_tracker/Service/Log/log_service.dart';
+import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
 
 class WarehouseDetailController {
   bool enableAction = false;
@@ -17,6 +19,52 @@ class WarehouseDetailController {
         enableAction = false;
       default:
         enableAction = false;
+    }
+  }
+
+  Future<void> favoriteButtonAction(int id) async {
+    // あるかチェック
+    bool isFavorite = await favoriteListCheck(id);
+    if (isFavorite) {
+      // あったら削除
+      await deleteFavorite(id);
+    } else {
+      // なかったら追加
+      await addFavoite(id);
+    }
+  }
+
+  Future<void> addFavoite(int id) async {
+    await SharedPreferencesService()
+        .setStringList('favorite_warehouse_list', [id.toString()]);
+    Log.toast('${id}をお気に入り倉庫に登録しました');
+  }
+
+  Future<void> deleteFavorite(int id) async {
+    List<String>? favoriteList = await SharedPreferencesService()
+        .getStringList('favorite_warehouse_list');
+    if (favoriteList == null) {
+      return;
+    }
+    if (favoriteList.contains(id.toString())) {
+      favoriteList.removeWhere((element) => element == id.toString());
+
+      Log.toast('${id}をお気に入り倉庫から削除しました');
+    }
+  }
+
+  Future<bool> favoriteListCheck(int id) async {
+    List? favoriteList = await SharedPreferencesService()
+        .getStringList('favorite_warehouse_list');
+    // nullならfalse
+    if (favoriteList == null) {
+      return false;
+    }
+    // 配列に指定した工場が入っているかどうかチェック
+    if (favoriteList.contains(id.toString())) {
+      return true;
+    } else {
+      return false;
     }
   }
 }
