@@ -2,11 +2,15 @@ import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import '../../../Model/Entity/user.dart';
+import '../../Firebase/Authentication/authentication_service.dart';
 import '../../Log/log_service.dart';
 
 class UserService {
+  FirebaseAuthenticationService get authService => FirebaseAuthenticationService();
   late String baseUrl;
-  final Map<String, String> headers = {'Content-type': 'application/json'};
+  final Map<String, String> headers = {
+    'Content-type': 'application/json',
+  };
 
   UserService() {
     baseUrl = dotenv.env['FLEET_TRACKER_API_BASEURL']!;
@@ -18,6 +22,9 @@ class UserService {
     Uri uri = Uri.https(baseUrl, '/user', {'uid': uid});
 
     try {
+      final String idToken = await authService.getIdToken() ?? '';
+      headers['Authorization'] = 'Bearer $idToken';
+
       http.Response response = await http.get(
         uri,
         headers: headers,
@@ -56,6 +63,9 @@ class UserService {
     };
 
     try {
+      final String idToken = await authService.getIdToken() ?? '';
+      headers['Authorization'] = 'Bearer $idToken';
+
       http.Response response = await http.post(
         uri,
         headers: headers,
@@ -94,6 +104,9 @@ class UserService {
     };
 
     try {
+      final String idToken = await authService.getIdToken() ?? '';
+      headers['Authorization'] = 'Bearer $idToken';
+
       http.Response response = await http.put(
         uri,
         headers: headers,
@@ -117,6 +130,9 @@ class UserService {
     Uri uri = Uri.https(baseUrl, '/user', {'uid': uid});
 
     try {
+      final String idToken = await authService.getIdToken() ?? '';
+      headers['Authorization'] = 'Bearer $idToken';
+
       http.Response response = await http.delete(
         uri,
         headers: headers,

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
+import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Model/Data/Warehouse/search_info_data.dart';
 import 'package:fleet_tracker/Model/Data/location_data.dart';
 import 'package:fleet_tracker/Model/Data/user_data.dart';
@@ -9,9 +10,10 @@ import 'package:fleet_tracker/Route/router.dart';
 import 'package:fleet_tracker/Service/API/Original/user_service.dart';
 import 'package:fleet_tracker/Service/Firebase/Authentication/authentication_service.dart';
 import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
+import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -54,34 +56,6 @@ class TopLoadingController {
           prefs.setBool(SharedPreferencesKeysEnum.forceIsInvading.name, false);
     }
 
-    permissionStatus = await checkLocationPermission();
-    if (!permissionStatus) {
-      ErrorDialog().showErrorDialog(
-        context: context,
-        title: 'エラー',
-        content: const Placeholder(),
-        detail: '位置情報の許可が必要です',
-        buttonAction: () {
-          SystemNavigator.pop();
-        },
-      );
-      throw Exception('Location permission denied');
-    }
-
-    /// 位置情報を取得
-    Location location = LocationData().getData();
-
-    /// 初回API通信
-    WarehouseSearchInfo? searchInfo =
-        await warehouseService.searchWarehouseList(
-            userLatitude: location.lat, userLongitude: location.lng);
-    if (searchInfo == null) {
-      throw Exception('Search failed.');
-    }
-
-    /// 倉庫情報をシングルトンにSet
-    WarehouseSearchInfoData().setData(data: searchInfo);
-
     /// ユーザー情報を取得
     firebase_auth.User? authUser = authenticationService.getUser();
     User? userInfo;
@@ -114,6 +88,37 @@ class TopLoadingController {
 
     /// ユーザー情報をシングルトンにSet
     UserData().setData(data: userInfo);
+
+    permissionStatus = await checkLocationPermission();
+    if (!permissionStatus) {
+      ErrorDialog().showErrorDialog(
+        context: context,
+        title: 'エラー',
+        buttonText: Strings.BACK_BUTTON_TEXT,
+        content: Assets.images.icons.errorDialogIcon.image(
+          color: Colors.red,
+        ),
+        detail: '位置情報の許可が必要です',
+        buttonAction: () {
+          SystemNavigator.pop();
+        },
+      );
+      throw Exception('Location permission denied');
+    }
+
+    /// 位置情報を取得
+    Location location = LocationData().getData();
+
+    /// 初回API通信
+    WarehouseSearchInfo? searchInfo =
+        await warehouseService.searchWarehouseList(
+            userLatitude: location.lat, userLongitude: location.lng);
+    if (searchInfo == null) {
+      throw Exception('Search failed.');
+    }
+
+    /// 倉庫情報をシングルトンにSet
+    WarehouseSearchInfoData().setData(data: searchInfo);
 
     await Future.delayed(const Duration(seconds: 1));
     // ignore: use_build_context_synchronously, prefer_const_constructors

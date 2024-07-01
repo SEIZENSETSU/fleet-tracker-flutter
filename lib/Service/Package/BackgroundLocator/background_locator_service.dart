@@ -2,9 +2,11 @@ import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:background_task/background_task.dart' as background_task;
+import 'package:firebase_core/firebase_core.dart';
 import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
 import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../../Constants/strings.dart';
@@ -12,6 +14,7 @@ import '../../../Model/Data/Warehouse/search_info_data.dart';
 import '../../../Model/Data/location_data.dart';
 import '../../../Model/Entity/Warehouse/search_info.dart';
 import '../../../Model/Entity/location.dart';
+import '../../../firebase_options.dart';
 import '../../API/Original/warehouse_service.dart';
 import '../../Log/log_service.dart';
 
@@ -19,7 +22,6 @@ import '../../Log/log_service.dart';
 /// バックグラウンドで位置情報を取得し、本流Isolateにメッセージを送信する
 /// [data] 位置情報
 Future<void> backgroundHandler(background_task.Location data) async {
-  await dotenv.load(fileName: kDebugMode ? '.env.develop' : '.env.release');
   try {
     Log.echo('backgroundHandler: ${data.lat}, ${data.lng}', symbol: '📍');
 
@@ -30,6 +32,12 @@ Future<void> backgroundHandler(background_task.Location data) async {
     if (!now.isAfter(currentLocation.time.add(const Duration(seconds: 15)))) {
       return;
     }
+
+    await dotenv.load(fileName: kDebugMode ? '.env.develop' : '.env.release');
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    WidgetsFlutterBinding.ensureInitialized();
 
     /// Locationをインスタンス化
     Location location = Location(
