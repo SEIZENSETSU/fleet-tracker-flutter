@@ -222,13 +222,14 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
 
                           if (snapshot.hasData) {
                             final List<Comment> comentList = snapshot.data!;
-                            return Container(
-                              height: 400,
-                              color: ColorName.commentAreaBackground,
-                              child: ListView.builder(
-                                  itemCount: snapshot.data!.length,
-                                  itemBuilder: (context, index) {
-                                    if (commentList.isNotEmpty) {
+                            Log.echo(comentList.length.toString());
+                            if (comentList.isNotEmpty) {
+                              return Container(
+                                height: 400,
+                                color: ColorName.commentAreaBackground,
+                                child: ListView.builder(
+                                    itemCount: snapshot.data!.length,
+                                    itemBuilder: (context, index) {
                                       Comment comment = comentList[index];
                                       return Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -242,12 +243,26 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                                           userName: comment.uid,
                                         ),
                                       );
-                                    } else {
-                                      return const CustomText(
-                                          text: 'この工場へのつぶやきはまだありません。');
-                                    }
-                                  }),
-                            );
+                                    }),
+                              );
+                            } else {
+                              return Container(
+                                height: 400,
+                                color: ColorName.commentAreaBackground,
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.comments_disabled,
+                                        size: 50,
+                                      ),
+                                      CustomText(text: '現在この工場に対するつぶやきはありません。'),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }
                           } else {
                             return CirclarProgressIndicatorCell(height: 400);
                           }
