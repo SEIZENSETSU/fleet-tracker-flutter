@@ -194,19 +194,13 @@ class _HomeViewState extends State<HomeView> {
                       Container(
                         height: 400,
                         color: Colors.white,
-                        // 後日検討するために残しておきます
-                        // decoration: BoxDecoration(
-                        //   image: DecorationImage(
-                        //     image: Assets.images.component.sunBackground.provider(),
-                        //     opacity: 0.5,
-                        //   ),
-                        // ),
                       ),
                       DestinationCard(
-                        title: '東関東エリア',
-                        delayStateType: 'normal',
+                        title: _data.warehouseAreas![0].warehouseAreaName,
+                        delayStateType:
+                            _data.warehouseAreas![0].averageDelayState.name,
                         angle: 60,
-                        distance: 50.4,
+                        distance: _data.warehouseAreas![0].distance,
                       ),
                     ],
                   ),
