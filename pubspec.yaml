@@ -27,6 +27,11 @@ dependencies:
   modal_bottom_sheet: ^3.0.0
   firebase_auth: ^5.1.1
   geocoding: ^3.0.0
+  flutter_local_notifications: ^17.2.1
+  firebase_messaging: ^15.0.2
+  firebase_in_app_messaging: ^0.8.0+2
+  firebase_app_installations: ^0.3.0+2
+  xml2json: ^6.2.3
 
 dev_dependencies:
   flutter_test:

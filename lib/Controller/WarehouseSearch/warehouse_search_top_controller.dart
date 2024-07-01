@@ -1,8 +1,11 @@
 import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
+import 'package:flutter/widgets.dart';
 
 class WarehouseSearchTopController {
   SharedPreferencesService sharedPreferencesService =
       SharedPreferencesService();
+
+  final TextEditingController textEditingController = TextEditingController();
   late bool mapSwitch;
   List<String> areaNameList = [
     '北海道',

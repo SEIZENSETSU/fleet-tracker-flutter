@@ -1,10 +1,8 @@
 import 'dart:convert';
 
-import 'package:fleet_tracker/Controller/Setting/setting_top_controller.dart';
 import 'package:fleet_tracker/Model/Entity/Warehouse/search_info.dart';
 import 'package:fleet_tracker/Model/Entity/local_area.dart';
-import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
-import 'package:flutter/foundation.dart';
+import 'package:fleet_tracker/Service/Firebase/Authentication/authentication_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,9 +10,12 @@ import '../../../Model/Entity/Warehouse/warehouse.dart';
 import '../../Log/log_service.dart';
 
 class WarehouseService {
+  FirebaseAuthenticationService get authService => FirebaseAuthenticationService();
   late String baseUrl;
 
-  final Map<String, String> headers = {'Content-type': 'application/json'};
+  final Map<String, String> headers = {
+    'Content-type': 'application/json',
+  };
 
   WarehouseService() {
     baseUrl = dotenv.env['FLEET_TRACKER_API_BASEURL']!;
@@ -30,7 +31,13 @@ class WarehouseService {
     );
 
     try {
-      http.Response response = await http.get(uri);
+      final String idToken = await authService.getIdToken() ?? '';
+      headers['Authorization'] = 'Bearer $idToken';
+
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
       final String responseUtf8 = utf8.decode(response.bodyBytes);
       if (response.statusCode != 200) {
         throw Exception('Fetch failed.');
@@ -57,7 +64,13 @@ class WarehouseService {
     );
 
     try {
-      http.Response response = await http.get(uri);
+      final String idToken = await authService.getIdToken() ?? '';
+      headers['Authorization'] = 'Bearer $idToken';
+
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
       final String responseUtf8 = utf8.decode(response.bodyBytes);
       if (response.statusCode != 200) {
         throw Exception('Fetch failed.');
@@ -103,15 +116,20 @@ class WarehouseService {
     );
 
     try {
-      http.Response response = await http.get(uri);
+      final String idToken = await authService.getIdToken() ?? '';
+      headers['Authorization'] = 'Bearer $idToken';
+
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
       final String responseUtf8 = utf8.decode(response.bodyBytes);
       if (response.statusCode != 200) {
         throw Exception('Fetch failed.');
       }
       Map<String, dynamic> jsonResponse = json.decode(responseUtf8);
 
-      WarehouseSearchInfo warehouseSearchInfo =
-          WarehouseSearchInfo.fromJson(jsonResponse);
+      WarehouseSearchInfo warehouseSearchInfo = WarehouseSearchInfo.fromJson(jsonResponse);
       Log.echo('取得成功');
       return warehouseSearchInfo;
     } catch (e) {
@@ -128,7 +146,13 @@ class WarehouseService {
     );
 
     try {
-      http.Response response = await http.get(uri);
+      final String idToken = await authService.getIdToken() ?? '';
+      headers['Authorization'] = 'Bearer $idToken';
+
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
       final String responseUtf8 = utf8.decode(response.bodyBytes);
       if (response.statusCode != 200) {
         throw Exception('Fetch failed.');
