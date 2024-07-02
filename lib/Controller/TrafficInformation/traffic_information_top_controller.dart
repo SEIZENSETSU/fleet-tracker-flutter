@@ -5,7 +5,7 @@ class TrafficInformationTopController {
   TrafficInformationService trafficInformationService =
       TrafficInformationService();
 
-  Future<List<Map<String, dynamic>>?> getPrefectureNameMap() async {
+  Future<List<Map<String, dynamic>>?> getPrefectureInfoList() async {
     List<Map<String, dynamic>> prefectureInfoList = [];
 
     List<Map<String, dynamic>> test = [
@@ -51,50 +51,51 @@ class TrafficInformationTopController {
 
     TrafficAbout? trafficAbout =
         await trafficInformationService.getTrafficInformation();
-    if (trafficAbout != null) {
-      print('エリア数${trafficAbout.dataList.length}');
-
-      for (int i = 0; i < trafficAbout.dataList.length; i++) {
-        Map<String, dynamic> areaInfoMap = {};
-        int areaId = trafficAbout.dataList[i].id;
-        String areaName = trafficAbout.dataList[i].name;
-        int areaIssues = trafficAbout.dataList[i].totalIssues;
-        List<Map> roads = [];
-
-        for (int j = 0; j < trafficAbout.dataList[i].roads.length; j++) {
-          int roadId = trafficAbout.dataList[i].roads[j].id;
-          String roadName = trafficAbout.dataList[i].roads[j].name;
-          print('${roadId}${roadName}');
-          int roadClosure = trafficAbout.dataList[i].roads[j].closure;
-          int roadJam = trafficAbout.dataList[i].roads[j].jam;
-          bool roadIssues = false;
-          if (roadClosure + roadJam > 0) {
-            roadIssues = true;
-          }
-          bool provideSapa = trafficAbout.dataList[i].roads[j].provideSapa;
-
-          Map<String, dynamic> roadInfo = {};
-          roadInfo.addAll({
-            'roadId': roadId,
-            'name': roadName,
-            'issues': roadIssues,
-            'provideSapa': provideSapa,
-          });
-
-          roads.addAll({roadInfo});
-          areaInfoMap.addAll({
-            'areaId': areaId,
-            'name': areaName,
-            'totalIssues': areaIssues,
-            'roads': roads,
-          });
-        }
-        prefectureInfoList.addAll({areaInfoMap});
-      }
-
-      print('👑最新版${prefectureInfoList}');
-      return prefectureInfoList;
+    if (trafficAbout == null) {
+      return null;
     }
-    return null;
+
+    print('エリア数${trafficAbout.dataList.length}');
+
+    for (int i = 0; i < trafficAbout.dataList.length; i++) {
+      Map<String, dynamic> areaInfoMap = {};
+      int areaId = trafficAbout.dataList[i].id;
+      String areaName = trafficAbout.dataList[i].name;
+      int areaIssues = trafficAbout.dataList[i].totalIssues;
+      List<Map> roads = [];
+
+      for (int j = 0; j < trafficAbout.dataList[i].roads.length; j++) {
+        int roadId = trafficAbout.dataList[i].roads[j].id;
+        String roadName = trafficAbout.dataList[i].roads[j].name;
+        print('${roadId}${roadName}');
+        int roadClosure = trafficAbout.dataList[i].roads[j].closure;
+        int roadJam = trafficAbout.dataList[i].roads[j].jam;
+        bool roadIssues = false;
+        if (roadClosure + roadJam > 0) {
+          roadIssues = true;
+        }
+        bool provideSapa = trafficAbout.dataList[i].roads[j].provideSapa;
+
+        Map<String, dynamic> roadInfo = {};
+        roadInfo.addAll({
+          'roadId': roadId,
+          'name': roadName,
+          'issues': roadIssues,
+          'provideSapa': provideSapa,
+        });
+
+        roads.addAll({roadInfo});
+        areaInfoMap.addAll({
+          'areaId': areaId,
+          'name': areaName,
+          'totalIssues': areaIssues,
+          'roads': roads,
+        });
+      }
+      prefectureInfoList.addAll({areaInfoMap});
+    }
+
+    print('👑最新版${prefectureInfoList}');
+    return prefectureInfoList;
   }
 }

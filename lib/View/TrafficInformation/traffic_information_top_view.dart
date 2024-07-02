@@ -23,7 +23,7 @@ class _TrafficInformationStateTopViewState
     return Scaffold(
       appBar: CustomAppBar(),
       body: FutureBuilder<List<Map<String, dynamic>>?>(
-        future: trafficInformationTopController.getPrefectureNameMap(),
+        future: trafficInformationTopController.getPrefectureInfoList(),
         builder: (BuildContext context,
             AsyncSnapshot<List<Map<String, dynamic>>?> snapshot) {
           if (snapshot.hasData) {
