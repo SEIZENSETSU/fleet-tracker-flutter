@@ -1,4 +1,6 @@
 import 'package:fleet_tracker/Constants/strings.dart';
+import 'package:fleet_tracker/Controller/Component/user_input_circle_cell_controller.dart';
+import 'package:fleet_tracker/Controller/UserInput/user_input_top_controller.dart';
 import 'package:fleet_tracker/Model/Entity/delay_time_detail.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Dialog/error_dialog.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/UserInput/user_input_circle_cell.dart';
@@ -18,11 +20,13 @@ class UserInputCell extends StatelessWidget {
     required this.warehouseName,
     required this.traficstateCountList,
     required this.delayStateType,
+    required this.warehouseId,
     this.toWarehousePage,
     this.enableAction = true,
   });
 
   final String warehouseName;
+  final int warehouseId;
   final List<DelayTimeDetail> traficstateCountList;
   final String delayStateType;
   final Function? toWarehousePage;
@@ -211,7 +215,7 @@ class UserInputCell extends StatelessWidget {
                               child: UserInputCircleCell(
                                 cellColor: ColorName.stateNormal,
                                 text: Strings.STATE_NORMAL_TITLE,
-                                onTap: () {
+                                onTap: () async {
                                   if (!enableAction) {
                                     ErrorDialog().showErrorDialog(
                                         context: context,
@@ -223,6 +227,11 @@ class UserInputCell extends StatelessWidget {
                                         buttonText: '戻る');
                                   } else {
                                     //平常のボタン処理
+                                    await UserInputCircleCellController()
+                                        .userInputCircleCellAction(
+                                      type: WarehouseDelayState.normal.name,
+                                      id: warehouseId,
+                                    );
                                   }
                                 },
                               ),

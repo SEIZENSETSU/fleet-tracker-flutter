@@ -61,6 +61,7 @@ class _HomeViewState extends State<HomeView> {
                         child: CommonCard(
                           content: UserInputCell(
                             warehouseName: data.warehouseName,
+                            warehouseId: data.warehouseId,
 
                             /// 後ほど
                             traficstateCountList: data.delayTimeDetails,

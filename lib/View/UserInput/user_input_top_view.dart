@@ -39,6 +39,7 @@ class _UserInputTopViewState extends State<UserInputTopView> {
                       padding: const EdgeInsets.all(4.0),
                       child: CommonCard(
                         content: UserInputCell(
+                          warehouseId: data.warehouseId,
                           warehouseName: data.warehouseName,
                           traficstateCountList: data.delayTimeDetails,
                           delayStateType: data.averageDelayState.name,

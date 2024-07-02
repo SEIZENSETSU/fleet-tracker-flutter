@@ -120,6 +120,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                             delayStateType:
                                 widget.warehouseInfo.averageDelayState.name,
                             enableAction: controller.enableAction,
+                            warehouseId: widget.warehouseInfo.warehouseId,
                           ),
                         ),
                       ),
