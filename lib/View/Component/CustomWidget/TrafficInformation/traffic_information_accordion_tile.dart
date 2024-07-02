@@ -77,6 +77,7 @@ class TrafficInformationTileCell extends StatelessWidget {
                   prefecturalRoadName: prefecturalRoadList[i]['name'],
                   roadIssues: prefecturalRoadList[i]['issues'],
                   roadId: prefecturalRoadList[i]['roadId'],
+                  provideSapa: prefecturalRoadList[i]['provideSapa'],
                 ),
               }
             ],

@@ -18,11 +18,13 @@ class TrafficInformationTopController {
             'roadId': 1,
             'name': '深川留萌道',
             'issues': true,
+            'provideSapa': false,
           },
           {
             'roadId': 1,
             'name': '道央道',
             'issues': true,
+            'provideSapa': false,
           },
         ]
       },
@@ -35,11 +37,13 @@ class TrafficInformationTopController {
             'roadId': 7,
             'name': '青森道',
             'issues': true,
+            'provideSapa': false,
           },
           {
             'roadId': 8,
             'name': '東北道',
             'issues': true,
+            'provideSapa': true,
           },
         ]
       },
@@ -64,15 +68,17 @@ class TrafficInformationTopController {
           int roadClosure = trafficAbout.dataList[i].roads[j].closure;
           int roadJam = trafficAbout.dataList[i].roads[j].jam;
           bool roadIssues = false;
-
           if (roadClosure + roadJam > 0) {
             roadIssues = true;
           }
+          bool provideSapa = trafficAbout.dataList[i].roads[j].provideSapa;
+
           Map<String, dynamic> roadInfo = {};
           roadInfo.addAll({
             'roadId': roadId,
             'name': roadName,
             'issues': roadIssues,
+            'provideSapa': provideSapa,
           });
 
           roads.addAll({roadInfo});

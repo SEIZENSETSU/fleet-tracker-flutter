@@ -3,15 +3,18 @@ import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:flutter/material.dart';
 
 class PrefecturalRoadTile extends StatelessWidget {
-  const PrefecturalRoadTile(
-      {super.key,
-      required this.prefecturalRoadName,
-      required this.roadIssues,
-      required this.roadId});
+  const PrefecturalRoadTile({
+    super.key,
+    required this.prefecturalRoadName,
+    required this.roadIssues,
+    required this.roadId,
+    required this.provideSapa,
+  });
 
   final String prefecturalRoadName;
   final bool roadIssues;
   final int roadId;
+  final bool provideSapa;
 
   @override
   Widget build(BuildContext context) {
