@@ -6,6 +6,7 @@ import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferenc
 
 class WarehouseDetailController {
   bool enableAction = false;
+  bool onLoad = false;
   outArea() {
     BottomNavigationBarController().goBranch(0);
   }
@@ -24,14 +25,19 @@ class WarehouseDetailController {
   }
 
   Future<void> favoriteButtonAction(int id) async {
-    // あるかチェック
-    bool isFavorite = await favoriteListCheck(id);
-    if (isFavorite) {
-      // あったら削除
-      await deleteFavorite(id);
-    } else {
-      // なかったら追加
-      await addFavoite(id);
+    if (!onLoad) {
+      onLoad = true;
+      // あるかチェック
+      bool isFavorite = await favoriteListCheck(id);
+      if (isFavorite) {
+        // あったら削除
+        await deleteFavorite(id);
+        onLoad = false;
+      } else {
+        // なかったら追加
+        await addFavoite(id);
+        onLoad = false;
+      }
     }
   }
 
