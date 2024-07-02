@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 
 class PrefecturalRoadTile extends StatelessWidget {
   const PrefecturalRoadTile(
-      {super.key, required this.prefecturalRoadName, required this.roadIssues});
+      {super.key,
+      required this.prefecturalRoadName,
+      required this.roadIssues,
+      required this.roadId});
 
   final String prefecturalRoadName;
   final bool roadIssues;
+  final int roadId;
 
   @override
   Widget build(BuildContext context) {
