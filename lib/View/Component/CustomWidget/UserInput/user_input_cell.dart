@@ -14,7 +14,7 @@ import 'package:flutter/widgets.dart';
 import '../../../../Constants/Enum/warehouse_delay_state_enum.dart';
 import '../../../../Service/Log/log_service.dart';
 
-class UserInputCell extends StatelessWidget {
+class UserInputCell extends StatefulWidget {
   const UserInputCell({
     super.key,
     required this.warehouseName,
@@ -33,9 +33,16 @@ class UserInputCell extends StatelessWidget {
   final bool enableAction;
 
   @override
+  State<UserInputCell> createState() => _UserInputCellState();
+}
+
+class _UserInputCellState extends State<UserInputCell> {
+  bool onLoading = false;
+  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    WarehouseDelayStateType stateType = WarehouseDelayStateType(delayStateType);
+    WarehouseDelayStateType stateType =
+        WarehouseDelayStateType(widget.delayStateType);
     Log.echo('size: $size');
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -78,7 +85,7 @@ class UserInputCell extends StatelessWidget {
                             child: Container(
                               // color: const Color.fromARGB(255, 219, 217, 217),
                               child: CustomText(
-                                text: warehouseName,
+                                text: widget.warehouseName,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -173,7 +180,9 @@ class UserInputCell extends StatelessWidget {
               height: 15,
             ),
             CustomText(
-              text: enableAction ? '今の遅延状況は？ボタンを押して投稿！' : '現在の工場の遅延状態はこちら!',
+              text: widget.enableAction
+                  ? '今の遅延状況は？ボタンを押して投稿！'
+                  : '現在の工場の遅延状態はこちら!',
               fontSize: 14,
             ),
             SizedBox(
@@ -213,10 +222,12 @@ class UserInputCell extends StatelessWidget {
                             child: Container(
                               height: 60,
                               child: UserInputCircleCell(
-                                cellColor: ColorName.stateNormal,
+                                cellColor: onLoading
+                                    ? Colors.grey
+                                    : ColorName.stateNormal,
                                 text: Strings.STATE_NORMAL_TITLE,
                                 onTap: () async {
-                                  if (!enableAction) {
+                                  if (!widget.enableAction) {
                                     ErrorDialog().showErrorDialog(
                                         context: context,
                                         title: '倉庫検索から操作はできません',
@@ -227,11 +238,19 @@ class UserInputCell extends StatelessWidget {
                                         buttonText: '戻る');
                                   } else {
                                     //平常のボタン処理
-                                    await UserInputCircleCellController()
-                                        .userInputCircleCellAction(
-                                      type: WarehouseDelayState.normal.name,
-                                      id: warehouseId,
-                                    );
+                                    if (!onLoading) {
+                                      setState(() {
+                                        onLoading = true;
+                                      });
+                                      await UserInputCircleCellController()
+                                          .userInputCircleCellAction(
+                                        type: WarehouseDelayState.normal.name,
+                                        id: widget.warehouseId,
+                                      );
+                                      setState(() {
+                                        onLoading = false;
+                                      });
+                                    }
                                   }
                                 },
                               ),
@@ -245,10 +264,12 @@ class UserInputCell extends StatelessWidget {
                             child: Container(
                               height: 60,
                               child: UserInputCircleCell(
-                                cellColor: ColorName.statePause,
+                                cellColor: onLoading
+                                    ? Colors.grey
+                                    : ColorName.statePause,
                                 text: Strings.STATE_PAUSE_TITLE,
-                                onTap: () {
-                                  if (!enableAction) {
+                                onTap: () async {
+                                  if (!widget.enableAction) {
                                     ErrorDialog().showErrorDialog(
                                         context: context,
                                         title: '倉庫検索から操作はできません',
@@ -258,7 +279,20 @@ class UserInputCell extends StatelessWidget {
                                         detail: '該当のエリア内に移動してから再試行してください。',
                                         buttonText: '戻る');
                                   } else {
-                                    // 一時停止ボタン処理
+                                    //一時停止のボタン処理
+                                    if (!onLoading) {
+                                      setState(() {
+                                        onLoading = true;
+                                      });
+                                      await UserInputCircleCellController()
+                                          .userInputCircleCellAction(
+                                        type: WarehouseDelayState.pause.name,
+                                        id: widget.warehouseId,
+                                      );
+                                      setState(() {
+                                        onLoading = false;
+                                      });
+                                    }
                                   }
                                 },
                               ),
@@ -272,10 +306,12 @@ class UserInputCell extends StatelessWidget {
                             child: Container(
                               height: 60,
                               child: UserInputCircleCell(
-                                cellColor: ColorName.stateHalfAnHour,
+                                cellColor: onLoading
+                                    ? Colors.grey
+                                    : ColorName.stateHalfAnHour,
                                 text: Strings.STATE_HALF_HOUR_TITLE,
-                                onTap: () {
-                                  if (!enableAction) {
+                                onTap: () async {
+                                  if (!widget.enableAction) {
                                     ErrorDialog().showErrorDialog(
                                         context: context,
                                         title: '倉庫検索から操作はできません',
@@ -285,7 +321,20 @@ class UserInputCell extends StatelessWidget {
                                         detail: '該当のエリア内に移動してから再試行してください。',
                                         buttonText: '戻る');
                                   } else {
-                                    // 30ふんボタン処理
+                                    //30分未満のボタン処理
+                                    if (!onLoading) {
+                                      setState(() {
+                                        onLoading = true;
+                                      });
+                                      await UserInputCircleCellController()
+                                          .userInputCircleCellAction(
+                                        type: WarehouseDelayState.halfHour.name,
+                                        id: widget.warehouseId,
+                                      );
+                                      setState(() {
+                                        onLoading = false;
+                                      });
+                                    }
                                   }
                                 },
                               ),
@@ -299,10 +348,12 @@ class UserInputCell extends StatelessWidget {
                             child: Container(
                               height: 60,
                               child: UserInputCircleCell(
-                                cellColor: ColorName.stateAnHour,
+                                cellColor: onLoading
+                                    ? Colors.grey
+                                    : ColorName.stateAnHour,
                                 text: Strings.STATE_AN_HOUR_TITLE,
-                                onTap: () {
-                                  if (!enableAction) {
+                                onTap: () async {
+                                  if (!widget.enableAction) {
                                     ErrorDialog().showErrorDialog(
                                         context: context,
                                         title: '倉庫検索から操作はできません',
@@ -312,7 +363,22 @@ class UserInputCell extends StatelessWidget {
                                         detail: '該当のエリア内に移動してから再試行してください。',
                                         buttonText: '戻る');
                                   } else {
-                                    // 一時間ボタン処理
+                                    //1時間未満のボタン処理
+                                    if (!onLoading) {
+                                      setState(() {
+                                        onLoading = true;
+                                      });
+                                      await UserInputCircleCellController()
+                                          .userInputCircleCellAction(
+                                        type: WarehouseDelayState.anHour.name,
+                                        id: widget.warehouseId,
+                                      );
+                                      setState(() {
+                                        onLoading = false;
+                                      });
+                                    }
+
+                                    Log.toast('message');
                                   }
                                 },
                               ),
@@ -326,10 +392,12 @@ class UserInputCell extends StatelessWidget {
                             child: Container(
                               height: 60,
                               child: UserInputCircleCell(
-                                cellColor: ColorName.stateImpossible,
+                                cellColor: onLoading
+                                    ? Colors.grey
+                                    : ColorName.stateImpossible,
                                 text: Strings.STATE_IMPOSSIBLE_TITLE,
-                                onTap: () {
-                                  if (!enableAction) {
+                                onTap: () async {
+                                  if (!widget.enableAction) {
                                     ErrorDialog().showErrorDialog(
                                         context: context,
                                         title: '倉庫検索から操作はできません',
@@ -339,7 +407,23 @@ class UserInputCell extends StatelessWidget {
                                         detail: '該当のエリア内に移動してから再試行してください。',
                                         buttonText: '戻る');
                                   } else {
-                                    // 入庫不可ボタン処理
+                                    //入庫不可のボタン処理
+                                    if (!onLoading) {
+                                      setState(() {
+                                        onLoading = true;
+                                      });
+                                      await UserInputCircleCellController()
+                                          .userInputCircleCellAction(
+                                        type:
+                                            WarehouseDelayState.impossible.name,
+                                        id: widget.warehouseId,
+                                      );
+                                      setState(() {
+                                        onLoading = false;
+                                      });
+                                    }
+
+                                    Log.toast('message');
                                   }
                                 },
                               ),
@@ -372,8 +456,7 @@ class UserInputCell extends StatelessWidget {
                           ),
                           child: Center(
                             child: CustomText(
-                              text: traficstateCountList[0]
-                                  .answerCount
+                              text: widget.traficstateCountList[0].answerCount
                                   .toString(),
                             ),
                           ),
@@ -391,8 +474,7 @@ class UserInputCell extends StatelessWidget {
                           ),
                           child: Center(
                             child: CustomText(
-                              text: traficstateCountList[1]
-                                  .answerCount
+                              text: widget.traficstateCountList[1].answerCount
                                   .toString(),
                             ),
                           ),
@@ -410,8 +492,7 @@ class UserInputCell extends StatelessWidget {
                           ),
                           child: Center(
                             child: CustomText(
-                              text: traficstateCountList[2]
-                                  .answerCount
+                              text: widget.traficstateCountList[2].answerCount
                                   .toString(),
                             ),
                           ),
@@ -429,8 +510,7 @@ class UserInputCell extends StatelessWidget {
                           ),
                           child: Center(
                             child: CustomText(
-                              text: traficstateCountList[3]
-                                  .answerCount
+                              text: widget.traficstateCountList[3].answerCount
                                   .toString(),
                             ),
                           ),
@@ -448,8 +528,7 @@ class UserInputCell extends StatelessWidget {
                           ),
                           child: Center(
                             child: CustomText(
-                              text: traficstateCountList[4]
-                                  .answerCount
+                              text: widget.traficstateCountList[4].answerCount
                                   .toString(),
                             ),
                           ),
@@ -463,15 +542,15 @@ class UserInputCell extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            toWarehousePage != null
+            widget.toWarehousePage != null
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       GestureDetector(
-                        onTap: toWarehousePage != null
+                        onTap: widget.toWarehousePage != null
                             ? () {
                                 Log.echo('工場詳細ページへ遷移します');
-                                toWarehousePage!();
+                                widget.toWarehousePage!();
                               }
                             : () {},
                         child: Container(
