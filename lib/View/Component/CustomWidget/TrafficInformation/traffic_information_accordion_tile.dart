@@ -15,7 +15,7 @@ class TrafficInformationTileCell extends StatelessWidget {
   final String imageUrl;
   final int count;
   final String prefectureName;
-  final List<String> prefecturalRoadList;
+  final List<Map> prefecturalRoadList;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,9 @@ class TrafficInformationTileCell extends StatelessWidget {
             children: <Widget>[
               for (int i = 0; i < prefecturalRoadList.length; i++) ...{
                 PrefecturalRoadTile(
-                    prefecturalRoadName: prefecturalRoadList[i]),
+                  prefecturalRoadName: prefecturalRoadList[i]['name'],
+                  roadIssues: prefecturalRoadList[i]['issues'],
+                ),
               }
             ],
           ),
