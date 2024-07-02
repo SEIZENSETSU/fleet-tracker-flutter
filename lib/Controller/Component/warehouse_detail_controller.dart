@@ -1,4 +1,5 @@
 import 'package:fleet_tracker/Constants/Enum/function_type_enum.dart';
+import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
 import 'package:fleet_tracker/Controller/bottom_navigation_bar_controller.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
@@ -35,33 +36,28 @@ class WarehouseDetailController {
   }
 
   Future<void> addFavoite(int id) async {
-    await SharedPreferencesService()
-        .setStringList('favorite_warehouse_list', [id.toString()]);
+    await SharedPreferencesService().setStringList(
+        SharedPreferencesKeysEnum.favoriteWarehouseList.name, [id.toString()]);
     Log.toast('${id}をお気に入り倉庫に登録しました');
   }
 
   Future<void> deleteFavorite(int id) async {
     List<String>? favoriteList = await SharedPreferencesService()
-        .getStringList('favorite_warehouse_list');
-    if (favoriteList == null) {
-      return;
-    }
-    if (favoriteList.contains(id.toString())) {
-      favoriteList.removeWhere((element) => element == id.toString());
+        .getStringList(SharedPreferencesKeysEnum.favoriteWarehouseList.name);
+    // 配列から指定した工場を削除
+    favoriteList!.removeWhere((element) => element == id.toString());
+    // 削除した配列を保存
+    await SharedPreferencesService().setStringList(
+        SharedPreferencesKeysEnum.favoriteWarehouseList.name, favoriteList);
 
-      Log.toast('${id}をお気に入り倉庫から削除しました');
-    }
+    Log.toast('${id}をお気に入り倉庫から削除しました');
   }
 
   Future<bool> favoriteListCheck(int id) async {
     List? favoriteList = await SharedPreferencesService()
-        .getStringList('favorite_warehouse_list');
-    // nullならfalse
-    if (favoriteList == null) {
-      return false;
-    }
+        .getStringList(SharedPreferencesKeysEnum.favoriteWarehouseList.name);
     // 配列に指定した工場が入っているかどうかチェック
-    if (favoriteList.contains(id.toString())) {
+    if (favoriteList!.contains(id.toString())) {
       return true;
     } else {
       return false;
