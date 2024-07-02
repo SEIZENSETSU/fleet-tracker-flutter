@@ -92,6 +92,11 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                 if (_data.isInvading == false) {
                   controller.outArea();
                 }
+                // 現在見ている倉庫情報を取得
+                WarehouseInfo currrentWarehouse = _data.warehouses!.firstWhere(
+                    (element) =>
+                        element.warehouseId ==
+                        widget.warehouseInfo.warehouseId);
                 return Column(
                   children: [
                     //
@@ -114,13 +119,13 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                         padding: const EdgeInsets.all(4.0),
                         child: CommonCard(
                           content: UserInputCell(
-                            warehouseName: widget.warehouseInfo.warehouseName,
+                            warehouseName: currrentWarehouse.warehouseName,
                             traficstateCountList:
-                                widget.warehouseInfo.delayTimeDetails,
+                                currrentWarehouse.delayTimeDetails,
                             delayStateType:
-                                widget.warehouseInfo.averageDelayState.name,
+                                currrentWarehouse.averageDelayState.name,
                             enableAction: controller.enableAction,
-                            warehouseId: widget.warehouseInfo.warehouseId,
+                            warehouseId: currrentWarehouse.warehouseId,
                           ),
                         ),
                       ),
