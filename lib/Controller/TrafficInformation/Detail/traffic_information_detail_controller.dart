@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:fleet_tracker/Constants/Enum/traffic_detail_state_enum.dart';
 import 'package:fleet_tracker/Model/Entity/Traffic/detail.dart';
 import 'package:fleet_tracker/Service/API/TrafficInformation/traffic_information_service.dart';
@@ -10,7 +8,6 @@ class TrafficInformationDetailController {
 
   Future<List<Map<String, dynamic>>?> getJamInfoList(roadId) async {
     late String type;
-    String supplementInfo;
     List<Map<String, dynamic>> jamInfoList = [];
     List<Map<String, dynamic>> test = [
       {
