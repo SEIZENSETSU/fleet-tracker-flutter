@@ -1,5 +1,6 @@
 import 'package:fleet_tracker/Constants/Enum/traffic_detail_state_enum.dart';
 import 'package:fleet_tracker/Model/Entity/Traffic/detail.dart';
+import 'package:fleet_tracker/Model/Entity/Traffic/sapa.dart';
 import 'package:fleet_tracker/Service/API/TrafficInformation/traffic_information_service.dart';
 
 class TrafficInformationDetailController {
@@ -59,6 +60,53 @@ class TrafficInformationDetailController {
       jamInfoList.addAll({jamInfoMap});
     }
     print(jamInfoList);
+    return test;
+  }
+
+  Future<List<Map<String, String>>?> getSapaInfoList(roadId) async {
+    List<Map<String, String>> sapaInfoList = [];
+    List<Map<String, String>> test = [
+      {
+        'name': '佐野ＳＡ',
+        'direction': '上り',
+        'totalCongestion': '空',
+        'smallCarCongestion': '空',
+        'largeCarCongestion': '混'
+      },
+      {
+        'name': '佐野ＳＡ',
+        'direction': '下り',
+        'totalCongestion': '満',
+        'smallCarCongestion': '満',
+        'largeCarCongestion': '混'
+      },
+    ];
+    TrafficSapa? trafficSapa =
+        await trafficInformationService.getTrafficSapa(roadId: 8);
+    if (trafficSapa == null) {
+      return null;
+    }
+    print(trafficSapa.data.sapaInfoList.length);
+    for (int i = 0; i < trafficSapa.data.sapaInfoList.length; i++) {
+      Map<String, String> sapaInfoMap = {};
+      String name = trafficSapa.data.sapaInfoList[i].name;
+      String direction = trafficSapa.data.sapaInfoList[i].direction;
+      String totalCongestion = trafficSapa.data.sapaInfoList[i].totalCongestion;
+      String smallCarCongestion =
+          trafficSapa.data.sapaInfoList[i].smallCarCongestion;
+      String largeCarCongestion =
+          trafficSapa.data.sapaInfoList[i].largeCarCongestion;
+      sapaInfoMap.addAll({
+        'name': name,
+        'direction': direction,
+        'totalCongestion': totalCongestion,
+        'smallCarCongestion': smallCarCongestion,
+        'largeCarCongestion': largeCarCongestion,
+      });
+      sapaInfoList.addAll({sapaInfoMap});
+    }
+    print(sapaInfoList);
+
     return test;
   }
 }

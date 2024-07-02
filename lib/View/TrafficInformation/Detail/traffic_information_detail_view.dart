@@ -34,7 +34,9 @@ class _TrafficInformationStateDetailView
             InfoContentCard(
               children: <Widget>[
                 for (int i = 0; i < 2; i++) ...{
-                  JamInfoPlaceTile(),
+                  JamInfoPlaceTile(
+                    roadId: 7,
+                  ),
                 },
               ],
               title: '渋滞情報',
