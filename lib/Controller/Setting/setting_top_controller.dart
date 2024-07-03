@@ -1,4 +1,4 @@
-import 'package:fleet_tracker/Constants/strings.dart';
+import 'package:fleet_tracker/Model/Data/user_data.dart';
 import 'package:fleet_tracker/Service/API/Original/user_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -6,14 +6,12 @@ import 'package:flutter/widgets.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../Model/Entity/user.dart';
-import '../../Route/router.dart';
 import '../../Service/Firebase/Authentication/authentication_service.dart';
 import '../../Service/Log/log_service.dart';
 import '../../Service/Package/LocalNotification/local_notifications_service.dart';
 import '../../View/Component/CustomWidget/Modal/custom_modal.dart';
 import '../../View/Component/CustomWidget/Modal/debug_modal.dart';
 import '../../View/Component/CustomWidget/custom_button.dart';
-import '../../View/Component/CustomWidget/custom_textfield.dart';
 import '../../gen/colors.gen.dart';
 
 class SettingTopController {
@@ -97,17 +95,16 @@ class SettingTopController {
 
   /// 設定画面のinit
   Future<void> init() async {
-    userName =
-        await getUserName(uid: FirebaseAuthenticationService().getUid()!);
+    userName = await getUserName();
     areaSwitchValue = await getAreaSwitchValue();
     delaySwitchValue = await getAreaSwitchValue();
   }
 
   /// ユーザーネーム取得
   /// [uid] ユーザーid
-  Future<String?> getUserName({required String uid}) async {
-    User? userInfo = await UserService().getUserInfo(uid: uid);
-    return userInfo!.name;
+  Future<String?> getUserName() async {
+    User? userInfo = UserData().getData();
+    return userInfo.name;
   }
 
   /// エリア通知スイッチの初期値

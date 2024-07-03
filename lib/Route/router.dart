@@ -93,6 +93,12 @@ final routerProvider = Provider(
         TypedGoRoute<SettingTopRoute>(
           path: Routes.setting,
         ),
+        TypedGoRoute<HowToUseRoute>(
+          path: Routes.howtToUse,
+        ),
+        TypedGoRoute<LicenseRoute>(
+          path: Routes.howtToUse,
+        ),
       ],
     ),
   ],

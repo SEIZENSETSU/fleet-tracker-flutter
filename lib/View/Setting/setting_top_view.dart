@@ -1,7 +1,6 @@
 import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Controller/Setting/setting_top_controller.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
-import 'package:fleet_tracker/View/Component/CustomWidget/Setting/HowToUse/how_to_use.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Setting/setting_tile_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
@@ -9,8 +8,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../Route/router.dart';
-import '../../Service/Firebase/Authentication/authentication_service.dart';
-import '../Component/CustomWidget/Setting/License/license_view.dart';
 import '../Component/CustomWidget/custom_text.dart';
 
 class SettingTopView extends StatefulWidget {
@@ -81,7 +78,14 @@ class _SettingTopViewState extends State<SettingTopView> {
                 subTitle: 'エリア通知',
                 cellAction: (bool) {
                   // エリア内に入る or エリアから出るで通知
-                  controller.actionAreaSwitch(value: bool);
+                  controller.delaySwitchValue = !controller.delaySwitchValue!;
+                  if (bool) {
+                    controller.cancel();
+                    setState(() {});
+                  } else {
+                    controller.requestPermissions();
+                    setState(() {});
+                  }
                 },
                 switchValue: controller.areaSwitchValue ?? true,
               ),
@@ -89,6 +93,7 @@ class _SettingTopViewState extends State<SettingTopView> {
                 subTitle: '遅延情報通知',
                 cellAction: (bool) {
                   // 渋滞情報に変更があったら通知
+                  controller.delaySwitchValue = !controller.delaySwitchValue!;
                   if (bool) {
                     controller.cancel();
                     setState(() {});
@@ -112,13 +117,7 @@ class _SettingTopViewState extends State<SettingTopView> {
               SettingTileCell().common(
                 '使い方',
                 onTap: () {
-                  // dialog or ページを用意してこのアプリの使い方を説明する項目
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const HowToUseView()),
-                  );
-                  // const HowToUseRoute().push(context);
+                  const HowToUseRoute().push(context);
                 },
               ),
               SettingTileCell().common(
@@ -139,12 +138,7 @@ class _SettingTopViewState extends State<SettingTopView> {
                 'ライセンス',
                 onTap: () {
                   // ライセンスを表示
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LicenseView()),
-                  );
-                  // const LicenseRoute().push(context);
+                  const LicenseRoute().push(context);
                 },
               ),
               SettingTileCell().withDetail(title: 'アプリバージョン', detail: 'v1.0.0'),
