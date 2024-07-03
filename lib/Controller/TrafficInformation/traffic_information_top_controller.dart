@@ -6,6 +6,7 @@ class TrafficInformationTopController {
   TrafficInformationService trafficInformationService =
       TrafficInformationService();
 
+  /// エリアの情報を取得する
   Future<List<TrafficArea>?> getTraffiiAreatList() async {
     TrafficAbout? trafficAbout =
         await trafficInformationService.getTrafficInformation();
