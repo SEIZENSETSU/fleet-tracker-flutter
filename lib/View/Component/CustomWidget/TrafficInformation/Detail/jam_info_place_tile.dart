@@ -74,7 +74,7 @@ class JamInfoPlaceTile extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(2),
                       child: CustomText(
-                        text: '通行止・規制',
+                        text: '渋滞',
                         color: Colors.white,
                         fontSize: 16,
                       ),

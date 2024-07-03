@@ -8,7 +8,13 @@ import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
 class TrafficInformationDetailView extends StatefulWidget {
-  const TrafficInformationDetailView({super.key});
+  const TrafficInformationDetailView({
+    super.key,
+    required this.roadId,
+    required this.provideSapa,
+  });
+  final int roadId;
+  final bool provideSapa;
 
   @override
   State<TrafficInformationDetailView> createState() =>

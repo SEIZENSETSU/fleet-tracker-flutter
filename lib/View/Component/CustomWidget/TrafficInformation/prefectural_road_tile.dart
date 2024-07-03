@@ -21,7 +21,10 @@ class PrefecturalRoadTile extends StatelessWidget {
     double deviceWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
-        TrafficInformationDetailRoute().push(context);
+        TrafficInformationDetailRoute(
+          roadId: roadId,
+          provideSapa: provideSapa,
+        ).push(context);
       },
       child: Container(
         width: deviceWidth,

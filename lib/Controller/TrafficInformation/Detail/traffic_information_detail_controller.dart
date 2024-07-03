@@ -1,11 +1,37 @@
+import 'package:fleet_tracker/Constants/Enum/congestion_type_enum.dart';
 import 'package:fleet_tracker/Constants/Enum/traffic_detail_state_enum.dart';
 import 'package:fleet_tracker/Model/Entity/Traffic/detail.dart';
 import 'package:fleet_tracker/Model/Entity/Traffic/sapa.dart';
 import 'package:fleet_tracker/Service/API/TrafficInformation/traffic_information_service.dart';
+import 'package:flutter/material.dart';
 
 class TrafficInformationDetailController {
   TrafficInformationService trafficInformationService =
       TrafficInformationService();
+
+  Future<Map<String, dynamic>?> getRoadInfoMap(roadId) async {
+    DateTime? timestamp;
+    Map<String, dynamic> test = {
+      'areaName': '関東',
+      'roadName': '東京湾アクアライン',
+      'time': timestamp,
+    };
+
+    TrafficDetail? trafficDetail =
+        await trafficInformationService.getTrafficDetail(roadId: 7);
+    if (trafficDetail == null) {
+      return null;
+    }
+    String areaName = trafficDetail.data.areaName;
+    String roadName = trafficDetail.data.roadName;
+    DateTime time = trafficDetail.summary.updateTimestamp;
+    Map<String, dynamic> roadInfoMap = {
+      'areaName': areaName,
+      'roadName': roadName,
+      'time': time,
+    };
+    return roadInfoMap;
+  }
 
   Future<List<Map<String, dynamic>>?> getJamInfoList(roadId) async {
     late String type;
@@ -60,25 +86,31 @@ class TrafficInformationDetailController {
       jamInfoList.addAll({jamInfoMap});
     }
     print(jamInfoList);
-    return test;
+    return jamInfoList;
   }
 
-  Future<List<Map<String, String>>?> getSapaInfoList(roadId) async {
-    List<Map<String, String>> sapaInfoList = [];
-    List<Map<String, String>> test = [
+  Future<List<Map<String, dynamic>>?> getSapaInfoList(roadId) async {
+    List<Map<String, dynamic>> sapaInfoList = [];
+    List<Map<String, dynamic>> test = [
       {
         'name': '佐野ＳＡ',
         'direction': '上り',
         'totalCongestion': '空',
         'smallCarCongestion': '空',
-        'largeCarCongestion': '混'
+        'largeCarCongestion': '混',
+        'totalCongestionColor': Colors.green,
+        'smallCarCongestionColor': Colors.green,
+        'largeCarCongestionColor': Colors.orange,
       },
       {
         'name': '佐野ＳＡ',
         'direction': '下り',
         'totalCongestion': '満',
         'smallCarCongestion': '満',
-        'largeCarCongestion': '混'
+        'largeCarCongestion': '混',
+        'totalCongestionColor': Colors.red,
+        'smallCarCongestionColor': Colors.red,
+        'largeCarCongestionColor': Colors.orange,
       },
     ];
     TrafficSapa? trafficSapa =
@@ -88,7 +120,7 @@ class TrafficInformationDetailController {
     }
     print(trafficSapa.data.sapaInfoList.length);
     for (int i = 0; i < trafficSapa.data.sapaInfoList.length; i++) {
-      Map<String, String> sapaInfoMap = {};
+      Map<String, dynamic> sapaInfoMap = {};
       String name = trafficSapa.data.sapaInfoList[i].name;
       String direction = trafficSapa.data.sapaInfoList[i].direction;
       String totalCongestion = trafficSapa.data.sapaInfoList[i].totalCongestion;
@@ -96,12 +128,20 @@ class TrafficInformationDetailController {
           trafficSapa.data.sapaInfoList[i].smallCarCongestion;
       String largeCarCongestion =
           trafficSapa.data.sapaInfoList[i].largeCarCongestion;
+      Color totalCongestionColor = CongestionType(totalCongestion).color();
+      Color smallCarCongestionColor =
+          CongestionType(smallCarCongestion).color();
+      Color largeCarCongestionColor =
+          CongestionType(largeCarCongestion).color();
       sapaInfoMap.addAll({
         'name': name,
         'direction': direction,
         'totalCongestion': totalCongestion,
         'smallCarCongestion': smallCarCongestion,
         'largeCarCongestion': largeCarCongestion,
+        'totalCongestionColor': totalCongestionColor,
+        'smallCarCongestionColor': smallCarCongestionColor,
+        'largeCarCongestionColor': largeCarCongestionColor,
       });
       sapaInfoList.addAll({sapaInfoMap});
     }
