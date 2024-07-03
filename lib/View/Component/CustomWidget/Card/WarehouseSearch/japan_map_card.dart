@@ -16,7 +16,7 @@ class JapanMapCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // リザルトページにいく
-        WarehouseSearchResultRoute(areaId: 0, areaName: name).push(context);
+        WarehouseSearchResultRoute(areaId: [0], areaName: name).push(context);
       },
       child: Container(
         decoration: BoxDecoration(

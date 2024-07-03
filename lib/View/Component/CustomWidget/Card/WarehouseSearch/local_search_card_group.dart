@@ -26,8 +26,30 @@ class LocalSearchCardGroup extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
           onTap: () {
-            WarehouseSearchResultRoute(areaId: 0, areaName: areaNameList[index])
-                .push(context);
+            List<int> areaIdList = [];
+
+            /// indexによってエリアIDを切り替える
+            switch (index) {
+              case 0:
+                areaIdList.add(1);
+              case 1:
+                areaIdList.add(2);
+              case 2:
+                areaIdList.add(3);
+              case 3:
+                areaIdList.add(4);
+              case 4:
+                areaIdList.add(5);
+              case 5:
+                areaIdList.addAll([6, 7]);
+              case 6:
+                areaIdList.addAll([8, 9]);
+            }
+
+            WarehouseSearchResultRoute(
+              areaId: areaIdList,
+              areaName: areaNameList[index],
+            ).push(context);
           },
           child: Padding(
             padding: const EdgeInsets.all(10),

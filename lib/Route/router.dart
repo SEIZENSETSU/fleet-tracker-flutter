@@ -205,7 +205,7 @@ class WarehouseSearchResultRoute extends GoRouteData {
   });
 
   final String? areaName;
-  final int? areaId;
+  final List<int>? areaId;
   final String? keyword;
 
   @override
