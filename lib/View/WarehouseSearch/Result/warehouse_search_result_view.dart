@@ -1,5 +1,6 @@
 import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Controller/WarehouseSearch/warehouse_search_top_controller.dart';
+import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/circular_progress_indicator_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Controller/WarehouseSearch/Result/warehouse_search_result_controller.dart';
+import '../../../Model/Entity/Warehouse/info.dart';
 import '../../../Model/Entity/Warehouse/warehouse.dart';
 import '../../../Route/router.dart';
 import '../../../gen/assets.gen.dart';
@@ -149,18 +151,22 @@ class _WarehouseSearchResultViewState extends State<WarehouseSearchResultView> {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 10, horizontal: 20),
                                     child: CommonCard(
-                                      onTap: () {
+                                      onTap: () async {
                                         // カードをタップして倉庫詳細ページへ遷移
-                                        // WarehouseDetailRoute(
-                                        //   $extra: Warehouse(
-                                        //     id: 1,
-                                        //     name: 'エルフーズ東京',
-                                        //     latitude: 35.681236,
-                                        //     longitude: 139.767125,
-                                        //   ),
-                                        //   traficstateCountList: [],
-                                        //   delayStateType: 'pause',
-                                        // ).push(context);
+                                        WarehouseInfo? extra =
+                                            await controller.getWarehouseInfo(
+                                                warehouseId:
+                                                    warehouseList[index].id);
+
+                                        if (extra == null) {
+                                          // エラー表示
+                                          Log.toast('通信エラーです');
+                                        }
+
+                                        WarehouseDetailRoute(
+                                                $extra: extra!,
+                                                functionType: 'search')
+                                            .push(context);
                                       },
                                       content: Row(
                                         children: [
