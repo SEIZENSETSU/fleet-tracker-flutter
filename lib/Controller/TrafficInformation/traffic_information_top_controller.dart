@@ -6,13 +6,12 @@ class TrafficInformationTopController {
   TrafficInformationService trafficInformationService =
       TrafficInformationService();
 
-  Future<List<TrafficArea>?> getPrefectureInfoList() async {
+  Future<List<TrafficArea>?> getTraffiiAreatList() async {
     TrafficAbout? trafficAbout =
         await trafficInformationService.getTrafficInformation();
     if (trafficAbout == null) {
       return null;
     }
-
     return trafficAbout.dataList;
   }
 }

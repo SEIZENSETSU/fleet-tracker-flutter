@@ -1,5 +1,4 @@
 import 'package:fleet_tracker/Constants/Enum/traffic_detail_state_enum.dart';
-import 'package:fleet_tracker/Controller/TrafficInformation/Detail/traffic_information_detail_controller.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:flutter/material.dart';
 
@@ -23,11 +22,8 @@ class JamInfoPlaceTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
-    TrafficInformationDetailController trafficInformationDetailController =
-        TrafficInformationDetailController();
-    String test = '5km';
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(color: Colors.grey, width: 1),
         ),
@@ -40,7 +36,7 @@ class JamInfoPlaceTile extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(
+              margin: const EdgeInsets.only(
                 left: 10,
                 bottom: 10,
               ),
@@ -88,17 +84,17 @@ class JamInfoPlaceTile extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(2),
                       child: CustomText(
-                        text: type.name,
+                        text: TrafficDetailStateType(type.name).JapaneseText(),
                         color: Colors.white,
                         fontSize: 16,
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   CustomText(
-                    text: content == null ? range! : '$content:$reason',
+                    text: content == null ? range! : '$content : $reason',
                     fontSize: 20,
                     color: Colors.orange,
                   ),

@@ -16,7 +16,6 @@ class TrafficInformationTopView extends StatefulWidget {
 class _TrafficInformationStateTopViewState
     extends State<TrafficInformationTopView> {
   String imageUrl = 'https://www.c-ihighway.jp/smp/img/MAP/hokkaido.png';
-  int count = 50;
   TrafficInformationTopController trafficInformationTopController =
       TrafficInformationTopController();
 
@@ -25,7 +24,7 @@ class _TrafficInformationStateTopViewState
     return Scaffold(
       appBar: CustomAppBar(),
       body: FutureBuilder<List<TrafficArea>?>(
-        future: trafficInformationTopController.getPrefectureInfoList(),
+        future: trafficInformationTopController.getTraffiiAreatList(),
         builder:
             (BuildContext context, AsyncSnapshot<List<TrafficArea>?> snapshot) {
           if (snapshot.hasData) {

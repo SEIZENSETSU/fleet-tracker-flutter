@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 class PrefecturalRoadTile extends StatelessWidget {
   const PrefecturalRoadTile(
       {super.key,
-      required this.prefecturalRoadName,
+      required this.roadName,
       required this.roadId,
       required this.provideSapa,
       required this.jam,
       required this.closure});
 
-  final String prefecturalRoadName;
+  final String roadName;
   final int roadId;
   final bool provideSapa;
   final int jam;
@@ -62,7 +62,7 @@ class PrefecturalRoadTile extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 8),
                         child: CustomText(
-                          text: prefecturalRoadName,
+                          text: roadName,
                         ),
                       ),
                     ),
@@ -77,7 +77,7 @@ class PrefecturalRoadTile extends StatelessWidget {
                         fit: BoxFit.fitHeight,
                         child: Icon(
                           Icons.warning,
-                          color: Colors.amber,
+                          color: jam + closure > 5 ? Colors.red : Colors.orange,
                         ),
                       ),
                     ),

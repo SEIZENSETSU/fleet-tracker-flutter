@@ -75,7 +75,7 @@ class TrafficInformationTileCell extends StatelessWidget {
             children: <Widget>[
               for (int i = 0; i < prefecturalRoadList.length; i++) ...{
                 PrefecturalRoadTile(
-                  prefecturalRoadName: prefecturalRoadList[i].name,
+                  roadName: prefecturalRoadList[i].name,
                   roadId: prefecturalRoadList[i].id,
                   provideSapa: prefecturalRoadList[i].provideSapa,
                   jam: prefecturalRoadList[i].jam,

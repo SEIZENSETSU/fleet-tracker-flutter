@@ -22,7 +22,7 @@ class SapaInfoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
             color: Colors.grey,

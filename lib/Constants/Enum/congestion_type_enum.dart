@@ -33,7 +33,7 @@ class CongestionType {
       case CongestionTypeEnum.full:
         return Colors.red;
       default:
-        return Colors.green;
+        throw Exception('Unknown type: $type');
     }
   }
 }
