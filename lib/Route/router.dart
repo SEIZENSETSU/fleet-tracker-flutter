@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 
 import '../Model/Entity/Warehouse/info.dart';
 import '../Model/Entity/Warehouse/warehouse.dart';
+import '../View/Component/CustomWidget/Setting/HowToUse/how_to_use.dart';
+import '../View/Component/CustomWidget/Setting/License/license_view.dart';
 import '../View/Component/WarehouseDetail/warehouse_detail_view.dart';
 import '../View/Home/home_view.dart';
 import '../View/Setting/setting_top_view.dart';
@@ -242,6 +244,22 @@ class SettingTopRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const SettingTopView();
+}
+
+class HowToUseRoute extends GoRouteData {
+  const HowToUseRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const HowToUseView();
+}
+
+class LicenseRoute extends GoRouteData {
+  const LicenseRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const LicenseView();
 }
 //////////////////////////////  Setting  //////////////////////////////
 
