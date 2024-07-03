@@ -35,15 +35,15 @@ class LocalSearchCardGroup extends StatelessWidget {
               case 1:
                 areaIdList.add(2);
               case 2:
-                areaIdList.add(3);
+                areaIdList.add(9);
               case 3:
-                areaIdList.add(4);
+                areaIdList.add(3);
               case 4:
-                areaIdList.add(5);
+                areaIdList.add(4);
               case 5:
-                areaIdList.addAll([6, 7]);
+                areaIdList.addAll([5, 6]);
               case 6:
-                areaIdList.addAll([8, 9]);
+                areaIdList.addAll([7, 8]);
             }
 
             WarehouseSearchResultRoute(

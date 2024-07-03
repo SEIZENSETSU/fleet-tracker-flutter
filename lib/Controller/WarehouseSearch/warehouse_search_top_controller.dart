@@ -45,7 +45,7 @@ class WarehouseSearchTopController {
     return isMap == null ? true : isMap;
   }
 
-  /// ユーザーが登録しているお気に入り倉庫情報を取得する
+  /// ユーザーが登録しているお気に入り倉庫の情報を取得する
   Future<List<WarehouseInfo>?> getFavoiteWarehousese() async {
     List<WarehouseInfo> favoriteWarehouseList = [];
     // お気に入りに登録している倉庫IDを取得
