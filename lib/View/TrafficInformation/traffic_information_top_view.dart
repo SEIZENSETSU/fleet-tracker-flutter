@@ -22,7 +22,9 @@ class _TrafficInformationStateTopViewState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(
+        title: '交通情報',
+      ),
       body: FutureBuilder<List<TrafficArea>?>(
         future: trafficInformationTopController.getTraffiiAreatList(),
         builder:

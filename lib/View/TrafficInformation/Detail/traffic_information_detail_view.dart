@@ -33,6 +33,7 @@ class _TrafficInformationStateDetailView
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
+        title: '道路情報',
         isBackButton: true,
       ),
       backgroundColor: ColorName.scaffoldBackground,
