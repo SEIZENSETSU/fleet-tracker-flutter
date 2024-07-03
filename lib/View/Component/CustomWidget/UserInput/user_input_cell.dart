@@ -1,9 +1,12 @@
 import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Controller/Component/user_input_circle_cell_controller.dart';
 import 'package:fleet_tracker/Controller/UserInput/user_input_top_controller.dart';
+import 'package:fleet_tracker/Model/Entity/delay_information.dart';
 import 'package:fleet_tracker/Model/Entity/delay_time_detail.dart';
+import 'package:fleet_tracker/Service/API/Original/delay_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Dialog/error_dialog.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/UserInput/user_input_circle_cell.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/circular_progress_indicator_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
@@ -21,12 +24,14 @@ class UserInputCell extends StatefulWidget {
     required this.traficstateCountList,
     required this.delayStateType,
     required this.warehouseId,
+    required this.warehouseAreaId,
     this.toWarehousePage,
     this.enableAction = true,
   });
 
   final String warehouseName;
   final int warehouseId;
+  final int warehouseAreaId;
   final List<DelayTimeDetail> traficstateCountList;
   final String delayStateType;
   final Function? toWarehousePage;
@@ -439,106 +444,61 @@ class _UserInputCellState extends State<UserInputCell> {
             const SizedBox(
               height: 10,
             ),
-            Container(
-              child: FractionallySizedBox(
-                widthFactor: 0.95,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 1,
+            FutureBuilder(
+                future: DelayService().getDelayInformation(
+                    warehouseAreaId: widget.warehouseAreaId),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState != ConnectionState.done) {
+                    return CirclarProgressIndicatorCell(height: 30);
+                  }
+
+                  if (snapshot.hasData) {
+                    final List<DelayInformation>? delayInformation =
+                        snapshot.data;
+
+                    if (delayInformation!.isEmpty) {
+                      // エラー表示
+                    }
+                    // 現在の倉庫の遅延情報を抽出
+                    final currrentWarehouse = delayInformation.firstWhere(
+                        (element) => element.warehouseId == widget.warehouseId);
+
+                    return Container(
                       child: FractionallySizedBox(
-                        widthFactor: 0.9,
-                        child: Container(
-                          height: 30,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                          ),
-                          child: Center(
-                            child: CustomText(
-                              text: widget.traficstateCountList[0].answerCount
-                                  .toString(),
-                            ),
-                          ),
+                        widthFactor: 0.95,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            for (int i = 0;
+                                i < currrentWarehouse.delayTimeDetail.length;
+                                i++)
+                              Expanded(
+                                flex: 1,
+                                child: FractionallySizedBox(
+                                  widthFactor: 0.9,
+                                  child: Container(
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: Center(
+                                      child: CustomText(
+                                        text: currrentWarehouse
+                                            .delayTimeDetail[i].answerCount
+                                            .toString(),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          ],
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: FractionallySizedBox(
-                        widthFactor: 0.9,
-                        child: Container(
-                          height: 30,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                          ),
-                          child: Center(
-                            child: CustomText(
-                              text: widget.traficstateCountList[1].answerCount
-                                  .toString(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: FractionallySizedBox(
-                        widthFactor: 0.9,
-                        child: Container(
-                          height: 30,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                          ),
-                          child: Center(
-                            child: CustomText(
-                              text: widget.traficstateCountList[2].answerCount
-                                  .toString(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: FractionallySizedBox(
-                        widthFactor: 0.9,
-                        child: Container(
-                          height: 30,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                          ),
-                          child: Center(
-                            child: CustomText(
-                              text: widget.traficstateCountList[3].answerCount
-                                  .toString(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: FractionallySizedBox(
-                        widthFactor: 0.9,
-                        child: Container(
-                          height: 30,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                          ),
-                          child: Center(
-                            child: CustomText(
-                              text: widget.traficstateCountList[4].answerCount
-                                  .toString(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                    );
+                  } else {
+                    return CirclarProgressIndicatorCell(height: 30);
+                  }
+                }),
             const SizedBox(
               height: 10,
             ),

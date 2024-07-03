@@ -126,6 +126,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                                 currrentWarehouse.averageDelayState.name,
                             enableAction: controller.enableAction,
                             warehouseId: currrentWarehouse.warehouseId,
+                            warehouseAreaId: currrentWarehouse.warehouseAreaId,
                           ),
                         ),
                       ),

@@ -60,6 +60,7 @@ class _HomeViewState extends State<HomeView> {
                         padding: const EdgeInsets.all(4.0),
                         child: CommonCard(
                           content: UserInputCell(
+                            warehouseAreaId: data.warehouseAreaId,
                             warehouseName: data.warehouseName,
                             warehouseId: data.warehouseId,
 

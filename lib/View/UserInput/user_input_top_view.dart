@@ -40,6 +40,7 @@ class _UserInputTopViewState extends State<UserInputTopView> {
                       child: CommonCard(
                         content: UserInputCell(
                           warehouseId: data.warehouseId,
+                          warehouseAreaId: data.warehouseAreaId,
                           warehouseName: data.warehouseName,
                           traficstateCountList: data.delayTimeDetails,
                           delayStateType: data.averageDelayState.name,
