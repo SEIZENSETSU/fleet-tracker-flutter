@@ -14,7 +14,7 @@ class JapanMapDefomed extends StatelessWidget {
     return Container(
       height: size.height * 0.6,
       color: ColorName.japanMapDeformedBackground,
-      child: Column(
+      child: const Column(
         children: [
           Expanded(
             flex: 1,
@@ -64,15 +64,13 @@ class JapanMapDefomed extends StatelessWidget {
                 ),
                 Expanded(
                   flex: 2,
-                  child: Container(
-                    child: FractionallySizedBox(
-                      widthFactor: 1,
-                      heightFactor: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: JapanMapCard(
-                          name: '東北',
-                        ),
+                  child: FractionallySizedBox(
+                    widthFactor: 1,
+                    heightFactor: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: JapanMapCard(
+                        name: '東北',
                       ),
                     ),
                   ),

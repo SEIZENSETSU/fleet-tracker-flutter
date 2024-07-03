@@ -6,7 +6,7 @@ class WarehouseSearchTopController {
       SharedPreferencesService();
 
   final TextEditingController textEditingController = TextEditingController();
-  late bool mapSwitch;
+  bool mapSwitch = true;
   List<String> areaNameList = [
     '北海道',
     '東北',
@@ -25,9 +25,6 @@ class WarehouseSearchTopController {
     'https://www.c-ihighway.jp/smp/img/MAP/chugoku.png',
     'https://www.c-ihighway.jp/smp/img/MAP/kyushu.png',
   ];
-  WarehouseSearchTopController() {
-    mapSwitch = true;
-  }
   Future<bool> setMapSwitch({required bool mapSwitch}) async {
     return sharedPreferencesService.setBool('mapSwitch', !mapSwitch);
   }

@@ -77,10 +77,10 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Container(
+            SizedBox(
               height: 40,
               width: size.width * 0.8,
               child: CustomButton(
@@ -110,22 +110,22 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 ),
               ),
             ),
-            Visibility(
-              visible: !warehouseSearchTopController.mapSwitch,
-              child: SizedBox(
-                width: size.width,
-                height: size.width,
-                child: LocalSearchCardGroup(
-                  areaNameList: warehouseSearchTopController.areaNameList,
-                  areaImageUrlList:
-                      warehouseSearchTopController.areaImageUrlList,
-                ),
-              ),
-            ),
-            Visibility(
-              visible: warehouseSearchTopController.mapSwitch,
-              child: const JapanMapDefomed(),
-            ),
+            // Visibility(
+            //   visible: !warehouseSearchTopController.mapSwitch,
+            //   child: SizedBox(
+            //     width: size.width,
+            //     height: size.width,
+            //     child: LocalSearchCardGroup(
+            //       areaNameList: warehouseSearchTopController.areaNameList,
+            //       areaImageUrlList:
+            //           warehouseSearchTopController.areaImageUrlList,
+            //     ),
+            //   ),
+            // ),
+            // Visibility(
+            //   visible: warehouseSearchTopController.mapSwitch,
+            //   child: const JapanMapDefomed(),
+            // ),
             const SpacerAndDivider(topHeight: 20, bottomHeight: 10),
             //
             // お気に入りから探す表示部分
@@ -140,83 +140,80 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 ),
               ),
             ),
-            Container(
-              constraints: BoxConstraints(minHeight: 100),
-              child: Flexible(
-                child: ListView.builder(
-                    itemCount: 5,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          // 倉庫詳細ページへ遷移
+            // 表示部
+            ListView.builder(
+                itemCount: 5,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      // 倉庫詳細ページへ遷移
 
-                          Log.echo('倉庫詳細ページへ');
+                      Log.echo('倉庫詳細ページへ');
 
-                          //
-                          // お気に入り工場リストからインスタンス化して値を渡す
+                      //
+                      // お気に入り工場リストからインスタンス化して値を渡す
 
-                          // WarehouseDetailRoute(
-                          //   $extra: Warehouse(
-                          //     id: 1,
-                          //     name: 'エルフーズ東京',
-                          //     latitude: 35.681236,
-                          //     longitude: 139.767125,
-                          //   ),
-                          //   traficstateCountList: [],
-                          //   delayStateType: 'pause',
-                          // ).push(context);
-                        },
-                        child: Container(
-                          height: size.height * 0.1,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 20),
-                            child: CommonCard(
-                              content: Row(
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: FractionallySizedBox(
-                                      heightFactor: 0.5,
-                                      child: Container(
-                                        child: Assets.images.icons.factoryIcon
-                                            .image(),
-                                      ),
-                                    ),
+                      // WarehouseDetailRoute(
+                      //   $extra: Warehouse(
+                      //     id: 1,
+                      //     name: 'エルフーズ東京',
+                      //     latitude: 35.681236,
+                      //     longitude: 139.767125,
+                      //   ),
+                      //   traficstateCountList: [],
+                      //   delayStateType: 'pause',
+                      // ).push(context);
+                    },
+                    child: SizedBox(
+                      height: size.height * 0.1,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 20),
+                        child: CommonCard(
+                          content: Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: FractionallySizedBox(
+                                  heightFactor: 0.5,
+                                  child: Container(
+                                    child:
+                                        Assets.images.icons.factoryIcon.image(),
                                   ),
-                                  Expanded(
-                                    flex: 3,
-                                    child: Container(
-                                      child: Row(
-                                        children: [
-                                          CustomText(
-                                            text: 'エルフーズ東京',
-                                            fontSize: 13,
-                                          ),
-                                          Spacer(),
-                                          Container(
-                                            width: 30,
-                                            height: 30,
-                                            child: Icon(
-                                              Icons.chevron_right,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                            ),
+                              Expanded(
+                                flex: 3,
+                                child: Container(
+                                  child: Row(
+                                    children: [
+                                      CustomText(
+                                        text: 'エルフーズ東京',
+                                        fontSize: 13,
+                                      ),
+                                      Spacer(),
+                                      Container(
+                                        width: 30,
+                                        height: 30,
+                                        child: Icon(
+                                          Icons.chevron_right,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      );
-                    }),
-              ),
-            ),
-            SizedBox(
+                      ),
+                    ),
+                  );
+                }),
+
+            const SizedBox(
               height: 50,
             )
           ],
