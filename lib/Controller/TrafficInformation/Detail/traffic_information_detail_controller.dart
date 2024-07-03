@@ -4,6 +4,7 @@ import 'package:fleet_tracker/Model/Entity/Traffic/detail.dart';
 import 'package:fleet_tracker/Model/Entity/Traffic/sapa.dart';
 import 'package:fleet_tracker/Service/API/TrafficInformation/traffic_information_service.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TrafficInformationDetailController {
   TrafficInformationService trafficInformationService =
@@ -11,6 +12,7 @@ class TrafficInformationDetailController {
 
   Future<Map<String, dynamic>?> getRoadInfoMap(roadId) async {
     DateTime? timestamp;
+    final formatter = DateFormat('h:m');
     Map<String, dynamic> test = {
       'areaName': '関東',
       'roadName': '東京湾アクアライン',
@@ -24,12 +26,14 @@ class TrafficInformationDetailController {
     }
     String areaName = trafficDetail.data.areaName;
     String roadName = trafficDetail.data.roadName;
-    DateTime time = trafficDetail.summary.updateTimestamp;
-    Map<String, dynamic> roadInfoMap = {
+    DateTime dateTime = trafficDetail.summary.updateTimestamp;
+    String time = formatter.format(dateTime).toString();
+    Map<String, String> roadInfoMap = {
       'areaName': areaName,
       'roadName': roadName,
       'time': time,
     };
+    print(roadInfoMap);
     return roadInfoMap;
   }
 
@@ -59,7 +63,7 @@ class TrafficInformationDetailController {
 
     for (int i = 0; i < trafficDetail.data.issues.length; i++) {
       Map<String, dynamic> jamInfoMap = {};
-      String? supplementInfo;
+      String? supplementInfo = '';
       String direction = trafficDetail.data.issues[i].direction;
       String place = trafficDetail.data.issues[i].place;
       TrafficDetailState originaltype = trafficDetail.data.issues[i].type;

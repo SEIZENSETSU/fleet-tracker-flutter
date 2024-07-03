@@ -4,9 +4,15 @@ import 'package:flutter/material.dart';
 class JamInfoPlaceTile extends StatelessWidget {
   const JamInfoPlaceTile({
     super.key,
-    required this.roadId,
+    required this.direction,
+    required this.place,
+    required this.type,
+    required this.supplementInfo,
   });
-  final int roadId;
+  final String direction;
+  final String place;
+  final String type;
+  final String supplementInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +47,7 @@ class JamInfoPlaceTile extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(2),
                       child: CustomText(
-                        text: '北習志野方向',
+                        text: direction,
                         fontSize: 16,
                         color: Colors.white,
                       ),
@@ -52,7 +58,7 @@ class JamInfoPlaceTile extends StatelessWidget {
                       left: 10,
                     ),
                     child: CustomText(
-                      text: '境古河IC→五霞IC',
+                      text: place,
                       fontSize: 18,
                       color: Colors.blueAccent,
                     ),
@@ -74,7 +80,7 @@ class JamInfoPlaceTile extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(2),
                       child: CustomText(
-                        text: '渋滞',
+                        text: type,
                         color: Colors.white,
                         fontSize: 16,
                       ),
@@ -84,9 +90,9 @@ class JamInfoPlaceTile extends StatelessWidget {
                     width: 10,
                   ),
                   Visibility(
-                    visible: test != '',
+                    visible: supplementInfo != '',
                     child: CustomText(
-                      text: '${test}',
+                      text: supplementInfo,
                       fontSize: 20,
                       color: Colors.orange,
                     ),
