@@ -18,175 +18,165 @@ class JapanMapDefomed extends StatelessWidget {
         children: [
           Expanded(
             flex: 1,
-            child: Container(
-              child: Row(
-                children: [
-                  const Expanded(flex: 1, child: SizedBox()),
-                  const Expanded(
-                    flex: 1,
-                    child: SizedBox(),
-                  ),
-                  const Expanded(
-                    flex: 1,
-                    child: SizedBox(),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      child: FractionallySizedBox(
-                        widthFactor: 1,
-                        heightFactor: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: JapanMapCard(
-                            name: '北海道',
-                          ),
-                        ),
+            child: Row(
+              children: [
+                const Expanded(flex: 1, child: SizedBox()),
+                const Expanded(
+                  flex: 1,
+                  child: SizedBox(),
+                ),
+                const Expanded(
+                  flex: 1,
+                  child: SizedBox(),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: FractionallySizedBox(
+                    widthFactor: 1,
+                    heightFactor: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: JapanMapCard(
+                        name: '北海道',
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           Expanded(
             flex: 1,
-            child: Container(
-              child: Row(
-                children: [
-                  const Expanded(flex: 1, child: SizedBox()),
-                  const Expanded(
-                    flex: 1,
-                    child: SizedBox(),
-                  ),
-                  const Expanded(
-                    flex: 1,
-                    child: SizedBox(),
-                  ),
-                  const Expanded(
-                    flex: 1,
-                    child: SizedBox(),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      child: FractionallySizedBox(
-                        widthFactor: 1,
-                        heightFactor: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: JapanMapCard(
-                            name: '東北',
-                          ),
+            child: Row(
+              children: [
+                const Expanded(flex: 1, child: SizedBox()),
+                const Expanded(
+                  flex: 1,
+                  child: SizedBox(),
+                ),
+                const Expanded(
+                  flex: 1,
+                  child: SizedBox(),
+                ),
+                const Expanded(
+                  flex: 1,
+                  child: SizedBox(),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    child: FractionallySizedBox(
+                      widthFactor: 1,
+                      heightFactor: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: JapanMapCard(
+                          name: '東北',
                         ),
                       ),
                     ),
                   ),
-                  const Expanded(
-                    flex: 1,
-                    child: SizedBox(),
-                  ),
-                ],
-              ),
+                ),
+                const Expanded(
+                  flex: 1,
+                  child: SizedBox(),
+                ),
+              ],
             ),
           ),
           Expanded(
             flex: 1,
-            child: Container(
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: FractionallySizedBox(
-                      widthFactor: 1,
-                      heightFactor: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: JapanMapCard(
-                          name: '中国・四国',
-                        ),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: FractionallySizedBox(
+                    widthFactor: 1,
+                    heightFactor: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: JapanMapCard(
+                        name: '中国・四国',
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 2,
-                    child: FractionallySizedBox(
-                      widthFactor: 1,
-                      heightFactor: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: JapanMapCard(
-                          name: '近畿',
-                        ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: FractionallySizedBox(
+                    widthFactor: 1,
+                    heightFactor: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: JapanMapCard(
+                        name: '近畿',
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 3,
-                    child: FractionallySizedBox(
-                      widthFactor: 1,
-                      heightFactor: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: JapanMapCard(
-                          name: '中部',
-                        ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: FractionallySizedBox(
+                    widthFactor: 1,
+                    heightFactor: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: JapanMapCard(
+                        name: '中部',
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 2,
-                    child: FractionallySizedBox(
-                      widthFactor: 1,
-                      heightFactor: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: JapanMapCard(
-                          name: '関東',
-                        ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: FractionallySizedBox(
+                    widthFactor: 1,
+                    heightFactor: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: JapanMapCard(
+                        name: '関東',
                       ),
                     ),
                   ),
-                  const Expanded(
-                    flex: 1,
-                    child: SizedBox(),
-                  ),
-                ],
-              ),
+                ),
+                const Expanded(
+                  flex: 1,
+                  child: SizedBox(),
+                ),
+              ],
             ),
           ),
           Expanded(
             flex: 1,
-            child: Container(
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: FractionallySizedBox(
-                      widthFactor: 1,
-                      heightFactor: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: JapanMapCard(
-                          name: '九州',
-                        ),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: FractionallySizedBox(
+                    widthFactor: 1,
+                    heightFactor: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: JapanMapCard(
+                        name: '九州',
                       ),
                     ),
                   ),
-                  const Expanded(
-                    flex: 1,
-                    child: SizedBox(),
-                  ),
-                  const Expanded(
-                    flex: 1,
-                    child: SizedBox(),
-                  ),
-                  const Expanded(
-                    flex: 1,
-                    child: SizedBox(),
-                  ),
-                ],
-              ),
+                ),
+                const Expanded(
+                  flex: 1,
+                  child: SizedBox(),
+                ),
+                const Expanded(
+                  flex: 1,
+                  child: SizedBox(),
+                ),
+                const Expanded(
+                  flex: 1,
+                  child: SizedBox(),
+                ),
+              ],
             ),
           ),
         ],
