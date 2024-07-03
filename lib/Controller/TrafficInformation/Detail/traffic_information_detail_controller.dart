@@ -9,7 +9,7 @@ class TrafficInformationDetailController {
   TrafficInformationService trafficInformationService =
       TrafficInformationService();
 
-  Future<TrafficDetail?> getTrafficDetail(roadId) async {
+  Future<TrafficDetail?> getTrafficDetail(int roadId) async {
     TrafficDetail? trafficDetail =
         await trafficInformationService.getTrafficDetail(roadId: 7);
     if (trafficDetail == null) {
@@ -18,7 +18,7 @@ class TrafficInformationDetailController {
     return trafficDetail;
   }
 
-  Future<List<TrafficIssue>?> getTrafficIssueList(roadId) async {
+  Future<List<TrafficIssue>?> getTrafficIssueList(int roadId) async {
     TrafficDetail? trafficDetail =
         await trafficInformationService.getTrafficDetail(roadId: 7);
     if (trafficDetail == null) {
@@ -27,7 +27,7 @@ class TrafficInformationDetailController {
     return trafficDetail.data.issues;
   }
 
-  Future<List<TrafficSapaInfo>?> getTrafficSapaInfoList(roadId) async {
+  Future<List<TrafficSapaInfo>?> getTrafficSapaInfoList(int roadId) async {
     TrafficSapa? trafficSapa =
         await trafficInformationService.getTrafficSapa(roadId: 8);
     if (trafficSapa == null) {
