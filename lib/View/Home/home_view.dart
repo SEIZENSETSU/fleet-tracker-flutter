@@ -60,7 +60,9 @@ class _HomeViewState extends State<HomeView> {
                         padding: const EdgeInsets.all(4.0),
                         child: CommonCard(
                           content: UserInputCell(
+                            warehouseAreaId: data.warehouseAreaId,
                             warehouseName: data.warehouseName,
+                            warehouseId: data.warehouseId,
 
                             /// 後ほど
                             traficstateCountList: data.delayTimeDetails,
@@ -68,6 +70,7 @@ class _HomeViewState extends State<HomeView> {
                             toWarehousePage: () {
                               WarehouseDetailRoute(
                                 $extra: data,
+                                functionType: 'search',
                               ).push(context);
                             },
                           ),
@@ -361,7 +364,7 @@ class _HomeViewState extends State<HomeView> {
                             onTap: () {
                               // 倉庫検索タブへ遷移
                               controller.pushFunctionCard(
-                                  FunctionType('search').branchIndex());
+                                  FunctionType('home').branchIndex());
                             },
                             content: const Column(
                               mainAxisAlignment: MainAxisAlignment.center,

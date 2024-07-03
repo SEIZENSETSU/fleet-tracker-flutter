@@ -165,13 +165,16 @@ class SettingBranch extends StatefulShellBranchData {
 class WarehouseDetailRoute extends GoRouteData {
   WarehouseDetailRoute({
     required this.$extra,
+    required this.functionType,
   });
   final WarehouseInfo $extra;
+  final String functionType;
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       WarehouseDetailView(
         warehouseInfo: $extra,
+        functionType: functionType,
       );
 }
 //////////////////////////////  Component  //////////////////////////////

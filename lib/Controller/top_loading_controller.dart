@@ -56,6 +56,12 @@ class TopLoadingController {
           prefs.setBool(SharedPreferencesKeysEnum.forceIsInvading.name, false);
     }
 
+    /// お気に入り倉庫リストを初期化
+    await prefs.getStringList(
+            SharedPreferencesKeysEnum.favoriteWarehouseList.name) ??
+        prefs.setStringList(
+            SharedPreferencesKeysEnum.favoriteWarehouseList.name, []);
+
     /// ユーザー情報を取得
     firebase_auth.User? authUser = authenticationService.getUser();
     User? userInfo;

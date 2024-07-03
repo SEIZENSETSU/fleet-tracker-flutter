@@ -67,4 +67,21 @@ class WarehouseDelayStateType {
         return Colors.white;
     }
   }
+
+  String detail() {
+    switch (type) {
+      case WarehouseDelayState.normal:
+        return Strings.STATE_NORMAL_DETAIL;
+      case WarehouseDelayState.pause:
+        return Strings.STATE_PAUSE_DETAIL;
+      case WarehouseDelayState.halfHour:
+        return Strings.STATE_HALF_HOUR_DETAIL;
+      case WarehouseDelayState.anHour:
+        return Strings.STATE_AN_HOUR_DETAIL;
+      case WarehouseDelayState.impossible:
+        return Strings.STATE_IMPOSSIBLE_DETAIL;
+      default:
+        return Strings.STATE_NORMAL_DETAIL;
+    }
+  }
 }

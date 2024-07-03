@@ -20,19 +20,18 @@ import 'package:fleet_tracker/View/Component/WarehouseDetail/comment_tile.dart';
 import 'package:fleet_tracker/View/Component/WarehouseDetail/warehouse_map.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../Constants/Enum/warehouse_delay_state_enum.dart';
 import '../../../Model/Data/Warehouse/search_info_data.dart';
 import '../../../Model/Entity/Warehouse/info.dart';
-import '../../../Model/Entity/Warehouse/warehouse.dart';
 
 class WarehouseDetailView extends StatefulWidget {
-  const WarehouseDetailView({
-    super.key,
-    required this.warehouseInfo,
-  });
+  const WarehouseDetailView(
+      {super.key, required this.warehouseInfo, required this.functionType});
+  final String functionType;
   final WarehouseInfo warehouseInfo;
   @override
   State<WarehouseDetailView> createState() => _WarehouseDetailViewState();
@@ -40,23 +39,10 @@ class WarehouseDetailView extends StatefulWidget {
 
 class _WarehouseDetailViewState extends State<WarehouseDetailView> {
   WarehouseDetailController controller = WarehouseDetailController();
-  Warehouse? warehouse;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // Idから倉庫情報(緯度経度とコメント一覧)を取得したい
-    Future(
-      () async {
-        warehouse = await WarehouseService()
-            .getWarehouseInfo(warehouseId: widget.warehouseInfo.warehouseId);
-      },
-    );
-  }
-
-  List commentList = [0, 0, 0, 0, 0, 0, 0];
   @override
   Widget build(BuildContext context) {
+    /// コメント投稿と遅延情報登録の可否判定
+    controller.initialize(widget.functionType);
     final Size size = MediaQuery.of(context).size;
     WarehouseDelayStateType stateType =
         WarehouseDelayStateType(widget.warehouseInfo.averageDelayState.name);
@@ -106,6 +92,11 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                 if (_data.isInvading == false) {
                   controller.outArea();
                 }
+                // 現在見ている倉庫情報を取得
+                WarehouseInfo currrentWarehouse = _data.warehouses!.firstWhere(
+                    (element) =>
+                        element.warehouseId ==
+                        widget.warehouseInfo.warehouseId);
                 return Column(
                   children: [
                     //
@@ -128,11 +119,14 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                         padding: const EdgeInsets.all(4.0),
                         child: CommonCard(
                           content: UserInputCell(
-                            warehouseName: widget.warehouseInfo.warehouseName,
+                            warehouseName: currrentWarehouse.warehouseName,
                             traficstateCountList:
-                                widget.warehouseInfo.delayTimeDetails,
+                                currrentWarehouse.delayTimeDetails,
                             delayStateType:
-                                widget.warehouseInfo.averageDelayState.name,
+                                currrentWarehouse.averageDelayState.name,
+                            enableAction: controller.enableAction,
+                            warehouseId: currrentWarehouse.warehouseId,
+                            warehouseAreaId: currrentWarehouse.warehouseAreaId,
                           ),
                         ),
                       ),
@@ -164,13 +158,16 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                               child: GestureDetector(
                                 onTap: () {
                                   // お気に入り登録
-                                  Log.echo(
-                                      '${widget.warehouseInfo.warehouseName}をお気に入り登録をしました');
                                 },
-                                child: const Padding(
+                                child: Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: CommonCard(
-                                    content: Row(
+                                    onTap: () async {
+                                      await controller.favoriteButtonAction(
+                                        widget.warehouseInfo.warehouseId,
+                                      );
+                                    },
+                                    content: const Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
@@ -222,13 +219,14 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
 
                           if (snapshot.hasData) {
                             final List<Comment> comentList = snapshot.data!;
-                            return Container(
-                              height: 400,
-                              color: ColorName.commentAreaBackground,
-                              child: ListView.builder(
-                                  itemCount: snapshot.data!.length,
-                                  itemBuilder: (context, index) {
-                                    if (commentList.isNotEmpty) {
+                            Log.echo(comentList.length.toString());
+                            if (comentList.isNotEmpty) {
+                              return Container(
+                                height: 400,
+                                color: ColorName.commentAreaBackground,
+                                child: ListView.builder(
+                                    itemCount: snapshot.data!.length,
+                                    itemBuilder: (context, index) {
                                       Comment comment = comentList[index];
                                       return Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -242,59 +240,76 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                                           userName: comment.uid,
                                         ),
                                       );
-                                    } else {
-                                      return const CustomText(
-                                          text: 'この工場へのつぶやきはまだありません。');
-                                    }
-                                  }),
-                            );
+                                    }),
+                              );
+                            } else {
+                              return Container(
+                                height: 400,
+                                color: ColorName.commentAreaBackground,
+                                child: const Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.comments_disabled,
+                                        size: 50,
+                                      ),
+                                      CustomText(text: '現在この工場に対するつぶやきはありません。'),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }
                           } else {
                             return CirclarProgressIndicatorCell(height: 400);
                           }
                         }),
-                    Container(
-                      height: 70,
-                      decoration: BoxDecoration(
-                        color: ColorName.mainthemeColor.withAlpha(60),
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              child: const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: TextField(
-                                  // フォーカス関連は時間かかるのでスキップ
-                                  // autofocus: true,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
+                    Visibility(
+                      visible: controller.enableAction,
+                      child: Container(
+                        height: 70,
+                        decoration: BoxDecoration(
+                          color: ColorName.mainthemeColor.withAlpha(60),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 3,
+                              child: Container(
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: TextField(
+                                    // フォーカス関連は時間かかるのでスキップ
+                                    // autofocus: true,
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: CustomButton(
-                                    text: '投稿',
-                                    isFilledColor: true,
-                                    primaryColor: ColorName.mainthemeColor,
-                                    onTap: () {
-                                      // コメントを投稿する
-                                      Log.toast('コメントを投稿しました');
-                                    }),
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: CustomButton(
+                                      text: '投稿',
+                                      isFilledColor: true,
+                                      primaryColor: ColorName.mainthemeColor,
+                                      onTap: () {
+                                        // コメントを投稿する
+                                        Log.toast('コメントを投稿しました');
+                                      }),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(

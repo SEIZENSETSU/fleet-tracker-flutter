@@ -1,6 +1,12 @@
 import 'package:fleet_tracker/Constants/strings.dart';
+import 'package:fleet_tracker/Controller/Component/user_input_circle_cell_controller.dart';
+import 'package:fleet_tracker/Controller/UserInput/user_input_top_controller.dart';
+import 'package:fleet_tracker/Model/Entity/delay_information.dart';
 import 'package:fleet_tracker/Model/Entity/delay_time_detail.dart';
+import 'package:fleet_tracker/Service/API/Original/delay_service.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/Dialog/error_dialog.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/UserInput/user_input_circle_cell.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/circular_progress_indicator_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
@@ -11,24 +17,37 @@ import 'package:flutter/widgets.dart';
 import '../../../../Constants/Enum/warehouse_delay_state_enum.dart';
 import '../../../../Service/Log/log_service.dart';
 
-class UserInputCell extends StatelessWidget {
+class UserInputCell extends StatefulWidget {
   const UserInputCell({
     super.key,
     required this.warehouseName,
     required this.traficstateCountList,
     required this.delayStateType,
+    required this.warehouseId,
+    required this.warehouseAreaId,
     this.toWarehousePage,
+    this.enableAction = true,
   });
 
   final String warehouseName;
+  final int warehouseId;
+  final int warehouseAreaId;
   final List<DelayTimeDetail> traficstateCountList;
   final String delayStateType;
   final Function? toWarehousePage;
+  final bool enableAction;
 
+  @override
+  State<UserInputCell> createState() => _UserInputCellState();
+}
+
+class _UserInputCellState extends State<UserInputCell> {
+  bool onLoading = false;
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    WarehouseDelayStateType stateType = WarehouseDelayStateType(delayStateType);
+    WarehouseDelayStateType stateType =
+        WarehouseDelayStateType(widget.delayStateType);
     Log.echo('size: $size');
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -71,7 +90,7 @@ class UserInputCell extends StatelessWidget {
                             child: Container(
                               // color: const Color.fromARGB(255, 219, 217, 217),
                               child: CustomText(
-                                text: warehouseName,
+                                text: widget.warehouseName,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -151,7 +170,7 @@ class UserInputCell extends StatelessWidget {
                             children: [
                               CustomText(
                                 fontSize: 10,
-                                text: '現在、遅延に関する情報はありません。',
+                                text: stateType.detail(),
                               ),
                             ],
                           ),
@@ -166,7 +185,9 @@ class UserInputCell extends StatelessWidget {
               height: 15,
             ),
             CustomText(
-              text: '今の遅延状況は？ボタンを押して投稿！',
+              text: widget.enableAction
+                  ? '今の遅延状況は？ボタンを押して投稿！'
+                  : '現在の工場の遅延状態はこちら!',
               fontSize: 14,
             ),
             SizedBox(
@@ -206,12 +227,36 @@ class UserInputCell extends StatelessWidget {
                             child: Container(
                               height: 60,
                               child: UserInputCircleCell(
-                                cellColor: ColorName.stateNormal,
+                                cellColor: onLoading
+                                    ? Colors.grey
+                                    : ColorName.stateNormal,
                                 text: Strings.STATE_NORMAL_TITLE,
-                                onTap: () {
-                                  Log.echo(
-                                    'aaa',
-                                  );
+                                onTap: () async {
+                                  if (!widget.enableAction) {
+                                    ErrorDialog().showErrorDialog(
+                                        context: context,
+                                        title: '倉庫検索から操作はできません',
+                                        content: Assets
+                                            .images.icons.errorDialogIcon
+                                            .image(),
+                                        detail: '該当のエリア内に移動してから再試行してください。',
+                                        buttonText: '戻る');
+                                  } else {
+                                    //平常のボタン処理
+                                    if (!onLoading) {
+                                      setState(() {
+                                        onLoading = true;
+                                      });
+                                      await UserInputCircleCellController()
+                                          .userInputCircleCellAction(
+                                        type: WarehouseDelayState.normal.name,
+                                        id: widget.warehouseId,
+                                      );
+                                      setState(() {
+                                        onLoading = false;
+                                      });
+                                    }
+                                  }
                                 },
                               ),
                             ),
@@ -224,12 +269,36 @@ class UserInputCell extends StatelessWidget {
                             child: Container(
                               height: 60,
                               child: UserInputCircleCell(
-                                cellColor: ColorName.statePause,
+                                cellColor: onLoading
+                                    ? Colors.grey
+                                    : ColorName.statePause,
                                 text: Strings.STATE_PAUSE_TITLE,
-                                onTap: () {
-                                  Log.echo(
-                                    'aaa',
-                                  );
+                                onTap: () async {
+                                  if (!widget.enableAction) {
+                                    ErrorDialog().showErrorDialog(
+                                        context: context,
+                                        title: '倉庫検索から操作はできません',
+                                        content: Assets
+                                            .images.icons.errorDialogIcon
+                                            .image(),
+                                        detail: '該当のエリア内に移動してから再試行してください。',
+                                        buttonText: '戻る');
+                                  } else {
+                                    //一時停止のボタン処理
+                                    if (!onLoading) {
+                                      setState(() {
+                                        onLoading = true;
+                                      });
+                                      await UserInputCircleCellController()
+                                          .userInputCircleCellAction(
+                                        type: WarehouseDelayState.pause.name,
+                                        id: widget.warehouseId,
+                                      );
+                                      setState(() {
+                                        onLoading = false;
+                                      });
+                                    }
+                                  }
                                 },
                               ),
                             ),
@@ -242,12 +311,36 @@ class UserInputCell extends StatelessWidget {
                             child: Container(
                               height: 60,
                               child: UserInputCircleCell(
-                                cellColor: ColorName.stateHalfAnHour,
+                                cellColor: onLoading
+                                    ? Colors.grey
+                                    : ColorName.stateHalfAnHour,
                                 text: Strings.STATE_HALF_HOUR_TITLE,
-                                onTap: () {
-                                  Log.echo(
-                                    'aaa',
-                                  );
+                                onTap: () async {
+                                  if (!widget.enableAction) {
+                                    ErrorDialog().showErrorDialog(
+                                        context: context,
+                                        title: '倉庫検索から操作はできません',
+                                        content: Assets
+                                            .images.icons.errorDialogIcon
+                                            .image(),
+                                        detail: '該当のエリア内に移動してから再試行してください。',
+                                        buttonText: '戻る');
+                                  } else {
+                                    //30分未満のボタン処理
+                                    if (!onLoading) {
+                                      setState(() {
+                                        onLoading = true;
+                                      });
+                                      await UserInputCircleCellController()
+                                          .userInputCircleCellAction(
+                                        type: WarehouseDelayState.halfHour.name,
+                                        id: widget.warehouseId,
+                                      );
+                                      setState(() {
+                                        onLoading = false;
+                                      });
+                                    }
+                                  }
                                 },
                               ),
                             ),
@@ -260,12 +353,38 @@ class UserInputCell extends StatelessWidget {
                             child: Container(
                               height: 60,
                               child: UserInputCircleCell(
-                                cellColor: ColorName.stateAnHour,
+                                cellColor: onLoading
+                                    ? Colors.grey
+                                    : ColorName.stateAnHour,
                                 text: Strings.STATE_AN_HOUR_TITLE,
-                                onTap: () {
-                                  Log.echo(
-                                    'aaa',
-                                  );
+                                onTap: () async {
+                                  if (!widget.enableAction) {
+                                    ErrorDialog().showErrorDialog(
+                                        context: context,
+                                        title: '倉庫検索から操作はできません',
+                                        content: Assets
+                                            .images.icons.errorDialogIcon
+                                            .image(),
+                                        detail: '該当のエリア内に移動してから再試行してください。',
+                                        buttonText: '戻る');
+                                  } else {
+                                    //1時間未満のボタン処理
+                                    if (!onLoading) {
+                                      setState(() {
+                                        onLoading = true;
+                                      });
+                                      await UserInputCircleCellController()
+                                          .userInputCircleCellAction(
+                                        type: WarehouseDelayState.anHour.name,
+                                        id: widget.warehouseId,
+                                      );
+                                      setState(() {
+                                        onLoading = false;
+                                      });
+                                    }
+
+                                    Log.toast('message');
+                                  }
                                 },
                               ),
                             ),
@@ -278,12 +397,39 @@ class UserInputCell extends StatelessWidget {
                             child: Container(
                               height: 60,
                               child: UserInputCircleCell(
-                                cellColor: ColorName.stateImpossible,
+                                cellColor: onLoading
+                                    ? Colors.grey
+                                    : ColorName.stateImpossible,
                                 text: Strings.STATE_IMPOSSIBLE_TITLE,
-                                onTap: () {
-                                  Log.echo(
-                                    'aaa',
-                                  );
+                                onTap: () async {
+                                  if (!widget.enableAction) {
+                                    ErrorDialog().showErrorDialog(
+                                        context: context,
+                                        title: '倉庫検索から操作はできません',
+                                        content: Assets
+                                            .images.icons.errorDialogIcon
+                                            .image(),
+                                        detail: '該当のエリア内に移動してから再試行してください。',
+                                        buttonText: '戻る');
+                                  } else {
+                                    //入庫不可のボタン処理
+                                    if (!onLoading) {
+                                      setState(() {
+                                        onLoading = true;
+                                      });
+                                      await UserInputCircleCellController()
+                                          .userInputCircleCellAction(
+                                        type:
+                                            WarehouseDelayState.impossible.name,
+                                        id: widget.warehouseId,
+                                      );
+                                      setState(() {
+                                        onLoading = false;
+                                      });
+                                    }
+
+                                    Log.toast('message');
+                                  }
                                 },
                               ),
                             ),
@@ -298,123 +444,73 @@ class UserInputCell extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Container(
-              child: FractionallySizedBox(
-                widthFactor: 0.95,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 1,
+            FutureBuilder(
+                future: DelayService().getDelayInformation(
+                    warehouseAreaId: widget.warehouseAreaId),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState != ConnectionState.done) {
+                    return CirclarProgressIndicatorCell(height: 30);
+                  }
+
+                  if (snapshot.hasData) {
+                    final List<DelayInformation>? delayInformation =
+                        snapshot.data;
+
+                    if (delayInformation!.isEmpty) {
+                      // エラー表示
+                    }
+                    // 現在の倉庫の遅延情報を抽出
+                    final currrentWarehouse = delayInformation.firstWhere(
+                        (element) => element.warehouseId == widget.warehouseId);
+
+                    return Container(
                       child: FractionallySizedBox(
-                        widthFactor: 0.9,
-                        child: Container(
-                          height: 30,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                          ),
-                          child: Center(
-                            child: CustomText(
-                              text: traficstateCountList[0]
-                                  .answerCount
-                                  .toString(),
-                            ),
-                          ),
+                        widthFactor: 0.95,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            for (int i = 0;
+                                i < currrentWarehouse.delayTimeDetail.length;
+                                i++)
+                              Expanded(
+                                flex: 1,
+                                child: FractionallySizedBox(
+                                  widthFactor: 0.9,
+                                  child: Container(
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: Center(
+                                      child: CustomText(
+                                        text: currrentWarehouse
+                                            .delayTimeDetail[i].answerCount
+                                            .toString(),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          ],
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: FractionallySizedBox(
-                        widthFactor: 0.9,
-                        child: Container(
-                          height: 30,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                          ),
-                          child: Center(
-                            child: CustomText(
-                              text: traficstateCountList[1]
-                                  .answerCount
-                                  .toString(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: FractionallySizedBox(
-                        widthFactor: 0.9,
-                        child: Container(
-                          height: 30,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                          ),
-                          child: Center(
-                            child: CustomText(
-                              text: traficstateCountList[2]
-                                  .answerCount
-                                  .toString(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: FractionallySizedBox(
-                        widthFactor: 0.9,
-                        child: Container(
-                          height: 30,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                          ),
-                          child: Center(
-                            child: CustomText(
-                              text: traficstateCountList[3]
-                                  .answerCount
-                                  .toString(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: FractionallySizedBox(
-                        widthFactor: 0.9,
-                        child: Container(
-                          height: 30,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                          ),
-                          child: Center(
-                            child: CustomText(
-                              text: traficstateCountList[4]
-                                  .answerCount
-                                  .toString(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                    );
+                  } else {
+                    return CirclarProgressIndicatorCell(height: 30);
+                  }
+                }),
             const SizedBox(
               height: 10,
             ),
-            toWarehousePage != null
+            widget.toWarehousePage != null
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       GestureDetector(
-                        onTap: toWarehousePage != null
+                        onTap: widget.toWarehousePage != null
                             ? () {
                                 Log.echo('工場詳細ページへ遷移します');
-                                toWarehousePage!();
+                                widget.toWarehousePage!();
                               }
                             : () {},
                         child: Container(
