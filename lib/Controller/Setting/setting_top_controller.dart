@@ -50,6 +50,8 @@ class SettingTopController {
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
                       ),
+                      //モーダルの中にCustomTextfieldを使うと落ちる
+                      //わけがわからないので巻き取ってください
                       // CustomTextfield(
                       //   hintText: '',
                       //   backgroundcolor: Colors.white,
