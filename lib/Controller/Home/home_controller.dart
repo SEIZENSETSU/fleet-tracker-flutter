@@ -1,6 +1,7 @@
 import 'package:fleet_tracker/Controller/bottom_navigation_bar_controller.dart';
 import 'package:fleet_tracker/Model/Data/location_data.dart';
 import 'package:fleet_tracker/Model/Entity/Warehouse/info.dart';
+import 'package:fleet_tracker/Service/API/Original/road_information_service.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:geocoding/geocoding.dart';
 
@@ -27,8 +28,7 @@ class HomeController {
 
   /// ConsumerのデータからwarehouseIdをもらってWarehouse型を返す。
   Future getWarehouseList(int id) async {
-    Warehouse? warehouse =
-        await WarehouseService().getWarehouseInfo(warehouseId: id);
+    Warehouse? warehouse = await WarehouseService().getWarehouseInfo(warehouseId: id);
 
     if (warehouse == null) {
       return;
@@ -39,4 +39,16 @@ class HomeController {
 
   /// 遅延状況をボタン押下時に送信する。
   Future pushDelayDetailButton() async {}
+
+  Future<String?> getNearestRoadName({required double lat, required double lng}) async {
+    String? nearestRoadName = await RoadInformationService().getNearestRoadName(
+      latitude: lat,
+      longitude: lng,
+    );
+    if (nearestRoadName == null) {
+      return 'から';
+    }
+
+    return nearestRoadName;
+  }
 }
