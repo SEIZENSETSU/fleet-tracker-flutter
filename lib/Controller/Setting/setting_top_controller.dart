@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../Constants/Enum/shared_preferences_keys_enum.dart';
 import '../../Model/Entity/user.dart';
 import '../../Service/Firebase/Authentication/authentication_service.dart';
 import '../../Service/Log/log_service.dart';
 import '../../Service/Package/LocalNotification/local_notifications_service.dart';
+import '../../Service/Package/SharedPreferences/shared_preferences_service.dart';
 import '../../View/Component/CustomWidget/Modal/custom_modal.dart';
 import '../../View/Component/CustomWidget/Modal/debug_modal.dart';
 import '../../View/Component/CustomWidget/custom_button.dart';
@@ -109,21 +111,28 @@ class SettingTopController {
 
   /// エリア通知スイッチの初期値
   Future<bool> getAreaSwitchValue() async {
-    return await LocalNotificationsService().checkNotificationPermission();
+    return await SharedPreferencesService()
+            .getBool(SharedPreferencesKeysEnum.areaSwitch.name) ??
+        true;
   }
 
   /// エリア通知スイッチの動作
   Future<void> actionAreaSwitch({required bool value}) async {
-    if (value) {
-      LocalNotificationsService().requestPermissions();
-    } else {
-      LocalNotificationsService().cancel();
-    }
+    await SharedPreferencesService()
+        .setBool(SharedPreferencesKeysEnum.areaSwitch.name, value);
   }
 
   /// 遅延通知スイッチの初期値
   Future<bool> getDelaySwitchValue() async {
-    return await LocalNotificationsService().checkNotificationPermission();
+    return await SharedPreferencesService()
+            .getBool(SharedPreferencesKeysEnum.delaySwitch.name) ??
+        true;
+  }
+
+  /// エリア通知スイッチの動作
+  Future<void> actionDelaySwitch({required bool value}) async {
+    await SharedPreferencesService()
+        .setBool(SharedPreferencesKeysEnum.delaySwitch.name, value);
   }
 
   /// 通知パーミッションのリクエスト
