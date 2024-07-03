@@ -364,7 +364,7 @@ class _HomeViewState extends State<HomeView> {
                             onTap: () {
                               // 倉庫検索タブへ遷移
                               controller.pushFunctionCard(
-                                  FunctionType('search').branchIndex());
+                                  FunctionType('home').branchIndex());
                             },
                             content: const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
