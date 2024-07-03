@@ -96,7 +96,6 @@ class _TrafficInformationStateDetailView
                     if (snapshot.hasData) {
                       List<TrafficSapaInfo> trafficSapaInfoList =
                           snapshot.data!;
-                      print(trafficSapaInfoList);
                       return Visibility(
                         visible: widget.provideSapa,
                         child: InfoContentCard(
