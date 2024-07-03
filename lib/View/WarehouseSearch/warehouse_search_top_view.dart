@@ -27,8 +27,7 @@ class WarehouseSearchTopView extends StatefulWidget {
 }
 
 class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
-  WarehouseSearchTopController warehouseSearchTopController =
-      WarehouseSearchTopController();
+  WarehouseSearchTopController controller = WarehouseSearchTopController();
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -38,9 +37,8 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
         title: '倉庫検索',
         actions: [
           IconButton(
-            onPressed: () {
-              warehouseSearchTopController.mapSwitch =
-                  !warehouseSearchTopController.mapSwitch;
+            onPressed: () async {
+              await controller.setMapSwitch(flag: !controller.mapSwitch);
               setState(() {});
             },
             icon: Icon(
@@ -72,8 +70,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 child: CustomTextfield(
                   hintText: '工場名、エリア名、地名',
                   backgroundcolor: Colors.white,
-                  controller:
-                      warehouseSearchTopController.textEditingController,
+                  controller: controller.textEditingController,
                 ),
               ),
             ),
@@ -90,8 +87,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 onTap: () {
                   // キーワード検索で検索結果画面にいく
                   WarehouseSearchResultRoute(
-                          keyword: warehouseSearchTopController
-                              .textEditingController.text)
+                          keyword: controller.textEditingController.text)
                       .push(context);
                 },
               ),
@@ -110,22 +106,21 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 ),
               ),
             ),
-            // Visibility(
-            //   visible: !warehouseSearchTopController.mapSwitch,
-            //   child: SizedBox(
-            //     width: size.width,
-            //     height: size.width,
-            //     child: LocalSearchCardGroup(
-            //       areaNameList: warehouseSearchTopController.areaNameList,
-            //       areaImageUrlList:
-            //           warehouseSearchTopController.areaImageUrlList,
-            //     ),
-            //   ),
-            // ),
-            // Visibility(
-            //   visible: warehouseSearchTopController.mapSwitch,
-            //   child: const JapanMapDefomed(),
-            // ),
+            Visibility(
+              visible: !controller.mapSwitch,
+              child: SizedBox(
+                width: size.width,
+                height: size.width,
+                child: LocalSearchCardGroup(
+                  areaNameList: controller.areaNameList,
+                  areaImageUrlList: controller.areaImageUrlList,
+                ),
+              ),
+            ),
+            Visibility(
+              visible: controller.mapSwitch,
+              child: const JapanMapDefomed(),
+            ),
             const SpacerAndDivider(topHeight: 20, bottomHeight: 10),
             //
             // お気に入りから探す表示部分
@@ -140,77 +135,86 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 ),
               ),
             ),
+            ElevatedButton(
+                onPressed: () async {
+                  await controller.getFavoiteWarehousese();
+                },
+                child: Text('push')),
             // 表示部
-            ListView.builder(
-                itemCount: 5,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      // 倉庫詳細ページへ遷移
+            FutureBuilder(
+                future: null,
+                builder: (context, snapshot) {
+                  return ListView.builder(
+                      itemCount: 5,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            // 倉庫詳細ページへ遷移
 
-                      Log.echo('倉庫詳細ページへ');
+                            Log.echo('倉庫詳細ページへ');
 
-                      //
-                      // お気に入り工場リストからインスタンス化して値を渡す
+                            //
+                            // お気に入り工場リストからインスタンス化して値を渡す
 
-                      // WarehouseDetailRoute(
-                      //   $extra: Warehouse(
-                      //     id: 1,
-                      //     name: 'エルフーズ東京',
-                      //     latitude: 35.681236,
-                      //     longitude: 139.767125,
-                      //   ),
-                      //   traficstateCountList: [],
-                      //   delayStateType: 'pause',
-                      // ).push(context);
-                    },
-                    child: SizedBox(
-                      height: size.height * 0.1,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 20),
-                        child: CommonCard(
-                          content: Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: FractionallySizedBox(
-                                  heightFactor: 0.5,
-                                  child: Container(
-                                    child:
-                                        Assets.images.icons.factoryIcon.image(),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 3,
-                                child: Container(
-                                  child: Row(
-                                    children: [
-                                      CustomText(
-                                        text: 'エルフーズ東京',
-                                        fontSize: 13,
-                                      ),
-                                      Spacer(),
-                                      Container(
-                                        width: 30,
-                                        height: 30,
-                                        child: Icon(
-                                          Icons.chevron_right,
+                            // WarehouseDetailRoute(
+                            //   $extra: Warehouse(
+                            //     id: 1,
+                            //     name: 'エルフーズ東京',
+                            //     latitude: 35.681236,
+                            //     longitude: 139.767125,
+                            //   ),
+                            //   traficstateCountList: [],
+                            //   delayStateType: 'pause',
+                            // ).push(context);
+                          },
+                          child: SizedBox(
+                            height: size.height * 0.1,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 20),
+                              child: CommonCard(
+                                content: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: FractionallySizedBox(
+                                        heightFactor: 0.5,
+                                        child: Container(
+                                          child: Assets.images.icons.factoryIcon
+                                              .image(),
                                         ),
-                                      )
-                                    ],
-                                  ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Container(
+                                        child: Row(
+                                          children: [
+                                            CustomText(
+                                              text: 'エルフーズ東京',
+                                              fontSize: 13,
+                                            ),
+                                            Spacer(),
+                                            Container(
+                                              width: 30,
+                                              height: 30,
+                                              child: Icon(
+                                                Icons.chevron_right,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-                  );
+                        );
+                      });
                 }),
 
             const SizedBox(

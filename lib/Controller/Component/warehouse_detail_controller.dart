@@ -5,6 +5,7 @@ import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
 
 class WarehouseDetailController {
+  SharedPreferencesService prefs = SharedPreferencesService();
   bool enableAction = false;
   bool onLoad = false;
   outArea() {
@@ -42,25 +43,29 @@ class WarehouseDetailController {
   }
 
   Future<void> addFavoite(int id) async {
-    await SharedPreferencesService().setStringList(
-        SharedPreferencesKeysEnum.favoriteWarehouseList.name, [id.toString()]);
+    List<String>? favoriteIds = await prefs
+        .getStringList(SharedPreferencesKeysEnum.favoriteWarehouseList.name);
+
+    favoriteIds!.add(id.toString());
+    await prefs.setStringList(
+        SharedPreferencesKeysEnum.favoriteWarehouseList.name, favoriteIds);
     Log.toast('${id}をお気に入り倉庫に登録しました');
   }
 
   Future<void> deleteFavorite(int id) async {
-    List<String>? favoriteList = await SharedPreferencesService()
+    List<String>? favoriteList = await prefs
         .getStringList(SharedPreferencesKeysEnum.favoriteWarehouseList.name);
     // 配列から指定した工場を削除
     favoriteList!.removeWhere((element) => element == id.toString());
     // 削除した配列を保存
-    await SharedPreferencesService().setStringList(
+    await prefs.setStringList(
         SharedPreferencesKeysEnum.favoriteWarehouseList.name, favoriteList);
 
     Log.toast('${id}をお気に入り倉庫から削除しました');
   }
 
   Future<bool> favoriteListCheck(int id) async {
-    List? favoriteList = await SharedPreferencesService()
+    List? favoriteList = await prefs
         .getStringList(SharedPreferencesKeysEnum.favoriteWarehouseList.name);
     // 配列に指定した工場が入っているかどうかチェック
     if (favoriteList!.contains(id.toString())) {

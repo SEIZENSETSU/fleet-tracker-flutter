@@ -1,9 +1,16 @@
+import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
+import 'package:fleet_tracker/Model/Data/location_data.dart';
+import 'package:fleet_tracker/Model/Entity/Warehouse/info.dart';
+import 'package:fleet_tracker/Model/Entity/Warehouse/search_info.dart';
+import 'package:fleet_tracker/Service/API/Original/warehouse_service.dart';
+import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../Model/Entity/Warehouse/warehouse.dart';
+
 class WarehouseSearchTopController {
-  SharedPreferencesService sharedPreferencesService =
-      SharedPreferencesService();
+  SharedPreferencesService prefs = SharedPreferencesService();
 
   final TextEditingController textEditingController = TextEditingController();
   bool mapSwitch = true;
@@ -25,12 +32,42 @@ class WarehouseSearchTopController {
     'https://www.c-ihighway.jp/smp/img/MAP/chugoku.png',
     'https://www.c-ihighway.jp/smp/img/MAP/kyushu.png',
   ];
-  Future<bool> setMapSwitch({required bool mapSwitch}) async {
-    return sharedPreferencesService.setBool('mapSwitch', !mapSwitch);
+
+  /// 日本地図を表示するかgridで表示するかのboolを切り替える
+  /// [flag]
+  Future<void> setMapSwitch({required bool flag}) async {
+    mapSwitch = flag;
+    await prefs.setBool(SharedPreferencesKeysEnum.mapSwitch.name, flag);
   }
 
   Future<bool> getMapSwitch() async {
-    bool? isMap = await sharedPreferencesService.getBool('mapSwitch');
+    bool? isMap = await prefs.getBool('mapSwitch');
     return isMap == null ? true : isMap;
+  }
+
+  /// ユーザーが登録しているお気に入り倉庫情報を取得する
+  Future<List<WarehouseInfo>?> getFavoiteWarehousese() async {
+    List<WarehouseInfo> favoriteWarehouseList = [];
+    // お気に入りに登録している倉庫IDを取得
+    List<String>? favoriteId = await prefs
+        .getStringList(SharedPreferencesKeysEnum.favoriteWarehouseList.name);
+    Log.echo(favoriteId.toString(), symbol: '👞');
+
+    //　IDで倉庫検索APIを叩く
+    for (int i = 0; i < favoriteId!.length; i++) {
+      WarehouseSearchInfo? warehouseInfo = await WarehouseService()
+          .searchWarehouseList(
+              userLatitude: LocationData().getData().lat,
+              userLongitude: LocationData().getData().lng,
+              favoriteWarehouseIds: int.parse(favoriteId[i]));
+
+      Log.echo(warehouseInfo!.warehouses.toString(), symbol: '👞');
+
+      // if (warehouseInfo != null) {
+      //   favoriteWarehouseList.add(warehouseInfo.favoriteWarehouses);
+      // }
+    }
+
+    return null;
   }
 }

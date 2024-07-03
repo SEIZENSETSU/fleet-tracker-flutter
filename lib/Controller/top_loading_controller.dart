@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
 import 'package:fleet_tracker/Constants/strings.dart';
+import 'package:fleet_tracker/Controller/WarehouseSearch/warehouse_search_top_controller.dart';
 import 'package:fleet_tracker/Model/Data/Warehouse/search_info_data.dart';
 import 'package:fleet_tracker/Model/Data/location_data.dart';
 import 'package:fleet_tracker/Model/Data/user_data.dart';
@@ -61,6 +62,15 @@ class TopLoadingController {
             SharedPreferencesKeysEnum.favoriteWarehouseList.name) ??
         prefs.setStringList(
             SharedPreferencesKeysEnum.favoriteWarehouseList.name, []);
+
+    /// 倉庫検索タブのview切り替え取得
+    bool? mapSwitch =
+        await prefs.getBool(SharedPreferencesKeysEnum.mapSwitch.name);
+    if (mapSwitch == null) {
+      await WarehouseSearchTopController().setMapSwitch(flag: true);
+    } else {
+      await WarehouseSearchTopController().setMapSwitch(flag: mapSwitch);
+    }
 
     /// ユーザー情報を取得
     firebase_auth.User? authUser = authenticationService.getUser();
