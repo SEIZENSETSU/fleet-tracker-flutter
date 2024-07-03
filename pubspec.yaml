@@ -32,6 +32,10 @@ dependencies:
   firebase_in_app_messaging: ^0.8.0+2
   firebase_app_installations: ^0.3.0+2
   xml2json: ^6.2.3
+  in_app_review: ^2.0.9
+  device_info_plus: ^10.1.0
+  package_info_plus: ^8.0.0
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:

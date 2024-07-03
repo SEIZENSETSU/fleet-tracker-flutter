@@ -9,4 +9,6 @@ mixin Routes {
   static const String trafficInformation = '/trafficInformation';
   static const String trafficInformationDetail = '/trafficInformationDetail';
   static const String setting = '/setting';
+  static const String howtToUse = '/howtToUse';
+  static const String license = '/license';
 }
