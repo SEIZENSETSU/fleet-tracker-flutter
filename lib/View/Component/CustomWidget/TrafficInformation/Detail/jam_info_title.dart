@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Controller/TrafficInformation/Detail/traffic_information_detail_controller.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +12,12 @@ class JamInfoTitle extends StatelessWidget {
   });
   final String areaName;
   final String roadName;
-  final String time;
+  final DateTime time;
 
   @override
   Widget build(BuildContext context) {
+    TrafficInformationDetailController trafficInformationDetailController =
+        TrafficInformationDetailController();
     double deviceWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(8),
@@ -74,7 +77,8 @@ class JamInfoTitle extends StatelessWidget {
                     vertical: 4,
                   ),
                   child: CustomText(
-                    text: '最終更新 ${time} (JST)',
+                    text:
+                        '最終更新 ${trafficInformationDetailController.formatDateTime(time)} (JST)',
                     color: Colors.white,
                     fontSize: 16,
                   ),

@@ -1,10 +1,23 @@
+import 'package:fleet_tracker/Constants/Enum/congestion_type_enum.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/TrafficInformation/Detail/sapa_info_congestion_icon.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
 class SapaInfoTile extends StatelessWidget {
-  const SapaInfoTile({super.key});
+  const SapaInfoTile({
+    super.key,
+    required this.name,
+    required this.direction,
+    required this.totalCongestion,
+    required this.smallCarCongestion,
+    required this.largeCarCongestion,
+  });
+  final String name;
+  final String direction;
+  final String totalCongestion;
+  final String smallCarCongestion;
+  final String largeCarCongestion;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +45,7 @@ class SapaInfoTile extends StatelessWidget {
                     left: 10,
                   ),
                   child: CustomText(
-                    text: '那須高原SA',
+                    text: name,
                     fontSize: 18,
                     color: ColorName.sapaNameColor,
                   ),
@@ -42,7 +55,7 @@ class SapaInfoTile extends StatelessWidget {
                     left: 10,
                   ),
                   child: CustomText(
-                    text: '(那須方向)',
+                    text: direction,
                     fontSize: 12,
                     color: ColorName.sapaNameColor,
                   ),
@@ -56,8 +69,8 @@ class SapaInfoTile extends StatelessWidget {
                     right: 10,
                   ),
                   child: SapaInfoCongestionIcon(
-                    congestion: '空',
-                    iconColor: Colors.green,
+                    congestion: totalCongestion,
+                    iconColor: CongestionType(totalCongestion).color(),
                   ),
                 ),
                 Padding(
@@ -65,8 +78,8 @@ class SapaInfoTile extends StatelessWidget {
                     right: 10,
                   ),
                   child: SapaInfoCongestionIcon(
-                    congestion: '空',
-                    iconColor: Colors.green,
+                    congestion: smallCarCongestion,
+                    iconColor: CongestionType(smallCarCongestion).color(),
                   ),
                 ),
                 Padding(
@@ -74,8 +87,8 @@ class SapaInfoTile extends StatelessWidget {
                     right: 10,
                   ),
                   child: SapaInfoCongestionIcon(
-                    congestion: '空',
-                    iconColor: Colors.green,
+                    congestion: largeCarCongestion,
+                    iconColor: CongestionType(largeCarCongestion).color(),
                   ),
                 ),
               ],

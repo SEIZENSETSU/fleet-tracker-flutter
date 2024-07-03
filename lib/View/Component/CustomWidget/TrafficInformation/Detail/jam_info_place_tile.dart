@@ -1,3 +1,5 @@
+import 'package:fleet_tracker/Constants/Enum/traffic_detail_state_enum.dart';
+import 'package:fleet_tracker/Controller/TrafficInformation/Detail/traffic_information_detail_controller.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:flutter/material.dart';
 
@@ -7,16 +9,22 @@ class JamInfoPlaceTile extends StatelessWidget {
     required this.direction,
     required this.place,
     required this.type,
-    required this.supplementInfo,
+    required this.content,
+    required this.range,
+    required this.reason,
   });
   final String direction;
   final String place;
-  final String type;
-  final String supplementInfo;
+  final TrafficDetailState type;
+  final String? content;
+  final String? range;
+  final String? reason;
 
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
+    TrafficInformationDetailController trafficInformationDetailController =
+        TrafficInformationDetailController();
     String test = '5km';
     return Container(
       decoration: BoxDecoration(
@@ -80,7 +88,7 @@ class JamInfoPlaceTile extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(2),
                       child: CustomText(
-                        text: type,
+                        text: type.name,
                         color: Colors.white,
                         fontSize: 16,
                       ),
@@ -89,13 +97,10 @@ class JamInfoPlaceTile extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  Visibility(
-                    visible: supplementInfo != '',
-                    child: CustomText(
-                      text: supplementInfo,
-                      fontSize: 20,
-                      color: Colors.orange,
-                    ),
+                  CustomText(
+                    text: content == null ? range! : '$content:$reason',
+                    fontSize: 20,
+                    color: Colors.orange,
                   ),
                 ],
               ),

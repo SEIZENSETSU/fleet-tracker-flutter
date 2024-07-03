@@ -1,4 +1,7 @@
 import 'package:fleet_tracker/Controller/TrafficInformation/Detail/traffic_information_detail_controller.dart';
+import 'package:fleet_tracker/Model/Entity/Traffic/detail.dart';
+import 'package:fleet_tracker/Model/Entity/Traffic/issue.dart';
+import 'package:fleet_tracker/Model/Entity/Traffic/sapa_info.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/TrafficInformation/Detail/info_content_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/TrafficInformation/Detail/jam_info_place_tile.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/TrafficInformation/Detail/jam_info_title.dart';
@@ -37,18 +40,18 @@ class _TrafficInformationStateDetailView
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            FutureBuilder<Map<String, dynamic>?>(
+            FutureBuilder<TrafficDetail?>(
                 future: trafficInformationDetailController
                     .getRoadInfoMap(widget.roadId),
                 builder: (BuildContext context,
-                    AsyncSnapshot<Map<String, dynamic>?> snapshot) {
+                    AsyncSnapshot<TrafficDetail?> snapshot) {
                   if (snapshot.hasData) {
-                    Map<String, dynamic> roadInfoMap = snapshot.data!;
-                    print(roadInfoMap);
+                    TrafficDetail trafficDetail = snapshot.data!;
+                    print(trafficDetail);
                     return JamInfoTitle(
-                      areaName: roadInfoMap['areaName'],
-                      roadName: roadInfoMap['roadName'],
-                      time: roadInfoMap['time'],
+                      areaName: trafficDetail.data.areaName,
+                      roadName: trafficDetail.data.roadName,
+                      time: trafficDetail.summary.updateTimestamp,
                     );
                   } else {
                     return const Center(child: CircularProgressIndicator());
@@ -57,22 +60,24 @@ class _TrafficInformationStateDetailView
             const SizedBox(
               height: 20,
             ),
-            FutureBuilder<List<Map<String, dynamic>>?>(
+            FutureBuilder<List<TrafficIssue>?>(
                 future: trafficInformationDetailController
                     .getJamInfoList(widget.roadId),
                 builder: (BuildContext context,
-                    AsyncSnapshot<List<Map<String, dynamic>>?> snapshot) {
+                    AsyncSnapshot<List<TrafficIssue>?> snapshot) {
                   if (snapshot.hasData) {
-                    List<Map<String, dynamic>> jamInfoList = snapshot.data!;
-                    print(jamInfoList);
+                    List<TrafficIssue> trafficIssueList = snapshot.data!;
+                    print(trafficIssueList);
                     return InfoContentCard(
                       children: <Widget>[
                         for (int i = 0; i < 2; i++) ...{
                           JamInfoPlaceTile(
-                            direction: jamInfoList[i]['direction'],
-                            place: jamInfoList[i]['place'],
-                            type: jamInfoList[i]['type'],
-                            supplementInfo: jamInfoList[i]['supplementInfo'],
+                            direction: trafficIssueList[i].direction,
+                            place: trafficIssueList[i].place,
+                            type: trafficIssueList[i].type,
+                            content: trafficIssueList[i].content,
+                            range: trafficIssueList[i].range,
+                            reason: trafficIssueList[i].reason,
                           ),
                         },
                       ],
@@ -85,18 +90,39 @@ class _TrafficInformationStateDetailView
             const SizedBox(
               height: 20,
             ),
-            Visibility(
-              visible: widget.provideSapa,
-              child: InfoContentCard(
-                children: <Widget>[
-                  SapaInfoHeader(),
-                  for (int i = 0; i < 5; i++) ...{
-                    SapaInfoTile(),
-                  },
-                ],
-                title: 'SAPA情報',
-              ),
-            ),
+            FutureBuilder<List<TrafficSapaInfo>?>(
+                future: trafficInformationDetailController
+                    .getSapaInfoList(widget.roadId),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<TrafficSapaInfo>?> snapshot) {
+                  if (snapshot.hasData) {
+                    List<TrafficSapaInfo> trafficSapaInfoList = snapshot.data!;
+                    //if
+                    return Visibility(
+                      visible: widget.provideSapa,
+                      child: InfoContentCard(
+                        children: <Widget>[
+                          SapaInfoHeader(),
+                          for (int i = 0; i < 5; i++) ...{
+                            SapaInfoTile(
+                              name: trafficSapaInfoList[i].name,
+                              direction: trafficSapaInfoList[i].direction,
+                              totalCongestion:
+                                  trafficSapaInfoList[i].totalCongestion,
+                              smallCarCongestion:
+                                  trafficSapaInfoList[i].smallCarCongestion,
+                              largeCarCongestion:
+                                  trafficSapaInfoList[i].largeCarCongestion,
+                            ),
+                          },
+                        ],
+                        title: 'SAPA情報',
+                      ),
+                    );
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                }),
           ],
         ),
       ),
