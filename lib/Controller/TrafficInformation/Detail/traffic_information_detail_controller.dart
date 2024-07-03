@@ -37,7 +37,7 @@ class TrafficInformationDetailController {
   }
 
   String formatDateTime(DateTime updateTimestamp) {
-    final formatter = DateFormat('h:m');
+    final formatter = DateFormat('hh:mm');
     return formatter.format(updateTimestamp).toString();
   }
 }
