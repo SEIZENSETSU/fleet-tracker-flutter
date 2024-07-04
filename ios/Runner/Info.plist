@@ -27,11 +27,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Used to monitor location in the background and notify to app.</string>
+	<string>アプリがバックグラウンドで実行中でも、パーソナライズされたサービスと通知を提供するために、位置情報を使用します。</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Used to monitor location in the background and notify to app.</string>
+	<string>アプリがバックグラウンドで実行中でも、パーソナライズされたサービスと通知を提供するために、位置情報を使用します。</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Used to monitor location in the background and notify to app.</string>
+	<string>アプリが使用中に、パーソナライズされたサービスと通知を提供するために、位置情報を使用します。</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>
