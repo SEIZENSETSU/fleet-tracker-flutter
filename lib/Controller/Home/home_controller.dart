@@ -95,11 +95,11 @@ class HomeController {
     /// 0.3mm以上1.0mm未満: 曇り
     /// 1.0mm以上: 雨
     if (weatherData.rainfall < 0.3) {
-      return WeatherStateType('sun');
+      return WeatherStateType(WeatherStateEnum.sun.name);
     } else if (weatherData.rainfall < 1.0) {
-      return WeatherStateType('cloud');
+      return WeatherStateType(WeatherStateEnum.cloud.name);
     } else {
-      return WeatherStateType('rain');
+      return WeatherStateType(WeatherStateEnum.rain.name);
     }
   }
 }
