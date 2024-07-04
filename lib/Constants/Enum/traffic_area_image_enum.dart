@@ -1,7 +1,7 @@
 import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 
-enum AreaImageEnum {
+enum TrafficAreaImageEnum {
   hokkaido,
   tohoku,
   kanto,
@@ -13,36 +13,36 @@ enum AreaImageEnum {
   kyushu,
 }
 
-class AreaImageType {
-  late AreaImageEnum type;
-  AreaImageType(int rowType) {
+class TrafficAreaImageType {
+  late TrafficAreaImageEnum type;
+  TrafficAreaImageType(int rowType) {
     switch (rowType) {
       case 1:
-        type = AreaImageEnum.hokkaido;
+        type = TrafficAreaImageEnum.hokkaido;
         break;
       case 2:
-        type = AreaImageEnum.tohoku;
+        type = TrafficAreaImageEnum.tohoku;
         break;
       case 3:
-        type = AreaImageEnum.kanto;
+        type = TrafficAreaImageEnum.kanto;
         break;
       case 4:
-        type = AreaImageEnum.shinetsu;
+        type = TrafficAreaImageEnum.shinetsu;
         break;
       case 5:
-        type = AreaImageEnum.tokai;
+        type = TrafficAreaImageEnum.tokai;
         break;
       case 6:
-        type = AreaImageEnum.kinki;
+        type = TrafficAreaImageEnum.kinki;
         break;
       case 7:
-        type = AreaImageEnum.chugoku;
+        type = TrafficAreaImageEnum.chugoku;
         break;
       case 8:
-        type = AreaImageEnum.shikoku;
+        type = TrafficAreaImageEnum.shikoku;
         break;
       case 9:
-        type = AreaImageEnum.kyushu;
+        type = TrafficAreaImageEnum.kyushu;
         break;
       default:
         throw Exception('Unknown type: $rowType');
@@ -51,23 +51,23 @@ class AreaImageType {
 
   Image image() {
     switch (type) {
-      case AreaImageEnum.hokkaido:
+      case TrafficAreaImageEnum.hokkaido:
         return Assets.images.icons.errorDialogIcon.image();
-      case AreaImageEnum.tohoku:
+      case TrafficAreaImageEnum.tohoku:
         return Assets.images.icons.errorDialogIcon.image();
-      case AreaImageEnum.kanto:
+      case TrafficAreaImageEnum.kanto:
         return Assets.images.icons.errorDialogIcon.image();
-      case AreaImageEnum.shinetsu:
+      case TrafficAreaImageEnum.shinetsu:
         return Assets.images.icons.errorDialogIcon.image();
-      case AreaImageEnum.tokai:
+      case TrafficAreaImageEnum.tokai:
         return Assets.images.icons.errorDialogIcon.image();
-      case AreaImageEnum.kinki:
+      case TrafficAreaImageEnum.kinki:
         return Assets.images.icons.errorDialogIcon.image();
-      case AreaImageEnum.chugoku:
+      case TrafficAreaImageEnum.chugoku:
         return Assets.images.icons.errorDialogIcon.image();
-      case AreaImageEnum.shikoku:
+      case TrafficAreaImageEnum.shikoku:
         return Assets.images.icons.errorDialogIcon.image();
-      case AreaImageEnum.kyushu:
+      case TrafficAreaImageEnum.kyushu:
         return Assets.images.icons.errorDialogIcon.image();
       default:
         throw Exception('Unknown type: $type');

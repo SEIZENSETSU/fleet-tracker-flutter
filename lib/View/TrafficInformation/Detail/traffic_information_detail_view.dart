@@ -94,28 +94,32 @@ class _TrafficInformationStateDetailView
                     if (snapshot.hasData) {
                       List<TrafficSapaInfo> trafficSapaInfoList =
                           snapshot.data!;
-                      return Visibility(
-                        visible: widget.provideSapa,
-                        child: InfoContentCard(
-                          children: <Widget>[
-                            SapaInfoHeader(),
-                            for (int i = 0;
-                                i < trafficSapaInfoList.length;
-                                i++) ...{
-                              SapaInfoTile(
-                                name: trafficSapaInfoList[i].name,
-                                direction: trafficSapaInfoList[i].direction,
-                                totalCongestion:
-                                    trafficSapaInfoList[i].totalCongestion,
-                                smallCarCongestion:
-                                    trafficSapaInfoList[i].smallCarCongestion,
-                                largeCarCongestion:
-                                    trafficSapaInfoList[i].largeCarCongestion,
-                              ),
-                            },
-                          ],
-                          title: 'SAPA情報',
-                        ),
+                      return Column(
+                        children: <Widget>[
+                          InfoContentCard(
+                            children: <Widget>[
+                              SapaInfoHeader(),
+                              for (int i = 0;
+                                  i < trafficSapaInfoList.length;
+                                  i++) ...{
+                                SapaInfoTile(
+                                  name: trafficSapaInfoList[i].name,
+                                  direction: trafficSapaInfoList[i].direction,
+                                  totalCongestion:
+                                      trafficSapaInfoList[i].totalCongestion,
+                                  smallCarCongestion:
+                                      trafficSapaInfoList[i].smallCarCongestion,
+                                  largeCarCongestion:
+                                      trafficSapaInfoList[i].largeCarCongestion,
+                                ),
+                              },
+                            ],
+                            title: 'SAPA情報',
+                          ),
+                          SizedBox(
+                            height: 50,
+                          )
+                        ],
                       );
                     } else {
                       return const Center(child: CircularProgressIndicator());
