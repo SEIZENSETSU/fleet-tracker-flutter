@@ -8,14 +8,16 @@ class LocalSearchCardGroup extends StatelessWidget {
     super.key,
     required this.areaNameList,
     required this.areaImageUrlList,
+    required this.setState,
   });
-
   final List<String> areaNameList;
   final List<String> areaImageUrlList;
+  final Function setState;
 
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
+
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -25,7 +27,7 @@ class LocalSearchCardGroup extends StatelessWidget {
       itemCount: areaNameList.length,
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
-          onTap: () {
+          onTap: () async {
             List<int> areaIdList = [];
 
             /// indexによってエリアIDを切り替える
@@ -46,10 +48,10 @@ class LocalSearchCardGroup extends StatelessWidget {
                 areaIdList.addAll([7, 8]);
             }
 
-            WarehouseSearchResultRoute(
+            await WarehouseSearchResultRoute(
               areaId: areaIdList,
               areaName: areaNameList[index],
-            ).push(context);
+            ).push(context).then((value) => setState());
           },
           child: Padding(
             padding: const EdgeInsets.all(10),

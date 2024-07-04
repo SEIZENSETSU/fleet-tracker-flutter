@@ -8,15 +8,21 @@ class JapanMapCard extends StatelessWidget {
   const JapanMapCard({
     super.key,
     required this.name,
+    required this.areaId,
+    required this.setState,
   });
   final String name;
+  final List<int> areaId;
+  final Function setState;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         // リザルトページにいく
-        WarehouseSearchResultRoute(areaId: [0], areaName: name).push(context);
+        WarehouseSearchResultRoute(areaId: areaId, areaName: name)
+            .push(context)
+            .then((value) => setState());
       },
       child: Container(
         decoration: BoxDecoration(

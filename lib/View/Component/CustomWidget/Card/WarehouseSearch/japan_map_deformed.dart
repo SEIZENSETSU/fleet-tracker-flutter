@@ -6,7 +6,10 @@ import 'japan_map_card.dart';
 class JapanMapDefomed extends StatelessWidget {
   const JapanMapDefomed({
     super.key,
+    required this.setState,
   });
+
+  final Function setState;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +17,7 @@ class JapanMapDefomed extends StatelessWidget {
     return Container(
       height: size.height * 0.6,
       color: ColorName.japanMapDeformedBackground,
-      child: const Column(
+      child: Column(
         children: [
           Expanded(
             flex: 1,
@@ -38,6 +41,10 @@ class JapanMapDefomed extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: JapanMapCard(
                         name: '北海道',
+                        areaId: [1],
+                        setState: () {
+                          setState();
+                        },
                       ),
                     ),
                   ),
@@ -71,6 +78,10 @@ class JapanMapDefomed extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: JapanMapCard(
                         name: '東北',
+                        areaId: [2],
+                        setState: () {
+                          setState();
+                        },
                       ),
                     ),
                   ),
@@ -95,6 +106,10 @@ class JapanMapDefomed extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: JapanMapCard(
                         name: '中国・四国',
+                        areaId: [5, 6],
+                        setState: () {
+                          setState();
+                        },
                       ),
                     ),
                   ),
@@ -108,6 +123,10 @@ class JapanMapDefomed extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: JapanMapCard(
                         name: '近畿',
+                        areaId: [4],
+                        setState: () {
+                          setState();
+                        },
                       ),
                     ),
                   ),
@@ -121,6 +140,10 @@ class JapanMapDefomed extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: JapanMapCard(
                         name: '中部',
+                        areaId: [3],
+                        setState: () {
+                          setState();
+                        },
                       ),
                     ),
                   ),
@@ -134,6 +157,10 @@ class JapanMapDefomed extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: JapanMapCard(
                         name: '関東',
+                        areaId: [9],
+                        setState: () {
+                          setState();
+                        },
                       ),
                     ),
                   ),
@@ -158,6 +185,10 @@ class JapanMapDefomed extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: JapanMapCard(
                         name: '九州',
+                        areaId: [7, 8],
+                        setState: () {
+                          setState();
+                        },
                       ),
                     ),
                   ),

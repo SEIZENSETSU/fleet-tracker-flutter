@@ -116,14 +116,20 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 width: size.width,
                 height: size.width,
                 child: LocalSearchCardGroup(
-                  areaNameList: controller.areaNameList,
-                  areaImageUrlList: controller.areaImageUrlList,
-                ),
+                    areaNameList: controller.areaNameList,
+                    areaImageUrlList: controller.areaImageUrlList,
+                    setState: () {
+                      setState(() {});
+                    }),
               ),
             ),
             Visibility(
               visible: controller.mapSwitch,
-              child: const JapanMapDefomed(),
+              child: JapanMapDefomed(
+                setState: () {
+                  setState(() {});
+                },
+              ),
             ),
             const SpacerAndDivider(topHeight: 20, bottomHeight: 10),
             //
@@ -155,7 +161,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               // 倉庫詳細ページへ遷移
 
                               Log.echo('倉庫詳細ページへ');
@@ -165,7 +171,11 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                               WarehouseDetailRoute(
                                 $extra: warehosueInfo[index],
                                 functionType: FunctionTypeEnum.search.name,
-                              ).push(context);
+                              ).push(context).then(
+                                (value) {
+                                  setState(() {});
+                                },
+                              );
                             },
                             child: SizedBox(
                               height: size.height * 0.1,
