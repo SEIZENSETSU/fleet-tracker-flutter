@@ -5,7 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class UserInputCircleCellController {
   SharedPreferencesService prefs = SharedPreferencesService();
-  bool isAction = false;
 
   /// 遅延状況の登録
   /// [type]　 //遅延タイプ
@@ -14,36 +13,32 @@ class UserInputCircleCellController {
     required String type,
     required int id,
   }) async {
-    isAction = true;
-    if (isAction) {
-      bool intervalFlag = await intervalCheck(warehouseId: id);
-      if (intervalFlag) {
-        try {
-          int? response = await DelayService().postDelayInformation(
-            warehouseId: id,
-            delayState: type,
-          );
-          if (response == null) {
-            Log.toast('エラーが発生しました');
-            // エラーダイアログ表示
-            isAction = false;
-            return;
-          }
-          // 成功時の表示はなにかする？
-          Log.toast('遅延情報を登録しました。');
-          await prefs.setString(
-              'post_delay_time_${id}', DateTime.now().toString());
-          Fluttertoast.showToast(msg: '遅延情報を登録しました。');
-          isAction = false;
-        } catch (e) {
-          Log.toast('エラーが発生しました $e');
-          isAction = false;
+    bool intervalFlag = await intervalCheck(warehouseId: id);
+    if (intervalFlag) {
+      try {
+        int? response = await DelayService().postDelayInformation(
+          warehouseId: id,
+          delayState: type,
+        );
+        if (response == null) {
+          Log.toast('エラーが発生しました');
           // エラーダイアログ表示
+
+          return;
         }
-      } else {
-        Fluttertoast.showToast(msg: '前回の投稿から12時間経過していません。');
-        Log.echo('前回の投稿から12時間経過していません', symbol: '😭');
+        // 成功時の表示はなにかする？
+        Log.toast('遅延情報を登録しました。');
+        await prefs.setString(
+            'post_delay_time_${id}', DateTime.now().toString());
+        Fluttertoast.showToast(msg: '遅延情報を登録しました。');
+      } catch (e) {
+        Log.toast('エラーが発生しました $e');
+
+        // エラーダイアログ表示
       }
+    } else {
+      Fluttertoast.showToast(msg: '前回の投稿から12時間経過していません。');
+      Log.echo('前回の投稿から12時間経過していません', symbol: '😭');
     }
   }
 
