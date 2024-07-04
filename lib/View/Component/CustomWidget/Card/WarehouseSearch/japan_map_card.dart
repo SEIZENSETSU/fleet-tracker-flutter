@@ -26,7 +26,7 @@ class JapanMapCard extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: ColorName.mainthemeColor,
+          color: ColorName.japanMapCard,
           borderRadius: BorderRadius.circular(5),
           border: Border.all(
             color: ColorName.japanMapCardBorder,
