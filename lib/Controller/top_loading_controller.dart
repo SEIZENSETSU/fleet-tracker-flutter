@@ -95,7 +95,7 @@ class TopLoadingController {
       /// API: ユーザー情報登録
       userInfo = await userService.registerUser(
         uid: credential.uid,
-        userName: 'ドライバーさん',
+        userName: '名無しのドライバー',
         fcmTokenId: 'fcmTokenId',
       );
     } else {
