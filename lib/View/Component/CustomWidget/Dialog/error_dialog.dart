@@ -42,15 +42,17 @@ class ErrorDialog {
                   height: 50,
                   color: ColorName.mainthemeColor,
                   child: Container(
-                    padding: const EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     height: 30,
                     width: 200,
                     child: Align(
                       alignment: Alignment.center,
-                      child: CustomText(
-                        text: title,
-                        color: Colors.white,
-                        fontSize: 22,
+                      child: FittedBox(
+                        child: CustomText(
+                          text: title,
+                          color: Colors.white,
+                          fontSize: 22,
+                        ),
                       ),
                     ),
                   ),
@@ -103,7 +105,10 @@ class ErrorDialog {
                                     }
                                   : () {
                                       // 戻る
-                                      context.pop();
+                                      Navigator.of(
+                                        context,
+                                        rootNavigator: true,
+                                      ).pop();
                                     },
                             ),
                           ),
