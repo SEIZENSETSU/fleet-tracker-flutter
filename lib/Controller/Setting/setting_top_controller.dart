@@ -81,16 +81,6 @@ class SettingTopController {
         .setBool(SharedPreferencesKeysEnum.delaySwitch.name, value);
   }
 
-  /// 通知パーミッションのリクエスト
-  Future<void> requestPermissions() async {
-    await LocalNotificationsService().requestPermissions();
-  }
-
-  /// 通知パーミッションのキャンセル
-  Future<void> cancel() async {
-    await LocalNotificationsService().cancel();
-  }
-
   /// レビューへ
   Future<void> openReview() async {
     if (await _inAppReview.isAvailable()) {
