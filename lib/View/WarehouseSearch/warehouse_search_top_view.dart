@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Constants/Enum/function_type_enum.dart';
 import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Controller/WarehouseSearch/warehouse_search_top_controller.dart';
 import 'package:fleet_tracker/Model/Entity/Warehouse/info.dart';
@@ -162,9 +163,9 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                               // お気に入り工場リストからインスタンス化して値を渡す
 
                               WarehouseDetailRoute(
-                                      $extra: warehosueInfo[index],
-                                      functionType: 'search')
-                                  .push(context);
+                                $extra: warehosueInfo[index],
+                                functionType: FunctionTypeEnum.search.name,
+                              ).push(context);
                             },
                             child: SizedBox(
                               height: size.height * 0.1,

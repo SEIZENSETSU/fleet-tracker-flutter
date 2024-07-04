@@ -70,7 +70,7 @@ class _HomeViewState extends State<HomeView> {
                             toWarehousePage: () {
                               WarehouseDetailRoute(
                                 $extra: data,
-                                functionType: 'home',
+                                functionType: FunctionTypeEnum.home.name,
                               ).push(context);
                             },
                           ),

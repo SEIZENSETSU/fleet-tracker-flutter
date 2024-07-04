@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Constants/Enum/function_type_enum.dart';
 import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Controller/WarehouseSearch/warehouse_search_top_controller.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
@@ -165,7 +166,8 @@ class _WarehouseSearchResultViewState extends State<WarehouseSearchResultView> {
 
                                         WarehouseDetailRoute(
                                                 $extra: extra!,
-                                                functionType: 'search')
+                                                functionType: FunctionTypeEnum
+                                                    .search.name)
                                             .push(context);
                                       },
                                       content: Row(

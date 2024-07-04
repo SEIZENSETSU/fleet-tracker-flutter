@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Constants/Enum/function_type_enum.dart';
 import 'package:fleet_tracker/Route/router.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/UserInput/user_input_cell.dart';
@@ -47,7 +48,7 @@ class _UserInputTopViewState extends State<UserInputTopView> {
                           toWarehousePage: () {
                             WarehouseDetailRoute(
                               $extra: data,
-                              functionType: 'userInput',
+                              functionType: FunctionTypeEnum.userInput.name,
                             ).push(context);
                           },
                         ),
