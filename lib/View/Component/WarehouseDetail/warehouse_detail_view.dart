@@ -148,7 +148,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                             child: CommonCard(
                               onTap: () async {
                                 await controller.favoriteButtonAction(
-                                  widget.warehouseInfo.warehouseId,
+                                  warehouseId: widget.warehouseInfo.warehouseId,
                                 );
                               },
                               content: const Row(

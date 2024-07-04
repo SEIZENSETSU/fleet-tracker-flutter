@@ -12,7 +12,9 @@ class WarehouseDetailController {
     BottomNavigationBarController().goBranch(0);
   }
 
-  initialize(String type) {
+  /// 倉庫詳細ページ初期化処理
+  /// [type]
+  void initialize(String type) {
     FunctionTypeEnum typeEnum = FunctionType(type).type;
     switch (typeEnum) {
       case FunctionTypeEnum.home:
@@ -25,50 +27,57 @@ class WarehouseDetailController {
     }
   }
 
-  Future<void> favoriteButtonAction(int id) async {
+  /// お気に入り登録のボタンが押された時の処理
+  /// [warehouseId]
+  Future<void> favoriteButtonAction({required int warehouseId}) async {
     if (!onLoad) {
       onLoad = true;
       // あるかチェック
-      bool isFavorite = await favoriteListCheck(id);
+      bool isFavorite = await favoriteListCheck(warehouseId: warehouseId);
       if (isFavorite) {
         // あったら削除
-        await deleteFavorite(id);
+        await deleteFavorite(warehouseId: warehouseId);
         onLoad = false;
       } else {
         // なかったら追加
-        await addFavoite(id);
+        await addFavoite(warehouseId: warehouseId);
         onLoad = false;
       }
     }
   }
 
-  Future<void> addFavoite(int id) async {
+  /// お気に入り倉庫をローカルに保存する
+  /// [warehouseId]
+  Future<void> addFavoite({required int warehouseId}) async {
     List<String>? favoriteIds = await prefs
         .getStringList(SharedPreferencesKeysEnum.favoriteWarehouseList.name);
 
-    favoriteIds!.add(id.toString());
+    favoriteIds!.add(warehouseId.toString());
     await prefs.setStringList(
         SharedPreferencesKeysEnum.favoriteWarehouseList.name, favoriteIds);
-    Log.toast('${id}をお気に入り倉庫に登録しました');
+    Log.toast('${warehouseId}をお気に入り倉庫に登録しました');
   }
 
-  Future<void> deleteFavorite(int id) async {
+  /// お気に入り倉庫をローカルから削除する
+  /// [warehouseId]
+  Future<void> deleteFavorite({required int warehouseId}) async {
     List<String>? favoriteList = await prefs
         .getStringList(SharedPreferencesKeysEnum.favoriteWarehouseList.name);
     // 配列から指定した工場を削除
-    favoriteList!.removeWhere((element) => element == id.toString());
+    favoriteList!.removeWhere((element) => element == warehouseId.toString());
     // 削除した配列を保存
     await prefs.setStringList(
         SharedPreferencesKeysEnum.favoriteWarehouseList.name, favoriteList);
 
-    Log.toast('${id}をお気に入り倉庫から削除しました');
+    Log.toast('${warehouseId}をお気に入り倉庫から削除しました');
   }
 
-  Future<bool> favoriteListCheck(int id) async {
+  /// 指定した倉庫がローカルに保存されているかチェック
+  /// [warehouseId]
+  Future<bool> favoriteListCheck({required int warehouseId}) async {
     List? favoriteList = await prefs
         .getStringList(SharedPreferencesKeysEnum.favoriteWarehouseList.name);
-    // 配列に指定した工場が入っているかどうかチェック
-    if (favoriteList!.contains(id.toString())) {
+    if (favoriteList!.contains(warehouseId.toString())) {
       return true;
     } else {
       return false;
