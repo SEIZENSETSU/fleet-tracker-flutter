@@ -1,6 +1,7 @@
 import 'package:fleet_tracker/Route/router.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class PrefecturalRoadTile extends StatelessWidget {
   const PrefecturalRoadTile(
@@ -56,15 +57,37 @@ class PrefecturalRoadTile extends StatelessWidget {
                   SizedBox(
                     width: deviceWidth * 0.7,
                     height: deviceWidth * 0.06,
-                    child: FittedBox(
-                      alignment: Alignment.centerLeft,
-                      fit: BoxFit.fitHeight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: CustomText(
-                          text: roadName,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        FittedBox(
+                          alignment: Alignment.centerLeft,
+                          fit: BoxFit.fitHeight,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: CustomText(
+                              text: roadName,
+                            ),
+                          ),
                         ),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 4,
+                          ),
+                          child: Visibility(
+                            visible: provideSapa,
+                            child: const FittedBox(
+                              alignment: Alignment.centerRight,
+                              fit: BoxFit.fitHeight,
+                              child: Icon(
+                                Icons.info,
+                                color: Colors.blue,
+                                size: 18,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(
