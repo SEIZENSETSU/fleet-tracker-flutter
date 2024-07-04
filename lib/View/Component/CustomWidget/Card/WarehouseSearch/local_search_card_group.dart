@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Constants/Enum/search_area_image_enum.dart';
 import 'package:fleet_tracker/Route/router.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
@@ -64,7 +65,9 @@ class LocalSearchCardGroup extends StatelessWidget {
                         width: deviceWidth * 0.15,
                         child: Padding(
                           padding: const EdgeInsets.all(5),
-                          child: Image.network(areaImageUrlList[index]),
+                          child: SearchAreaImageType(
+                                  SearchAreaImageEnum.values[index].name)
+                              .image(),
                         )),
                     CustomText(
                       text: areaNameList[index],
