@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
@@ -84,6 +86,19 @@ class TopLoadingController {
             SharedPreferencesKeysEnum.favoriteWarehouseList.name) ??
         prefs.setStringList(
             SharedPreferencesKeysEnum.favoriteWarehouseList.name, []);
+
+    /// 通知設定を初期化
+    await prefs.getBool(SharedPreferencesKeysEnum.sendInputNotification.name) ??
+        prefs.setBool(
+            SharedPreferencesKeysEnum.sendInputNotification.name, true);
+    await prefs
+            .getBool(SharedPreferencesKeysEnum.sendHighwayNotification.name) ??
+        prefs.setBool(
+            SharedPreferencesKeysEnum.sendHighwayNotification.name, true);
+    await prefs.getBool(SharedPreferencesKeysEnum.areaSwitch.name) ??
+        prefs.setBool(SharedPreferencesKeysEnum.areaSwitch.name, true);
+    await prefs.getBool(SharedPreferencesKeysEnum.delaySwitch.name) ??
+        prefs.setBool(SharedPreferencesKeysEnum.delaySwitch.name, true);
 
     /// 倉庫検索タブのview切り替え取得
     bool? mapSwitch =
