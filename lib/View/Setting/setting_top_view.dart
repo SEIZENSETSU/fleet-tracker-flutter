@@ -79,13 +79,8 @@ class _SettingTopViewState extends State<SettingTopView> {
                 cellAction: (bool) {
                   // エリア内に入る or エリアから出るで通知
                   controller.delaySwitchValue = !controller.delaySwitchValue!;
-                  if (bool) {
-                    controller.cancel();
-                    setState(() {});
-                  } else {
-                    controller.requestPermissions();
-                    setState(() {});
-                  }
+                  controller.actionAreaSwitch(value: bool);
+                  setState(() {});
                 },
                 switchValue: controller.areaSwitchValue ?? true,
               ),
@@ -94,13 +89,8 @@ class _SettingTopViewState extends State<SettingTopView> {
                 cellAction: (bool) {
                   // 渋滞情報に変更があったら通知
                   controller.delaySwitchValue = !controller.delaySwitchValue!;
-                  if (bool) {
-                    controller.cancel();
-                    setState(() {});
-                  } else {
-                    controller.requestPermissions();
-                    setState(() {});
-                  }
+                  controller.actionDelaySwitch(value: bool);
+                  setState(() {});
                 },
                 switchValue: controller.delaySwitchValue ?? true,
               ),
