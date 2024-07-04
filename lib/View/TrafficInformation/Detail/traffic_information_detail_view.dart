@@ -8,8 +8,10 @@ import 'package:fleet_tracker/View/Component/CustomWidget/TrafficInformation/Det
 import 'package:fleet_tracker/View/Component/CustomWidget/TrafficInformation/Detail/sapa_info_tile.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/TrafficInformation/Detail/sapa_info_header.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class TrafficInformationDetailView extends StatefulWidget {
   const TrafficInformationDetailView({
@@ -63,22 +65,50 @@ class _TrafficInformationStateDetailView
                 builder: (BuildContext context,
                     AsyncSnapshot<List<TrafficIssue>?> snapshot) {
                   if (snapshot.hasData) {
-                    List<TrafficIssue> trafficIssueList = snapshot.data!;
-                    return InfoContentCard(
-                      children: <Widget>[
-                        for (int i = 0; i < trafficIssueList.length; i++) ...{
-                          JamInfoPlaceTile(
-                            direction: trafficIssueList[i].direction,
-                            place: trafficIssueList[i].place,
-                            type: trafficIssueList[i].type,
-                            content: trafficIssueList[i].content,
-                            range: trafficIssueList[i].range,
-                            reason: trafficIssueList[i].reason,
+                    if (snapshot.data!.length > 0) {
+                      List<TrafficIssue> trafficIssueList = snapshot.data!;
+                      return InfoContentCard(
+                        children: <Widget>[
+                          for (int i = 0; i < trafficIssueList.length; i++) ...{
+                            JamInfoPlaceTile(
+                              direction: trafficIssueList[i].direction,
+                              place: trafficIssueList[i].place,
+                              type: trafficIssueList[i].type,
+                              content: trafficIssueList[i].content,
+                              range: trafficIssueList[i].range,
+                              reason: trafficIssueList[i].reason,
+                            ),
+                          },
+                        ],
+                        title: '渋滞情報',
+                      );
+                    } else {
+                      return InfoContentCard(
+                        children: <Widget>[
+                          Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  width: 1,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: CustomText(
+                                  text: '渋滞情報はありません',
+                                ),
+                              ),
+                            ),
                           ),
-                        },
-                      ],
-                      title: '渋滞情報',
-                    );
+                        ],
+                        title: '渋滞情報',
+                      );
+                    }
                   } else {
                     return const Center(child: CircularProgressIndicator());
                   }
