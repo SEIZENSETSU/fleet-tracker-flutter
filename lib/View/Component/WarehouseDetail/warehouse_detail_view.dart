@@ -134,35 +134,29 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                       flex: 1,
                       child: FractionallySizedBox(
                         heightFactor: 1,
-                        child: GestureDetector(
-                          onTap: () {
-                            // お気に入り登録
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: CommonCard(
-                              onTap: () async {
-                                await controller.favoriteButtonAction(
-                                  warehouseId: widget.warehouseInfo.warehouseId,
-                                );
-                              },
-                              content: const Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 10, right: 5),
-                                    child: Icon(
-                                      Icons.favorite,
-                                      color: Colors.red,
-                                    ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: CommonCard(
+                            onTap: () async {
+                              await controller.favoriteButtonAction(
+                                warehouseId: widget.warehouseInfo.warehouseId,
+                              );
+                            },
+                            content: const Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: 10, right: 5),
+                                  child: Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.all(4.0),
-                                    child: CustomText(text: 'お気に入り'),
-                                  ),
-                                ],
-                              ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: CustomText(text: 'お気に入り'),
+                                ),
+                              ],
                             ),
                           ),
                         ),

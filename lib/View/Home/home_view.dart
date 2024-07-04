@@ -364,7 +364,8 @@ class _HomeViewState extends State<HomeView> {
                             onTap: () {
                               // 倉庫検索タブへ遷移
                               controller.pushFunctionCard(
-                                  FunctionType('search').branchIndex());
+                                  FunctionType(FunctionTypeEnum.search.name)
+                                      .branchIndex());
                             },
                             content: const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -387,7 +388,8 @@ class _HomeViewState extends State<HomeView> {
                             onTap: () {
                               // コメント・遅延登録画面へ遷移
                               controller.pushFunctionCard(
-                                  FunctionType('userInput').branchIndex());
+                                  FunctionType(FunctionTypeEnum.userInput.name)
+                                      .branchIndex());
                             },
                             content: const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -409,9 +411,9 @@ class _HomeViewState extends State<HomeView> {
                           child: CommonCard(
                             onTap: () {
                               // 交通情報タブへ遷移
-                              controller.pushFunctionCard(
-                                  FunctionType('trafficInformation')
-                                      .branchIndex());
+                              controller.pushFunctionCard(FunctionType(
+                                      FunctionTypeEnum.trafficInformation.name)
+                                  .branchIndex());
                             },
                             content: const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -434,7 +436,8 @@ class _HomeViewState extends State<HomeView> {
                             onTap: () {
                               // 設定タブへ遷移
                               controller.pushFunctionCard(
-                                  FunctionType('setting').branchIndex());
+                                  FunctionType(FunctionTypeEnum.setting.name)
+                                      .branchIndex());
                             },
                             content: const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
