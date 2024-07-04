@@ -40,7 +40,7 @@ class WarehouseDetailController {
         onLoad = false;
       } else {
         // なかったら追加
-        await addFavoite(warehouseId: warehouseId);
+        await addFavorite(warehouseId: warehouseId);
         onLoad = false;
       }
     }
@@ -48,7 +48,7 @@ class WarehouseDetailController {
 
   /// お気に入り倉庫をローカルに保存する
   /// [warehouseId]
-  Future<void> addFavoite({required int warehouseId}) async {
+  Future<void> addFavorite({required int warehouseId}) async {
     List<String>? favoriteIds = await prefs
         .getStringList(SharedPreferencesKeysEnum.favoriteWarehouseList.name);
 
