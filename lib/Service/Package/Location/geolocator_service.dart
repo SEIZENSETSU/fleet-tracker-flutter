@@ -48,13 +48,13 @@ class GeolocatorService {
 
   /// 現在の座標とエリアの座標から方位を計算する。
   /// [warehouseLat]
-  /// [warehouseLon]
+  /// [warehouseLng]
   calcBearingBetween({
     required double warehouseLat,
-    required double warehouseLon,
+    required double warehouseLng,
   }) {
     double angle = Geolocator.bearingBetween(LocationData().getData().lat,
-        LocationData().getData().lng, warehouseLat, warehouseLon);
+        LocationData().getData().lng, warehouseLat, warehouseLng);
 
     return angle;
   }
