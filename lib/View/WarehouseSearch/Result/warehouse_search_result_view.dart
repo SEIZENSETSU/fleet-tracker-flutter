@@ -21,12 +21,12 @@ class WarehouseSearchResultView extends StatefulWidget {
   const WarehouseSearchResultView({
     super.key,
     this.area,
-    this.areaId,
+    this.areaIds,
     this.keyword,
   });
 
   final String? area;
-  final List<int>? areaId;
+  final List<int>? areaIds;
   final String? keyword;
 
   @override
@@ -134,7 +134,7 @@ class _WarehouseSearchResultViewState extends State<WarehouseSearchResultView> {
                     FutureBuilder(
                         future: widget.keyword == null
                             ? controller.getWarehouseWithArea(
-                                areaIds: widget.areaId!)
+                                areaIds: widget.areaIds!)
                             : controller.getWarehouseWithKeyword(
                                 keyword: widget.keyword.toString()),
                         builder: (context, snapshot) {

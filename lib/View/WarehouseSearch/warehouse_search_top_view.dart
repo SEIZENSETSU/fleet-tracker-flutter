@@ -147,7 +147,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
             ),
             // 表示部
             FutureBuilder(
-                future: controller.getFavoiteWarehousese(),
+                future: controller.getFavoriteWarehouses(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState != ConnectionState.done) {
                     return const CirclarProgressIndicatorCell(height: 100);

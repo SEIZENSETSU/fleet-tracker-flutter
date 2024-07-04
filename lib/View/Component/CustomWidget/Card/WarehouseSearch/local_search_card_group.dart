@@ -49,7 +49,7 @@ class LocalSearchCardGroup extends StatelessWidget {
             }
 
             await WarehouseSearchResultRoute(
-              areaId: areaIdList,
+              areaIds: areaIdList,
               areaName: areaNameList[index],
             ).push(context).then((value) => setState());
           },
