@@ -203,8 +203,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                                       const EdgeInsets.symmetric(vertical: 15),
                                   child: CommentTile(
                                     userComment: comentList[index]['comment'],
-                                    createAt: DateFormat(
-                                            'yyyy年MM月dd日 hh時mm分', 'ja_JP')
+                                    createAt: DateFormat('yyyy年MM月dd日 HH時mm分')
                                         .format(DateTime.parse(
                                             comentList[index]['create_at'])),
                                     userName: comentList[index]['name'],
@@ -247,7 +246,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                         padding: const EdgeInsets.all(8.0),
                         child: CustomTextfield(
                             isSerchIcon: false,
-                            hintText: 'コメントを書いてください',
+                            hintText: '  コメントを書いてください',
                             backgroundcolor: Colors.white,
                             controller: controller.textEditingController),
                       ),
