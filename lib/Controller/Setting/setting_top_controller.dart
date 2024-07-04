@@ -85,7 +85,7 @@ class SettingTopController {
   Future<void> openReview() async {
     if (await _inAppReview.isAvailable()) {
       _inAppReview.openStoreListing(
-        appStoreId: '',
+        appStoreId: '6503596268',
       );
     }
   }
