@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../Route/router.dart';
+import '../Component/CustomWidget/Modal/rename_modal.dart';
 import '../Component/CustomWidget/custom_text.dart';
 
 class SettingTopView extends StatefulWidget {
@@ -52,7 +53,6 @@ class _SettingTopViewState extends State<SettingTopView> {
                   controller.showReNameModal(
                     context: context,
                     size: size,
-                    userName: controller.userName ?? '',
                   );
                 },
               ),
