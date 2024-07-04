@@ -91,8 +91,18 @@ class SettingTopController {
   }
 
   /// googleformへ
-  Future<void> openinquiry() async {
+  Future<void> openInquiry() async {
     Uri url = Uri.parse('https://forms.gle/CLn1SfQqQdHLjEiK9');
+    if (!(await canLaunchUrl(url))) {
+      Log.echo('URLを開けませんでした。', symbol: '❌');
+      return;
+    }
+    await launchUrl(url);
+  }
+
+  /// プライバシーポリシーへ
+  Future<void> openPrivacyPolicy() async {
+    Uri url = Uri.parse('https://sei-zen-setsu.web.app/');
     if (!(await canLaunchUrl(url))) {
       Log.echo('URLを開けませんでした。', symbol: '❌');
       return;

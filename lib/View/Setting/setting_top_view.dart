@@ -114,7 +114,7 @@ class _SettingTopViewState extends State<SettingTopView> {
                 'お問い合わせ',
                 onTap: () {
                   // お問い合わせを送信するページ
-                  controller.openinquiry();
+                  controller.openInquiry();
                 },
               ),
               SettingTileCell().common(
@@ -122,6 +122,13 @@ class _SettingTopViewState extends State<SettingTopView> {
                 onTap: () {
                   // ストアページのレビューへ遷移
                   controller.openReview();
+                },
+              ),
+              SettingTileCell().common(
+                'プライバシーポリシー',
+                onTap: () {
+                  // プライバシーポリシー
+                  controller.openPrivacyPolicy();
                 },
               ),
               SettingTileCell().common(
