@@ -8,8 +8,8 @@ class UserInputCircleCellController {
   bool isAction = false;
 
   /// 遅延状況の登録
-  /// [type]
-  /// [id]
+  /// [type]　 //遅延タイプ
+  /// [id] 　　//倉庫ID
   Future<void> userInputCircleCellAction({
     required String type,
     required int id,
