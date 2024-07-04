@@ -9,6 +9,7 @@ import 'package:fleet_tracker/Model/Entity/location.dart';
 import 'package:fleet_tracker/Route/router.dart';
 import 'package:fleet_tracker/Service/API/Original/user_service.dart';
 import 'package:fleet_tracker/Service/Firebase/Authentication/authentication_service.dart';
+import 'package:fleet_tracker/Service/Firebase/RemoteConfig/remote_config_service.dart';
 import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
 import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:flutter/foundation.dart';
@@ -42,6 +43,9 @@ class TopLoadingController {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
+
+    /// RemoteConfig Initialize
+    await RemoteConfigService().initalize();
 
     /// LocalNotifications Initialize
     await LocalNotificationsService().initialize();
