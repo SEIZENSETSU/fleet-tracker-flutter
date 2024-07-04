@@ -6,6 +6,7 @@ import 'package:fleet_tracker/Service/API/Original/warehouse_service.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../Model/Entity/Warehouse/warehouse.dart';
 
@@ -43,6 +44,17 @@ class WarehouseSearchTopController {
   Future<bool> getMapSwitch() async {
     bool? isMap = await prefs.getBool('mapSwitch');
     return isMap == null ? true : isMap;
+  }
+
+  /// テキストフィールドに入力された値が正しいフラグ
+  /// [keyword]
+  bool validationCheck({required String keyword}) {
+    if (keyword == '') {
+      Fluttertoast.showToast(msg: 'キーワードを入力してください。');
+      return false;
+    }
+
+    return true;
   }
 
   /// ユーザーが登録しているお気に入り倉庫の情報を取得する

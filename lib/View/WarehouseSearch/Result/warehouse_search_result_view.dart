@@ -146,79 +146,99 @@ class _WarehouseSearchResultViewState extends State<WarehouseSearchResultView> {
 
                           if (snapshot.hasData) {
                             List<Warehouse>? warehouseList = snapshot.data;
-                            return ListView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
+                            if (warehouseList!.isEmpty) {
+                              return const SizedBox(
+                                height: 400,
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.search_off,
+                                        size: 60,
+                                      ),
+                                      CustomText(
+                                        text: '該当する工場は見つかりませんでした。',
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            } else {
+                              return ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
 
-                              // エリア内にある倉庫の数
-                              itemCount: warehouseList!.length,
-                              itemBuilder: (context, index) {
-                                return SizedBox(
-                                  height: size.height * 0.1,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 20),
-                                    child: CommonCard(
-                                      onTap: () async {
-                                        // カードをタップして倉庫詳細ページへ遷移
-                                        WarehouseInfo? extra =
-                                            await controller.getWarehouseInfo(
-                                                warehouseId:
-                                                    warehouseList[index].id);
+                                // エリア内orキーワードに該当する倉庫の数
+                                itemCount: warehouseList!.length,
+                                itemBuilder: (context, index) {
+                                  return SizedBox(
+                                    height: size.height * 0.1,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 20),
+                                      child: CommonCard(
+                                        onTap: () async {
+                                          // カードをタップして倉庫詳細ページへ遷移
+                                          WarehouseInfo? extra =
+                                              await controller.getWarehouseInfo(
+                                                  warehouseId:
+                                                      warehouseList[index].id);
 
-                                        if (extra == null) {
-                                          // エラー表示
-                                          Log.toast('通信エラーです');
-                                        }
+                                          if (extra == null) {
+                                            // エラー表示
+                                            Log.toast('通信エラーです');
+                                          }
 
-                                        WarehouseDetailRoute(
-                                                $extra: extra!,
-                                                functionType: FunctionTypeEnum
-                                                    .search.name)
-                                            .push(context);
-                                      },
-                                      content: Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 1,
-                                            child: FractionallySizedBox(
-                                              heightFactor: 0.5,
+                                          WarehouseDetailRoute(
+                                                  $extra: extra!,
+                                                  functionType: FunctionTypeEnum
+                                                      .search.name)
+                                              .push(context);
+                                        },
+                                        content: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 1,
+                                              child: FractionallySizedBox(
+                                                heightFactor: 0.5,
+                                                child: Container(
+                                                  child: Assets
+                                                      .images.icons.factoryIcon
+                                                      .image(),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 3,
                                               child: Container(
-                                                child: Assets
-                                                    .images.icons.factoryIcon
-                                                    .image(),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 3,
-                                            child: Container(
-                                              child: Row(
-                                                children: [
-                                                  CustomText(
-                                                    text: warehouseList[index]
-                                                        .name,
-                                                    fontSize: 13,
-                                                  ),
-                                                  const Spacer(),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: const Icon(
-                                                      Icons.chevron_right,
+                                                child: Row(
+                                                  children: [
+                                                    CustomText(
+                                                      text: warehouseList[index]
+                                                          .name,
+                                                      fontSize: 13,
                                                     ),
-                                                  )
-                                                ],
+                                                    const Spacer(),
+                                                    Container(
+                                                      width: 30,
+                                                      height: 30,
+                                                      child: const Icon(
+                                                        Icons.chevron_right,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              },
-                            );
+                                  );
+                                },
+                              );
+                            }
                           } else {
                             return const CirclarProgressIndicatorCell(
                                 height: 300);
