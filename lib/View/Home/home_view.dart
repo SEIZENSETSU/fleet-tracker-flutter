@@ -2,6 +2,7 @@ import 'package:fleet_tracker/Constants/Enum/function_type_enum.dart';
 import 'package:fleet_tracker/Constants/Enum/weather_state_enum.dart';
 import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Controller/Home/home_controller.dart';
+import 'package:fleet_tracker/Model/Data/clock_data.dart';
 import 'package:fleet_tracker/Model/Data/location_data.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/destination_card.dart';
@@ -178,14 +179,22 @@ class _HomeViewState extends State<HomeView> {
                                 width: size.width * 0.3,
                                 height: 70,
                                 color: const Color.fromARGB(255, 232, 231, 231),
-                                child: const FittedBox(
+                                child: FittedBox(
                                   fit: BoxFit.contain,
                                   child: Padding(
                                     padding: EdgeInsets.all(4.0),
-                                    child: CustomText(
-                                      text: '10:00',
-                                      color: ColorName.mainthemeColor,
-                                    ),
+                                    child: Consumer(builder: (context, ref, _) {
+                                      final clockInfo = ref.watch(clockDataProvider);
+                                      final _clock = clockInfo.getData();
+                                      return FutureBuilder(
+                                          future: controller.getNowTime(_clock!),
+                                          builder: (context, snapshot) {
+                                            return CustomText(
+                                              text: '${snapshot.data}',
+                                              color: ColorName.mainthemeColor,
+                                            );
+                                          });
+                                    }),
                                   ),
                                 ),
                               ),

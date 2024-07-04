@@ -102,4 +102,8 @@ class HomeController {
       return WeatherStateType(WeatherStateEnum.rain.name);
     }
   }
+
+  Future<String> getNowTime(DateTime now) async {
+    return '${now.hour}:${now.minute}';
+  }
 }
