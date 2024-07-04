@@ -45,7 +45,7 @@ class SettingTopController {
   Future<void> init() async {
     userName = await getUserName();
     areaSwitchValue = await getAreaSwitchValue();
-    delaySwitchValue = await getAreaSwitchValue();
+    delaySwitchValue = await getDelaySwitchValue();
   }
 
   /// ユーザーネーム取得
