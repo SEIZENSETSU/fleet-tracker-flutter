@@ -1,12 +1,16 @@
 import 'package:fleet_tracker/Constants/Enum/function_type_enum.dart';
 import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
 import 'package:fleet_tracker/Controller/bottom_navigation_bar_controller.dart';
+import 'package:fleet_tracker/Model/Data/user_data.dart';
+import 'package:fleet_tracker/Service/API/Original/comment_service.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class WarehouseDetailController {
   SharedPreferencesService prefs = SharedPreferencesService();
+  TextEditingController textEditingController = TextEditingController();
   bool enableAction = false;
   bool onLoad = false;
   outArea() {
@@ -84,5 +88,31 @@ class WarehouseDetailController {
     } else {
       return false;
     }
+  }
+
+  /// コメントを投稿する処理
+  /// [content]
+  /// [warehouseId]
+  Future<void> postComment(
+      {required String content, required int warehouseId}) async {
+    if (content == '') {
+      Fluttertoast.showToast(msg: 'コメントを入力してください。');
+      return;
+    }
+    int? response = await CommentService().postComment(
+      uid: UserData().getData().uid,
+      warehouseId: warehouseId,
+      contents: content,
+    );
+
+    if (response == null) {
+      Fluttertoast.showToast(msg: 'コメントを投稿できませんでした。');
+      textEditingController.text = '';
+      return;
+    }
+
+    Fluttertoast.showToast(msg: 'コメントを投稿しました。');
+    textEditingController.text = '';
+    Log.echo('コメントを投稿しました');
   }
 }

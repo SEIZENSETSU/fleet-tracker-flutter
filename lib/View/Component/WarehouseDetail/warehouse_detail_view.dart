@@ -15,6 +15,7 @@ import 'package:fleet_tracker/View/Component/CustomWidget/circular_progress_indi
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_button.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/custom_textfield.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/spacer_and_divider.dart';
 import 'package:fleet_tracker/View/Component/WarehouseDetail/comment_tile.dart';
 import 'package:fleet_tracker/View/Component/WarehouseDetail/warehouse_map.dart';
@@ -219,7 +220,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                       } else {
                         return Container(
                           height: 400,
-                          color: ColorName.commentAreaBackground,
+                          color: Colors.white,
                           child: const Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -241,47 +242,37 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
               Visibility(
                 visible: controller.enableAction,
                 child: Container(
-                  height: 70,
+                  height: 140,
                   decoration: BoxDecoration(
                     color: ColorName.mainthemeColor.withAlpha(60),
                   ),
-                  child: Row(
+                  child: Column(
                     children: [
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: TextField(
-                              // フォーカス関連は時間かかるのでスキップ
-                              // autofocus: true,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CustomTextfield(
+                            hintText: 'コメントを書いてください',
+                            backgroundcolor: Colors.white,
+                            controller: controller.textEditingController),
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                      Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: size.width,
                             child: CustomButton(
-                                text: '投稿',
-                                isFilledColor: true,
-                                primaryColor: ColorName.mainthemeColor,
-                                onTap: () {
-                                  // コメントを投稿する
-                                  Log.toast('コメントを投稿しました');
-                                }),
-                          ),
-                        ),
-                      ),
+                              isFilledColor: true,
+                              primaryColor: ColorName.mainthemeColor,
+                              text: '投稿',
+                              onTap: () async {
+                                controller.postComment(
+                                  content:
+                                      controller.textEditingController.text,
+                                  warehouseId: widget.warehouseInfo.warehouseId,
+                                );
+                                setState(() {});
+                              },
+                            ),
+                          )),
                     ],
                   ),
                 ),
