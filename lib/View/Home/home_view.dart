@@ -124,7 +124,11 @@ class _HomeViewState extends State<HomeView> {
                                     Container(
                                       height: 30,
                                       child: const Padding(
-                                        padding: const EdgeInsets.all(4.0),
+                                        padding: const EdgeInsets.only(
+                                          left: 4.0,
+                                          top: 4.0,
+                                          right: 4.0,
+                                        ),
                                         child: CustomText(
                                           text: '現在地',
                                           fontSize: 10,
@@ -134,13 +138,13 @@ class _HomeViewState extends State<HomeView> {
                                     Container(
                                       height: 30,
                                       child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
+                                        padding: const EdgeInsets.only(left: 2.0),
                                         child: FutureBuilder<String>(
                                             future: controller.getCurrentAddress(),
                                             builder: (context, snapshot) {
                                               return CustomText(
                                                 text: '${snapshot.data}',
-                                                fontSize: 15,
+                                                fontSize: 20,
                                               );
                                             }),
                                       ),

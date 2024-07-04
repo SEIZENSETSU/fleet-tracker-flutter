@@ -55,7 +55,7 @@ class HomeController {
 
     /// 付近100m以内に高速道路が見つからなかった場合、空文字を返す
     if (nearestRoadName == null) {
-      return '';
+      return '高速道路を走行していません';
     }
     // ここはとってくる文字列のパターンがもっとある可能性あるからsplitするやつ増える可能性大
     List<String> spliteNearestRoadName = nearestRoadName.split(';')[0].split('('[0]);
@@ -104,6 +104,8 @@ class HomeController {
   }
 
   Future<String> getNowTime(DateTime now) async {
-    return '${now.hour}:${now.minute}';
+    String hour = now.hour.toString().padLeft(2, '0');
+    String minute = now.minute.toString().padLeft(2, '0');
+    return '$hour:$minute';
   }
 }

@@ -61,6 +61,7 @@ class DestinationCard extends StatelessWidget {
                       width: double.infinity,
                       child: Center(
                         child: CustomText(
+                          fontSize: 20,
                           text: title,
                         ),
                       ),
