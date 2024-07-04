@@ -3,7 +3,6 @@ import 'package:fleet_tracker/Constants/Enum/weather_state_enum.dart';
 import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Controller/Home/home_controller.dart';
 import 'package:fleet_tracker/Model/Data/location_data.dart';
-import 'package:fleet_tracker/Service/API/Original/warehouse_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/destination_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
@@ -11,7 +10,6 @@ import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../Model/Data/Warehouse/search_info_data.dart';
-import '../../Model/Entity/Warehouse/warehouse.dart';
 import '../../Route/router.dart';
 import '../Component/CustomWidget/UserInput/user_input_cell.dart';
 import '../Component/CustomWidget/custom_text.dart';
@@ -25,16 +23,10 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   HomeController controller = HomeController();
-  String currentAddress = '';
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future(
-      () async {
-        currentAddress = await controller.getCurrentAddress();
-      },
-    );
   }
 
   @override
@@ -142,27 +134,41 @@ class _HomeViewState extends State<HomeView> {
                                       height: 30,
                                       child: Padding(
                                         padding: const EdgeInsets.all(4.0),
-                                        child: CustomText(
-                                          text: currentAddress,
-                                          fontSize: 15,
-                                        ),
+                                        child: FutureBuilder<String>(
+                                            future: controller.getCurrentAddress(),
+                                            builder: (context, snapshot) {
+                                              return CustomText(
+                                                text: '${snapshot.data}',
+                                                fontSize: 15,
+                                              );
+                                            }),
                                       ),
                                     ),
                                     Container(
                                       height: 30,
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
-                                          horizontal: 8.0,
+                                          horizontal: 4.0,
                                           vertical: 4.0,
                                         ),
-                                        child: FutureBuilder<String?>(
-                                            future: controller.getNearestRoadName(lat: _location.lat, lng: _location.lng),
-                                            builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
-                                              return CustomText(
-                                                text: snapshot.data ?? '高速道路名',
+                                        child: FutureBuilder<String>(
+                                          future: controller.getNearestRoadName(
+                                            lat: _location.lat,
+                                            lng: _location.lng,
+                                          ),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState == ConnectionState.waiting) {
+                                              return const CustomText(
+                                                text: '取得中',
                                                 fontSize: 12,
                                               );
-                                            }),
+                                            }
+                                            return CustomText(
+                                              text: '${snapshot.data}',
+                                              fontSize: 12,
+                                            );
+                                          },
+                                        ),
                                       ),
                                     )
                                   ],
@@ -237,49 +243,65 @@ class _HomeViewState extends State<HomeView> {
                           SizedBox(
                             width: size.width * 0.4,
                             height: 80,
-                            child: CommonCard(
-                              cardColor: WeatherStateType('sun').color(),
-                              content: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Container(
-                                    child: Column(
+                            child: FutureBuilder<String?>(
+                                future: controller.getNowWeatherState(
+                                  lat: _location.lat,
+                                  lng: _location.lng,
+                                ),
+                                builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
+                                  /// awaitしてる間とバグってnullの場合の処理
+                                  if (snapshot.connectionState == ConnectionState.waiting || snapshot.data == null) {
+                                    return const CommonCard(
+                                      cardColor: Colors.white,
+                                      content: Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    );
+                                  }
+                                  return CommonCard(
+                                    cardColor: WeatherStateType('${snapshot.data}').color(),
+                                    content: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       children: [
-                                        const Padding(
-                                          padding: EdgeInsets.all(4.0),
-                                          child: CustomText(
-                                            text: '現在の天気',
-                                            fontSize: 10,
+                                        Container(
+                                          child: Column(
+                                            children: [
+                                              const Padding(
+                                                padding: EdgeInsets.all(4.0),
+                                                child: CustomText(
+                                                  text: '現在の天気',
+                                                  fontSize: 10,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(4.0),
+                                                child: CustomText(
+                                                  text: WeatherStateType('${snapshot.data}').title(),
+                                                  fontSize: 20,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: CustomText(
-                                            text: WeatherStateType('sun').title(),
-                                            fontSize: 20,
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            width: 60,
+                                            height: 60,
+                                            decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                            child: FittedBox(
+                                              fit: BoxFit.contain,
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(50.0),
+                                                child: WeatherStateType('${snapshot.data}').image(),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      width: 60,
-                                      height: 60,
-                                      decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-                                      child: FittedBox(
-                                        fit: BoxFit.contain,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(50.0),
-                                          child: WeatherStateType('sun').image(),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                                  );
+                                }),
                           ),
                           SizedBox(
                             width: size.width * 0.1,
@@ -291,52 +313,67 @@ class _HomeViewState extends State<HomeView> {
                           SizedBox(
                             width: size.width * 0.4,
                             height: 80,
-                            child: CommonCard(
-                              cardColor: WeatherStateType('rain').color(),
-                              content: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Container(
-                                    child: Column(
+                            child: FutureBuilder<String?>(
+                                future: controller.getAfterOneHourWeatherState(
+                                  lat: _location.lat,
+                                  lng: _location.lng,
+                                ),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.waiting || snapshot.data == null) {
+                                    return const CommonCard(
+                                      cardColor: Colors.white,
+                                      content: Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    );
+                                  }
+                                  return CommonCard(
+                                    cardColor: WeatherStateType('${snapshot.data}').color(),
+                                    content: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       children: [
-                                        const Padding(
-                                          padding: EdgeInsets.all(4.0),
-                                          child: CustomText(
-                                            text: '1時間後の天気',
-                                            fontSize: 10,
+                                        Container(
+                                          child: Column(
+                                            children: [
+                                              const Padding(
+                                                padding: EdgeInsets.all(4.0),
+                                                child: CustomText(
+                                                  text: '1時間後の天気',
+                                                  fontSize: 10,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(4.0),
+                                                child: CustomText(
+                                                  text: WeatherStateType('${snapshot.data}').title(),
+                                                  fontSize: 20,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: CustomText(
-                                            text: WeatherStateType('rain').title(),
-                                            fontSize: 20,
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            width: 60,
+                                            height: 60,
+                                            decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.white,
+                                            ),
+                                            child: FittedBox(
+                                              fit: BoxFit.contain,
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(50.0),
+                                                child: WeatherStateType('${snapshot.data}').image(),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      width: 60,
-                                      height: 60,
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.white,
-                                      ),
-                                      child: FittedBox(
-                                        fit: BoxFit.contain,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(50.0),
-                                          child: WeatherStateType('rain').image(),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                                  );
+                                }),
                           ),
                         ],
                       ),
