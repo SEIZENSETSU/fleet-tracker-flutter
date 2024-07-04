@@ -1,3 +1,7 @@
+import 'dart:ffi';
+
+import 'package:fleet_tracker/Model/Data/location_data.dart';
+import 'package:fleet_tracker/Model/Entity/Warehouse/warehouse.dart';
 import 'package:fleet_tracker/Model/Entity/location.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:geolocator/geolocator.dart';
@@ -40,5 +44,18 @@ class GeolocatorService {
       lng: data.longitude,
       time: DateTime.now(),
     );
+  }
+
+  /// 現在の座標とエリアの座標から方位を計算する。
+  /// [warehouseLat]
+  /// [warehouseLon]
+  calcBearingBetween({
+    required double warehouseLat,
+    required double warehouseLon,
+  }) {
+    double angle = Geolocator.bearingBetween(LocationData().getData().lat,
+        LocationData().getData().lng, warehouseLat, warehouseLon);
+
+    return angle;
   }
 }
