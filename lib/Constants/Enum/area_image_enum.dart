@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 enum AreaImageEnum {
   hokkaido,
   tohoku,
-  hokuriku,
   kanto,
+  shinetsu,
   tokai,
-  kansai,
+  kinki,
   chugoku,
   shikoku,
   kyushu,
@@ -24,16 +24,16 @@ class AreaImageType {
         type = AreaImageEnum.tohoku;
         break;
       case 3:
-        type = AreaImageEnum.hokuriku;
+        type = AreaImageEnum.kanto;
         break;
       case 4:
-        type = AreaImageEnum.kanto;
+        type = AreaImageEnum.shinetsu;
         break;
       case 5:
         type = AreaImageEnum.tokai;
         break;
       case 6:
-        type = AreaImageEnum.kansai;
+        type = AreaImageEnum.kinki;
         break;
       case 7:
         type = AreaImageEnum.chugoku;
@@ -55,13 +55,13 @@ class AreaImageType {
         return Assets.images.icons.errorDialogIcon.image();
       case AreaImageEnum.tohoku:
         return Assets.images.icons.errorDialogIcon.image();
-      case AreaImageEnum.hokuriku:
-        return Assets.images.icons.errorDialogIcon.image();
       case AreaImageEnum.kanto:
+        return Assets.images.icons.errorDialogIcon.image();
+      case AreaImageEnum.shinetsu:
         return Assets.images.icons.errorDialogIcon.image();
       case AreaImageEnum.tokai:
         return Assets.images.icons.errorDialogIcon.image();
-      case AreaImageEnum.kansai:
+      case AreaImageEnum.kinki:
         return Assets.images.icons.errorDialogIcon.image();
       case AreaImageEnum.chugoku:
         return Assets.images.icons.errorDialogIcon.image();

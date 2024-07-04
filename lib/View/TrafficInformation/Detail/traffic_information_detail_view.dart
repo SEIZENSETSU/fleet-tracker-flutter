@@ -27,7 +27,7 @@ class TrafficInformationDetailView extends StatefulWidget {
 
 class _TrafficInformationStateDetailView
     extends State<TrafficInformationDetailView> {
-  TrafficInformationDetailController trafficInformationDetailController =
+  TrafficInformationDetailController controller =
       TrafficInformationDetailController();
   @override
   Widget build(BuildContext context) {
@@ -41,8 +41,7 @@ class _TrafficInformationStateDetailView
         child: Column(
           children: <Widget>[
             FutureBuilder<TrafficDetail?>(
-                future: trafficInformationDetailController
-                    .getTrafficDetail(widget.roadId),
+                future: controller.getTrafficDetail(widget.roadId),
                 builder: (BuildContext context,
                     AsyncSnapshot<TrafficDetail?> snapshot) {
                   if (snapshot.hasData) {
@@ -60,8 +59,7 @@ class _TrafficInformationStateDetailView
               height: 20,
             ),
             FutureBuilder<List<TrafficIssue>?>(
-                future: trafficInformationDetailController
-                    .getTrafficIssueList(widget.roadId),
+                future: controller.getTrafficIssueList(widget.roadId),
                 builder: (BuildContext context,
                     AsyncSnapshot<List<TrafficIssue>?> snapshot) {
                   if (snapshot.hasData) {
@@ -89,8 +87,7 @@ class _TrafficInformationStateDetailView
               height: 20,
             ),
             FutureBuilder<List<TrafficSapaInfo>?>(
-                future: trafficInformationDetailController
-                    .getTrafficSapaInfoList(widget.roadId),
+                future: controller.getTrafficSapaInfoList(widget.roadId),
                 builder: (BuildContext context,
                     AsyncSnapshot<List<TrafficSapaInfo>?> snapshot) {
                   if (widget.provideSapa) {
