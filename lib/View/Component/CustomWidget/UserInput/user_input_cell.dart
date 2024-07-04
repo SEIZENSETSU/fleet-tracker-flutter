@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Controller/Component/user_input_circle_cell_controller.dart';
 import 'package:fleet_tracker/Controller/UserInput/user_input_top_controller.dart';
@@ -15,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../../../Constants/Enum/warehouse_delay_state_enum.dart';
+import '../../../../Controller/Component/user_input_cell_controller.dart';
 import '../../../../Service/Log/log_service.dart';
 
 class UserInputCell extends StatefulWidget {
@@ -42,6 +45,7 @@ class UserInputCell extends StatefulWidget {
 }
 
 class _UserInputCellState extends State<UserInputCell> {
+  UserInputCellController controller = UserInputCellController();
   bool onLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -105,82 +109,102 @@ class _UserInputCellState extends State<UserInputCell> {
             const SizedBox(
               height: 20,
             ),
-            Container(
-              height: 60,
-              child: Column(
-                children: [
-                  Container(
-                    height: 30,
-                    color: stateType.color().withAlpha(60),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            height: 20,
-                            width: 20,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: stateType.color(),
+            FutureBuilder(
+                future: controller.getAverageDelayState(
+                    warehouseId: widget.warehouseId),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState != ConnectionState.done) {
+                    return const CirclarProgressIndicatorCell(height: 60);
+                  }
+
+                  if (snapshot.hasData) {
+                    String? type = snapshot.data;
+                    if (type == null) {
+                      // エラー
+                    }
+                    WarehouseDelayStateType delayStateType =
+                        WarehouseDelayStateType(type!);
+
+                    return Container(
+                      height: 60,
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 30,
+                            color: delayStateType.color().withAlpha(60),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    height: 20,
+                                    width: 20,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: delayStateType.color(),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: Container(
+                                        height: 10,
+                                        width: 10,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Color.lerp(
+                                            delayStateType.color(),
+                                            Colors.white,
+                                            0.5,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 9,
+                                  child: CustomText(
+                                    text: delayStateType.title(),
+                                  ),
+                                ),
+                              ],
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(2.0),
+                          ),
+                          Container(
+                            height: 30,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: delayStateType.color().withAlpha(60),
+                              border: Border(
+                                top: BorderSide(
+                                  color: delayStateType.color(),
+                                ),
+                              ),
+                            ),
+                            child: Align(
+                              alignment: Alignment.centerRight,
                               child: Container(
-                                height: 10,
-                                width: 10,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Color.lerp(
-                                    stateType.color(),
-                                    Colors.white,
-                                    0.5,
+                                child: FractionallySizedBox(
+                                  widthFactor: 0.9,
+                                  child: Row(
+                                    children: [
+                                      CustomText(
+                                        fontSize: 10,
+                                        text: delayStateType.detail(),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 9,
-                          child: CustomText(
-                            text: stateType.title(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 30,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: stateType.color().withAlpha(60),
-                      border: Border(
-                        top: BorderSide(
-                          color: stateType.color(),
-                        ),
+                          )
+                        ],
                       ),
-                    ),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Container(
-                        child: FractionallySizedBox(
-                          widthFactor: 0.9,
-                          child: Row(
-                            children: [
-                              CustomText(
-                                fontSize: 10,
-                                text: stateType.detail(),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
+                    );
+                  } else {
+                    return const CirclarProgressIndicatorCell(height: 60);
+                  }
+                }),
             SizedBox(
               height: 15,
             ),

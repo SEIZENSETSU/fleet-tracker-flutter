@@ -70,7 +70,7 @@ class _HomeViewState extends State<HomeView> {
                             toWarehousePage: () {
                               WarehouseDetailRoute(
                                 $extra: data,
-                                functionType: 'search',
+                                functionType: 'home',
                               ).push(context);
                             },
                           ),
@@ -364,7 +364,7 @@ class _HomeViewState extends State<HomeView> {
                             onTap: () {
                               // 倉庫検索タブへ遷移
                               controller.pushFunctionCard(
-                                  FunctionType('home').branchIndex());
+                                  FunctionType('search').branchIndex());
                             },
                             content: const Column(
                               mainAxisAlignment: MainAxisAlignment.center,

@@ -1,9 +1,12 @@
 import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Controller/WarehouseSearch/warehouse_search_top_controller.dart';
+import 'package:fleet_tracker/Model/Entity/Warehouse/info.dart';
+import 'package:fleet_tracker/Model/Entity/Warehouse/search_info.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/WarehouseSearch/japan_map_deformed.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/WarehouseSearch/local_search_card_group.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/circular_progress_indicator_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_button.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_textfield.dart';
@@ -135,86 +138,85 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 ),
               ),
             ),
-            ElevatedButton(
-                onPressed: () async {
-                  await controller.getFavoiteWarehousese();
-                },
-                child: Text('push')),
             // 表示部
             FutureBuilder(
-                future: null,
+                future: controller.getFavoiteWarehousese(),
                 builder: (context, snapshot) {
-                  return ListView.builder(
-                      itemCount: 5,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            // 倉庫詳細ページへ遷移
+                  if (snapshot.connectionState != ConnectionState.done) {
+                    return const CirclarProgressIndicatorCell(height: 100);
+                  }
 
-                            Log.echo('倉庫詳細ページへ');
+                  if (snapshot.hasData) {
+                    List<WarehouseInfo> warehosueInfo = snapshot.data!;
+                    return ListView.builder(
+                        itemCount: warehosueInfo.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              // 倉庫詳細ページへ遷移
 
-                            //
-                            // お気に入り工場リストからインスタンス化して値を渡す
+                              Log.echo('倉庫詳細ページへ');
 
-                            // WarehouseDetailRoute(
-                            //   $extra: Warehouse(
-                            //     id: 1,
-                            //     name: 'エルフーズ東京',
-                            //     latitude: 35.681236,
-                            //     longitude: 139.767125,
-                            //   ),
-                            //   traficstateCountList: [],
-                            //   delayStateType: 'pause',
-                            // ).push(context);
-                          },
-                          child: SizedBox(
-                            height: size.height * 0.1,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 20),
-                              child: CommonCard(
-                                content: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 1,
-                                      child: FractionallySizedBox(
-                                        heightFactor: 0.5,
+                              // お気に入り工場リストからインスタンス化して値を渡す
+
+                              WarehouseDetailRoute(
+                                      $extra: warehosueInfo[index],
+                                      functionType: 'search')
+                                  .push(context);
+                            },
+                            child: SizedBox(
+                              height: size.height * 0.1,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 20),
+                                child: CommonCard(
+                                  content: Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 1,
+                                        child: FractionallySizedBox(
+                                          heightFactor: 0.5,
+                                          child: Container(
+                                            child: Assets
+                                                .images.icons.factoryIcon
+                                                .image(),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 3,
                                         child: Container(
-                                          child: Assets.images.icons.factoryIcon
-                                              .image(),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 3,
-                                      child: Container(
-                                        child: Row(
-                                          children: [
-                                            CustomText(
-                                              text: 'エルフーズ東京',
-                                              fontSize: 13,
-                                            ),
-                                            Spacer(),
-                                            Container(
-                                              width: 30,
-                                              height: 30,
-                                              child: Icon(
-                                                Icons.chevron_right,
+                                          child: Row(
+                                            children: [
+                                              CustomText(
+                                                text: warehosueInfo[index]
+                                                    .warehouseName,
+                                                fontSize: 13,
                                               ),
-                                            )
-                                          ],
+                                              Spacer(),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: const Icon(
+                                                  Icons.chevron_right,
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      });
+                          );
+                        });
+                  } else {
+                    return const CirclarProgressIndicatorCell(height: 100);
+                  }
                 }),
 
             const SizedBox(

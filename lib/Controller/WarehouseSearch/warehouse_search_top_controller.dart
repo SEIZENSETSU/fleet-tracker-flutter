@@ -60,14 +60,11 @@ class WarehouseSearchTopController {
               userLatitude: LocationData().getData().lat,
               userLongitude: LocationData().getData().lng,
               favoriteWarehouseIds: int.parse(favoriteId[i]));
-
-      Log.echo(warehouseInfo!.warehouses.toString(), symbol: '👞');
-
-      // if (warehouseInfo != null) {
-      //   favoriteWarehouseList.add(warehouseInfo.favoriteWarehouses);
-      // }
+      if (warehouseInfo != null) {
+        favoriteWarehouseList.add(warehouseInfo.favoriteWarehouses![0]);
+      }
     }
 
-    return null;
+    return favoriteWarehouseList;
   }
 }
