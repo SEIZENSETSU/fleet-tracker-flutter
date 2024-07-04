@@ -92,7 +92,7 @@ class SettingTopController {
 
   /// googleformへ
   Future<void> openinquiry() async {
-    Uri url = Uri.parse('https://forms.gle/ttQxZC2cBCT8VcSE6');
+    Uri url = Uri.parse('https://forms.gle/CLn1SfQqQdHLjEiK9');
     if (!(await canLaunchUrl(url))) {
       Log.echo('URLを開けませんでした。', symbol: '❌');
       return;
