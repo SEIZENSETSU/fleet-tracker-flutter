@@ -1,5 +1,6 @@
 import 'package:fleet_tracker/Service/API/Original/delay_service.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class UserInputCircleCellController {
   bool isAction = false;
@@ -21,7 +22,8 @@ class UserInputCircleCellController {
           return;
         }
         // 成功時の表示はなにかする？
-        Log.toast('登録しました');
+        Log.toast('遅延情報を登録しました。');
+        Fluttertoast.showToast(msg: '遅延情報を登録しました。');
         isAction = false;
       } catch (e) {
         Log.toast('エラーが発生しました $e');

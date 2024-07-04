@@ -64,7 +64,7 @@ class _HomeViewState extends State<HomeView> {
                             toWarehousePage: () {
                               WarehouseDetailRoute(
                                 $extra: data,
-                                functionType: 'search',
+                                functionType: FunctionTypeEnum.home.name,
                               ).push(context);
                             },
                           ),
@@ -401,101 +401,102 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       ),
                     ),
-                    Container(
-                      height: 80,
-                      width: size.width * 0.9,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            width: 60,
-                            height: 60,
-                            child: CommonCard(
-                              onTap: () {
-                                // 倉庫検索タブへ遷移
-                                controller.pushFunctionCard(FunctionType('home').branchIndex());
-                              },
-                              content: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.search,
-                                  ),
-                                  CustomText(
-                                    text: '倉庫検索',
-                                    fontSize: 8,
-                                  )
-                                ],
-                              ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          width: 60,
+                          height: 60,
+                          child: CommonCard(
+                            onTap: () {
+                              // 倉庫検索タブへ遷移
+                              controller.pushFunctionCard(
+                                  FunctionType(FunctionTypeEnum.search.name)
+                                      .branchIndex());
+                            },
+                            content: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.search,
+                                ),
+                                CustomText(
+                                  text: '倉庫検索',
+                                  fontSize: 8,
+                                )
+                              ],
                             ),
                           ),
-                          Container(
-                            width: 60,
-                            height: 60,
-                            child: CommonCard(
-                              onTap: () {
-                                // コメント・遅延登録画面へ遷移
-                                controller.pushFunctionCard(FunctionType('userInput').branchIndex());
-                              },
-                              content: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.chat,
-                                  ),
-                                  CustomText(
-                                    text: '登録',
-                                    fontSize: 8,
-                                  )
-                                ],
-                              ),
+                        ),
+                        Container(
+                          width: 60,
+                          height: 60,
+                          child: CommonCard(
+                            onTap: () {
+                              // コメント・遅延登録画面へ遷移
+                              controller.pushFunctionCard(
+                                  FunctionType(FunctionTypeEnum.userInput.name)
+                                      .branchIndex());
+                            },
+                            content: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.chat,
+                                ),
+                                CustomText(
+                                  text: '登録',
+                                  fontSize: 8,
+                                )
+                              ],
                             ),
                           ),
-                          Container(
-                            width: 60,
-                            height: 60,
-                            child: CommonCard(
-                              onTap: () {
-                                // 交通情報タブへ遷移
-                                controller.pushFunctionCard(FunctionType('trafficInformation').branchIndex());
-                              },
-                              content: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.directions_car,
-                                  ),
-                                  CustomText(
-                                    text: '交通情報',
-                                    fontSize: 8,
-                                  )
-                                ],
-                              ),
+                        ),
+                        Container(
+                          width: 60,
+                          height: 60,
+                          child: CommonCard(
+                            onTap: () {
+                              // 交通情報タブへ遷移
+                              controller.pushFunctionCard(FunctionType(
+                                      FunctionTypeEnum.trafficInformation.name)
+                                  .branchIndex());
+                            },
+                            content: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.directions_car,
+                                ),
+                                CustomText(
+                                  text: '交通情報',
+                                  fontSize: 8,
+                                )
+                              ],
                             ),
                           ),
-                          Container(
-                            width: 60,
-                            height: 60,
-                            child: CommonCard(
-                              onTap: () {
-                                // 設定タブへ遷移
-                                controller.pushFunctionCard(FunctionType('setting').branchIndex());
-                              },
-                              content: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.settings,
-                                  ),
-                                  CustomText(
-                                    text: '設定',
-                                    fontSize: 8,
-                                  )
-                                ],
-                              ),
+                        ),
+                        Container(
+                          width: 60,
+                          height: 60,
+                          child: CommonCard(
+                            onTap: () {
+                              // 設定タブへ遷移
+                              controller.pushFunctionCard(
+                                  FunctionType(FunctionTypeEnum.setting.name)
+                                      .branchIndex());
+                            },
+                            content: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.settings,
+                                ),
+                                CustomText(
+                                  text: '設定',
+                                  fontSize: 8,
+                                )
+                              ],
                             ),
                           )
                         ],

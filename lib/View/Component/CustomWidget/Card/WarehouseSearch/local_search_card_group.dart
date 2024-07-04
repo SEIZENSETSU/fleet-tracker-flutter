@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Constants/Enum/search_area_image_enum.dart';
 import 'package:fleet_tracker/Route/router.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
@@ -7,15 +8,15 @@ class LocalSearchCardGroup extends StatelessWidget {
   const LocalSearchCardGroup({
     super.key,
     required this.areaNameList,
-    required this.areaImageUrlList,
+    required this.setState,
   });
-
   final List<String> areaNameList;
-  final List<String> areaImageUrlList;
+  final Function setState;
 
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
+
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -25,9 +26,31 @@ class LocalSearchCardGroup extends StatelessWidget {
       itemCount: areaNameList.length,
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
-          onTap: () {
-            WarehouseSearchResultRoute(areaId: 0, areaName: areaNameList[index])
-                .push(context);
+          onTap: () async {
+            List<int> areaIdList = [];
+
+            /// indexによってエリアIDを切り替える
+            switch (index) {
+              case 0:
+                areaIdList.add(1);
+              case 1:
+                areaIdList.add(2);
+              case 2:
+                areaIdList.add(9);
+              case 3:
+                areaIdList.add(3);
+              case 4:
+                areaIdList.add(4);
+              case 5:
+                areaIdList.addAll([5, 6]);
+              case 6:
+                areaIdList.addAll([7, 8]);
+            }
+
+            await WarehouseSearchResultRoute(
+              areaIds: areaIdList,
+              areaName: areaNameList[index],
+            ).push(context).then((value) => setState());
           },
           child: Padding(
             padding: const EdgeInsets.all(10),
@@ -40,7 +63,9 @@ class LocalSearchCardGroup extends StatelessWidget {
                         width: deviceWidth * 0.15,
                         child: Padding(
                           padding: const EdgeInsets.all(5),
-                          child: Image.network(areaImageUrlList[index]),
+                          child: SearchAreaImageType(
+                                  SearchAreaImageEnum.values[index].name)
+                              .image(),
                         )),
                     CustomText(
                       text: areaNameList[index],

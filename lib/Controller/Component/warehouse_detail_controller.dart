@@ -1,17 +1,29 @@
 import 'package:fleet_tracker/Constants/Enum/function_type_enum.dart';
 import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
 import 'package:fleet_tracker/Controller/bottom_navigation_bar_controller.dart';
+import 'package:fleet_tracker/Model/Data/user_data.dart';
+import 'package:fleet_tracker/Service/API/Original/comment_service.dart';
+import 'package:fleet_tracker/Service/API/Original/user_service.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../Model/Entity/comment.dart';
+import '../../Model/Entity/user.dart';
 
 class WarehouseDetailController {
+  SharedPreferencesService prefs = SharedPreferencesService();
+  TextEditingController textEditingController = TextEditingController();
   bool enableAction = false;
   bool onLoad = false;
   outArea() {
     BottomNavigationBarController().goBranch(0);
   }
 
-  initialize(String type) {
+  /// 倉庫詳細ページ初期化処理
+  /// [type]
+  void initialize(String type) {
     FunctionTypeEnum typeEnum = FunctionType(type).type;
     switch (typeEnum) {
       case FunctionTypeEnum.home:
@@ -24,49 +36,121 @@ class WarehouseDetailController {
     }
   }
 
-  Future<void> favoriteButtonAction(int id) async {
+  /// お気に入り登録のボタンが押された時の処理
+  /// [warehouseId]
+  Future<void> favoriteButtonAction({required int warehouseId}) async {
     if (!onLoad) {
       onLoad = true;
       // あるかチェック
-      bool isFavorite = await favoriteListCheck(id);
+      bool isFavorite = await favoriteListCheck(warehouseId: warehouseId);
       if (isFavorite) {
         // あったら削除
-        await deleteFavorite(id);
+        await deleteFavorite(warehouseId: warehouseId);
         onLoad = false;
       } else {
         // なかったら追加
-        await addFavoite(id);
+        await addFavorite(warehouseId: warehouseId);
         onLoad = false;
       }
     }
   }
 
-  Future<void> addFavoite(int id) async {
-    await SharedPreferencesService().setStringList(
-        SharedPreferencesKeysEnum.favoriteWarehouseList.name, [id.toString()]);
-    Log.toast('${id}をお気に入り倉庫に登録しました');
+  /// お気に入り倉庫をローカルに保存する
+  /// [warehouseId]
+  Future<void> addFavorite({required int warehouseId}) async {
+    List<String>? favoriteIds = await prefs
+        .getStringList(SharedPreferencesKeysEnum.favoriteWarehouseList.name);
+
+    favoriteIds!.add(warehouseId.toString());
+    await prefs.setStringList(
+        SharedPreferencesKeysEnum.favoriteWarehouseList.name, favoriteIds);
+    Fluttertoast.showToast(msg: 'この工場をお気に入り登録しました。');
+    Log.toast('${warehouseId}をお気に入り倉庫に登録しました');
   }
 
-  Future<void> deleteFavorite(int id) async {
-    List<String>? favoriteList = await SharedPreferencesService()
+  /// お気に入り倉庫をローカルから削除する
+  /// [warehouseId]
+  Future<void> deleteFavorite({required int warehouseId}) async {
+    List<String>? favoriteList = await prefs
         .getStringList(SharedPreferencesKeysEnum.favoriteWarehouseList.name);
     // 配列から指定した工場を削除
-    favoriteList!.removeWhere((element) => element == id.toString());
+    favoriteList!.removeWhere((element) => element == warehouseId.toString());
     // 削除した配列を保存
-    await SharedPreferencesService().setStringList(
+    await prefs.setStringList(
         SharedPreferencesKeysEnum.favoriteWarehouseList.name, favoriteList);
-
-    Log.toast('${id}をお気に入り倉庫から削除しました');
+    Fluttertoast.showToast(msg: 'お気に入り登録を解除しました。');
+    Log.toast('${warehouseId}をお気に入り倉庫から削除しました');
   }
 
-  Future<bool> favoriteListCheck(int id) async {
-    List? favoriteList = await SharedPreferencesService()
+  /// 指定した倉庫がローカルに保存されているかチェック
+  /// [warehouseId]
+  Future<bool> favoriteListCheck({required int warehouseId}) async {
+    List? favoriteList = await prefs
         .getStringList(SharedPreferencesKeysEnum.favoriteWarehouseList.name);
-    // 配列に指定した工場が入っているかどうかチェック
-    if (favoriteList!.contains(id.toString())) {
+    if (favoriteList!.contains(warehouseId.toString())) {
       return true;
     } else {
       return false;
     }
+  }
+
+  /// コメントを投稿する処理
+  /// [content]
+  /// [warehouseId]
+  Future<void> postComment(
+      {required String content, required int warehouseId}) async {
+    if (content == '') {
+      Fluttertoast.showToast(msg: 'コメントを入力してください。');
+      return;
+    }
+    int? response = await CommentService().postComment(
+      uid: UserData().getData().uid,
+      warehouseId: warehouseId,
+      contents: content,
+    );
+
+    if (response == null) {
+      Fluttertoast.showToast(msg: 'コメントを投稿できませんでした。');
+      textEditingController.text = '';
+      return;
+    }
+
+    Fluttertoast.showToast(msg: 'コメントを投稿しました。');
+    textEditingController.text = '';
+    Log.echo('コメントを投稿しました');
+  }
+
+  /// コメント表示部に必要な情報を取得
+  /// [warehouseId]
+  Future<List<Map<String, dynamic>>?> getCommentList(
+      {required warehouseId}) async {
+    List<Map<String, dynamic>> commentTileInfo = [];
+    List<Comment>? commentList =
+        await CommentService().getCommentList(warehouseId: warehouseId);
+    if (commentList == null) {
+      // 取得に失敗
+      return null;
+    }
+    List<String> userName = [];
+    for (int i = 0; i < commentList.length; i++) {
+      print(commentList[i].createdAt);
+      User? user = await UserService().getUserInfo(uid: commentList[i].uid);
+      if (user == null) {
+        userName.add('名無し');
+      } else {
+        print(user.name);
+        userName.add(user.name);
+      }
+    }
+    commentTileInfo = [
+      for (int i = 0; i < commentList.length; i++)
+        {
+          'name': userName[i],
+          'comment': commentList[i].contents,
+          'create_at': commentList[i].createdAt
+        }
+    ];
+
+    return commentTileInfo;
   }
 }

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
 import 'package:fleet_tracker/Constants/strings.dart';
+import 'package:fleet_tracker/Controller/WarehouseSearch/warehouse_search_top_controller.dart';
 import 'package:fleet_tracker/Model/Data/Warehouse/search_info_data.dart';
 import 'package:fleet_tracker/Model/Data/location_data.dart';
 import 'package:fleet_tracker/Model/Data/user_data.dart';
@@ -16,6 +17,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
+import "package:intl/intl.dart";
+import 'package:intl/date_symbol_data_local.dart';
 
 import '../Model/Entity/user.dart';
 import '../Service/API/Original/warehouse_service.dart';
@@ -61,6 +64,18 @@ class TopLoadingController {
             SharedPreferencesKeysEnum.favoriteWarehouseList.name) ??
         prefs.setStringList(
             SharedPreferencesKeysEnum.favoriteWarehouseList.name, []);
+
+    /// 倉庫検索タブのview切り替え取得
+    bool? mapSwitch =
+        await prefs.getBool(SharedPreferencesKeysEnum.mapSwitch.name);
+    if (mapSwitch == null) {
+      await WarehouseSearchTopController().setMapSwitch(flag: true);
+    } else {
+      await WarehouseSearchTopController().setMapSwitch(flag: mapSwitch);
+    }
+
+    /// ローカルのタイムゾーンを日本に設定する。
+    initializeDateFormatting("ja_JP");
 
     /// ユーザー情報を取得
     firebase_auth.User? authUser = authenticationService.getUser();
