@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
 import 'package:fleet_tracker/Constants/strings.dart';
@@ -21,6 +23,7 @@ import 'package:permission_handler/permission_handler.dart';
 import "package:intl/intl.dart";
 import 'package:intl/date_symbol_data_local.dart';
 
+import '../Constants/Enum/remote_config_keys_enum.dart';
 import '../Model/Entity/user.dart';
 import '../Service/API/Original/warehouse_service.dart';
 import '../Service/Log/log_service.dart';
@@ -49,6 +52,19 @@ class TopLoadingController {
 
     /// RemoteConfig Initialize
     await RemoteConfigService().initalize();
+
+    bool releaseValue = RemoteConfigService().getBool(RemoteConfigKeys.release);
+    if (!releaseValue) {
+      final completer = Completer<void>();
+      ErrorDialog().showErrorDialog(
+        context: context,
+        title: 'メンテナンス中です...',
+        content: Assets.images.icons.errorDialogIcon.image(),
+        detail: '時間を開けて再度起動してください。',
+        isShowButton: false,
+      );
+      return completer.future;
+    }
 
     /// LocalNotifications Initialize
     await LocalNotificationsService().initialize();

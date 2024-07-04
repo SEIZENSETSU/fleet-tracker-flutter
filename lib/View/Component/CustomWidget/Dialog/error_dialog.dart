@@ -2,7 +2,6 @@ import 'package:fleet_tracker/View/Component/CustomWidget/custom_button.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class ErrorDialog {
   showErrorDialog({
@@ -10,9 +9,10 @@ class ErrorDialog {
     required String title,
     required Widget content,
     required String detail,
-    required String buttonText,
+    String buttonText = '閉じる',
     Function? buttonAction,
     bool barrierDismissible = false,
+    bool isShowButton = true,
   }) {
     showDialog(
       context: context,
@@ -89,31 +89,33 @@ class ErrorDialog {
                           ],
                         ),
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: SizedBox(
-                          width: 200,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: CustomButton(
-                              primaryColor: ColorName.mainthemeColor,
-                              text: buttonText,
-                              onTap: buttonAction != null
-                                  ? () {
-                                      // 指定した処理
-                                      buttonAction();
-                                    }
-                                  : () {
-                                      // 戻る
-                                      Navigator.of(
-                                        context,
-                                        rootNavigator: true,
-                                      ).pop();
-                                    },
+                      if (isShowButton) ...[
+                        Expanded(
+                          flex: 1,
+                          child: SizedBox(
+                            width: 200,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: CustomButton(
+                                primaryColor: ColorName.mainthemeColor,
+                                text: buttonText,
+                                onTap: buttonAction != null
+                                    ? () {
+                                        // 指定した処理
+                                        buttonAction();
+                                      }
+                                    : () {
+                                        // 戻る
+                                        Navigator.of(
+                                          context,
+                                          rootNavigator: true,
+                                        ).pop();
+                                      },
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                      ]
                     ],
                   ),
                 ),
