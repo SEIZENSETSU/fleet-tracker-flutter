@@ -78,9 +78,6 @@ class TopLoadingController {
       await WarehouseSearchTopController().setMapSwitch(flag: mapSwitch);
     }
 
-    /// ローカルのタイムゾーンを日本に設定する。
-    initializeDateFormatting("ja_JP");
-
     /// ユーザー情報を取得
     firebase_auth.User? authUser = authenticationService.getUser();
     User? userInfo;
