@@ -10,9 +10,14 @@ class UserInputCellController {
     String? average;
     Warehouse? warehouse =
         await WarehouseService().getWarehouseInfo(warehouseId: warehouseId);
+
+    if (warehouse == null) {
+      // エラー
+      return null;
+    }
     WarehouseSearchInfo? searchInfo = await WarehouseService()
         .searchWarehouseList(
-            userLatitude: warehouse!.latitude,
+            userLatitude: warehouse.latitude,
             userLongitude: warehouse.longitude);
     if (searchInfo == null) {
       // エラー
