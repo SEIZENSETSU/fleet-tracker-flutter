@@ -186,7 +186,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                 ),
               ),
               FutureBuilder(
-                  future: CommentService().getCommentList(
+                  future: controller.getCommentList(
                       warehouseId: widget.warehouseInfo.warehouseId),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState != ConnectionState.done) {
@@ -194,7 +194,8 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                     }
 
                     if (snapshot.hasData) {
-                      final List<Comment> comentList = snapshot.data!;
+                      final List<Map<String, dynamic>> comentList =
+                          snapshot.data!;
                       Log.echo(comentList.length.toString());
                       if (comentList.isNotEmpty) {
                         return Container(
@@ -203,16 +204,16 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                           child: ListView.builder(
                               itemCount: snapshot.data!.length,
                               itemBuilder: (context, index) {
-                                Comment comment = comentList[index];
                                 return Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 15),
                                   child: CommentTile(
-                                    userComment: comment.contents,
-                                    createAt: DateFormat('yyyy年MM月dd日 hh時mm分')
-                                        .format(
-                                            DateTime.parse(comment.createdAt!)),
-                                    userName: comment.uid,
+                                    userComment: comentList[index]['comment'],
+                                    createAt: DateFormat(
+                                            'yyyy年MM月dd日 hh時mm分', 'ja_JP')
+                                        .format(DateTime.parse(
+                                            comentList[index]['create_at'])),
+                                    userName: comentList[index]['name'],
                                   ),
                                 );
                               }),

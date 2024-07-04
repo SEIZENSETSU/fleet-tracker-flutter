@@ -17,6 +17,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
+import "package:intl/intl.dart";
+import 'package:intl/date_symbol_data_local.dart';
 
 import '../Model/Entity/user.dart';
 import '../Service/API/Original/warehouse_service.dart';
@@ -71,6 +73,9 @@ class TopLoadingController {
     } else {
       await WarehouseSearchTopController().setMapSwitch(flag: mapSwitch);
     }
+
+    /// ローカルのタイムゾーンを日本に設定する。
+    initializeDateFormatting("ja_JP");
 
     /// ユーザー情報を取得
     firebase_auth.User? authUser = authenticationService.getUser();

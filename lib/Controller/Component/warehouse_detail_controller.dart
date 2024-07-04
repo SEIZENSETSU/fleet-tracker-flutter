@@ -3,10 +3,14 @@ import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
 import 'package:fleet_tracker/Controller/bottom_navigation_bar_controller.dart';
 import 'package:fleet_tracker/Model/Data/user_data.dart';
 import 'package:fleet_tracker/Service/API/Original/comment_service.dart';
+import 'package:fleet_tracker/Service/API/Original/user_service.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../Model/Entity/comment.dart';
+import '../../Model/Entity/user.dart';
 
 class WarehouseDetailController {
   SharedPreferencesService prefs = SharedPreferencesService();
@@ -114,5 +118,39 @@ class WarehouseDetailController {
     Fluttertoast.showToast(msg: 'コメントを投稿しました。');
     textEditingController.text = '';
     Log.echo('コメントを投稿しました');
+  }
+
+  /// コメント表示部に必要な情報を取得
+  /// [warehouseId]
+  Future<List<Map<String, dynamic>>?> getCommentList(
+      {required warehouseId}) async {
+    List<Map<String, dynamic>> commentTileInfo = [];
+    List<Comment>? commentList =
+        await CommentService().getCommentList(warehouseId: warehouseId);
+    if (commentList == null) {
+      // 取得に失敗
+      return null;
+    }
+    List<String> userName = [];
+    for (int i = 0; i < commentList.length; i++) {
+      print(commentList[i].createdAt);
+      User? user = await UserService().getUserInfo(uid: commentList[i].uid);
+      if (user == null) {
+        userName.add('名無し');
+      } else {
+        print(user.name);
+        userName.add(user.name);
+      }
+    }
+    commentTileInfo = [
+      for (int i = 0; i < commentList.length; i++)
+        {
+          'name': userName[i],
+          'comment': commentList[i].contents,
+          'create_at': commentList[i].createdAt
+        }
+    ];
+
+    return commentTileInfo;
   }
 }
