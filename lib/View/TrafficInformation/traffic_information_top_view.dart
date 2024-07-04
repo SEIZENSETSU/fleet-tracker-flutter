@@ -37,14 +37,19 @@ class _TrafficInformationStateTopViewState
             if (snapshot.hasData) {
               List<TrafficArea> prefectureInfoList = snapshot.data!;
               return ListView.builder(
-                itemCount: prefectureInfoList.length,
+                itemCount: prefectureInfoList.length + 1,
                 itemBuilder: (BuildContext context, int index) {
+                  if (index == prefectureInfoList.length) {
+                    return SizedBox(
+                      height: 50,
+                    );
+                  }
                   String prefectureName = prefectureInfoList[index].name;
+                  int areaId = prefectureInfoList[index].id;
                   List<TrafficRoad> prefecturalRoadList =
                       prefectureInfoList[index].roads;
-
                   return TrafficInformationTileCell(
-                    imageUrl: imageUrl,
+                    areaId: areaId,
                     count: prefectureInfoList[index].totalIssues,
                     prefectureName: prefectureName,
                     prefecturalRoadList: prefecturalRoadList,

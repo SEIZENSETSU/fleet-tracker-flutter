@@ -52,23 +52,23 @@ class TrafficAreaImageType {
   Image image() {
     switch (type) {
       case TrafficAreaImageEnum.hokkaido:
-        return Assets.images.icons.errorDialogIcon.image();
+        return Assets.images.area.hokkaido.image();
       case TrafficAreaImageEnum.tohoku:
-        return Assets.images.icons.errorDialogIcon.image();
+        return Assets.images.area.tohoku.image();
       case TrafficAreaImageEnum.kanto:
-        return Assets.images.icons.errorDialogIcon.image();
+        return Assets.images.area.kanto.image();
       case TrafficAreaImageEnum.shinetsu:
-        return Assets.images.icons.errorDialogIcon.image();
+        return Assets.images.area.shinetsu.image();
       case TrafficAreaImageEnum.tokai:
-        return Assets.images.icons.errorDialogIcon.image();
+        return Assets.images.area.tokai.image();
       case TrafficAreaImageEnum.kinki:
-        return Assets.images.icons.errorDialogIcon.image();
+        return Assets.images.area.kinki.image();
       case TrafficAreaImageEnum.chugoku:
-        return Assets.images.icons.errorDialogIcon.image();
+        return Assets.images.area.chugoku.image();
       case TrafficAreaImageEnum.shikoku:
-        return Assets.images.icons.errorDialogIcon.image();
+        return Assets.images.area.shikoku.image();
       case TrafficAreaImageEnum.kyushu:
-        return Assets.images.icons.errorDialogIcon.image();
+        return Assets.images.area.kyushu.image();
       default:
         throw Exception('Unknown type: $type');
     }
