@@ -52,12 +52,6 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
       appBar: CustomAppBar(
         isBackButton: true,
         title: widget.warehouseInfo.warehouseName,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.info),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Center(
