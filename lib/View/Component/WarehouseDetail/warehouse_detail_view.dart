@@ -246,7 +246,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: CustomTextfield(
-                            // あとで福士のマージ分から虫眼鏡をなくす引数を入れる！！！！！！！！！！！！！！！！！！
+                            isSerchIcon: false,
                             hintText: 'コメントを書いてください',
                             backgroundcolor: Colors.white,
                             controller: controller.textEditingController),

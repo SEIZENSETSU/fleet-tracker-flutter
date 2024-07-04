@@ -97,7 +97,8 @@ class _HomeViewState extends State<HomeView> {
                     //
                     // 現在時刻・現在地の表示部
                     const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: CustomText(
@@ -136,7 +137,8 @@ class _HomeViewState extends State<HomeView> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: FutureBuilder<String>(
-                                            future: controller.getCurrentAddress(),
+                                            future:
+                                                controller.getCurrentAddress(),
                                             builder: (context, snapshot) {
                                               return CustomText(
                                                 text: '${snapshot.data}',
@@ -158,7 +160,8 @@ class _HomeViewState extends State<HomeView> {
                                             lng: _location.lng,
                                           ),
                                           builder: (context, snapshot) {
-                                            if (snapshot.connectionState == ConnectionState.waiting) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
                                               return const CustomText(
                                                 text: '取得中',
                                                 fontSize: 12,
@@ -184,10 +187,12 @@ class _HomeViewState extends State<HomeView> {
                                   child: Padding(
                                     padding: EdgeInsets.all(4.0),
                                     child: Consumer(builder: (context, ref, _) {
-                                      final clockInfo = ref.watch(clockDataProvider);
+                                      final clockInfo =
+                                          ref.watch(clockDataProvider);
                                       final _clock = clockInfo.getData();
                                       return FutureBuilder(
-                                          future: controller.getNowTime(_clock!),
+                                          future:
+                                              controller.getNowTime(_clock!),
                                           builder: (context, snapshot) {
                                             return CustomText(
                                               text: '${snapshot.data}',
@@ -206,7 +211,8 @@ class _HomeViewState extends State<HomeView> {
                     //
                     // 近くのエリア表示部
                     const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: CustomText(
@@ -224,7 +230,8 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         DestinationCard(
                           title: _data.warehouseAreas![0].warehouseAreaName,
-                          delayStateType: _data.warehouseAreas![0].averageDelayState.name,
+                          delayStateType:
+                              _data.warehouseAreas![0].averageDelayState.name,
                           angle: 60,
                           distance: _data.warehouseAreas![0].distance,
                         ),
@@ -233,7 +240,8 @@ class _HomeViewState extends State<HomeView> {
                     //
                     // エリアの天気情報の表示部
                     const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: CustomText(
@@ -260,7 +268,9 @@ class _HomeViewState extends State<HomeView> {
                                 ),
                                 builder: (context, snapshot) {
                                   /// awaitしてる間とバグってnullの場合の処理
-                                  if (snapshot.connectionState == ConnectionState.waiting || snapshot.data == null) {
+                                  if (snapshot.connectionState ==
+                                          ConnectionState.waiting ||
+                                      snapshot.data == null) {
                                     return const CommonCard(
                                       cardColor: Colors.white,
                                       content: Center(
@@ -271,7 +281,8 @@ class _HomeViewState extends State<HomeView> {
                                   return CommonCard(
                                     cardColor: snapshot.data!.color(),
                                     content: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
                                       children: [
                                         Container(
                                           child: Column(
@@ -284,7 +295,8 @@ class _HomeViewState extends State<HomeView> {
                                                 ),
                                               ),
                                               Padding(
-                                                padding: const EdgeInsets.all(4.0),
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
                                                 child: CustomText(
                                                   text: snapshot.data!.title(),
                                                   fontSize: 20,
@@ -298,11 +310,14 @@ class _HomeViewState extends State<HomeView> {
                                           child: Container(
                                             width: 60,
                                             height: 60,
-                                            decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                            decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Colors.white),
                                             child: FittedBox(
                                               fit: BoxFit.contain,
                                               child: Padding(
-                                                padding: const EdgeInsets.all(50.0),
+                                                padding:
+                                                    const EdgeInsets.all(50.0),
                                                 child: snapshot.data!.image(),
                                               ),
                                             ),
@@ -330,7 +345,9 @@ class _HomeViewState extends State<HomeView> {
                                   isAfterOneHour: true,
                                 ),
                                 builder: (context, snapshot) {
-                                  if (snapshot.connectionState == ConnectionState.waiting || snapshot.data == null) {
+                                  if (snapshot.connectionState ==
+                                          ConnectionState.waiting ||
+                                      snapshot.data == null) {
                                     return const CommonCard(
                                       cardColor: Colors.white,
                                       content: Center(
@@ -341,7 +358,8 @@ class _HomeViewState extends State<HomeView> {
                                   return CommonCard(
                                     cardColor: snapshot.data!.color(),
                                     content: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
                                       children: [
                                         Container(
                                           child: Column(
@@ -354,7 +372,8 @@ class _HomeViewState extends State<HomeView> {
                                                 ),
                                               ),
                                               Padding(
-                                                padding: const EdgeInsets.all(4.0),
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
                                                 child: CustomText(
                                                   text: snapshot.data!.title(),
                                                   fontSize: 20,
@@ -375,7 +394,8 @@ class _HomeViewState extends State<HomeView> {
                                             child: FittedBox(
                                               fit: BoxFit.contain,
                                               child: Padding(
-                                                padding: const EdgeInsets.all(50.0),
+                                                padding:
+                                                    const EdgeInsets.all(50.0),
                                                 child: snapshot.data!.image(),
                                               ),
                                             ),
@@ -392,7 +412,8 @@ class _HomeViewState extends State<HomeView> {
                     //
                     // 各ページへの遷移ボタン
                     const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: CustomText(
@@ -401,7 +422,7 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       ),
                     ),
-                    child: Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
@@ -498,10 +519,11 @@ class _HomeViewState extends State<HomeView> {
                                 )
                               ],
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        )
+                      ],
                     ),
+
                     //
                     // 余白
                     SizedBox(
