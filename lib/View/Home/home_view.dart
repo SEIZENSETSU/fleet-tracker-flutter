@@ -243,12 +243,13 @@ class _HomeViewState extends State<HomeView> {
                           SizedBox(
                             width: size.width * 0.4,
                             height: 80,
-                            child: FutureBuilder<String?>(
-                                future: controller.getNowWeatherState(
+                            child: FutureBuilder<WeatherStateType?>(
+                                future: controller.getWeatherState(
                                   lat: _location.lat,
                                   lng: _location.lng,
+                                  isAfterOneHour: false,
                                 ),
-                                builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
+                                builder: (context, snapshot) {
                                   /// awaitしてる間とバグってnullの場合の処理
                                   if (snapshot.connectionState == ConnectionState.waiting || snapshot.data == null) {
                                     return const CommonCard(
@@ -259,7 +260,7 @@ class _HomeViewState extends State<HomeView> {
                                     );
                                   }
                                   return CommonCard(
-                                    cardColor: WeatherStateType('${snapshot.data}').color(),
+                                    cardColor: snapshot.data!.color(),
                                     content: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       children: [
@@ -276,7 +277,7 @@ class _HomeViewState extends State<HomeView> {
                                               Padding(
                                                 padding: const EdgeInsets.all(4.0),
                                                 child: CustomText(
-                                                  text: WeatherStateType('${snapshot.data}').title(),
+                                                  text: snapshot.data!.title(),
                                                   fontSize: 20,
                                                 ),
                                               ),
@@ -293,7 +294,7 @@ class _HomeViewState extends State<HomeView> {
                                               fit: BoxFit.contain,
                                               child: Padding(
                                                 padding: const EdgeInsets.all(50.0),
-                                                child: WeatherStateType('${snapshot.data}').image(),
+                                                child: snapshot.data!.image(),
                                               ),
                                             ),
                                           ),
@@ -313,10 +314,11 @@ class _HomeViewState extends State<HomeView> {
                           SizedBox(
                             width: size.width * 0.4,
                             height: 80,
-                            child: FutureBuilder<String?>(
-                                future: controller.getAfterOneHourWeatherState(
+                            child: FutureBuilder<WeatherStateType?>(
+                                future: controller.getWeatherState(
                                   lat: _location.lat,
                                   lng: _location.lng,
+                                  isAfterOneHour: true,
                                 ),
                                 builder: (context, snapshot) {
                                   if (snapshot.connectionState == ConnectionState.waiting || snapshot.data == null) {
@@ -328,7 +330,7 @@ class _HomeViewState extends State<HomeView> {
                                     );
                                   }
                                   return CommonCard(
-                                    cardColor: WeatherStateType('${snapshot.data}').color(),
+                                    cardColor: snapshot.data!.color(),
                                     content: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       children: [
@@ -345,7 +347,7 @@ class _HomeViewState extends State<HomeView> {
                                               Padding(
                                                 padding: const EdgeInsets.all(4.0),
                                                 child: CustomText(
-                                                  text: WeatherStateType('${snapshot.data}').title(),
+                                                  text: snapshot.data!.title(),
                                                   fontSize: 20,
                                                 ),
                                               ),
@@ -365,7 +367,7 @@ class _HomeViewState extends State<HomeView> {
                                               fit: BoxFit.contain,
                                               child: Padding(
                                                 padding: const EdgeInsets.all(50.0),
-                                                child: WeatherStateType('${snapshot.data}').image(),
+                                                child: snapshot.data!.image(),
                                               ),
                                             ),
                                           ),

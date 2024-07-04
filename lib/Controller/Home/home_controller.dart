@@ -1,9 +1,11 @@
+import 'package:fleet_tracker/Constants/Enum/weather_state_enum.dart';
 import 'package:fleet_tracker/Controller/bottom_navigation_bar_controller.dart';
 import 'package:fleet_tracker/Model/Data/location_data.dart';
+import 'package:fleet_tracker/Model/Entity/Weather/weather.dart';
 import 'package:fleet_tracker/Model/Entity/Weather/weatherList.dart';
 import 'package:fleet_tracker/Service/API/Original/road_information_service.dart';
 import 'package:fleet_tracker/Service/API/WeatherInformation/weather_information_service.dart';
-import 'package:fleet_tracker/Service/Log/log_service.dart';
+
 import 'package:geocoding/geocoding.dart';
 
 import '../../Model/Entity/Warehouse/warehouse.dart';
@@ -66,9 +68,10 @@ class HomeController {
   /// 現在地の天気を取得する
   /// [lat] 緯度
   /// [lng] 経度
-  Future<String?> getNowWeatherState({
+  Future<WeatherStateType?> getWeatherState({
     required double lat,
     required double lng,
+    required bool isAfterOneHour,
   }) async {
     WeatherList? weatherList = await WeatherInformationService().getWeatherInformation(
       userLatitude: lat.toString(),
@@ -77,43 +80,26 @@ class HomeController {
 
     if (weatherList == null) {
       return null;
+    }
+
+    /// いつの天気情報が欲しいか判定
+    Weather weatherData;
+    if (isAfterOneHour) {
+      weatherData = weatherList.afterOneHour;
+    } else {
+      weatherData = weatherList.now;
     }
 
     /// 降水量によって天気を判定 ここは雰囲気
     /// 0.3mm未満: 晴れ
     /// 0.3mm以上1.0mm未満: 曇り
     /// 1.0mm以上: 雨
-    if (weatherList.now.rainfall < 0.3) {
-      return 'sun';
-    } else if (weatherList.now.rainfall < 1.0) {
-      return 'cloud';
+    if (weatherData.rainfall < 0.3) {
+      return WeatherStateType('sun');
+    } else if (weatherData.rainfall < 1.0) {
+      return WeatherStateType('cloud');
     } else {
-      return 'rain';
-    }
-  }
-
-  /// 1時間後の天気を取得する
-  /// [lat] 緯度
-  /// [lng] 経度
-  Future<String?> getAfterOneHourWeatherState({
-    required double lat,
-    required double lng,
-  }) async {
-    WeatherList? weatherList = await WeatherInformationService().getWeatherInformation(
-      userLatitude: lat.toString(),
-      userLongitude: lng.toString(),
-    );
-
-    if (weatherList == null) {
-      return null;
-    }
-
-    if (weatherList.afterOneHour.rainfall < 0.3) {
-      return 'sun';
-    } else if (weatherList.afterOneHour.rainfall < 1.0) {
-      return 'cloud';
-    } else {
-      return 'rain';
+      return WeatherStateType('rain');
     }
   }
 }
