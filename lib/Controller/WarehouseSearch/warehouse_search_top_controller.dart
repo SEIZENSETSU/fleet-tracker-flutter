@@ -24,15 +24,6 @@ class WarehouseSearchTopController {
     '中国・四国',
     '九州',
   ];
-  List<String> areaImageUrlList = [
-    'https://www.c-ihighway.jp/smp/img/MAP/hokkaido.png',
-    'https://www.c-ihighway.jp/smp/img/MAP/tohoku.png',
-    'https://www.c-ihighway.jp/smp/img/MAP/kanto.png',
-    'https://www.c-ihighway.jp/smp/img/MAP/hokuriku.png',
-    'https://www.c-ihighway.jp/smp/img/MAP/kinki.png',
-    'https://www.c-ihighway.jp/smp/img/MAP/chugoku.png',
-    'https://www.c-ihighway.jp/smp/img/MAP/kyushu.png',
-  ];
 
   /// 日本地図を表示するかgridで表示するかのboolを切り替える
   /// [flag]

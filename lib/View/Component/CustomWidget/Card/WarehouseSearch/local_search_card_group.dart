@@ -8,11 +8,9 @@ class LocalSearchCardGroup extends StatelessWidget {
   const LocalSearchCardGroup({
     super.key,
     required this.areaNameList,
-    required this.areaImageUrlList,
     required this.setState,
   });
   final List<String> areaNameList;
-  final List<String> areaImageUrlList;
   final Function setState;
 
   @override

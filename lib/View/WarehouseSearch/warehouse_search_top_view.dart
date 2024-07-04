@@ -121,7 +121,6 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                 height: size.width,
                 child: LocalSearchCardGroup(
                     areaNameList: controller.areaNameList,
-                    areaImageUrlList: controller.areaImageUrlList,
                     setState: () {
                       setState(() {});
                     }),
