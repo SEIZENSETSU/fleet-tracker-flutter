@@ -2,7 +2,6 @@ import 'package:fleet_tracker/Constants/Enum/traffic_area_image_enum.dart';
 import 'package:fleet_tracker/Model/Entity/Traffic/road.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/TrafficInformation/prefectural_road_tile.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
-import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 

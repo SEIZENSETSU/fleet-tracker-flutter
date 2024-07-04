@@ -16,7 +16,6 @@ class TrafficInformationTopView extends StatefulWidget {
 
 class _TrafficInformationStateTopViewState
     extends State<TrafficInformationTopView> {
-  String imageUrl = 'https://www.c-ihighway.jp/smp/img/MAP/hokkaido.png';
   TrafficInformationTopController controller =
       TrafficInformationTopController();
 
