@@ -1,85 +1,33 @@
 import 'package:fleet_tracker/Model/Data/user_data.dart';
-import 'package:fleet_tracker/Service/API/Original/user_service.dart';
-import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../Constants/Enum/shared_preferences_keys_enum.dart';
 import '../../Model/Entity/user.dart';
-import '../../Service/Firebase/Authentication/authentication_service.dart';
 import '../../Service/Log/log_service.dart';
 import '../../Service/Package/LocalNotification/local_notifications_service.dart';
-import '../../View/Component/CustomWidget/Modal/custom_modal.dart';
+import '../../Service/Package/SharedPreferences/shared_preferences_service.dart';
 import '../../View/Component/CustomWidget/Modal/debug_modal.dart';
-import '../../View/Component/CustomWidget/custom_button.dart';
-import '../../gen/colors.gen.dart';
+import '../../View/Component/CustomWidget/Modal/rename_modal.dart';
 
 class SettingTopController {
   InAppReview get _inAppReview => InAppReview.instance;
-  final TextEditingController textEditingController = TextEditingController();
   bool delaySwitch = true;
   String? userName;
   bool? areaSwitchValue;
   bool? delaySwitchValue;
 
   /// 名前変更のモーダル
-  /// [userName] ユーザー名
   showReNameModal({
     required BuildContext context,
-    required String userName,
     required Size size,
   }) {
-    CustomModal().showModal(
+    RenameModal().showReNameModal(
       context: context,
+      userName: userName!,
       size: size,
-      title: 'ユーザー名変更',
-      content: StatefulBuilder(
-        builder: (context, setState) {
-          return Container(
-            margin: const EdgeInsets.only(left: 16, right: 16),
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 24, bottom: 24),
-                  child: Row(
-                    children: [
-                      const CustomText(
-                        text: 'ユーザー名',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                      ),
-                      //モーダルの中にCustomTextfieldを使うと落ちる
-                      //わけがわからないので巻き取ってください
-                      // CustomTextfield(
-                      //   hintText: '',
-                      //   backgroundcolor: Colors.white,
-                      //   controller: textEditingController,
-                      // ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
-                  width: double.infinity,
-                  child: CustomButton(
-                    isFilledColor: true,
-                    primaryColor: ColorName.mainthemeColor,
-                    text: '変更',
-                    onTap: () {
-                      UserService().updateUser(
-                        uid: FirebaseAuthenticationService().getUid()!,
-                        userName: userName,
-                        fcmTokenId: '',
-                      );
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
     );
   }
 
@@ -109,45 +57,52 @@ class SettingTopController {
 
   /// エリア通知スイッチの初期値
   Future<bool> getAreaSwitchValue() async {
-    return await LocalNotificationsService().checkNotificationPermission();
+    return await SharedPreferencesService()
+            .getBool(SharedPreferencesKeysEnum.areaSwitch.name) ??
+        true;
   }
 
   /// エリア通知スイッチの動作
   Future<void> actionAreaSwitch({required bool value}) async {
-    if (value) {
-      LocalNotificationsService().requestPermissions();
-    } else {
-      LocalNotificationsService().cancel();
-    }
+    await SharedPreferencesService()
+        .setBool(SharedPreferencesKeysEnum.areaSwitch.name, value);
   }
 
   /// 遅延通知スイッチの初期値
   Future<bool> getDelaySwitchValue() async {
-    return await LocalNotificationsService().checkNotificationPermission();
+    return await SharedPreferencesService()
+            .getBool(SharedPreferencesKeysEnum.delaySwitch.name) ??
+        true;
   }
 
-  /// 通知パーミッションのリクエスト
-  Future<void> requestPermissions() async {
-    await LocalNotificationsService().requestPermissions();
-  }
-
-  /// 通知パーミッションのキャンセル
-  Future<void> cancel() async {
-    await LocalNotificationsService().cancel();
+  /// エリア通知スイッチの動作
+  Future<void> actionDelaySwitch({required bool value}) async {
+    await SharedPreferencesService()
+        .setBool(SharedPreferencesKeysEnum.delaySwitch.name, value);
   }
 
   /// レビューへ
   Future<void> openReview() async {
     if (await _inAppReview.isAvailable()) {
       _inAppReview.openStoreListing(
-        appStoreId: '',
+        appStoreId: '6503596268',
       );
     }
   }
 
   /// googleformへ
-  Future<void> openinquiry() async {
-    Uri url = Uri.parse('https://forms.gle/ttQxZC2cBCT8VcSE6');
+  Future<void> openInquiry() async {
+    Uri url = Uri.parse('https://forms.gle/CLn1SfQqQdHLjEiK9');
+    if (!(await canLaunchUrl(url))) {
+      Log.echo('URLを開けませんでした。', symbol: '❌');
+      return;
+    }
+    await launchUrl(url);
+  }
+
+  /// プライバシーポリシーへ
+  Future<void> openPrivacyPolicy() async {
+    Uri url = Uri.parse('https://sei-zen-setsu.web.app/');
     if (!(await canLaunchUrl(url))) {
       Log.echo('URLを開けませんでした。', symbol: '❌');
       return;

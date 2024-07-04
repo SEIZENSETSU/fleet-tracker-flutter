@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Model/Entity/Traffic/road.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/TrafficInformation/prefectural_road_tile.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
@@ -15,7 +16,7 @@ class TrafficInformationTileCell extends StatelessWidget {
   final String imageUrl;
   final int count;
   final String prefectureName;
-  final List<String> prefecturalRoadList;
+  final List<TrafficRoad> prefecturalRoadList;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +75,12 @@ class TrafficInformationTileCell extends StatelessWidget {
             children: <Widget>[
               for (int i = 0; i < prefecturalRoadList.length; i++) ...{
                 PrefecturalRoadTile(
-                    prefecturalRoadName: prefecturalRoadList[i]),
+                  roadName: prefecturalRoadList[i].name,
+                  roadId: prefecturalRoadList[i].id,
+                  provideSapa: prefecturalRoadList[i].provideSapa,
+                  jam: prefecturalRoadList[i].jam,
+                  closure: prefecturalRoadList[i].closure,
+                ),
               }
             ],
           ),

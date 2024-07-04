@@ -1,12 +1,23 @@
+import 'package:fleet_tracker/Controller/TrafficInformation/Detail/traffic_information_detail_controller.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
 class JamInfoTitle extends StatelessWidget {
-  const JamInfoTitle({super.key});
+  const JamInfoTitle({
+    super.key,
+    required this.areaName,
+    required this.roadName,
+    required this.time,
+  });
+  final String areaName;
+  final String roadName;
+  final DateTime time;
 
   @override
   Widget build(BuildContext context) {
+    TrafficInformationDetailController trafficInformationDetailController =
+        TrafficInformationDetailController();
     double deviceWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(8),
@@ -38,7 +49,7 @@ class JamInfoTitle extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(2),
                       child: CustomText(
-                        text: '関東',
+                        text: areaName,
                         color: ColorName.jamInfoTitleColor,
                         fontSize: 28,
                       ),
@@ -52,14 +63,13 @@ class JamInfoTitle extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Container(
-                  child: Row(
-                    children: <Widget>[
-                      CustomText(
-                        text: '東京湾アクアライン',
-                        color: Colors.white,
-                        fontSize: 25,
-                      ),
-                    ],
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: CustomText(
+                      text: roadName,
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
                   ),
                 ),
                 Padding(
@@ -67,7 +77,8 @@ class JamInfoTitle extends StatelessWidget {
                     vertical: 4,
                   ),
                   child: CustomText(
-                    text: '最終更新 19:30 (JST)',
+                    text:
+                        '最終更新 ${trafficInformationDetailController.formatDateTime(time)} (JST)',
                     color: Colors.white,
                     fontSize: 16,
                   ),

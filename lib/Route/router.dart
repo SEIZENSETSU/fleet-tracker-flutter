@@ -238,11 +238,17 @@ class TrafficInformationTopRoute extends GoRouteData {
 }
 
 class TrafficInformationDetailRoute extends GoRouteData {
-  const TrafficInformationDetailRoute();
+  const TrafficInformationDetailRoute(
+      {required this.roadId, required this.provideSapa});
+  final int roadId;
+  final bool provideSapa;
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      const TrafficInformationDetailView();
+      TrafficInformationDetailView(
+        roadId: roadId,
+        provideSapa: provideSapa,
+      );
 }
 //////////////////////////////  TrafficInformation  //////////////////////////////
 

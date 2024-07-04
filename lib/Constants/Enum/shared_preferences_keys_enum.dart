@@ -3,4 +3,6 @@ enum SharedPreferencesKeysEnum {
   forceIsInvading,
   favoriteWarehouseList,
   mapSwitch,
+  areaSwitch,
+  delaySwitch,
 }

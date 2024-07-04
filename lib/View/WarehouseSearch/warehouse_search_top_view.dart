@@ -75,6 +75,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                   hintText: '工場名、エリア名、地名',
                   backgroundcolor: Colors.white,
                   controller: controller.textEditingController,
+                  isSerchIcon: true,
                 ),
               ),
             ),

@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../Route/router.dart';
+import '../Component/CustomWidget/Modal/rename_modal.dart';
 import '../Component/CustomWidget/custom_text.dart';
 
 class SettingTopView extends StatefulWidget {
@@ -52,7 +53,6 @@ class _SettingTopViewState extends State<SettingTopView> {
                   controller.showReNameModal(
                     context: context,
                     size: size,
-                    userName: controller.userName ?? '',
                   );
                 },
               ),
@@ -79,13 +79,8 @@ class _SettingTopViewState extends State<SettingTopView> {
                 cellAction: (bool) {
                   // エリア内に入る or エリアから出るで通知
                   controller.delaySwitchValue = !controller.delaySwitchValue!;
-                  if (bool) {
-                    controller.cancel();
-                    setState(() {});
-                  } else {
-                    controller.requestPermissions();
-                    setState(() {});
-                  }
+                  controller.actionAreaSwitch(value: bool);
+                  setState(() {});
                 },
                 switchValue: controller.areaSwitchValue ?? true,
               ),
@@ -94,13 +89,8 @@ class _SettingTopViewState extends State<SettingTopView> {
                 cellAction: (bool) {
                   // 渋滞情報に変更があったら通知
                   controller.delaySwitchValue = !controller.delaySwitchValue!;
-                  if (bool) {
-                    controller.cancel();
-                    setState(() {});
-                  } else {
-                    controller.requestPermissions();
-                    setState(() {});
-                  }
+                  controller.actionDelaySwitch(value: bool);
+                  setState(() {});
                 },
                 switchValue: controller.delaySwitchValue ?? true,
               ),
@@ -124,7 +114,7 @@ class _SettingTopViewState extends State<SettingTopView> {
                 'お問い合わせ',
                 onTap: () {
                   // お問い合わせを送信するページ
-                  controller.openinquiry();
+                  controller.openInquiry();
                 },
               ),
               SettingTileCell().common(
@@ -132,6 +122,13 @@ class _SettingTopViewState extends State<SettingTopView> {
                 onTap: () {
                   // ストアページのレビューへ遷移
                   controller.openReview();
+                },
+              ),
+              SettingTileCell().common(
+                'プライバシーポリシー',
+                onTap: () {
+                  // プライバシーポリシー
+                  controller.openPrivacyPolicy();
                 },
               ),
               SettingTileCell().common(
