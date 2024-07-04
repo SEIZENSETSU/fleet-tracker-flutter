@@ -1,10 +1,29 @@
 import 'package:fleet_tracker/Model/Data/location_data.dart';
 import 'package:fleet_tracker/Model/Entity/Warehouse/warehouse.dart';
+import 'package:fleet_tracker/Model/Entity/local_area.dart';
 import 'package:fleet_tracker/Service/API/Original/warehouse_service.dart';
+import 'package:fleet_tracker/Service/Log/log_service.dart';
 
 import '../../../Model/Entity/Warehouse/info.dart';
 
 class WarehouseSearchResultController {
+  /// キーワードから工場一覧を取得する
+  /// [keyword]
+  Future<List<Warehouse>?> getWarehouseWithKeyword({required keyword}) async {
+    List<Warehouse>? warehouseList = [];
+    for (int i = 1; i < 10; i++) {
+      List<Warehouse>? searchWarehouse =
+          await WarehouseService().getWarehouseList(i);
+      if (searchWarehouse != null) {
+        warehouseList.addAll(searchWarehouse);
+      }
+    }
+    List<Warehouse> sortList =
+        warehouseList.where((e) => e.name.contains(keyword)).toList();
+    Log.echo(sortList.toString());
+    return sortList;
+  }
+
   /// エリアID(List許容)から工場一覧を取得する
   /// [areaIds]
   Future<List<Warehouse>?> getWarehouseWithArea(
@@ -31,7 +50,7 @@ class WarehouseSearchResultController {
       return null;
     }
     final searchInfo = await WarehouseService().searchWarehouseList(
-      userLatitude: warehouse!.latitude,
+      userLatitude: warehouse.latitude,
       userLongitude: warehouse.longitude,
     );
     if (searchInfo == null) {

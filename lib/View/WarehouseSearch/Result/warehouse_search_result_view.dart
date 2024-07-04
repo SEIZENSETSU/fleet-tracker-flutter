@@ -8,6 +8,7 @@ import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../Controller/WarehouseSearch/Result/warehouse_search_result_controller.dart';
 import '../../../Model/Entity/Warehouse/info.dart';
@@ -96,7 +97,7 @@ class _WarehouseSearchResultViewState extends State<WarehouseSearchResultView> {
                         Icons.search,
                       ),
                       CustomText(
-                        text: '"${widget.keyword!}"を含む',
+                        text: '名前に"${widget.keyword!}"を含む',
                         fontSize: 14,
                       ),
                     ],
@@ -123,13 +124,19 @@ class _WarehouseSearchResultViewState extends State<WarehouseSearchResultView> {
                         const Icon(Icons.my_location),
                         Padding(
                           padding: const EdgeInsets.all(4.0),
-                          child: CustomText(text: '${widget.area}エリア'),
+                          child: CustomText(
+                              text: widget.keyword == null
+                                  ? '${widget.area}エリア'
+                                  : '結果一覧'),
                         ),
                       ],
                     ),
                     FutureBuilder(
-                        future: controller.getWarehouseWithArea(
-                            areaIds: widget.areaId!),
+                        future: widget.keyword == null
+                            ? controller.getWarehouseWithArea(
+                                areaIds: widget.areaId!)
+                            : controller.getWarehouseWithKeyword(
+                                keyword: widget.keyword),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState !=
                               ConnectionState.done) {
