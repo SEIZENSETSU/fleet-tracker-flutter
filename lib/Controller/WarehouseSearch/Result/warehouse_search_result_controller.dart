@@ -9,7 +9,8 @@ import '../../../Model/Entity/Warehouse/info.dart';
 class WarehouseSearchResultController {
   /// キーワードから工場一覧を取得する
   /// [keyword]
-  Future<List<Warehouse>?> getWarehouseWithKeyword({required keyword}) async {
+  Future<List<Warehouse>?> getWarehouseWithKeyword(
+      {required String keyword}) async {
     List<Warehouse>? warehouseList = [];
     for (int i = 1; i < 10; i++) {
       List<Warehouse>? searchWarehouse =
@@ -41,7 +42,7 @@ class WarehouseSearchResultController {
 
   /// 倉庫ページに遷移するための情報を取得
   /// [warehouseId]
-  Future<WarehouseInfo?> getWarehouseInfo({required warehouseId}) async {
+  Future<WarehouseInfo?> getWarehouseInfo({required int warehouseId}) async {
     WarehouseInfo? warehouseInfo;
     final warehouse =
         await WarehouseService().getWarehouseInfo(warehouseId: warehouseId);

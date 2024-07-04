@@ -136,7 +136,7 @@ class _WarehouseSearchResultViewState extends State<WarehouseSearchResultView> {
                             ? controller.getWarehouseWithArea(
                                 areaIds: widget.areaId!)
                             : controller.getWarehouseWithKeyword(
-                                keyword: widget.keyword),
+                                keyword: widget.keyword.toString()),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState !=
                               ConnectionState.done) {
