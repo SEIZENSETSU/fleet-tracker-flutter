@@ -34,13 +34,13 @@ class TutorialPage extends StatelessWidget {
                 child: SlidingIndicator(
                   indicatorCount: pageCount,
                   notifier: notifier,
-                  inactiveIndicatorSize: 24,
+                  inactiveIndicatorSize: 20,
                   inActiveIndicator: const Icon(
                     Icons.radio_button_unchecked,
                     color: Colors.white,
                     size: 24,
                   ),
-                  activeIndicatorSize: 24,
+                  activeIndicatorSize: 20,
                   activeIndicator: const Icon(
                     Icons.check_circle,
                     color: Colors.white,
