@@ -7,11 +7,13 @@ class CustomTextfield extends StatefulWidget {
     required this.hintText,
     required this.backgroundcolor,
     required this.controller,
+    required this.isSerchIcon,
   });
 
   final String hintText;
   final Color backgroundcolor;
   final TextEditingController controller;
+  final bool isSerchIcon;
 
   @override
   State<CustomTextfield> createState() => _CustomTextfieldState();
@@ -30,11 +32,13 @@ class _CustomTextfieldState extends State<CustomTextfield> {
         decorationColor: ColorName.mainthemeColor,
       ),
       decoration: InputDecoration(
-        prefixIcon: const Icon(
-          Icons.search,
-          size: 25,
-          color: ColorName.mainthemeColor,
-        ),
+        prefixIcon: widget.isSerchIcon
+            ? const Icon(
+                Icons.search,
+                size: 25,
+                color: ColorName.mainthemeColor,
+              )
+            : null,
         suffixIcon: Visibility(
           visible: widget.controller.text.isNotEmpty,
           child: IconButton(

@@ -74,6 +74,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                   backgroundcolor: Colors.white,
                   controller:
                       warehouseSearchTopController.textEditingController,
+                  isSerchIcon: true,
                 ),
               ),
             ),
