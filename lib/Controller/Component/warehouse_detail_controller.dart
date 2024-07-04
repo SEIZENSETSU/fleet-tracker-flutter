@@ -3,6 +3,7 @@ import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
 import 'package:fleet_tracker/Controller/bottom_navigation_bar_controller.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class WarehouseDetailController {
   SharedPreferencesService prefs = SharedPreferencesService();
@@ -55,6 +56,7 @@ class WarehouseDetailController {
     favoriteIds!.add(warehouseId.toString());
     await prefs.setStringList(
         SharedPreferencesKeysEnum.favoriteWarehouseList.name, favoriteIds);
+    Fluttertoast.showToast(msg: 'この工場をお気に入り登録しました。');
     Log.toast('${warehouseId}をお気に入り倉庫に登録しました');
   }
 
@@ -68,7 +70,7 @@ class WarehouseDetailController {
     // 削除した配列を保存
     await prefs.setStringList(
         SharedPreferencesKeysEnum.favoriteWarehouseList.name, favoriteList);
-
+    Fluttertoast.showToast(msg: 'お気に入り登録を解除しました。');
     Log.toast('${warehouseId}をお気に入り倉庫から削除しました');
   }
 
