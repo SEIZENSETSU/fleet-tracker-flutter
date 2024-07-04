@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';

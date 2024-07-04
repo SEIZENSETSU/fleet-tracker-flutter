@@ -2,7 +2,6 @@ import 'package:fleet_tracker/View/Component/CustomWidget/custom_button.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class ErrorDialog {
   showErrorDialog({
