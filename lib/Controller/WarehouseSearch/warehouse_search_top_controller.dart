@@ -46,7 +46,7 @@ class WarehouseSearchTopController {
   }
 
   /// ユーザーが登録しているお気に入り倉庫の情報を取得する
-  Future<List<WarehouseInfo>?> getFavoiteWarehousese() async {
+  Future<List<WarehouseInfo>?> getFavoriteWarehouses() async {
     List<WarehouseInfo> favoriteWarehouseList = [];
     // お気に入りに登録している倉庫IDを取得
     List<String>? favoriteId = await prefs
