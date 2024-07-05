@@ -22,7 +22,6 @@ import 'package:fleet_tracker/View/Component/WarehouseDetail/warehouse_map.dart'
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../Constants/Enum/warehouse_delay_state_enum.dart';
@@ -103,7 +102,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 width: size.width * 0.95,
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),
@@ -135,7 +134,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 80,
                 width: size.width * 0.95,
                 child: Row(
@@ -146,29 +145,72 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                         heightFactor: 1,
                         child: Padding(
                           padding: const EdgeInsets.all(4.0),
-                          child: CommonCard(
-                            onTap: () async {
-                              await controller.favoriteButtonAction(
-                                warehouseId: widget.warehouseInfo.warehouseId,
-                              );
-                            },
-                            content: const Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left: 10, right: 5),
-                                  child: Icon(
-                                    Icons.favorite,
-                                    color: Colors.red,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.all(4.0),
-                                  child: CustomText(text: 'お気に入り'),
-                                ),
-                              ],
-                            ),
-                          ),
+                          child: StatefulBuilder(builder:
+                              (BuildContext context, StateSetter setState) {
+                            return CommonCard(
+                              onTap: () async {
+                                await controller.favoriteButtonAction(
+                                  warehouseId: widget.warehouseInfo.warehouseId,
+                                );
+                                await controller.getIsFavorite(
+                                    warehouseId:
+                                        widget.warehouseInfo.warehouseId);
+                                setState(() {});
+                              },
+                              content: FutureBuilder<bool>(
+                                  future: controller.getIsFavorite(
+                                      warehouseId:
+                                          widget.warehouseInfo.warehouseId),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<bool> snapshot) {
+                                    if (snapshot.hasData) {
+                                      bool isFavorite = snapshot.data!;
+                                      return Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 10, right: 5),
+                                            child: Icon(
+                                              isFavorite
+                                                  ? Icons.favorite
+                                                  : Icons.favorite_border,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: CustomText(
+                                                text: isFavorite
+                                                    ? 'お気に入り登録済'
+                                                    : 'お気に入り'),
+                                          ),
+                                        ],
+                                      );
+                                    } else {
+                                      return const Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 10, right: 5),
+                                            child: Icon(
+                                              Icons.favorite_border,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.all(4.0),
+                                            child: CustomText(text: 'お気に入り'),
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                  }),
+                            );
+                          }),
                         ),
                       ),
                     ),
@@ -194,7 +236,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                       warehouseId: widget.warehouseInfo.warehouseId),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState != ConnectionState.done) {
-                      return CirclarProgressIndicatorCell(height: 400);
+                      return const CirclarProgressIndicatorCell(height: 400);
                     }
 
                     if (snapshot.hasData) {
@@ -240,7 +282,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                         );
                       }
                     } else {
-                      return CirclarProgressIndicatorCell(height: 400);
+                      return const CirclarProgressIndicatorCell(height: 400);
                     }
                   }),
               Visibility(
@@ -286,7 +328,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                 height: 10,
               ),
               const Divider(),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               )
             ],

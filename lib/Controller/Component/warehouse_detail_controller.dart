@@ -62,6 +62,18 @@ class WarehouseDetailController {
     }
   }
 
+  Future<bool> getIsFavorite({required int warehouseId}) async {
+    // あるかチェック
+    bool isFavorite = await favoriteListCheck(warehouseId: warehouseId);
+    if (isFavorite) {
+      // あったら削除
+      return true;
+    } else {
+      // なかったら追加
+      return false;
+    }
+  }
+
   /// お気に入り倉庫をローカルに保存する
   /// [warehouseId]
   Future<void> addFavorite({required int warehouseId}) async {

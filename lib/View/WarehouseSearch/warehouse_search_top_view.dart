@@ -98,6 +98,7 @@ class __WarehouseSearchTopViewState extends State<WarehouseSearchTopView> {
                             keyword: controller.textEditingController.text)
                         .push(context);
                   }
+                  FocusScope.of(context).unfocus();
                 },
               ),
             ),
