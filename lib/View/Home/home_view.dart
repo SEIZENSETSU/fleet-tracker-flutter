@@ -36,6 +36,8 @@ class _HomeViewState extends State<HomeView> {
     return Consumer(builder: (context, ref, _) {
       final warehouseSearchInfo = ref.watch(warehouseSearchInfoDataProvider);
       final _data = warehouseSearchInfo.getData();
+      final locationInfo = ref.watch(locationDataProvider);
+      final _location = locationInfo.getData();
 
       if (_data.isInvading) {
         return Scaffold(
@@ -47,11 +49,294 @@ class _HomeViewState extends State<HomeView> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: CustomText(
+                        text: Strings.CURRENT_LOCATION_AND_TIME,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    color: Colors.white,
+                    height: 100,
+                    child: SizedBox(
+                      width: size.width * 0.9,
+                      child: CommonCard(
+                        content: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              width: size.width * 0.5,
+                              height: 90,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    height: 50,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                        left: 2.0,
+                                        top: 8.0,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(2.0),
+                                            child: const Icon(
+                                              Icons.location_on,
+                                              color: ColorName.mainthemeColor,
+                                            ),
+                                          ),
+                                          FutureBuilder<String>(
+                                              future: controller
+                                                  .getCurrentAddress(),
+                                              builder: (context, snapshot) {
+                                                return CustomText(
+                                                  text: '${snapshot.data}',
+                                                  fontSize: 23,
+                                                );
+                                              }),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 30,
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 4.0,
+                                        vertical: 7.0,
+                                      ),
+                                      child: FutureBuilder<String>(
+                                        future: controller.getNearestRoadName(
+                                          lat: _location.lat,
+                                          lng: _location.lng,
+                                        ),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return const CustomText(
+                                              text: '取得中',
+                                              fontSize: 12,
+                                            );
+                                          }
+                                          return CustomText(
+                                            text: '${snapshot.data}',
+                                            fontSize: 12,
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: size.width * 0.3,
+                              height: 70,
+                              color: const Color.fromARGB(255, 232, 231, 231),
+                              child: FittedBox(
+                                fit: BoxFit.contain,
+                                child: Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Consumer(builder: (context, ref, _) {
+                                    final clockInfo =
+                                        ref.watch(clockDataProvider);
+                                    final _clock = clockInfo.getData();
+                                    return FutureBuilder(
+                                        future: controller.getNowTime(_clock!),
+                                        builder: (context, snapshot) {
+                                          return CustomText(
+                                            text: '${snapshot.data}',
+                                            color: ColorName.splashMain,
+                                          );
+                                        });
+                                  }),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: CustomText(
+                        text: 'エリアの天気',
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    color: Colors.white,
+                    height: 100,
+                    width: size.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: size.width * 0.4,
+                          height: 80,
+                          child: FutureBuilder<WeatherStateType?>(
+                              future: controller.getWeatherState(
+                                lat: _location.lat,
+                                lng: _location.lng,
+                                isAfterOneHour: false,
+                              ),
+                              builder: (context, snapshot) {
+                                /// awaitしてる間とバグってnullの場合の処理
+                                if (snapshot.connectionState ==
+                                        ConnectionState.waiting ||
+                                    snapshot.data == null) {
+                                  return const CommonCard(
+                                    cardColor: Colors.white,
+                                    content: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  );
+                                }
+                                return CommonCard(
+                                  cardColor: snapshot.data!.color(),
+                                  content: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Container(
+                                        child: Column(
+                                          children: [
+                                            const Padding(
+                                              padding: EdgeInsets.all(4.0),
+                                              child: CustomText(
+                                                text: '現在の天気',
+                                                fontSize: 10,
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: CustomText(
+                                                text: snapshot.data!.title(),
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          width: 60,
+                                          height: 60,
+                                          decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.white),
+                                          child: FittedBox(
+                                            fit: BoxFit.contain,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(50.0),
+                                              child: snapshot.data!.image(),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }),
+                        ),
+                        SizedBox(
+                          width: size.width * 0.1,
+                          height: size.width * 0.1,
+                          child: const Icon(
+                            Icons.arrow_forward,
+                          ),
+                        ),
+                        SizedBox(
+                          width: size.width * 0.4,
+                          height: 80,
+                          child: FutureBuilder<WeatherStateType?>(
+                              future: controller.getWeatherState(
+                                lat: _location.lat,
+                                lng: _location.lng,
+                                isAfterOneHour: true,
+                              ),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                        ConnectionState.waiting ||
+                                    snapshot.data == null) {
+                                  return const CommonCard(
+                                    cardColor: Colors.white,
+                                    content: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  );
+                                }
+                                return CommonCard(
+                                  cardColor: snapshot.data!.color(),
+                                  content: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Container(
+                                        child: Column(
+                                          children: [
+                                            const Padding(
+                                              padding: EdgeInsets.all(4.0),
+                                              child: CustomText(
+                                                text: '1時間後の天気',
+                                                fontSize: 10,
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: CustomText(
+                                                text: snapshot.data!.title(),
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          width: 60,
+                                          height: 60,
+                                          decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.white,
+                                          ),
+                                          child: FittedBox(
+                                            fit: BoxFit.contain,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(50.0),
+                                              child: snapshot.data!.image(),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }),
+                        ),
+                      ],
+                    ),
+                  ),
                   for (final data in _data.warehouses!)
                     Container(
                       width: size.width * 0.95,
                       child: Padding(
-                        padding: const EdgeInsets.all(4.0),
+                        padding: const EdgeInsets.all(9.0),
                         child: CommonCard(
                           content: UserInputCell(
                             warehouseAreaId: data.warehouseAreaId,
@@ -71,9 +356,124 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       ),
                     ),
-                  const SizedBox(
-                    height: 50,
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: CustomText(
+                        text: Strings.APP_FUNCTION,
+                        fontSize: 14,
+                      ),
+                    ),
                   ),
+                  Container(
+                    height: 80,
+                    width: size.width * 0.9,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          width: 60,
+                          height: 60,
+                          child: CommonCard(
+                            onTap: () {
+                              // 倉庫検索タブへ遷移
+                              controller.pushFunctionCard(
+                                  FunctionType('home').branchIndex());
+                            },
+                            content: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.search,
+                                ),
+                                CustomText(
+                                  text: '倉庫検索',
+                                  fontSize: 8,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 60,
+                          height: 60,
+                          child: CommonCard(
+                            onTap: () {
+                              // コメント・遅延登録画面へ遷移
+                              controller.pushFunctionCard(
+                                  FunctionType('userInput').branchIndex());
+                            },
+                            content: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.chat,
+                                ),
+                                CustomText(
+                                  text: '登録',
+                                  fontSize: 8,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 60,
+                          height: 60,
+                          child: CommonCard(
+                            onTap: () {
+                              // 交通情報タブへ遷移
+                              controller.pushFunctionCard(
+                                  FunctionType('trafficInformation')
+                                      .branchIndex());
+                            },
+                            content: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.directions_car,
+                                ),
+                                CustomText(
+                                  text: '交通情報',
+                                  fontSize: 8,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 60,
+                          height: 60,
+                          child: CommonCard(
+                            onTap: () {
+                              // 設定タブへ遷移
+                              controller.pushFunctionCard(
+                                  FunctionType('setting').branchIndex());
+                            },
+                            content: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.settings,
+                                ),
+                                CustomText(
+                                  text: '設定',
+                                  fontSize: 8,
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 50,
+                  )
                 ],
               ),
             ),
@@ -123,28 +523,33 @@ class _HomeViewState extends State<HomeView> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      height: 30,
-                                      child: const Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: CustomText(
-                                          text: '現在地',
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 30,
+                                      height: 50,
                                       child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: FutureBuilder<String>(
-                                            future:
-                                                controller.getCurrentAddress(),
-                                            builder: (context, snapshot) {
-                                              return CustomText(
-                                                text: '${snapshot.data}',
-                                                fontSize: 15,
-                                              );
-                                            }),
+                                        padding: const EdgeInsets.only(
+                                          left: 2.0,
+                                          top: 8.0,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(2.0),
+                                              child: const Icon(
+                                                Icons.location_on,
+                                                color: ColorName.mainthemeColor,
+                                              ),
+                                            ),
+                                            FutureBuilder<String>(
+                                                future: controller
+                                                    .getCurrentAddress(),
+                                                builder: (context, snapshot) {
+                                                  return CustomText(
+                                                    text: '${snapshot.data}',
+                                                    fontSize: 23,
+                                                  );
+                                                }),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     Container(
@@ -152,7 +557,7 @@ class _HomeViewState extends State<HomeView> {
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                           horizontal: 4.0,
-                                          vertical: 4.0,
+                                          vertical: 7.0,
                                         ),
                                         child: FutureBuilder<String>(
                                           future: controller.getNearestRoadName(
@@ -196,7 +601,7 @@ class _HomeViewState extends State<HomeView> {
                                           builder: (context, snapshot) {
                                             return CustomText(
                                               text: '${snapshot.data}',
-                                              color: ColorName.mainthemeColor,
+                                              color: ColorName.splashMain,
                                             );
                                           });
                                     }),
