@@ -1,7 +1,6 @@
 import 'package:fleet_tracker/Route/router.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class PrefecturalRoadTile extends StatelessWidget {
   const PrefecturalRoadTile(
@@ -31,7 +30,7 @@ class PrefecturalRoadTile extends StatelessWidget {
       child: Container(
         width: deviceWidth,
         height: deviceWidth * 0.15,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
         ),
         child: Row(
@@ -108,7 +107,7 @@ class PrefecturalRoadTile extends StatelessWidget {
                   SizedBox(
                     width: deviceWidth * 0.1,
                     height: deviceWidth * 0.05,
-                    child: FittedBox(
+                    child: const FittedBox(
                       fit: BoxFit.fitHeight,
                       child: Icon(
                         Icons.arrow_forward_ios,

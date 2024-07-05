@@ -9,6 +9,7 @@ import 'package:fleet_tracker/View/Component/CustomWidget/Card/destination_card.
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../Model/Data/Warehouse/search_info_data.dart';
 import '../../Route/router.dart';
@@ -68,13 +69,13 @@ class _HomeViewState extends State<HomeView> {
                         content: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Container(
+                            SizedBox(
                               width: size.width * 0.5,
                               height: 90,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(
+                                  SizedBox(
                                     height: 50,
                                     child: Padding(
                                       padding: const EdgeInsets.only(
@@ -83,30 +84,44 @@ class _HomeViewState extends State<HomeView> {
                                       ),
                                       child: Row(
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(2.0),
-                                            child: const Icon(
-                                              Icons.location_on,
-                                              color: ColorName.mainthemeColor,
+                                          const Expanded(
+                                            flex: 1,
+                                            child: Padding(
+                                              padding: EdgeInsets.all(2.0),
+                                              child: Icon(
+                                                Icons.location_on,
+                                                color: ColorName.mainthemeColor,
+                                              ),
                                             ),
                                           ),
-                                          FutureBuilder<String>(
-                                              future: controller
-                                                  .getCurrentAddress(),
-                                              builder: (context, snapshot) {
-                                                return CustomText(
-                                                  text: '${snapshot.data}',
-                                                  fontSize: 23,
-                                                );
-                                              }),
+                                          Expanded(
+                                            flex: 9,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                left: 4,
+                                              ),
+                                              child: FutureBuilder<String>(
+                                                  future: controller
+                                                      .getCurrentAddress(),
+                                                  builder: (context, snapshot) {
+                                                    return FittedBox(
+                                                      fit: BoxFit.contain,
+                                                      child: CustomText(
+                                                        text:
+                                                            '${snapshot.data}',
+                                                      ),
+                                                    );
+                                                  }),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
                                   ),
-                                  Container(
+                                  SizedBox(
                                     height: 30,
                                     child: Padding(
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                         horizontal: 4.0,
                                         vertical: 7.0,
                                       ),
@@ -141,13 +156,13 @@ class _HomeViewState extends State<HomeView> {
                               child: FittedBox(
                                 fit: BoxFit.contain,
                                 child: Padding(
-                                  padding: EdgeInsets.all(4.0),
+                                  padding: const EdgeInsets.all(4.0),
                                   child: Consumer(builder: (context, ref, _) {
                                     final clockInfo =
                                         ref.watch(clockDataProvider);
-                                    final _clock = clockInfo.getData();
+                                    final clock = clockInfo.getData();
                                     return FutureBuilder(
-                                        future: controller.getNowTime(_clock!),
+                                        future: controller.getNowTime(clock!),
                                         builder: (context, snapshot) {
                                           return CustomText(
                                             text: '${snapshot.data}',
@@ -207,26 +222,23 @@ class _HomeViewState extends State<HomeView> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      Container(
-                                        child: Column(
-                                          children: [
-                                            const Padding(
-                                              padding: EdgeInsets.all(4.0),
-                                              child: CustomText(
-                                                text: '現在の天気',
-                                                fontSize: 10,
-                                              ),
+                                      Column(
+                                        children: [
+                                          const Padding(
+                                            padding: EdgeInsets.all(4.0),
+                                            child: CustomText(
+                                              text: '現在の天気',
+                                              fontSize: 10,
                                             ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(4.0),
-                                              child: CustomText(
-                                                text: snapshot.data!.title(),
-                                                fontSize: 20,
-                                              ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: CustomText(
+                                              text: snapshot.data!.title(),
+                                              fontSize: 20,
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -284,26 +296,23 @@ class _HomeViewState extends State<HomeView> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      Container(
-                                        child: Column(
-                                          children: [
-                                            const Padding(
-                                              padding: EdgeInsets.all(4.0),
-                                              child: CustomText(
-                                                text: '1時間後の天気',
-                                                fontSize: 10,
-                                              ),
+                                      Column(
+                                        children: [
+                                          const Padding(
+                                            padding: EdgeInsets.all(4.0),
+                                            child: CustomText(
+                                              text: '1時間後の天気',
+                                              fontSize: 10,
                                             ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(4.0),
-                                              child: CustomText(
-                                                text: snapshot.data!.title(),
-                                                fontSize: 20,
-                                              ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: CustomText(
+                                              text: snapshot.data!.title(),
+                                              fontSize: 20,
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -333,7 +342,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
                   for (final data in _data.warehouses!)
-                    Container(
+                    SizedBox(
                       width: size.width * 0.95,
                       child: Padding(
                         padding: const EdgeInsets.all(9.0),
@@ -375,7 +384,7 @@ class _HomeViewState extends State<HomeView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Container(
+                        SizedBox(
                           width: 60,
                           height: 60,
                           child: CommonCard(
@@ -398,7 +407,7 @@ class _HomeViewState extends State<HomeView> {
                             ),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: 60,
                           height: 60,
                           child: CommonCard(
@@ -421,7 +430,7 @@ class _HomeViewState extends State<HomeView> {
                             ),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: 60,
                           height: 60,
                           child: CommonCard(
@@ -445,7 +454,7 @@ class _HomeViewState extends State<HomeView> {
                             ),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: 60,
                           height: 60,
                           child: CommonCard(
@@ -471,7 +480,7 @@ class _HomeViewState extends State<HomeView> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   )
                 ],
@@ -482,7 +491,7 @@ class _HomeViewState extends State<HomeView> {
       } else {
         return Consumer(builder: (context, ref, _) {
           final locationInfo = ref.watch(locationDataProvider);
-          final _location = locationInfo.getData();
+          final location = locationInfo.getData();
 
           return Scaffold(
             backgroundColor: ColorName.scaffoldBackground,
@@ -516,13 +525,13 @@ class _HomeViewState extends State<HomeView> {
                           content: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Container(
+                              SizedBox(
                                 width: size.width * 0.5,
                                 height: 90,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Container(
+                                    SizedBox(
                                       height: 50,
                                       child: Padding(
                                         padding: const EdgeInsets.only(
@@ -531,38 +540,53 @@ class _HomeViewState extends State<HomeView> {
                                         ),
                                         child: Row(
                                           children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(2.0),
-                                              child: const Icon(
-                                                Icons.location_on,
-                                                color: ColorName.mainthemeColor,
+                                            const Expanded(
+                                              flex: 1,
+                                              child: Padding(
+                                                padding: EdgeInsets.all(2.0),
+                                                child: Icon(
+                                                  Icons.location_on,
+                                                  color:
+                                                      ColorName.mainthemeColor,
+                                                ),
                                               ),
                                             ),
-                                            FutureBuilder<String>(
-                                                future: controller
-                                                    .getCurrentAddress(),
-                                                builder: (context, snapshot) {
-                                                  return CustomText(
-                                                    text: '${snapshot.data}',
-                                                    fontSize: 23,
-                                                  );
-                                                }),
+                                            Expanded(
+                                              flex: 9,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                  left: 4,
+                                                ),
+                                                child: FutureBuilder<String>(
+                                                    future: controller
+                                                        .getCurrentAddress(),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      return FittedBox(
+                                                        fit: BoxFit.contain,
+                                                        child: CustomText(
+                                                          text:
+                                                              '${snapshot.data}',
+                                                        ),
+                                                      );
+                                                    }),
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
                                     ),
-                                    Container(
+                                    SizedBox(
                                       height: 30,
                                       child: Padding(
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                           horizontal: 4.0,
                                           vertical: 7.0,
                                         ),
                                         child: FutureBuilder<String>(
                                           future: controller.getNearestRoadName(
-                                            lat: _location.lat,
-                                            lng: _location.lng,
+                                            lat: location.lat,
+                                            lng: location.lng,
                                           ),
                                           builder: (context, snapshot) {
                                             if (snapshot.connectionState ==
@@ -590,14 +614,13 @@ class _HomeViewState extends State<HomeView> {
                                 child: FittedBox(
                                   fit: BoxFit.contain,
                                   child: Padding(
-                                    padding: EdgeInsets.all(4.0),
+                                    padding: const EdgeInsets.all(4.0),
                                     child: Consumer(builder: (context, ref, _) {
                                       final clockInfo =
                                           ref.watch(clockDataProvider);
-                                      final _clock = clockInfo.getData();
+                                      final clock = clockInfo.getData();
                                       return FutureBuilder(
-                                          future:
-                                              controller.getNowTime(_clock!),
+                                          future: controller.getNowTime(clock!),
                                           builder: (context, snapshot) {
                                             return CustomText(
                                               text: '${snapshot.data}',
@@ -667,8 +690,8 @@ class _HomeViewState extends State<HomeView> {
                             height: 80,
                             child: FutureBuilder<WeatherStateType?>(
                                 future: controller.getWeatherState(
-                                  lat: _location.lat,
-                                  lng: _location.lng,
+                                  lat: location.lat,
+                                  lng: location.lng,
                                   isAfterOneHour: false,
                                 ),
                                 builder: (context, snapshot) {
@@ -689,26 +712,24 @@ class _HomeViewState extends State<HomeView> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
                                       children: [
-                                        Container(
-                                          child: Column(
-                                            children: [
-                                              const Padding(
-                                                padding: EdgeInsets.all(4.0),
-                                                child: CustomText(
-                                                  text: '現在の天気',
-                                                  fontSize: 10,
-                                                ),
+                                        Column(
+                                          children: [
+                                            const Padding(
+                                              padding: EdgeInsets.all(4.0),
+                                              child: CustomText(
+                                                text: '現在の天気',
+                                                fontSize: 10,
                                               ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(4.0),
-                                                child: CustomText(
-                                                  text: snapshot.data!.title(),
-                                                  fontSize: 20,
-                                                ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: CustomText(
+                                                text: snapshot.data!.title(),
+                                                fontSize: 20,
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
@@ -745,8 +766,8 @@ class _HomeViewState extends State<HomeView> {
                             height: 80,
                             child: FutureBuilder<WeatherStateType?>(
                                 future: controller.getWeatherState(
-                                  lat: _location.lat,
-                                  lng: _location.lng,
+                                  lat: location.lat,
+                                  lng: location.lng,
                                   isAfterOneHour: true,
                                 ),
                                 builder: (context, snapshot) {
@@ -766,26 +787,24 @@ class _HomeViewState extends State<HomeView> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
                                       children: [
-                                        Container(
-                                          child: Column(
-                                            children: [
-                                              const Padding(
-                                                padding: EdgeInsets.all(4.0),
-                                                child: CustomText(
-                                                  text: '1時間後の天気',
-                                                  fontSize: 10,
-                                                ),
+                                        Column(
+                                          children: [
+                                            const Padding(
+                                              padding: EdgeInsets.all(4.0),
+                                              child: CustomText(
+                                                text: '1時間後の天気',
+                                                fontSize: 10,
                                               ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(4.0),
-                                                child: CustomText(
-                                                  text: snapshot.data!.title(),
-                                                  fontSize: 20,
-                                                ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: CustomText(
+                                                text: snapshot.data!.title(),
+                                                fontSize: 20,
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
@@ -830,7 +849,7 @@ class _HomeViewState extends State<HomeView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Container(
+                        SizedBox(
                           width: 60,
                           height: 60,
                           child: CommonCard(
@@ -854,7 +873,7 @@ class _HomeViewState extends State<HomeView> {
                             ),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: 60,
                           height: 60,
                           child: CommonCard(
@@ -878,7 +897,7 @@ class _HomeViewState extends State<HomeView> {
                             ),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: 60,
                           height: 60,
                           child: CommonCard(
@@ -902,7 +921,7 @@ class _HomeViewState extends State<HomeView> {
                             ),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: 60,
                           height: 60,
                           child: CommonCard(
@@ -931,7 +950,7 @@ class _HomeViewState extends State<HomeView> {
 
                     //
                     // 余白
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     )
                   ],

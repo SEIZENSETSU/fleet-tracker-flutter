@@ -1,11 +1,8 @@
 import 'package:fleet_tracker/Model/Data/Warehouse/search_info_data.dart';
-import 'package:fleet_tracker/Service/Log/log_service.dart';
-import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../Controller/bottom_navigation_bar_controller.dart';
 
@@ -67,6 +64,9 @@ class _BottomNavigationBarViewState extends State<BottomNavigationBarView>
               return GestureDetector(
                 onTap: () {
                   if (!warehouseSearchInfo.getData().isInvading) {
+                    Fluttertoast.showToast(
+                      msg: 'エリアに入っていません',
+                    );
                     return;
                   }
                   controller.goBranch(2);
@@ -76,7 +76,9 @@ class _BottomNavigationBarViewState extends State<BottomNavigationBarView>
                   height: 70,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
-                    color: ColorName.mainthemeColor,
+                    color: warehouseSearchInfo.getData().isInvading
+                        ? ColorName.mainthemeColor
+                        : Colors.grey,
                     boxShadow: const [
                       BoxShadow(
                         color: Colors.grey,

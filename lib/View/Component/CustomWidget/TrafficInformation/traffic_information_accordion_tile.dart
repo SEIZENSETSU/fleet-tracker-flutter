@@ -65,7 +65,7 @@ class TrafficInformationTileCell extends StatelessWidget {
                 child: FittedBox(
                   alignment: Alignment.centerLeft,
                   fit: BoxFit.fitHeight,
-                  child: CustomText(text: '${count}件'),
+                  child: CustomText(text: '$count件'),
                 ),
               ),
             ),
