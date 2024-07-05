@@ -22,7 +22,6 @@ import 'package:fleet_tracker/View/Component/WarehouseDetail/warehouse_map.dart'
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../Constants/Enum/warehouse_delay_state_enum.dart';
@@ -103,7 +102,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 width: size.width * 0.95,
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),
@@ -135,7 +134,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 80,
                 width: size.width * 0.95,
                 child: Row(
@@ -237,7 +236,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                       warehouseId: widget.warehouseInfo.warehouseId),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState != ConnectionState.done) {
-                      return CirclarProgressIndicatorCell(height: 400);
+                      return const CirclarProgressIndicatorCell(height: 400);
                     }
 
                     if (snapshot.hasData) {
@@ -283,7 +282,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                         );
                       }
                     } else {
-                      return CirclarProgressIndicatorCell(height: 400);
+                      return const CirclarProgressIndicatorCell(height: 400);
                     }
                   }),
               Visibility(
@@ -329,7 +328,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                 height: 10,
               ),
               const Divider(),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               )
             ],
