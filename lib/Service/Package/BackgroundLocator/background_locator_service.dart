@@ -25,6 +25,7 @@ import '../../Log/log_service.dart';
 /// コールバックハンドラーを定義
 /// バックグラウンドで位置情報を取得し、本流Isolateにメッセージを送信する
 /// [data] 位置情報
+@pragma('vm:entry-point')
 Future<void> backgroundHandler(background_task.Location data) async {
   try {
     Log.echo('backgroundHandler: ${data.lat}, ${data.lng}', symbol: '📍');
