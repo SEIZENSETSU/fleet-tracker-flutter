@@ -9,7 +9,7 @@ class UserInputCircleCellController {
   /// 遅延状況の登録
   /// [type]　 //遅延タイプ
   /// [id] 　　//倉庫ID
-  Future<void> userInputCircleCellAction({
+  Future<bool> userInputCircleCellAction({
     required String type,
     required int id,
   }) async {
@@ -22,23 +22,21 @@ class UserInputCircleCellController {
         );
         if (response == null) {
           Log.toast('エラーが発生しました');
-          // エラーダイアログ表示
-
-          return;
+          return false;
         }
-        // 成功時の表示はなにかする？
-        Log.toast('遅延情報を登録しました。');
         await prefs.setString(
             'post_delay_time_${id}', DateTime.now().toString());
         Fluttertoast.showToast(msg: '遅延情報を登録しました。');
+        Log.toast('遅延情報を登録しました。');
+        return true;
       } catch (e) {
         Log.toast('エラーが発生しました $e');
-
-        // エラーダイアログ表示
+        return false;
       }
     } else {
       Fluttertoast.showToast(msg: '前回の投稿から12時間経過していません。');
       Log.echo('前回の投稿から12時間経過していません', symbol: '😭');
+      return false;
     }
   }
 

@@ -16,6 +16,7 @@ import '../../../Model/Entity/Warehouse/warehouse.dart';
 import '../../../Route/router.dart';
 import '../../../gen/assets.gen.dart';
 import '../../Component/CustomWidget/Card/common_card.dart';
+import '../../Component/CustomWidget/Dialog/error_dialog.dart';
 
 class WarehouseSearchResultView extends StatefulWidget {
   const WarehouseSearchResultView({
@@ -188,6 +189,19 @@ class _WarehouseSearchResultViewState extends State<WarehouseSearchResultView> {
                                           if (extra == null) {
                                             // エラー表示
                                             Log.toast('通信エラーです');
+                                            await ErrorDialog().showErrorDialog(
+                                              context: context,
+                                              title: Strings
+                                                  .CONNECT_ERROR_DIALOG_TITLE,
+                                              buttonText:
+                                                  Strings.BACK_BUTTON_TEXT,
+                                              content: Assets
+                                                  .images.icons.connectErrorIcon
+                                                  .image(),
+                                              detail: Strings
+                                                  .CONNECT_ERROR_DIALOG_DETAIL,
+                                            );
+                                            return;
                                           }
 
                                           WarehouseDetailRoute(

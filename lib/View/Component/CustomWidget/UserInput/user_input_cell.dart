@@ -121,6 +121,13 @@ class _UserInputCellState extends State<UserInputCell> {
                     String? type = snapshot.data;
                     if (type == null) {
                       // エラー
+                      ErrorDialog().showErrorDialog(
+                        context: context,
+                        title: Strings.CONNECT_ERROR_DIALOG_TITLE,
+                        buttonText: Strings.BACK_BUTTON_TEXT,
+                        content: Assets.images.icons.connectErrorIcon.image(),
+                        detail: Strings.CONNECT_ERROR_DIALOG_DETAIL,
+                      );
                     }
                     WarehouseDelayStateType delayStateType =
                         WarehouseDelayStateType(type!);
@@ -271,11 +278,25 @@ class _UserInputCellState extends State<UserInputCell> {
                                       setState(() {
                                         onLoading = true;
                                       });
-                                      await UserInputCircleCellController()
-                                          .userInputCircleCellAction(
+                                      bool isInput =
+                                          await UserInputCircleCellController()
+                                              .userInputCircleCellAction(
                                         type: WarehouseDelayState.normal.name,
                                         id: widget.warehouseId,
                                       );
+                                      if (!isInput) {
+                                        ErrorDialog().showErrorDialog(
+                                          context: context,
+                                          title: Strings
+                                              .CONNECT_ERROR_DIALOG_TITLE,
+                                          buttonText: Strings.BACK_BUTTON_TEXT,
+                                          content: Assets
+                                              .images.icons.connectErrorIcon
+                                              .image(),
+                                          detail: Strings
+                                              .CONNECT_ERROR_DIALOG_DETAIL,
+                                        );
+                                      }
                                       setState(() {
                                         onLoading = false;
                                       });
@@ -482,6 +503,13 @@ class _UserInputCellState extends State<UserInputCell> {
 
                     if (delayInformation!.isEmpty) {
                       // エラー表示
+                      ErrorDialog().showErrorDialog(
+                        context: context,
+                        title: Strings.CONNECT_ERROR_DIALOG_TITLE,
+                        buttonText: Strings.BACK_BUTTON_TEXT,
+                        content: Assets.images.icons.connectErrorIcon.image(),
+                        detail: Strings.CONNECT_ERROR_DIALOG_DETAIL,
+                      );
                     }
                     // 現在の倉庫の遅延情報を抽出
                     final currrentWarehouse = delayInformation.firstWhere(
