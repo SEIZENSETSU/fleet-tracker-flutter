@@ -4,6 +4,7 @@ import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Controller/Home/home_controller.dart';
 import 'package:fleet_tracker/Model/Data/clock_data.dart';
 import 'package:fleet_tracker/Model/Data/location_data.dart';
+import 'package:fleet_tracker/Model/Entity/Warehouse/info.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/destination_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
@@ -339,6 +340,75 @@ class _HomeViewState extends State<HomeView> {
                               }),
                         ),
                       ],
+                    ),
+                  ),
+
+                  //
+                  FutureBuilder<List<WarehouseInfo>?>(
+                      future: controller.getFavoriteWarehouses(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<WarehouseInfo>?> snapshot) {
+                        if (snapshot.hasData) {
+                          List<WarehouseInfo> favoriteWarehousesList =
+                              snapshot.data!;
+                          return Column(
+                            children: <Widget>[
+                              const Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 20),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: CustomText(
+                                    text: 'お気に入りの倉庫',
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                              for (final data in favoriteWarehousesList)
+                                SizedBox(
+                                  width: size.width * 0.95,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(9.0),
+                                    child: CommonCard(
+                                      content: UserInputCell(
+                                        warehouseAreaId: data.warehouseAreaId,
+                                        warehouseName: data.warehouseName,
+                                        warehouseId: data.warehouseId,
+
+                                        /// 後ほど
+                                        traficstateCountList:
+                                            data.delayTimeDetails,
+                                        delayStateType:
+                                            data.averageDelayState.name,
+                                        toWarehousePage: () {
+                                          WarehouseDetailRoute(
+                                            $extra: data,
+                                            functionType:
+                                                FunctionTypeEnum.home.name,
+                                          ).push(context);
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          );
+                        } else {
+                          return const SizedBox(
+                            height: 0,
+                          );
+                        }
+                      }),
+
+                  //
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: CustomText(
+                        text: 'エリアの倉庫',
+                        fontSize: 14,
+                      ),
                     ),
                   ),
                   for (final data in _data.warehouses!)
