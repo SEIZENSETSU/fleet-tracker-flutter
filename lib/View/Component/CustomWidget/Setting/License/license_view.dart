@@ -33,7 +33,7 @@ class _LicenseViewState extends State<LicenseView> {
             return LicensePage(
               applicationName: 'FleetTracker', // アプリの名前
               applicationVersion: _controller.applicationVersion, // バージョン
-              applicationIcon: Assets.images.icons.cloudIcon.image(
+              applicationIcon: Assets.images.icons.fleetTrackerIcon.image(
                 width: 100,
                 height: 100,
               ),
