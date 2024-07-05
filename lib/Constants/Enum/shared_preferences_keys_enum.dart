@@ -5,4 +5,7 @@ enum SharedPreferencesKeysEnum {
   mapSwitch,
   areaSwitch,
   delaySwitch,
+  sendInputNotification,
+  sendHighwayNotification,
+  isFirstBoot,
 }

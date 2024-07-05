@@ -55,7 +55,7 @@ class SapaInfoTile extends StatelessWidget {
                     left: 10,
                   ),
                   child: CustomText(
-                    text: direction,
+                    text: '($direction)',
                     fontSize: 12,
                     color: ColorName.sapaNameColor,
                   ),

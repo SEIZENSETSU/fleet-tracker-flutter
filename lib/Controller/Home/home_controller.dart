@@ -5,6 +5,7 @@ import 'package:fleet_tracker/Model/Entity/Weather/weather.dart';
 import 'package:fleet_tracker/Model/Entity/Weather/weatherList.dart';
 import 'package:fleet_tracker/Service/API/Original/road_information_service.dart';
 import 'package:fleet_tracker/Service/API/WeatherInformation/weather_information_service.dart';
+import 'package:intl/intl.dart';
 
 import 'package:geocoding/geocoding.dart';
 
@@ -55,7 +56,7 @@ class HomeController {
 
     /// 付近100m以内に高速道路が見つからなかった場合、空文字を返す
     if (nearestRoadName == null) {
-      return '';
+      return '高速道路を走行していません';
     }
     // ここはとってくる文字列のパターンがもっとある可能性あるからsplitするやつ増える可能性大
     List<String> spliteNearestRoadName = nearestRoadName.split(';')[0].split('('[0]);
@@ -104,6 +105,9 @@ class HomeController {
   }
 
   Future<String> getNowTime(DateTime now) async {
-    return '${now.hour}:${now.minute}';
+    final formatter = DateFormat('HH:mm');
+    String formatted = formatter.format(now);
+
+    return formatted;
   }
 }

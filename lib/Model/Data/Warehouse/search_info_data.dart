@@ -20,6 +20,10 @@ class WarehouseSearchInfoData extends ChangeNotifier {
     return _data!;
   }
 
+  bool? getIsInvading() {
+    return _data?.isInvading;
+  }
+
   /// setter
   void setData({
     WarehouseSearchInfo? data,

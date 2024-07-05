@@ -23,11 +23,13 @@ class SettingTopController {
   showReNameModal({
     required BuildContext context,
     required Size size,
+    required Function setState,
   }) {
     RenameModal().showReNameModal(
       context: context,
       userName: userName!,
       size: size,
+      changeState: setState,
     );
   }
 
@@ -45,7 +47,7 @@ class SettingTopController {
   Future<void> init() async {
     userName = await getUserName();
     areaSwitchValue = await getAreaSwitchValue();
-    delaySwitchValue = await getAreaSwitchValue();
+    delaySwitchValue = await getDelaySwitchValue();
   }
 
   /// ユーザーネーム取得

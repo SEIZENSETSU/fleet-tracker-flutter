@@ -1,5 +1,6 @@
 import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Controller/Setting/setting_top_controller.dart';
+import 'package:fleet_tracker/Model/Data/user_data.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Setting/setting_tile_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
@@ -46,9 +47,26 @@ class _SettingTopViewState extends State<SettingTopView> {
                     ),
                   ),
                 ),
-                SettingTileCell().withDetail(
-                  title: 'ユーザー名',
-                  detail: controller.userName ?? "",
+
+              ),
+              SettingTileCell().withDetail(
+                title: 'ユーザー名',
+                detail: UserData().getData().name ?? "",
+                onTap: () async {
+                  // コメント投稿をする際の表示名を変更できる項目
+                  Log.echo('名前変更');
+                  await controller.showReNameModal(
+                      context: context,
+                      size: size,
+                      setState: () {
+                        setState(() {});
+                      });
+                  setState(() {});
+                },
+              ),
+              if (kDebugMode)
+                SettingTileCell().common(
+                  '開発用設定',
                   onTap: () {
                     // コメント投稿をする際の表示名を変更できる項目
                     Log.echo('名前変更');
@@ -58,52 +76,44 @@ class _SettingTopViewState extends State<SettingTopView> {
                     );
                   },
                 ),
-                if (kDebugMode)
-                  SettingTileCell().common(
-                    '開発用設定',
-                    onTap: () {
-                      Log.echo('開発ボタン');
-                      controller.showDebugModal(context: context, size: size);
-                    },
-                  ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: CustomText(
-                      text: Strings.SETTING_NOTIFICATION,
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-                SettingTileCell().withSwitch(
-                  subTitle: 'エリア通知',
-                  cellAction: (bool) {
-                    // エリア内に入る or エリアから出るで通知
-                    controller.delaySwitchValue = !controller.delaySwitchValue!;
-                    controller.actionAreaSwitch(value: bool);
-                    setState(() {});
-                  },
-                  switchValue: controller.areaSwitchValue ?? true,
-                ),
-                SettingTileCell().withSwitch(
-                  subTitle: '遅延情報通知',
-                  cellAction: (bool) {
-                    // 渋滞情報に変更があったら通知
-                    controller.delaySwitchValue = !controller.delaySwitchValue!;
-                    controller.actionDelaySwitch(value: bool);
-                    setState(() {});
-                  },
-                  switchValue: controller.delaySwitchValue ?? true,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: CustomText(
-                      text: Strings.SETTING_OTHER,
-                      fontSize: 14,
-                    ),
+
+              // const Padding(
+              //   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              //   child: Align(
+              //     alignment: Alignment.centerLeft,
+              //     child: CustomText(
+              //       text: Strings.SETTING_NOTIFICATION,
+              //       fontSize: 14,
+              //     ),
+              //   ),
+              // ),
+              // SettingTileCell().withSwitch(
+              //   subTitle: 'エリア通知',
+              //   cellAction: (bool) {
+              //     // エリア内に入る or エリアから出るで通知
+              //     controller.areaSwitchValue = bool;
+              //     controller.actionAreaSwitch(value: bool);
+              //     setState(() {});
+              //   },
+              //   switchValue: controller.areaSwitchValue ?? true,
+              // ),
+              // SettingTileCell().withSwitch(
+              //   subTitle: '遅延情報通知',
+              //   cellAction: (bool) {
+              //     // 渋滞情報に変更があったら通知
+              //     controller.delaySwitchValue = bool;
+              //     controller.actionDelaySwitch(value: bool);
+              //     setState(() {});
+              //   },
+              //   switchValue: controller.delaySwitchValue ?? true,
+              // ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: CustomText(
+                    text: Strings.SETTING_OTHER,
+                    fontSize: 14,
                   ),
                 ),
                 SettingTileCell().common(

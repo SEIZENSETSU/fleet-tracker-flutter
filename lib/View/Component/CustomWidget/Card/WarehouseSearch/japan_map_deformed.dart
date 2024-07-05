@@ -157,7 +157,7 @@ class JapanMapDefomed extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: JapanMapCard(
                         name: '関東',
-                        areaId: [9],
+                        areaId: [9, 10, 11, 12],
                         setState: () {
                           setState();
                         },

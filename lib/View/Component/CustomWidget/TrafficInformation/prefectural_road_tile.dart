@@ -30,7 +30,7 @@ class PrefecturalRoadTile extends StatelessWidget {
       child: Container(
         width: deviceWidth,
         height: deviceWidth * 0.15,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
         ),
         child: Row(
@@ -56,15 +56,37 @@ class PrefecturalRoadTile extends StatelessWidget {
                   SizedBox(
                     width: deviceWidth * 0.7,
                     height: deviceWidth * 0.06,
-                    child: FittedBox(
-                      alignment: Alignment.centerLeft,
-                      fit: BoxFit.fitHeight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: CustomText(
-                          text: roadName,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        FittedBox(
+                          alignment: Alignment.centerLeft,
+                          fit: BoxFit.fitHeight,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: CustomText(
+                              text: roadName,
+                            ),
+                          ),
                         ),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 4,
+                          ),
+                          child: Visibility(
+                            visible: provideSapa,
+                            child: const FittedBox(
+                              alignment: Alignment.centerRight,
+                              fit: BoxFit.fitHeight,
+                              child: Icon(
+                                Icons.info,
+                                color: Colors.blue,
+                                size: 18,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(
@@ -85,7 +107,7 @@ class PrefecturalRoadTile extends StatelessWidget {
                   SizedBox(
                     width: deviceWidth * 0.1,
                     height: deviceWidth * 0.05,
-                    child: FittedBox(
+                    child: const FittedBox(
                       fit: BoxFit.fitHeight,
                       child: Icon(
                         Icons.arrow_forward_ios,

@@ -10,7 +10,7 @@
 
     
     <!-- メインテーマカラー -->
-    <color name="maintheme_color">#005133</color>
+    <color name="maintheme_color">#0D801E</color>
 
     <!-- scaffold -->
     <color name="scaffold_background">#f9f9f9</color>
@@ -37,6 +37,7 @@
     <!-- 日本地図に使う色 -->
      <color name="japan_map_card_border">#bdbdbd</color>
      <color name="japan_map_deformed_background">#a0d4ff</color>
+     <color name="japan_map_card">#005133</color>
      
     <!-- 倉庫詳細ページ -->
      <color name="comment_area_background">#dddddd</color>

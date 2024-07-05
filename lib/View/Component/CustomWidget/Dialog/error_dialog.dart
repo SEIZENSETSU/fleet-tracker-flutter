@@ -2,7 +2,6 @@ import 'package:fleet_tracker/View/Component/CustomWidget/custom_button.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class ErrorDialog {
   showErrorDialog({
@@ -10,9 +9,10 @@ class ErrorDialog {
     required String title,
     required Widget content,
     required String detail,
-    required String buttonText,
+    String buttonText = '閉じる',
     Function? buttonAction,
     bool barrierDismissible = false,
+    bool isShowButton = true,
   }) {
     showDialog(
       context: context,
@@ -42,15 +42,17 @@ class ErrorDialog {
                   height: 50,
                   color: ColorName.mainthemeColor,
                   child: Container(
-                    padding: const EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     height: 30,
                     width: 200,
                     child: Align(
                       alignment: Alignment.center,
-                      child: CustomText(
-                        text: title,
-                        color: Colors.white,
-                        fontSize: 22,
+                      child: FittedBox(
+                        child: CustomText(
+                          text: title,
+                          color: Colors.white,
+                          fontSize: 22,
+                        ),
                       ),
                     ),
                   ),
@@ -78,37 +80,48 @@ class ErrorDialog {
                             ),
                             Expanded(
                               flex: 3,
-                              child: Flexible(
-                                child: CustomText(
-                                  text: detail,
-                                ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    child: CustomText(
+                                      text: detail,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: SizedBox(
-                          width: 200,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: CustomButton(
-                              primaryColor: ColorName.mainthemeColor,
-                              text: buttonText,
-                              onTap: buttonAction != null
-                                  ? () {
-                                      // 指定した処理
-                                      buttonAction();
-                                    }
-                                  : () {
-                                      // 戻る
-                                      context.pop();
-                                    },
+                      if (isShowButton) ...[
+                        Expanded(
+                          flex: 1,
+                          child: SizedBox(
+                            width: 200,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: CustomButton(
+                                primaryColor: ColorName.mainthemeColor,
+                                text: buttonText,
+                                onTap: buttonAction != null
+                                    ? () {
+                                        // 指定した処理
+                                        buttonAction();
+                                      }
+                                    : () {
+                                        // 戻る
+                                        Navigator.of(
+                                          context,
+                                          rootNavigator: true,
+                                        ).pop();
+                                      },
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                      ]
                     ],
                   ),
                 ),

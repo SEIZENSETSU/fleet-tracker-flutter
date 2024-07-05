@@ -8,12 +8,18 @@ class RenameController {
   final TextEditingController textEditingController = TextEditingController();
 
   /// 変更ボタンの処理
-  void changeButtonAction() {
+  Future<void> changeButtonAction() async {
     User userData = UserData().getData();
-    UserService().updateUser(
-      uid: userData.uid,
-      userName: textEditingController.text,
+
+    User setUser = User(uid: userData.uid, name: textEditingController.text);
+    await UserService().updateUser(
+      uid: setUser.uid,
+      userName: setUser.name,
       fcmTokenId: userData.fcmTokenId,
     );
+
+    User setterUser = User(uid: userData.uid, name: textEditingController.text);
+    // シングルトンにセットする
+    UserData().setData(data: setUser);
   }
 }

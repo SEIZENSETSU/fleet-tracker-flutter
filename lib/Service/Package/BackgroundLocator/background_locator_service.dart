@@ -4,6 +4,8 @@ import 'dart:ui';
 import 'package:background_task/background_task.dart' as background_task;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
+import 'package:fleet_tracker/Service/API/Original/road_information_service.dart';
+import 'package:fleet_tracker/Service/Package/LocalNotification/local_notifications_service.dart';
 import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +40,7 @@ Future<void> backgroundHandler(background_task.Location data) async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
     WidgetsFlutterBinding.ensureInitialized();
+    SharedPreferencesService prefs = SharedPreferencesService();
 
     /// Locationをインスタンス化
     Location location = Location(
@@ -68,8 +71,68 @@ Future<void> backgroundHandler(background_task.Location data) async {
     }
     Log.echo('backgroundHandler: API Success: $searchInfo', symbol: '📡');
 
+    WarehouseSearchInfoData warehouseSearchInfoData = WarehouseSearchInfoData();
+    bool? isInvading = warehouseSearchInfoData.getIsInvading();
+    Log.echo('backgroundHandler: isInvading: $isInvading', symbol: '🚧');
+    Log.echo(
+        'backgroundHandler: searchInfo.isInvading: ${searchInfo.isInvading}',
+        symbol: '🚧');
+
+    if (isInvading != null &&
+        (await prefs.getBool(SharedPreferencesKeysEnum.areaSwitch.name) ??
+            true)) {
+      /// エリア侵入ステータスが変更された場合
+      if (isInvading != searchInfo.isInvading) {
+        LocalNotificationsService().showNotification(
+          title: searchInfo.isInvading ? '倉庫エリアに入りました🚛' : '倉庫エリアから出ました🚛',
+          body: searchInfo.isInvading
+              ? '${searchInfo.warehouses!.first.warehouseName}まで${searchInfo.warehouses!.first.distance}kmです'
+              : '運送お疲れ様でした！',
+        );
+
+        /// エリア外に出た場合は通知を再度送信する
+        if (!searchInfo.isInvading) {
+          await prefs.setBool(
+              SharedPreferencesKeysEnum.sendInputNotification.name, true);
+        }
+
+        /// エリアで遅延情報の入力を促す通知
+      } else if (searchInfo.isInvading &&
+          currentLocation.lat == location.lat &&
+          currentLocation.lng == location.lng &&
+          (await prefs.getBool(
+                  SharedPreferencesKeysEnum.sendInputNotification.name) ??
+              true)) {
+        LocalNotificationsService().showNotification(
+          title: 'エリアに到着しました🚛',
+          body: '遅延情報の入力にご協力お願いします🙇‍♀',
+        );
+        await prefs.setBool(
+            SharedPreferencesKeysEnum.sendInputNotification.name, false);
+      }
+    }
+
+    String? highwayName = await RoadInformationService()
+        .getNearestRoadName(latitude: location.lat, longitude: location.lng);
+
+    if (highwayName != null &&
+        (await prefs.getBool(
+                SharedPreferencesKeysEnum.sendHighwayNotification.name) ??
+            true)) {
+      /// 高速道路の通知
+      LocalNotificationsService().showNotification(
+        title: '$highwayNameに入りました🚛',
+        body: '安全運転でお願いします！',
+      );
+      await prefs.setBool(
+          SharedPreferencesKeysEnum.sendHighwayNotification.name, false);
+    } else if (highwayName == null) {
+      await prefs.setBool(
+          SharedPreferencesKeysEnum.sendHighwayNotification.name, true);
+    }
+
     /// BackgroundIsolate: APIの結果を更新
-    WarehouseSearchInfoData().setData(data: searchInfo);
+    warehouseSearchInfoData.setData(data: searchInfo);
     Log.echo('backgroundHandler: WarehouseSearchInfoData updated',
         symbol: '🔄');
 

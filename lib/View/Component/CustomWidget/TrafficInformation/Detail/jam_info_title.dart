@@ -62,14 +62,12 @@ class JamInfoTitle extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                Container(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: CustomText(
-                      text: roadName,
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
+                Align(
+                  alignment: Alignment.center,
+                  child: CustomText(
+                    text: roadName,
+                    color: Colors.white,
+                    fontSize: 25,
                   ),
                 ),
                 Padding(
