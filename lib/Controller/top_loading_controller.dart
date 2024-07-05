@@ -194,6 +194,16 @@ class TopLoadingController {
     WarehouseSearchInfoData().setData(data: searchInfo);
 
     await Future.delayed(const Duration(seconds: 1));
+
+    bool isFirstBoot =
+        await prefs.getBool(SharedPreferencesKeysEnum.isFirstBoot.name) ??
+            false;
+
+    if (isFirstBoot) {
+      TutorialRoute().go(context);
+      return;
+    }
+
     // ignore: prefer_const_constructors
     HomeRoute().go(context);
   }

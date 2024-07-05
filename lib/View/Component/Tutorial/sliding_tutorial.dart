@@ -1,3 +1,7 @@
+import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
+import 'package:fleet_tracker/Route/router.dart';
+import 'package:fleet_tracker/Service/Log/log_service.dart';
+import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
 import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +37,19 @@ class _TutorialState extends State<SlidingTutorial> {
   void _onFinishTutorial() async {
     // 設定を変更する
     // Topまで戻る
-    Navigator.pop(context);
+    SharedPreferencesService prefs = SharedPreferencesService();
+    bool isFirstBoot =
+        await prefs.getBool(SharedPreferencesKeysEnum.isFirstBoot.name) ?? true;
+    Log.echo("isFirstBoot: $isFirstBoot");
+    if (isFirstBoot) {
+      await prefs.setBool(SharedPreferencesKeysEnum.isFirstBoot.name, false);
+      // ignore: use_build_context_synchronously, prefer_const_constructors
+      HomeRoute().go(context);
+      return;
+    } else {
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
+    }
   }
 
   @override
