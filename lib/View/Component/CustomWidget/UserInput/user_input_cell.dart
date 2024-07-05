@@ -164,7 +164,9 @@ class _UserInputCellState extends State<UserInputCell> {
                                 Expanded(
                                   flex: 9,
                                   child: CustomText(
-                                    text: delayStateType.title(),
+                                    text: delayStateType
+                                        .title()
+                                        .replaceAll("\n", " "),
                                   ),
                                 ),
                               ],
