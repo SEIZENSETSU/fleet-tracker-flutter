@@ -80,10 +80,16 @@ class ErrorDialog {
                             ),
                             Expanded(
                               flex: 3,
-                              child: Flexible(
-                                child: CustomText(
-                                  text: detail,
-                                ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    child: CustomText(
+                                      text: detail,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
