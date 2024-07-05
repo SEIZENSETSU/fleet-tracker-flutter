@@ -80,7 +80,7 @@ Future<void> backgroundHandler(background_task.Location data) async {
     Log.echo(
         'backgroundHandler: searchInfo.isInvading: ${searchInfo.isInvading}',
         symbol: '🚧');
-    double distance = isInvading != null
+    double distance = searchInfo.isInvading
         ? searchInfo.warehouses!.first.distance
         : searchInfo.warehouseAreas!.first.distance;
 
