@@ -49,9 +49,6 @@ class TutorialPage extends StatelessWidget {
                   margin: 8,
                 ),
               ),
-              CustomText(
-                text: 'skip',
-              ),
             ],
           ),
         ),
