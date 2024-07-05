@@ -22,8 +22,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
-import "package:intl/intl.dart";
-import 'package:intl/date_symbol_data_local.dart';
 
 import '../Constants/Enum/remote_config_keys_enum.dart';
 import '../Model/Entity/user.dart';
@@ -42,7 +40,8 @@ class TopLoadingController {
   UserService get userService => UserService();
 
   final BuildContext context;
-  bool permissionStatus = false;
+  bool notificationPermissionStatus = false;
+  bool locationPermissionStatus = false;
 
   TopLoadingController(this.context);
 
@@ -71,6 +70,20 @@ class TopLoadingController {
     /// LocalNotifications Initialize
     await LocalNotificationsService().initialize();
 
+    notificationPermissionStatus = await checkNotificationPermission();
+    if (!notificationPermissionStatus) {
+      ErrorDialog().showErrorDialog(
+        context: context,
+        title: 'エラー',
+        buttonText: Strings.BACK_BUTTON_TEXT,
+        content: Assets.images.icons.errorDialogIcon.image(
+          color: Colors.red,
+        ),
+        detail: '通知の許可が必要です',
+      );
+      throw Exception('Notification permission denied');
+    }
+
     /// SharedPreferences Initialize
     SharedPreferencesService prefs = SharedPreferencesService();
     if (kDebugMode) {
@@ -80,6 +93,10 @@ class TopLoadingController {
       await prefs.getBool(SharedPreferencesKeysEnum.forceIsInvading.name) ??
           prefs.setBool(SharedPreferencesKeysEnum.forceIsInvading.name, false);
     }
+
+    /// 初回起動フラグを初期化
+    await prefs.getBool(SharedPreferencesKeysEnum.isFirstBoot.name) ??
+        prefs.setBool(SharedPreferencesKeysEnum.isFirstBoot.name, true);
 
     /// お気に入り倉庫リストを初期化
     await prefs.getStringList(
@@ -142,8 +159,8 @@ class TopLoadingController {
     /// ユーザー情報をシングルトンにSet
     UserData().setData(data: userInfo);
 
-    permissionStatus = await checkLocationPermission();
-    if (!permissionStatus) {
+    locationPermissionStatus = await checkLocationPermission();
+    if (!locationPermissionStatus) {
       ErrorDialog().showErrorDialog(
         context: context,
         title: 'エラー',
@@ -152,9 +169,6 @@ class TopLoadingController {
           color: Colors.red,
         ),
         detail: '位置情報の許可が必要です',
-        buttonAction: () {
-          SystemNavigator.pop();
-        },
       );
       throw Exception('Location permission denied');
     }
@@ -174,8 +188,45 @@ class TopLoadingController {
     WarehouseSearchInfoData().setData(data: searchInfo);
 
     await Future.delayed(const Duration(seconds: 1));
-    // ignore: use_build_context_synchronously, prefer_const_constructors
+    // ignore: prefer_const_constructors
     HomeRoute().go(context);
+  }
+
+  /// 通知の許可を確認する関数
+  Future<bool> checkNotificationPermission() async {
+    Log.echo('checkNotificationPermission', symbol: '🔍');
+    PermissionStatus status = await Permission.notification.status;
+
+    if (status.isDenied || status.isRestricted || status.isPermanentlyDenied) {
+      final completer = Completer<void>();
+      ErrorDialog().showErrorDialog(
+        context: context,
+        title: '通知を利用します',
+        content: const Icon(Icons.info_outline_rounded, color: Colors.blue),
+        detail: 'アプリがバックグラウンドで実行中でも、パーソナライズされたサービス提供のために通知を使用します。',
+        buttonText: '確認',
+        buttonAction: () {
+          completer.complete();
+          Navigator.of(
+            context,
+            rootNavigator: true,
+          ).pop();
+        },
+      );
+      await completer.future;
+
+      PermissionStatus newStatus =
+          await LocalNotificationsService().requestPermissions();
+
+      if (newStatus.isDenied ||
+          newStatus.isRestricted ||
+          newStatus.isPermanentlyDenied) {
+        Fluttertoast.showToast(msg: '通知の許可が必要です');
+        return false;
+      }
+    }
+
+    return true;
   }
 
   /// 位置情報の許可を確認する関数
@@ -184,6 +235,23 @@ class TopLoadingController {
     PermissionStatus status = await Permission.location.status;
 
     if (status.isDenied || status.isRestricted || status.isPermanentlyDenied) {
+      final completer = Completer<void>();
+      ErrorDialog().showErrorDialog(
+        context: context,
+        title: '位置情報を利用します',
+        content: const Icon(Icons.info_outline_rounded, color: Colors.blue),
+        detail: 'アプリがバックグラウンドで実行中でも、パーソナライズされたサービス提供のために位置情報を使用します。',
+        buttonText: '確認',
+        buttonAction: () {
+          completer.complete();
+          Navigator.of(
+            context,
+            rootNavigator: true,
+          ).pop();
+        },
+      );
+      await completer.future;
+
       PermissionStatus newStatus = await Permission.location.request();
 
       if (newStatus.isDenied ||

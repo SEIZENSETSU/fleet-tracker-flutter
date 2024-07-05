@@ -7,4 +7,5 @@ enum SharedPreferencesKeysEnum {
   delaySwitch,
   sendInputNotification,
   sendHighwayNotification,
+  isFirstBoot,
 }

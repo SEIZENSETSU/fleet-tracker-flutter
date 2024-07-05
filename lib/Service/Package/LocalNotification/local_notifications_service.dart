@@ -28,11 +28,11 @@ class LocalNotificationsService {
         // ...
       },
     );
-    await requestPermissions();
+    // await requestPermissions();
   }
 
   /// 通知のパーミッション
-  Future<void> requestPermissions() async {
+  Future<PermissionStatus> requestPermissions() async {
     if (Platform.isIOS) {
       await flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
@@ -48,6 +48,8 @@ class LocalNotificationsService {
               AndroidFlutterLocalNotificationsPlugin>();
       await androidImplementation?.requestNotificationsPermission();
     }
+
+    return Permission.notification.status;
   }
 
   /// 通知バーの設定
