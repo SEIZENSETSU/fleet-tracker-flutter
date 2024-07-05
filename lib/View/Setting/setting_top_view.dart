@@ -78,7 +78,7 @@ class _SettingTopViewState extends State<SettingTopView> {
                 subTitle: 'エリア通知',
                 cellAction: (bool) {
                   // エリア内に入る or エリアから出るで通知
-                  controller.delaySwitchValue = !controller.delaySwitchValue!;
+                  controller.areaSwitchValue = bool;
                   controller.actionAreaSwitch(value: bool);
                   setState(() {});
                 },
@@ -88,7 +88,7 @@ class _SettingTopViewState extends State<SettingTopView> {
                 subTitle: '遅延情報通知',
                 cellAction: (bool) {
                   // 渋滞情報に変更があったら通知
-                  controller.delaySwitchValue = !controller.delaySwitchValue!;
+                  controller.delaySwitchValue = bool;
                   controller.actionDelaySwitch(value: bool);
                   setState(() {});
                 },
