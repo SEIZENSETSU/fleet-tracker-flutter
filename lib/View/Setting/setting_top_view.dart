@@ -64,36 +64,36 @@ class _SettingTopViewState extends State<SettingTopView> {
                     controller.showDebugModal(context: context, size: size);
                   },
                 ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: CustomText(
-                    text: Strings.SETTING_NOTIFICATION,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
-              SettingTileCell().withSwitch(
-                subTitle: 'エリア通知',
-                cellAction: (bool) {
-                  // エリア内に入る or エリアから出るで通知
-                  controller.areaSwitchValue = bool;
-                  controller.actionAreaSwitch(value: bool);
-                  setState(() {});
-                },
-                switchValue: controller.areaSwitchValue ?? true,
-              ),
-              SettingTileCell().withSwitch(
-                subTitle: '遅延情報通知',
-                cellAction: (bool) {
-                  // 渋滞情報に変更があったら通知
-                  controller.delaySwitchValue = bool;
-                  controller.actionDelaySwitch(value: bool);
-                  setState(() {});
-                },
-                switchValue: controller.delaySwitchValue ?? true,
-              ),
+              // const Padding(
+              //   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              //   child: Align(
+              //     alignment: Alignment.centerLeft,
+              //     child: CustomText(
+              //       text: Strings.SETTING_NOTIFICATION,
+              //       fontSize: 14,
+              //     ),
+              //   ),
+              // ),
+              // SettingTileCell().withSwitch(
+              //   subTitle: 'エリア通知',
+              //   cellAction: (bool) {
+              //     // エリア内に入る or エリアから出るで通知
+              //     controller.areaSwitchValue = bool;
+              //     controller.actionAreaSwitch(value: bool);
+              //     setState(() {});
+              //   },
+              //   switchValue: controller.areaSwitchValue ?? true,
+              // ),
+              // SettingTileCell().withSwitch(
+              //   subTitle: '遅延情報通知',
+              //   cellAction: (bool) {
+              //     // 渋滞情報に変更があったら通知
+              //     controller.delaySwitchValue = bool;
+              //     controller.actionDelaySwitch(value: bool);
+              //     setState(() {});
+              //   },
+              //   switchValue: controller.delaySwitchValue ?? true,
+              // ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Align(
