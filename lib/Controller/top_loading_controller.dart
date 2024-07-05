@@ -72,6 +72,7 @@ class TopLoadingController {
 
     notificationPermissionStatus = await checkNotificationPermission();
     if (!notificationPermissionStatus) {
+      final completer = Completer<void>();
       ErrorDialog().showErrorDialog(
         context: context,
         title: 'エラー',
@@ -80,9 +81,12 @@ class TopLoadingController {
           color: Colors.red,
         ),
         detail: '通知の許可が必要です',
+        isShowButton: false,
       );
-      throw Exception('Notification permission denied');
+      return completer.future;
     }
+
+    Log.echo('SharedPreferences Initialize', symbol: '🔍');
 
     /// SharedPreferences Initialize
     SharedPreferencesService prefs = SharedPreferencesService();
@@ -161,6 +165,7 @@ class TopLoadingController {
 
     locationPermissionStatus = await checkLocationPermission();
     if (!locationPermissionStatus) {
+      final completer = Completer<void>();
       ErrorDialog().showErrorDialog(
         context: context,
         title: 'エラー',
@@ -169,8 +174,9 @@ class TopLoadingController {
           color: Colors.red,
         ),
         detail: '位置情報の許可が必要です',
+        isShowButton: false,
       );
-      throw Exception('Location permission denied');
+      return completer.future;
     }
 
     /// 位置情報を取得
@@ -203,7 +209,8 @@ class TopLoadingController {
         context: context,
         title: '通知を利用します',
         content: const Icon(Icons.info_outline_rounded, color: Colors.blue),
-        detail: 'アプリがバックグラウンドで実行中でも、パーソナライズされたサービス提供のために通知を使用します。',
+        detail:
+            'アプリがバックグラウンドで実行中でも、パーソナライズされたサービス提供のために通知を使用します。「常に許可」を選択してください。',
         buttonText: '確認',
         buttonAction: () {
           completer.complete();
@@ -240,7 +247,8 @@ class TopLoadingController {
         context: context,
         title: '位置情報を利用します',
         content: const Icon(Icons.info_outline_rounded, color: Colors.blue),
-        detail: 'アプリがバックグラウンドで実行中でも、パーソナライズされたサービス提供のために位置情報を使用します。',
+        detail:
+            'アプリがバックグラウンドで実行中でも、パーソナライズされたサービス提供のために位置情報を使用します。「アプリの起動中は許可」を選択してください。',
         buttonText: '確認',
         buttonAction: () {
           completer.complete();
