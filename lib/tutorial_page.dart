@@ -10,7 +10,7 @@ class TutorialPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ValueNotifier<double> notifier = ValueNotifier(0);
-    int pageCount = 4;
+    int pageCount = 5;
 
     /// Android系の戻るボタンを機能させなくさせる。
     // ignore: deprecated_member_use

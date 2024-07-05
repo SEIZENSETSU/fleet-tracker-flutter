@@ -64,8 +64,8 @@ class _TutorialState extends State<SlidingTutorial> {
   }
 
   Widget _getPageByIndex(int index) {
-    final imageName = Assets.images.icons.sunIcon.path;
-    if (index < 3) {
+    final imageName = 'assets/images/tutorial/${index + 1}.png';
+    if (index < 4) {
       return Image.asset(
         imageName,
         alignment: Alignment.center,
