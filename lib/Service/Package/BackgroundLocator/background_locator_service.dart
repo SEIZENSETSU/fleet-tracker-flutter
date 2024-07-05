@@ -171,13 +171,10 @@ Future<void> backgroundHandler(background_task.Location data) async {
     Log.echo('backgroundHandler: ${e.toString()}', symbol: '❌');
     await LocationData().setData(force: true);
 
-    RemoteConfigService remoteConfigService = RemoteConfigService();
-    if (remoteConfigService.getBool(RemoteConfigKeys.debugNotification)) {
-      LocalNotificationsService().showNotification(
-        title: 'デバッグ通知🚛',
-        body: 'エラー: ${e.toString()}',
-      );
-    }
+    LocalNotificationsService().showNotification(
+      title: 'デバッグ通知🚛',
+      body: 'エラー: ${e.toString()}',
+    );
   }
 }
 
@@ -263,6 +260,10 @@ class BackgroundLocatorService {
       title: title,
       message: message,
     );
+  }
+
+  Future<bool> isRunning() async {
+    return await background_task.BackgroundTask.instance.isRunning;
   }
 
   /// バックグラウンドで位置情報の使用を開始
