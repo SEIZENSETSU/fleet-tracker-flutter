@@ -3,10 +3,12 @@ import 'package:fleet_tracker/Controller/Setting/setting_top_controller.dart';
 import 'package:fleet_tracker/Model/Data/user_data.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Setting/setting_tile_cell.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/circular_progress_indicator_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../../Route/router.dart';
 import '../Component/CustomWidget/Modal/rename_modal.dart';
@@ -148,7 +150,15 @@ class _SettingTopViewState extends State<SettingTopView> {
                   const LicenseRoute().push(context);
                 },
               ),
-              SettingTileCell().withDetail(title: 'アプリバージョン', detail: 'v1.0.0'),
+              FutureBuilder(
+                  future: controller.getAppVersion(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState != ConnectionState.done) {
+                      return const CircularProgressIndicator();
+                    }
+                    return SettingTileCell().withDetail(
+                        title: 'アプリバージョン', detail: '${snapshot.data}');
+                  }),
             ],
           );
         },
