@@ -3,10 +3,10 @@ import 'dart:ui';
 
 import 'package:background_task/background_task.dart' as background_task;
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fleet_tracker/Constants/Enum/remote_config_keys_enum.dart';
+// import 'package:fleet_tracker/Constants/Enum/remote_config_keys_enum.dart';
 import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
 import 'package:fleet_tracker/Service/API/Original/road_information_service.dart';
-import 'package:fleet_tracker/Service/Firebase/RemoteConfig/remote_config_service.dart';
+// import 'package:fleet_tracker/Service/Firebase/RemoteConfig/remote_config_service.dart';
 import 'package:fleet_tracker/Service/Package/LocalNotification/local_notifications_service.dart';
 import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
 import 'package:flutter/foundation.dart';
@@ -33,7 +33,7 @@ Future<void> backgroundHandler(background_task.Location data) async {
     DateTime now = DateTime.now();
     Location currentLocation = LocationData().getData();
 
-    if (!now.isAfter(currentLocation.time.add(const Duration(seconds: 15)))) {
+    if (!now.isAfter(currentLocation.time.add(const Duration(minutes: 3)))) {
       return;
     }
 
@@ -43,7 +43,7 @@ Future<void> backgroundHandler(background_task.Location data) async {
     );
     WidgetsFlutterBinding.ensureInitialized();
     SharedPreferencesService prefs = SharedPreferencesService();
-    RemoteConfigService remoteConfigService = RemoteConfigService();
+    // RemoteConfigService remoteConfigService = RemoteConfigService();
 
     /// Locationをインスタンス化
     Location location = Location(
@@ -80,17 +80,17 @@ Future<void> backgroundHandler(background_task.Location data) async {
     Log.echo(
         'backgroundHandler: searchInfo.isInvading: ${searchInfo.isInvading}',
         symbol: '🚧');
-    double distance = searchInfo.isInvading
-        ? searchInfo.warehouses!.first.distance
-        : searchInfo.warehouseAreas!.first.distance;
+    // double distance = searchInfo.isInvading
+    //     ? searchInfo.warehouses!.first.distance
+    //     : searchInfo.warehouseAreas!.first.distance;
 
-    if (remoteConfigService.getBool(RemoteConfigKeys.debugNotification)) {
-      LocalNotificationsService().showNotification(
-        title: 'デバッグ通知🚛',
-        body:
-            '位置情報: ${location.lat}, ${location.lng}, エリア侵入: ${searchInfo.isInvading}, 遅延情報: $distance km',
-      );
-    }
+    // if (remoteConfigService.getBool(RemoteConfigKeys.debugNotification)) {
+    //   LocalNotificationsService().showNotification(
+    //     title: 'デバッグ通知🚛',
+    //     body:
+    //         '位置情報: ${location.lat}, ${location.lng}, エリア侵入: ${searchInfo.isInvading}, 遅延情報: $distance km',
+    //   );
+    // }
 
     if (isInvading != null &&
         (await prefs.getBool(SharedPreferencesKeysEnum.areaSwitch.name) ??
@@ -171,11 +171,6 @@ Future<void> backgroundHandler(background_task.Location data) async {
   } catch (e) {
     Log.echo('backgroundHandler: ${e.toString()}', symbol: '❌');
     await LocationData().setData(force: true);
-
-    LocalNotificationsService().showNotification(
-      title: 'デバッグ通知🚛',
-      body: 'エラー: ${e.toString()}',
-    );
   }
 }
 
@@ -191,13 +186,13 @@ class BackgroundLocatorService {
   void observer() {
     Log.echo('Observer watch start', symbol: '👀');
 
-    RemoteConfigService remoteConfigService = RemoteConfigService();
-    if (remoteConfigService.getBool(RemoteConfigKeys.debugNotification)) {
-      LocalNotificationsService().showNotification(
-        title: 'デバッグ通知🚛',
-        body: 'Observer watch start',
-      );
-    }
+    // RemoteConfigService remoteConfigService = RemoteConfigService();
+    // if (remoteConfigService.getBool(RemoteConfigKeys.debugNotification)) {
+    //   LocalNotificationsService().showNotification(
+    //     title: 'デバッグ通知🚛',
+    //     body: 'Observer watch start',
+    //   );
+    // }
 
     /// ポートを登録
     ReceivePort port = ReceivePort();
@@ -241,13 +236,13 @@ class BackgroundLocatorService {
     Log.echo('dispose', symbol: '🗑️');
     IsolateNameServer.removePortNameMapping('mainIsolate');
 
-    RemoteConfigService remoteConfigService = RemoteConfigService();
-    if (remoteConfigService.getBool(RemoteConfigKeys.debugNotification)) {
-      LocalNotificationsService().showNotification(
-        title: 'デバッグ通知🚛',
-        body: 'Observer watch end',
-      );
-    }
+    // RemoteConfigService remoteConfigService = RemoteConfigService();
+    // if (remoteConfigService.getBool(RemoteConfigKeys.debugNotification)) {
+    //   LocalNotificationsService().showNotification(
+    //     title: 'デバッグ通知🚛',
+    //     body: 'Observer watch end',
+    //   );
+    // }
   }
 
   /// Androidの通知設定
@@ -274,25 +269,10 @@ class BackgroundLocatorService {
       return;
     }
     await background_task.BackgroundTask.instance.start();
-
-    RemoteConfigService remoteConfigService = RemoteConfigService();
-    if (remoteConfigService.getBool(RemoteConfigKeys.debugNotification)) {
-      LocalNotificationsService().showNotification(
-        title: 'デバッグ通知🚛',
-        body: 'BackgroundTask started',
-      );
-    }
   }
 
   /// 停止
   Future<void> stop() async {
     await background_task.BackgroundTask.instance.stop();
-    RemoteConfigService remoteConfigService = RemoteConfigService();
-    if (remoteConfigService.getBool(RemoteConfigKeys.debugNotification)) {
-      LocalNotificationsService().showNotification(
-        title: 'デバッグ通知🚛',
-        body: 'BackgroundTask stopped',
-      );
-    }
   }
 }
