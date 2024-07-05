@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:math';
 
 import 'package:fleet_tracker/gen/assets.gen.dart';
@@ -9,7 +10,7 @@ class DestinationArrow extends StatelessWidget {
     required this.angle,
   });
 
-  int angle;
+  double angle;
 
   @override
   Widget build(BuildContext context) {

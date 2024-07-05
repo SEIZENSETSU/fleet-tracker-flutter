@@ -16,7 +16,7 @@ class DestinationCard extends StatelessWidget {
   });
   final String title;
   final String delayStateType;
-  final int angle;
+  final double angle;
   final double distance;
 
   @override
