@@ -193,6 +193,14 @@ class BackgroundLocatorService {
   void observer() {
     Log.echo('Observer watch start', symbol: '👀');
 
+    RemoteConfigService remoteConfigService = RemoteConfigService();
+    if (remoteConfigService.getBool(RemoteConfigKeys.debugNotification)) {
+      LocalNotificationsService().showNotification(
+        title: 'デバッグ通知🚛',
+        body: 'Observer watch start',
+      );
+    }
+
     /// ポートを登録
     ReceivePort port = ReceivePort();
     IsolateNameServer.registerPortWithName(port.sendPort, 'mainIsolate');
@@ -234,6 +242,14 @@ class BackgroundLocatorService {
   void dispose() {
     Log.echo('dispose', symbol: '🗑️');
     IsolateNameServer.removePortNameMapping('mainIsolate');
+
+    RemoteConfigService remoteConfigService = RemoteConfigService();
+    if (remoteConfigService.getBool(RemoteConfigKeys.debugNotification)) {
+      LocalNotificationsService().showNotification(
+        title: 'デバッグ通知🚛',
+        body: 'Observer watch end',
+      );
+    }
   }
 
   /// Androidの通知設定
@@ -256,10 +272,25 @@ class BackgroundLocatorService {
       return;
     }
     await background_task.BackgroundTask.instance.start();
+
+    RemoteConfigService remoteConfigService = RemoteConfigService();
+    if (remoteConfigService.getBool(RemoteConfigKeys.debugNotification)) {
+      LocalNotificationsService().showNotification(
+        title: 'デバッグ通知🚛',
+        body: 'BackgroundTask started',
+      );
+    }
   }
 
   /// 停止
   Future<void> stop() async {
     await background_task.BackgroundTask.instance.stop();
+    RemoteConfigService remoteConfigService = RemoteConfigService();
+    if (remoteConfigService.getBool(RemoteConfigKeys.debugNotification)) {
+      LocalNotificationsService().showNotification(
+        title: 'デバッグ通知🚛',
+        body: 'BackgroundTask stopped',
+      );
+    }
   }
 }
