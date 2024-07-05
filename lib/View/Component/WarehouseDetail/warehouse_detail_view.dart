@@ -28,6 +28,7 @@ import 'package:intl/intl.dart';
 import '../../../Constants/Enum/warehouse_delay_state_enum.dart';
 import '../../../Model/Data/Warehouse/search_info_data.dart';
 import '../../../Model/Entity/Warehouse/info.dart';
+import '../CustomWidget/Modal/warehouse_detail_info_modal.dart';
 
 class WarehouseDetailView extends StatefulWidget {
   const WarehouseDetailView(
@@ -56,10 +57,8 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
         actions: [
           IconButton(
             onPressed: () {
-              controller.showInfoModal(
-                context: context,
-                size: size,
-              );
+              WarehuseDetailInfoModal()
+                  .showInfoModal(context: context, size: size);
             },
             icon: const Icon(Icons.info),
           ),
