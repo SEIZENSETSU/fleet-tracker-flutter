@@ -12,7 +12,7 @@ class WarehouseSearchResultController {
   Future<List<Warehouse>?> getWarehouseWithKeyword(
       {required String keyword}) async {
     List<Warehouse>? warehouseList = [];
-    for (int i = 1; i < 10; i++) {
+    for (int i = 1; i < 13; i++) {
       List<Warehouse>? searchWarehouse =
           await WarehouseService().getWarehouseList(i);
       if (searchWarehouse != null) {
@@ -37,6 +37,7 @@ class WarehouseSearchResultController {
         warehouseList.addAll(searchWarehouse);
       }
     }
+    Log.echo(warehouseList.toString());
     return warehouseList;
   }
 
