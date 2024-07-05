@@ -36,7 +36,7 @@ class LocalSearchCardGroup extends StatelessWidget {
               case 1:
                 areaIdList.add(2);
               case 2:
-                areaIdList.add(9);
+                areaIdList.addAll([9, 10, 11, 12]);
               case 3:
                 areaIdList.add(3);
               case 4:
