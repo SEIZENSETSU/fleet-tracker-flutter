@@ -26,7 +26,7 @@ class ErrorDialog {
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Container(
-            width: 150,
+            width: 160,
             decoration: BoxDecoration(
               border: Border.all(
                 color: Colors.black,
@@ -38,7 +38,7 @@ class ErrorDialog {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Container(
-                  width: 150,
+                  width: 180,
                   height: 50,
                   color: ColorName.mainthemeColor,
                   child: Container(
@@ -58,7 +58,7 @@ class ErrorDialog {
                   ),
                 ),
                 Container(
-                  height: 180,
+                  height: 220,
                   color: Colors.white,
                   margin: const EdgeInsets.all(10),
                   child: Column(
@@ -95,6 +95,7 @@ class ErrorDialog {
                           ],
                         ),
                       ),
+                      const SizedBox(height: 10),
                       if (isShowButton) ...[
                         Expanded(
                           flex: 1,

@@ -219,8 +219,7 @@ class TopLoadingController {
         context: context,
         title: '通知を利用します',
         content: const Icon(Icons.info_outline_rounded, color: Colors.blue),
-        detail:
-            'アプリがバックグラウンドで実行中でも、パーソナライズされたサービス提供のために通知を使用します。「常に許可」を選択してください。',
+        detail: 'アプリがバックグラウンドで実行中でも、サービス提供のために通知を使用します。「常に許可」を選択してください。',
         buttonText: '確認',
         buttonAction: () {
           completer.complete();
@@ -258,7 +257,7 @@ class TopLoadingController {
         title: '位置情報を利用します',
         content: const Icon(Icons.info_outline_rounded, color: Colors.blue),
         detail:
-            'アプリがバックグラウンドで実行中でも、パーソナライズされたサービス提供のために位置情報を使用します。「アプリの起動中は許可」を選択してください。',
+            'アプリがバックグラウンドで実行中でも、サービス提供のために位置情報を使用します。「アプリの起動中は許可」を選択してください。',
         buttonText: '確認',
         buttonAction: () {
           completer.complete();
