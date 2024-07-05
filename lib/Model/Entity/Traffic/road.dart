@@ -17,7 +17,7 @@ class TrafficRoad {
     return TrafficRoad(
       id: json['road_id'],
       name: json['road_name'],
-      provideSapa: json['provide_sapa'],
+      provideSapa: json['provide_sapa'] == 1 ? true : false,
       closure: json['closure'],
       jam: json['jam'],
     );
