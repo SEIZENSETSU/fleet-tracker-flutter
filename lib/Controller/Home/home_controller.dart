@@ -128,9 +128,11 @@ class HomeController {
     List<String>? favoriteId = await prefs
         .getStringList(SharedPreferencesKeysEnum.favoriteWarehouseList.name);
     Log.echo(favoriteId.toString(), symbol: '👞');
-
+    if (favoriteId!.isEmpty) {
+      return null;
+    }
     //　IDで倉庫検索APIを叩く
-    for (int i = 0; i < favoriteId!.length; i++) {
+    for (int i = 0; i < favoriteId.length; i++) {
       WarehouseSearchInfo? warehouseInfo = await WarehouseService()
           .searchWarehouseList(
               userLatitude: LocationData().getData().lat,
@@ -140,7 +142,6 @@ class HomeController {
         favoriteWarehouseList.add(warehouseInfo.favoriteWarehouses![0]);
       }
     }
-
     return favoriteWarehouseList;
   }
 }
