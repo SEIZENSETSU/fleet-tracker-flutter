@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Constants/Enum/traffic_area_image_enum.dart';
 import 'package:fleet_tracker/Model/Entity/Traffic/road.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/TrafficInformation/prefectural_road_tile.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
@@ -7,13 +8,13 @@ import 'package:flutter/material.dart';
 class TrafficInformationTileCell extends StatelessWidget {
   const TrafficInformationTileCell({
     super.key,
-    required this.imageUrl,
+    required this.areaId,
     required this.count,
     required this.prefectureName,
     required this.prefecturalRoadList,
   });
 
-  final String imageUrl;
+  final int areaId;
   final int count;
   final String prefectureName;
   final List<TrafficRoad> prefecturalRoadList;
@@ -43,7 +44,7 @@ class TrafficInformationTileCell extends StatelessWidget {
               width: deviceWidth * 0.2,
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: Image.network(imageUrl),
+                child: TrafficAreaImageType(areaId).image(),
               ),
             ),
             SizedBox(

@@ -13,7 +13,7 @@ class SapaInfoCongestionIcon extends StatelessWidget {
       width: 25,
       height: 25,
       decoration: BoxDecoration(
-        color: Colors.green,
+        color: iconColor,
         borderRadius: BorderRadius.circular(3),
       ),
       child: Align(

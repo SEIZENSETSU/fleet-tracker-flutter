@@ -1,6 +1,8 @@
 import 'package:fleet_tracker/Constants/Enum/traffic_detail_state_enum.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class JamInfoPlaceTile extends StatelessWidget {
   const JamInfoPlaceTile({
@@ -43,28 +45,40 @@ class JamInfoPlaceTile extends StatelessWidget {
               width: deviceWidth,
               child: Row(
                 children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: CustomText(
-                        text: direction,
-                        fontSize: 16,
-                        color: Colors.white,
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.blueAccent,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      height: 25,
+                      child: Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: FittedBox(
+                          fit: BoxFit.contain,
+                          child: CustomText(
+                            text: direction,
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 10,
-                    ),
-                    child: CustomText(
-                      text: place,
-                      fontSize: 18,
-                      color: Colors.blueAccent,
+                  Expanded(
+                    flex: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                      ),
+                      width: deviceWidth * 0.7,
+                      child: CustomText(
+                        text: place,
+                        fontSize: 18,
+                        color: Colors.blueAccent,
+                        textOverflow: TextOverflow.clip,
+                      ),
                     ),
                   ),
                 ],
@@ -76,27 +90,41 @@ class JamInfoPlaceTile extends StatelessWidget {
               ),
               child: Row(
                 children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.orange,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: CustomText(
-                        text: TrafficDetailStateType(type.name).JapaneseText(),
-                        color: Colors.white,
-                        fontSize: 16,
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      height: 25,
+                      child: Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: FittedBox(
+                          fit: BoxFit.contain,
+                          child: CustomText(
+                            text: TrafficDetailStateType(type.name)
+                                .JapaneseText(),
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  CustomText(
-                    text: content == null ? range! : '$content : $reason',
-                    fontSize: 20,
-                    color: Colors.orange,
+                  Expanded(
+                    flex: 8,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                      ),
+                      child: CustomText(
+                        text: content == null ? range! : '$content : $reason',
+                        fontSize: 18,
+                        color: Colors.orange,
+                        textOverflow: TextOverflow.clip,
+                      ),
+                    ),
                   ),
                 ],
               ),

@@ -65,6 +65,7 @@ flutter:
     - assets/images/icons/
     - assets/images/top_loading/
     - assets/images/component/
+    - assets/images/area/
 
   fonts:
     - family: Noto_Sans_JP
