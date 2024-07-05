@@ -4,6 +4,7 @@ import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Controller/Home/home_controller.dart';
 import 'package:fleet_tracker/Model/Data/clock_data.dart';
 import 'package:fleet_tracker/Model/Data/location_data.dart';
+import 'package:fleet_tracker/Service/Package/Location/geolocator_service.dart';
 import 'package:fleet_tracker/Model/Entity/Warehouse/info.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/destination_card.dart';
@@ -12,6 +13,7 @@ import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 import '../../Model/Data/Warehouse/search_info_data.dart';
 import '../../Route/router.dart';
 import '../Component/CustomWidget/UserInput/user_input_cell.dart';
@@ -749,7 +751,9 @@ class _HomeViewState extends State<HomeView> {
                           title: _data.warehouseAreas![0].warehouseAreaName,
                           delayStateType:
                               _data.warehouseAreas![0].averageDelayState.name,
-                          angle: 60,
+                          angle: GeolocatorService().calcBearingBetween(
+                              warehouseLat: _data.warehouseAreas![0].latitude,
+                              warehouseLng: _data.warehouseAreas![0].longitude),
                           distance: _data.warehouseAreas![0].distance,
                         ),
                       ],
