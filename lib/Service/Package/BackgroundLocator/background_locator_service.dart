@@ -31,9 +31,14 @@ Future<void> backgroundHandler(background_task.Location data) async {
 
     DateTime now = DateTime.now();
     Location currentLocation = LocationData().getData();
+    RemoteConfigService remoteConfigService = RemoteConfigService();
 
     /// 15秒以内の位置情報は無視する
-    if (!now.isAfter(currentLocation.time.add(const Duration(seconds: 15)))) {
+    Duration diff =
+        remoteConfigService.getBool(RemoteConfigKeys.debugDurationInterval)
+            ? const Duration(seconds: 15)
+            : const Duration(minutes: 3);
+    if (!now.isAfter(currentLocation.time.add(diff))) {
       return;
     }
 
@@ -43,7 +48,6 @@ Future<void> backgroundHandler(background_task.Location data) async {
     );
     WidgetsFlutterBinding.ensureInitialized();
     SharedPreferencesService prefs = SharedPreferencesService();
-    RemoteConfigService remoteConfigService = RemoteConfigService();
 
     /// Locationをインスタンス化
     Location location = Location(
