@@ -170,6 +170,14 @@ Future<void> backgroundHandler(background_task.Location data) async {
   } catch (e) {
     Log.echo('backgroundHandler: ${e.toString()}', symbol: '❌');
     await LocationData().setData(force: true);
+
+    RemoteConfigService remoteConfigService = RemoteConfigService();
+    if (remoteConfigService.getBool(RemoteConfigKeys.debugNotification)) {
+      LocalNotificationsService().showNotification(
+        title: 'デバッグ通知🚛',
+        body: 'エラー: ${e.toString()}',
+      );
+    }
   }
 }
 
