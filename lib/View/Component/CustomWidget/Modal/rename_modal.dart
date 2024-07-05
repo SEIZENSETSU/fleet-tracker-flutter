@@ -15,6 +15,7 @@ class RenameModal {
     required BuildContext context,
     required String userName,
     required Size size,
+    required Function changeState,
   }) {
     CustomModal().showModal(
       context: context,
@@ -48,9 +49,10 @@ class RenameModal {
                     isFilledColor: true,
                     primaryColor: ColorName.mainthemeColor,
                     text: '変更',
-                    onTap: () {
-                      controller.changeButtonAction();
+                    onTap: () async {
+                      await controller.changeButtonAction();
                       Navigator.pop(context);
+                      changeState();
                     },
                   ),
                 ),

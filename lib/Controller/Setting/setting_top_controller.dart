@@ -23,11 +23,13 @@ class SettingTopController {
   showReNameModal({
     required BuildContext context,
     required Size size,
+    required Function setState,
   }) {
     RenameModal().showReNameModal(
       context: context,
       userName: userName!,
       size: size,
+      changeState: setState,
     );
   }
 
