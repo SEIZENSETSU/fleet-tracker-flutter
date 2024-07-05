@@ -6,11 +6,18 @@ import 'package:fleet_tracker/Service/API/Original/comment_service.dart';
 import 'package:fleet_tracker/Service/API/Original/user_service.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/Modal/custom_modal.dart';
+import 'package:fleet_tracker/gen/assets.gen.dart';
+import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../Model/Entity/comment.dart';
 import '../../Model/Entity/user.dart';
+import '../../View/Component/CustomWidget/custom_text.dart';
 
 class WarehouseDetailController {
   SharedPreferencesService prefs = SharedPreferencesService();

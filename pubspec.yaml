@@ -37,6 +37,9 @@ dependencies:
   package_info_plus: ^8.0.0
   url_launcher: ^6.3.0
   firebase_remote_config: ^5.0.2
+  flutter_overboard: ^3.1.3
+  flutter_sliding_tutorial: ^2.0.0+1
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -54,6 +57,15 @@ flutter_gen:
     exclude:
       - .env.develop
       - .env.release
+
+flutter_icons:
+  ios: true
+  image_path: "assets/images/icons/fleet_tracker_icon.png"
+  remove_alpha_ios: true
+  android: true
+  adaptive_icon_background: '#0D801E'
+  adaptive_icon_foreground: 'assets/images/icons/fleet_tracker_icon.png'
+  
 
 flutter:
   uses-material-design: true

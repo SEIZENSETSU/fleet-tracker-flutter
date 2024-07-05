@@ -28,6 +28,7 @@ import 'package:intl/intl.dart';
 import '../../../Constants/Enum/warehouse_delay_state_enum.dart';
 import '../../../Model/Data/Warehouse/search_info_data.dart';
 import '../../../Model/Entity/Warehouse/info.dart';
+import '../CustomWidget/Modal/warehouse_detail_info_modal.dart';
 
 class WarehouseDetailView extends StatefulWidget {
   const WarehouseDetailView(
@@ -53,6 +54,15 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
       appBar: CustomAppBar(
         isBackButton: true,
         title: widget.warehouseInfo.warehouseName,
+        actions: [
+          IconButton(
+            onPressed: () {
+              WarehuseDetailInfoModal()
+                  .showInfoModal(context: context, size: size);
+            },
+            icon: const Icon(Icons.info),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Center(

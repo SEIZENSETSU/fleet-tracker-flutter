@@ -5,6 +5,7 @@ import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Setting/setting_tile_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
+import 'package:fleet_tracker/tutorial_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -33,17 +34,20 @@ class _SettingTopViewState extends State<SettingTopView> {
       body: FutureBuilder(
         future: controller.init(),
         builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-          return Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: CustomText(
-                    text: Strings.SETTING_ACOUNT_INFO,
-                    fontSize: 14,
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: CustomText(
+                      text: Strings.SETTING_ACOUNT_INFO,
+                      fontSize: 14,
+                    ),
                   ),
                 ),
+
               ),
               SettingTileCell().withDetail(
                 title: 'ユーザー名',
@@ -64,10 +68,15 @@ class _SettingTopViewState extends State<SettingTopView> {
                 SettingTileCell().common(
                   '開発用設定',
                   onTap: () {
-                    Log.echo('開発ボタン');
-                    controller.showDebugModal(context: context, size: size);
+                    // コメント投稿をする際の表示名を変更できる項目
+                    Log.echo('名前変更');
+                    controller.showReNameModal(
+                      context: context,
+                      size: size,
+                    );
                   },
                 ),
+
               // const Padding(
               //   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               //   child: Align(
@@ -107,43 +116,53 @@ class _SettingTopViewState extends State<SettingTopView> {
                     fontSize: 14,
                   ),
                 ),
-              ),
-              SettingTileCell().common(
-                '使い方',
-                onTap: () {
-                  const HowToUseRoute().push(context);
-                },
-              ),
-              SettingTileCell().common(
-                'お問い合わせ',
-                onTap: () {
-                  // お問い合わせを送信するページ
-                  controller.openInquiry();
-                },
-              ),
-              SettingTileCell().common(
-                'アプリをレビューする',
-                onTap: () {
-                  // ストアページのレビューへ遷移
-                  controller.openReview();
-                },
-              ),
-              SettingTileCell().common(
-                'プライバシーポリシー',
-                onTap: () {
-                  // プライバシーポリシー
-                  controller.openPrivacyPolicy();
-                },
-              ),
-              SettingTileCell().common(
-                'ライセンス',
-                onTap: () {
-                  // ライセンスを表示
-                  const LicenseRoute().push(context);
-                },
-              ),
-              SettingTileCell().withDetail(title: 'アプリバージョン', detail: 'v1.0.0'),
-            ],
+                SettingTileCell().common(
+                  '使い方',
+                  onTap: () {
+                    const HowToUseRoute().push(context);
+                  },
+                ),
+                SettingTileCell().common(
+                  'チュートリアル',
+                  onTap: () {
+                    TutorialRoute().push(context);
+                  },
+                ),
+                SettingTileCell().common(
+                  'お問い合わせ',
+                  onTap: () {
+                    // お問い合わせを送信するページ
+                    controller.openInquiry();
+                  },
+                ),
+                SettingTileCell().common(
+                  'アプリをレビューする',
+                  onTap: () {
+                    // ストアページのレビューへ遷移
+                    controller.openReview();
+                  },
+                ),
+                SettingTileCell().common(
+                  'プライバシーポリシー',
+                  onTap: () {
+                    // プライバシーポリシー
+                    controller.openPrivacyPolicy();
+                  },
+                ),
+                SettingTileCell().common(
+                  'ライセンス',
+                  onTap: () {
+                    // ライセンスを表示
+                    const LicenseRoute().push(context);
+                  },
+                ),
+                SettingTileCell()
+                    .withDetail(title: 'アプリバージョン', detail: 'v1.0.0'),
+                const SizedBox(
+                  height: 50,
+                )
+              ],
+            ),
           );
         },
       ),

@@ -1,5 +1,6 @@
 import 'package:fleet_tracker/Model/Entity/Warehouse/search_info.dart';
 import 'package:fleet_tracker/Model/Entity/delay_time_detail.dart';
+import 'package:fleet_tracker/tutorial_page.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -288,5 +289,13 @@ class TopLoadingRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const TopLoadingView();
+}
+
+@TypedGoRoute<TutorialRoute>(path: '/tutorial')
+class TutorialRoute extends GoRouteData {
+  TutorialRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => TutorialPage();
 }
 ///////////////////////////  Root  //////////////////////////////

@@ -4,6 +4,10 @@
     <!-- スプラッシュ画面に使うカラー -->
     <color name="splash_main">#006C3F</color>
     <color name="splash_background">#C1E0F1</color>
+
+    <!-- チュートリアル画面に使うカラー -->
+     <color name="tutorial_background">#97d9de</color>
+
     
     <!-- メインテーマカラー -->
     <color name="maintheme_color">#0D801E</color>
