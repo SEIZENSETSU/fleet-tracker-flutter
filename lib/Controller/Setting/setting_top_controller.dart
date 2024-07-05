@@ -1,4 +1,6 @@
 import 'package:fleet_tracker/Model/Data/user_data.dart';
+import 'package:fleet_tracker/Service/Package/BackgroundLocator/background_locator_service.dart';
+import 'package:fleet_tracker/Service/Package/DeviceInfo/device_info_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -13,6 +15,7 @@ import '../../View/Component/CustomWidget/Modal/debug_modal.dart';
 import '../../View/Component/CustomWidget/Modal/rename_modal.dart';
 
 class SettingTopController {
+  DeviceInfoService get _deviceInfoService => DeviceInfoService();
   InAppReview get _inAppReview => InAppReview.instance;
   bool delaySwitch = true;
   String? userName;
@@ -110,5 +113,24 @@ class SettingTopController {
       return;
     }
     await launchUrl(url);
+  }
+
+  /// アプリバージョン
+  Future<String> getAppVersion() async {
+    return await _deviceInfoService.getAppVersion();
+  }
+
+  /// バックグラウンドロケーションのステータス
+  Future<bool> getBackgroundLocatorStatus() async {
+    return await BackgroundLocatorService().isRunning();
+  }
+
+  /// バックグラウンドロケーションのステータス変更
+  Future<void> changeBackgroundLocatorStatus() async {
+    if (await getBackgroundLocatorStatus()) {
+      await BackgroundLocatorService().stop();
+    } else {
+      await BackgroundLocatorService().start();
+    }
   }
 }
