@@ -1,8 +1,6 @@
 import 'package:fleet_tracker/Constants/Enum/traffic_detail_state_enum.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class JamInfoPlaceTile extends StatelessWidget {
   const JamInfoPlaceTile({

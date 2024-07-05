@@ -11,7 +11,6 @@ import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class TrafficInformationDetailView extends StatefulWidget {
   const TrafficInformationDetailView({
@@ -129,7 +128,7 @@ class _TrafficInformationStateDetailView
                           InfoContentCard(
                             title: 'SAPA情報',
                             children: <Widget>[
-                              SapaInfoHeader(),
+                              const SapaInfoHeader(),
                               for (int i = 0;
                                   i < trafficSapaInfoList.length;
                                   i++) ...{
