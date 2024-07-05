@@ -109,6 +109,12 @@ class _SettingTopViewState extends State<SettingTopView> {
                 ),
               ),
               SettingTileCell().common(
+                'チュートリアル',
+                onTap: () {
+                  TutorialRoute().push(context);
+                },
+              ),
+              SettingTileCell().common(
                 '使い方',
                 onTap: () {
                   const HowToUseRoute().push(context);
