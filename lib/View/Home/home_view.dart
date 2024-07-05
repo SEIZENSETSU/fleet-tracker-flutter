@@ -1026,30 +1026,6 @@ class _HomeViewState extends State<HomeView> {
                           height: 60,
                           child: CommonCard(
                             onTap: () {
-                              // コメント・遅延登録画面へ遷移
-                              controller.pushFunctionCard(
-                                  FunctionType(FunctionTypeEnum.userInput.name)
-                                      .branchIndex());
-                            },
-                            content: const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.chat,
-                                ),
-                                CustomText(
-                                  text: '登録',
-                                  fontSize: 8,
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 60,
-                          height: 60,
-                          child: CommonCard(
-                            onTap: () {
                               // 交通情報タブへ遷移
                               controller.pushFunctionCard(FunctionType(
                                       FunctionTypeEnum.trafficInformation.name)
