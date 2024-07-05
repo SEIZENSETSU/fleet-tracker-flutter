@@ -3,8 +3,10 @@ import 'dart:ui';
 
 import 'package:background_task/background_task.dart' as background_task;
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fleet_tracker/Constants/Enum/remote_config_keys_enum.dart';
 import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
 import 'package:fleet_tracker/Service/API/Original/road_information_service.dart';
+import 'package:fleet_tracker/Service/Firebase/RemoteConfig/remote_config_service.dart';
 import 'package:fleet_tracker/Service/Package/LocalNotification/local_notifications_service.dart';
 import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
 import 'package:flutter/foundation.dart';
@@ -41,6 +43,7 @@ Future<void> backgroundHandler(background_task.Location data) async {
     );
     WidgetsFlutterBinding.ensureInitialized();
     SharedPreferencesService prefs = SharedPreferencesService();
+    RemoteConfigService remoteConfigService = RemoteConfigService();
 
     /// Locationをインスタンス化
     Location location = Location(
@@ -77,6 +80,17 @@ Future<void> backgroundHandler(background_task.Location data) async {
     Log.echo(
         'backgroundHandler: searchInfo.isInvading: ${searchInfo.isInvading}',
         symbol: '🚧');
+    double distance = isInvading != null
+        ? searchInfo.warehouses!.first.distance
+        : searchInfo.warehouseAreas!.first.distance;
+
+    if (remoteConfigService.getBool(RemoteConfigKeys.debugNotification)) {
+      LocalNotificationsService().showNotification(
+        title: 'デバッグ通知🚛',
+        body:
+            '位置情報: ${location.lat}, ${location.lng}, エリア侵入: ${searchInfo.isInvading}, 遅延情報: $distance km',
+      );
+    }
 
     if (isInvading != null &&
         (await prefs.getBool(SharedPreferencesKeysEnum.areaSwitch.name) ??
