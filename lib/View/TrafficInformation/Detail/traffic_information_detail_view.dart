@@ -65,9 +65,10 @@ class _TrafficInformationStateDetailView
                 builder: (BuildContext context,
                     AsyncSnapshot<List<TrafficIssue>?> snapshot) {
                   if (snapshot.hasData) {
-                    if (snapshot.data!.length > 0) {
+                    if (snapshot.data!.isNotEmpty) {
                       List<TrafficIssue> trafficIssueList = snapshot.data!;
                       return InfoContentCard(
+                        title: '渋滞情報',
                         children: <Widget>[
                           for (int i = 0; i < trafficIssueList.length; i++) ...{
                             JamInfoPlaceTile(
@@ -80,14 +81,14 @@ class _TrafficInformationStateDetailView
                             ),
                           },
                         ],
-                        title: '渋滞情報',
                       );
                     } else {
                       return InfoContentCard(
+                        title: '渋滞情報',
                         children: <Widget>[
                           Container(
                             height: 50,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
                                   width: 1,
@@ -95,10 +96,10 @@ class _TrafficInformationStateDetailView
                                 ),
                               ),
                             ),
-                            child: Align(
+                            child: const Align(
                               alignment: Alignment.centerLeft,
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 10),
+                                padding: EdgeInsets.only(left: 10),
                                 child: CustomText(
                                   text: '渋滞情報はありません',
                                 ),
@@ -106,7 +107,6 @@ class _TrafficInformationStateDetailView
                             ),
                           ),
                         ],
-                        title: '渋滞情報',
                       );
                     }
                   } else {
@@ -127,6 +127,7 @@ class _TrafficInformationStateDetailView
                       return Column(
                         children: <Widget>[
                           InfoContentCard(
+                            title: 'SAPA情報',
                             children: <Widget>[
                               SapaInfoHeader(),
                               for (int i = 0;
@@ -144,9 +145,8 @@ class _TrafficInformationStateDetailView
                                 ),
                               },
                             ],
-                            title: 'SAPA情報',
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 50,
                           )
                         ],

@@ -39,7 +39,7 @@ class _TrafficInformationStateTopViewState
                 itemCount: prefectureInfoList.length + 1,
                 itemBuilder: (BuildContext context, int index) {
                   if (index == prefectureInfoList.length) {
-                    return SizedBox(
+                    return const SizedBox(
                       height: 50,
                     );
                   }
