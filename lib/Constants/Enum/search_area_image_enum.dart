@@ -36,21 +36,20 @@ class SearchAreaImageType {
 
   Image image() {
     switch (type) {
-      // 飯田くんからもらった画像を後から置き換える
       case SearchAreaImageEnum.hokkaidou:
-        return Assets.images.icons.cloudIcon.image();
+        return Assets.images.area.hokkaido.image();
       case SearchAreaImageEnum.tohoku:
-        return Assets.images.icons.cloudIcon.image();
+        return Assets.images.area.tohoku.image();
       case SearchAreaImageEnum.kantou:
-        return Assets.images.icons.cloudIcon.image();
+        return Assets.images.area.kanto.image();
       case SearchAreaImageEnum.tyuubu:
-        return Assets.images.icons.cloudIcon.image();
+        return Assets.images.area.chubu.image();
       case SearchAreaImageEnum.kinki:
-        return Assets.images.icons.cloudIcon.image();
+        return Assets.images.area.kinki.image();
       case SearchAreaImageEnum.tyuugokuShikoku:
-        return Assets.images.icons.cloudIcon.image();
+        return Assets.images.area.chugokuSikoku.image();
       case SearchAreaImageEnum.kyuusyuu:
-        return Assets.images.icons.cloudIcon.image();
+        return Assets.images.area.kyushu.image();
     }
   }
 }
