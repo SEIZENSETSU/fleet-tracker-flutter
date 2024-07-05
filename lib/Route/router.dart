@@ -95,10 +95,10 @@ final routerProvider = Provider(
           path: Routes.setting,
         ),
         TypedGoRoute<HowToUseRoute>(
-          path: Routes.howtToUse,
+          path: Routes.howToUse,
         ),
         TypedGoRoute<LicenseRoute>(
-          path: Routes.howtToUse,
+          path: Routes.license,
         ),
       ],
     ),
