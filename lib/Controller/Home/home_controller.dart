@@ -1,10 +1,15 @@
+import 'package:fleet_tracker/Constants/Enum/shared_preferences_keys_enum.dart';
 import 'package:fleet_tracker/Constants/Enum/weather_state_enum.dart';
 import 'package:fleet_tracker/Controller/bottom_navigation_bar_controller.dart';
 import 'package:fleet_tracker/Model/Data/location_data.dart';
+import 'package:fleet_tracker/Model/Entity/Warehouse/info.dart';
+import 'package:fleet_tracker/Model/Entity/Warehouse/search_info.dart';
 import 'package:fleet_tracker/Model/Entity/Weather/weather.dart';
 import 'package:fleet_tracker/Model/Entity/Weather/weatherList.dart';
 import 'package:fleet_tracker/Service/API/Original/road_information_service.dart';
 import 'package:fleet_tracker/Service/API/WeatherInformation/weather_information_service.dart';
+import 'package:fleet_tracker/Service/Log/log_service.dart';
+import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferences_service.dart';
 import 'package:intl/intl.dart';
 
 import 'package:geocoding/geocoding.dart';
@@ -13,6 +18,7 @@ import '../../Model/Entity/Warehouse/warehouse.dart';
 import '../../Service/API/Original/warehouse_service.dart';
 
 class HomeController {
+  SharedPreferencesService prefs = SharedPreferencesService();
   pushFunctionCard(int index) {
     BottomNavigationBarController().goBranch(index);
   }
@@ -33,7 +39,8 @@ class HomeController {
   /// ConsumerのデータからwarehouseIdをもらってWarehouse型を返す。
   /// [id] warehouseId
   Future getWarehouseList(int id) async {
-    Warehouse? warehouse = await WarehouseService().getWarehouseInfo(warehouseId: id);
+    Warehouse? warehouse =
+        await WarehouseService().getWarehouseInfo(warehouseId: id);
 
     if (warehouse == null) {
       return;
@@ -48,7 +55,8 @@ class HomeController {
   /// 現在地から最寄りの道路名を取得する
   /// [lat] 緯度
   /// [lng] 経度
-  Future<String> getNearestRoadName({required double lat, required double lng}) async {
+  Future<String> getNearestRoadName(
+      {required double lat, required double lng}) async {
     String? nearestRoadName = await RoadInformationService().getNearestRoadName(
       latitude: lat,
       longitude: lng,
@@ -59,7 +67,8 @@ class HomeController {
       return '高速道路を走行していません';
     }
     // ここはとってくる文字列のパターンがもっとある可能性あるからsplitするやつ増える可能性大
-    List<String> spliteNearestRoadName = nearestRoadName.split(';')[0].split('('[0]);
+    List<String> spliteNearestRoadName =
+        nearestRoadName.split(';')[0].split('('[0]);
 
     nearestRoadName = spliteNearestRoadName[0];
 
@@ -74,7 +83,8 @@ class HomeController {
     required double lng,
     required bool isAfterOneHour,
   }) async {
-    WeatherList? weatherList = await WeatherInformationService().getWeatherInformation(
+    WeatherList? weatherList =
+        await WeatherInformationService().getWeatherInformation(
       userLatitude: lat.toString(),
       userLongitude: lng.toString(),
     );
@@ -109,5 +119,29 @@ class HomeController {
     String formatted = formatter.format(now);
 
     return formatted;
+  }
+
+  /// ユーザーが登録しているお気に入り倉庫の情報を取得する
+  Future<List<WarehouseInfo>?> getFavoriteWarehouses() async {
+    List<WarehouseInfo> favoriteWarehouseList = [];
+    // お気に入りに登録している倉庫IDを取得
+    List<String>? favoriteId = await prefs
+        .getStringList(SharedPreferencesKeysEnum.favoriteWarehouseList.name);
+    Log.echo(favoriteId.toString(), symbol: '👞');
+    if (favoriteId!.isEmpty) {
+      return null;
+    }
+    //　IDで倉庫検索APIを叩く
+    for (int i = 0; i < favoriteId.length; i++) {
+      WarehouseSearchInfo? warehouseInfo = await WarehouseService()
+          .searchWarehouseList(
+              userLatitude: LocationData().getData().lat,
+              userLongitude: LocationData().getData().lng,
+              favoriteWarehouseIds: int.parse(favoriteId[i]));
+      if (warehouseInfo != null) {
+        favoriteWarehouseList.add(warehouseInfo.favoriteWarehouses![0]);
+      }
+    }
+    return favoriteWarehouseList;
   }
 }
