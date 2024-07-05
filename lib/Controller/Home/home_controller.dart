@@ -5,6 +5,7 @@ import 'package:fleet_tracker/Model/Entity/Weather/weather.dart';
 import 'package:fleet_tracker/Model/Entity/Weather/weatherList.dart';
 import 'package:fleet_tracker/Service/API/Original/road_information_service.dart';
 import 'package:fleet_tracker/Service/API/WeatherInformation/weather_information_service.dart';
+import 'package:intl/intl.dart';
 
 import 'package:geocoding/geocoding.dart';
 
@@ -104,8 +105,9 @@ class HomeController {
   }
 
   Future<String> getNowTime(DateTime now) async {
-    String hour = now.hour.toString().padLeft(2, '0');
-    String minute = now.minute.toString().padLeft(2, '0');
-    return '$hour:$minute';
+    final formatter = DateFormat('HH:mm');
+    String formatted = formatter.format(now);
+
+    return formatted;
   }
 }
