@@ -51,7 +51,7 @@ class _TrafficInformationStateDetailView
                     return JamInfoTitle(
                       areaName: trafficDetail.data.areaName,
                       roadName: trafficDetail.data.roadName,
-                      time: trafficDetail.summary.updateTimestamp,
+                      time: trafficDetail.summary.timestamp,
                     );
                   } else {
                     return const Center(child: CircularProgressIndicator());
