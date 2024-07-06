@@ -383,6 +383,10 @@ class _HomeViewState extends State<HomeView> {
                                       warehouseAreaId: data.warehouseAreaId,
                                       warehouseName: data.warehouseName,
                                       warehouseId: data.warehouseId,
+                                      enableAction: _data.warehouses!.any(
+                                          (element) =>
+                                              element.warehouseId ==
+                                              data.warehouseId),
 
                                       /// 後ほど
                                       traficstateCountList:
@@ -392,8 +396,12 @@ class _HomeViewState extends State<HomeView> {
                                       toWarehousePage: () {
                                         WarehouseDetailRoute(
                                           $extra: data,
-                                          functionType:
-                                              FunctionTypeEnum.home.name,
+                                          functionType: _data.warehouses!.any(
+                                                  (element) =>
+                                                      element.warehouseId ==
+                                                      data.warehouseId)
+                                              ? FunctionTypeEnum.home.name
+                                              : FunctionTypeEnum.search.name,
                                         ).push(context);
                                       },
                                     ),
@@ -952,6 +960,7 @@ class _HomeViewState extends State<HomeView> {
                                           warehouseAreaId: data.warehouseAreaId,
                                           warehouseName: data.warehouseName,
                                           warehouseId: data.warehouseId,
+                                          enableAction: false,
 
                                           /// 後ほど
                                           traficstateCountList:
@@ -962,7 +971,7 @@ class _HomeViewState extends State<HomeView> {
                                             WarehouseDetailRoute(
                                               $extra: data,
                                               functionType:
-                                                  FunctionTypeEnum.home.name,
+                                                  FunctionTypeEnum.search.name,
                                             ).push(context);
                                           },
                                         ),
