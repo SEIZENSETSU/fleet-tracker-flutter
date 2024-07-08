@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../Model/Data/user_data.dart';
 import '../../../gen/colors.gen.dart';
@@ -150,10 +151,14 @@ class CommentTile extends StatelessWidget {
         GestureDetector(
           onTap: () async {
             // コメントを通報する。
-            await controller.reportComment(
-                commentUser: userName,
-                reportUser: UserData().getData().name,
-                content: userComment);
+            if (userId != UserData().getData().uid) {
+              await controller.reportComment(
+                  commentUser: userName,
+                  reportUser: UserData().getData().name,
+                  content: userComment);
+            } else {
+              Fluttertoast.showToast(msg: '自分のコメントは通報できません。');
+            }
           },
           child: const Padding(
             padding: EdgeInsets.only(right: 10),
