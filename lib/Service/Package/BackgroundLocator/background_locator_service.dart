@@ -268,7 +268,9 @@ class BackgroundLocatorService {
     if (await background_task.BackgroundTask.instance.isRunning) {
       return;
     }
-    await background_task.BackgroundTask.instance.start();
+    await background_task.BackgroundTask.instance.start(
+      iOSDesiredAccuracy: background_task.DesiredAccuracy.hundredMeters,
+    );
   }
 
   /// 停止
