@@ -165,6 +165,7 @@ class WarehouseDetailController {
       for (int i = 0; i < commentList.length; i++)
         {
           'name': userName[i],
+          'id': commentList[i].uid,
           'comment': commentList[i].contents,
           'create_at': commentList[i].createdAt
         }

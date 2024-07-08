@@ -259,6 +259,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                                         .format(DateTime.parse(
                                             comentList[index]['create_at'])),
                                     userName: comentList[index]['name'],
+                                    userId: comentList[index]['id'],
                                   ),
                                 );
                               }),

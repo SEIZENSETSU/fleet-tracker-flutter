@@ -124,11 +124,11 @@ class CommentService {
 
   /// コメント通報
   /// [commentUserName]  コメントした人の名前
-  /// [reportUserId]   通報した人のuid
+  /// [reportUserName]   通報した人の名前
   /// [content]        コメントの内容
   Future<void> reportComment({
     required String commentUserName,
-    required String reportUserId,
+    required String reportUserName,
     required String content,
   }) async {
     // 通報処理
