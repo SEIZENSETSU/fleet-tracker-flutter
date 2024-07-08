@@ -137,7 +137,7 @@ class CommentTile extends StatelessWidget {
           ],
         ),
         Align(
-          alignment: Alignment.centerRight,
+          alignment: Alignment.bottomRight,
           child: Padding(
             padding: const EdgeInsets.only(right: 10),
             child: CustomText(
@@ -148,8 +148,12 @@ class CommentTile extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () {
+          onTap: () async {
             // コメントを通報する。
+            await controller.reportComment(
+                commentUser: userName,
+                reportUser: UserData().getData().name,
+                content: userComment);
           },
           child: const Padding(
             padding: EdgeInsets.only(right: 10),
@@ -158,7 +162,7 @@ class CommentTile extends StatelessWidget {
               children: [
                 CustomText(
                   text: 'コメントを通報する',
-                  fontSize: 12,
+                  fontSize: 13,
                   color: Colors.grey,
                 ),
                 Icon(
