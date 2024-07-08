@@ -11,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../Route/router.dart';
@@ -72,10 +73,17 @@ class _SettingTopViewState extends State<SettingTopView> {
                     if (snapshot.connectionState != ConnectionState.done) {
                       return const CircularProgressIndicator();
                     }
+
                     return SettingTileCell().withDetail(
                       title: '位置情報取得',
                       detail: snapshot.data == true ? 'ON' : 'OFF',
                       onTap: () {
+                        if (snapshot.data == null) {
+                          Fluttertoast.showToast(
+                            msg: '位置情報の取得が許可されていません。',
+                          );
+                          return;
+                        }
                         ErrorDialog().showErrorDialog(
                           context: context,
                           title: '位置情報取得',

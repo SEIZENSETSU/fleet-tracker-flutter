@@ -72,24 +72,6 @@ class TopLoadingController {
 
     notificationPermissionStatus = await checkNotificationPermission();
 
-    if (!notificationPermissionStatus) {
-      final completer = Completer<void>();
-      ErrorDialog().showErrorDialog(
-        context: context,
-        title: 'エラー',
-        buttonText: '設定を開く',
-        content: Assets.images.icons.errorDialogIcon.image(
-          color: Colors.red,
-        ),
-        detail: '通知の許可が必要です',
-        buttonAction: () {
-          openAppSettings();
-          return completer.future;
-        },
-      );
-      return completer.future;
-    }
-
     Log.echo('SharedPreferences Initialize', symbol: '🔍');
 
     /// SharedPreferences Initialize
@@ -168,24 +150,6 @@ class TopLoadingController {
     UserData().setData(data: userInfo);
 
     locationPermissionStatus = await checkLocationPermission();
-
-    if (!locationPermissionStatus) {
-      final completer = Completer<void>();
-      ErrorDialog().showErrorDialog(
-        context: context,
-        title: 'エラー',
-        buttonText: '設定を開く',
-        content: Assets.images.icons.errorDialogIcon.image(
-          color: Colors.red,
-        ),
-        detail: '位置情報の許可が必要です',
-        buttonAction: () {
-          openAppSettings();
-          return completer.future;
-        },
-      );
-      return completer.future;
-    }
 
     /// 位置情報を取得
     Location location = LocationData().getData();
