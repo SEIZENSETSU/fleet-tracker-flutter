@@ -145,72 +145,69 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                         heightFactor: 1,
                         child: Padding(
                           padding: const EdgeInsets.all(4.0),
-                          child: StatefulBuilder(builder:
-                              (BuildContext context, StateSetter setState) {
-                            return CommonCard(
-                              onTap: () async {
-                                await controller.favoriteButtonAction(
-                                  warehouseId: widget.warehouseInfo.warehouseId,
-                                );
-                                await controller.getIsFavorite(
+                          child: CommonCard(
+                            onTap: () async {
+                              await controller.favoriteButtonAction(
+                                warehouseId: widget.warehouseInfo.warehouseId,
+                              );
+                              await controller.getIsFavorite(
+                                  warehouseId:
+                                      widget.warehouseInfo.warehouseId);
+                              setState(() {});
+                            },
+                            content: FutureBuilder<bool>(
+                                future: controller.getIsFavorite(
                                     warehouseId:
-                                        widget.warehouseInfo.warehouseId);
-                                setState(() {});
-                              },
-                              content: FutureBuilder<bool>(
-                                  future: controller.getIsFavorite(
-                                      warehouseId:
-                                          widget.warehouseInfo.warehouseId),
-                                  builder: (BuildContext context,
-                                      AsyncSnapshot<bool> snapshot) {
-                                    if (snapshot.hasData) {
-                                      bool isFavorite = snapshot.data!;
-                                      return Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 10, right: 5),
-                                            child: Icon(
-                                              isFavorite
-                                                  ? Icons.favorite
-                                                  : Icons.favorite_border,
-                                              color: Colors.red,
-                                            ),
+                                        widget.warehouseInfo.warehouseId),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<bool> snapshot) {
+                                  if (snapshot.hasData) {
+                                    bool isFavorite = snapshot.data!;
+                                    return Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, right: 5),
+                                          child: Icon(
+                                            isFavorite
+                                                ? Icons.favorite
+                                                : Icons.favorite_border,
+                                            color: Colors.red,
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: CustomText(
-                                                text: isFavorite
-                                                    ? 'お気に入り登録済'
-                                                    : 'お気に入り'),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: CustomText(
+                                              text: isFavorite
+                                                  ? 'お気に入り登録済'
+                                                  : 'お気に入り'),
+                                        ),
+                                      ],
+                                    );
+                                  } else {
+                                    return const Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 10, right: 5),
+                                          child: Icon(
+                                            Icons.favorite_border,
+                                            color: Colors.red,
                                           ),
-                                        ],
-                                      );
-                                    } else {
-                                      return const Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 10, right: 5),
-                                            child: Icon(
-                                              Icons.favorite_border,
-                                              color: Colors.red,
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.all(4.0),
-                                            child: CustomText(text: 'お気に入り'),
-                                          ),
-                                        ],
-                                      );
-                                    }
-                                  }),
-                            );
-                          }),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.all(4.0),
+                                          child: CustomText(text: 'お気に入り'),
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                }),
+                          ),
                         ),
                       ),
                     ),
@@ -254,13 +251,17 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 15),
                                   child: CommentTile(
-                                    userComment: comentList[index]['comment'],
-                                    createAt: DateFormat('yyyy年MM月dd日 HH時mm分')
-                                        .format(DateTime.parse(
-                                            comentList[index]['create_at'])),
-                                    userName: comentList[index]['name'],
-                                    userId: comentList[index]['id'],
-                                  ),
+                                      userComment: comentList[index]['comment'],
+                                      createAt: DateFormat('yyyy年MM月dd日 HH時mm分')
+                                          .format(DateTime.parse(
+                                              comentList[index]['create_at'])),
+                                      userName: comentList[index]['name'],
+                                      userId: comentList[index]['id'],
+                                      commentId: comentList[index]
+                                          ['comment_id'],
+                                      setState: () {
+                                        setState(() {});
+                                      }),
                                 );
                               }),
                         );

@@ -1,3 +1,4 @@
+import 'package:fleet_tracker/Controller/Component/comment_tile_controller.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,15 +16,20 @@ class CommentTile extends StatelessWidget {
     required this.createAt,
     required this.userName,
     required this.userId,
+    required this.commentId,
+    this.setState,
   });
 
   final String userComment;
   final String createAt;
   final String userName;
   final String userId;
+  final int commentId;
+  final Function? setState;
 
   @override
   Widget build(BuildContext context) {
+    CommentTileController controller = CommentTileController();
     return Column(
       children: [
         Row(
@@ -93,16 +99,26 @@ class CommentTile extends StatelessWidget {
                                   userId == UserData().getData().uid
                                       ? Align(
                                           alignment: Alignment.topRight,
-                                          child: Container(
-                                            width: 30,
-                                            height: 30,
-                                            decoration: const BoxDecoration(
-                                              color: ColorName.mainthemeColor,
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: const Icon(
-                                              Icons.delete,
-                                              color: Colors.white,
+                                          child: GestureDetector(
+                                            onTap: () async {
+                                              // コメント削除
+                                              await controller.deleteComment(
+                                                  commentId: commentId);
+                                              if (setState != null) {
+                                                setState!();
+                                              }
+                                            },
+                                            child: Container(
+                                              width: 30,
+                                              height: 30,
+                                              decoration: const BoxDecoration(
+                                                color: ColorName.mainthemeColor,
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: const Icon(
+                                                Icons.delete,
+                                                color: Colors.white,
+                                              ),
                                             ),
                                           ),
                                         )
