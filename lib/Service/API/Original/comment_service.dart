@@ -6,7 +6,8 @@ import '../../../Model/Entity/comment.dart';
 import '../../Log/log_service.dart';
 
 class CommentService {
-  FirebaseAuthenticationService get authService => FirebaseAuthenticationService();
+  FirebaseAuthenticationService get authService =>
+      FirebaseAuthenticationService();
   late String baseUrl;
   final Map<String, String> headers = {
     'Content-type': 'application/json',
@@ -117,6 +118,55 @@ class CommentService {
       return response.statusCode;
     } catch (e) {
       Log.echo('エラーが発生しました');
+      return null;
+    }
+  }
+
+  /// コメント通報
+  /// [commentId] コメントID
+  /// [commentUserName] コメントした人の名前
+  /// [reportUserName] 通報した人の名前
+  /// [content] コメントの内容
+  Future<int?> reportComment({
+    required int commentId,
+    required String commentUserUid,
+    required String reportUserUid,
+    required String content,
+  }) async {
+    try {
+      final webhookUrl = dotenv.env['DISCORD_WEBHOOK_URL']!;
+      final url = Uri.https('discord.com', webhookUrl);
+      final headers = {'Content-Type': 'application/json'};
+
+      final embed = {
+        'title': '⚠ Fleet Tracker Report ⚠',
+        'color': 5814783,
+        'fields': [
+          {'name': 'コメントID', 'value': commentId, 'inline': false},
+          {'name': '投稿者', 'value': commentUserUid, 'inline': false},
+          {'name': '通報者', 'value': reportUserUid, 'inline': false},
+          {'name': '内容', 'value': content, 'inline': false}
+        ],
+        'footer': {
+          'text': 'Fleet Tracker Report System',
+        },
+      };
+
+      final body = jsonEncode({
+        'username': 'Fleet Tracker',
+        'avatar_url': '',
+        'embeds': [embed],
+      });
+
+      http.Response response =
+          await http.post(url, headers: headers, body: body);
+
+      if (response.statusCode != 204) {
+        throw Exception('Report failed.');
+      }
+
+      return response.statusCode;
+    } catch (e) {
       return null;
     }
   }

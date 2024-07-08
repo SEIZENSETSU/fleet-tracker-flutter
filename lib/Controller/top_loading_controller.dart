@@ -29,7 +29,7 @@ import '../Service/API/Original/warehouse_service.dart';
 import '../Service/Log/log_service.dart';
 import '../Service/Package/BackgroundLocator/background_locator_service.dart';
 import '../Service/Package/LocalNotification/local_notifications_service.dart';
-import '../View/Component/CustomWidget/Dialog/error_dialog.dart';
+import '../View/Component/CustomWidget/Dialog/custom_dialog.dart';
 
 class TopLoadingController {
   FirebaseAuthenticationService get authenticationService =>
@@ -57,7 +57,7 @@ class TopLoadingController {
     bool releaseValue = RemoteConfigService().getBool(RemoteConfigKeys.release);
     if (!releaseValue) {
       final completer = Completer<void>();
-      ErrorDialog().showErrorDialog(
+      CustomDialog().showCustomDialog(
         context: context,
         title: 'メンテナンス中です...',
         content: Assets.images.icons.errorDialogIcon.image(),
@@ -71,20 +71,6 @@ class TopLoadingController {
     await LocalNotificationsService().initialize();
 
     notificationPermissionStatus = await checkNotificationPermission();
-    if (!notificationPermissionStatus) {
-      final completer = Completer<void>();
-      ErrorDialog().showErrorDialog(
-        context: context,
-        title: 'エラー',
-        buttonText: Strings.BACK_BUTTON_TEXT,
-        content: Assets.images.icons.errorDialogIcon.image(
-          color: Colors.red,
-        ),
-        detail: '通知の許可が必要です',
-        isShowButton: false,
-      );
-      return completer.future;
-    }
 
     Log.echo('SharedPreferences Initialize', symbol: '🔍');
 
@@ -164,20 +150,6 @@ class TopLoadingController {
     UserData().setData(data: userInfo);
 
     locationPermissionStatus = await checkLocationPermission();
-    if (!locationPermissionStatus) {
-      final completer = Completer<void>();
-      ErrorDialog().showErrorDialog(
-        context: context,
-        title: 'エラー',
-        buttonText: Strings.BACK_BUTTON_TEXT,
-        content: Assets.images.icons.errorDialogIcon.image(
-          color: Colors.red,
-        ),
-        detail: '位置情報の許可が必要です',
-        isShowButton: false,
-      );
-      return completer.future;
-    }
 
     /// 位置情報を取得
     Location location = LocationData().getData();
@@ -215,7 +187,7 @@ class TopLoadingController {
 
     if (status.isDenied || status.isRestricted || status.isPermanentlyDenied) {
       final completer = Completer<void>();
-      ErrorDialog().showErrorDialog(
+      CustomDialog().showCustomDialog(
         context: context,
         title: '通知を利用します',
         content: const Icon(Icons.info_outline_rounded, color: Colors.blue),
@@ -252,7 +224,7 @@ class TopLoadingController {
 
     if (status.isDenied || status.isRestricted || status.isPermanentlyDenied) {
       final completer = Completer<void>();
-      ErrorDialog().showErrorDialog(
+      CustomDialog().showCustomDialog(
         context: context,
         title: '位置情報を利用します',
         content: const Icon(Icons.info_outline_rounded, color: Colors.blue),

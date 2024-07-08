@@ -180,16 +180,16 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                                               color: Colors.red,
                                             ),
                                           ),
-                                          Padding(
-                                            padding: EdgeInsets.all(4.0),
-                                            child: CustomText(text: 'お気に入り'),
-                                          ),
-                                        ],
-                                      );
-                                    }
-                                  }),
-                            );
-                          }),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.all(4.0),
+                                          child: CustomText(text: 'お気に入り'),
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                }),
+                          ),
                         ),
                       ),
                     ),
@@ -230,10 +230,17 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                                 return Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 15),
                                   child: CommentTile(
-                                    userComment: comentList[index]['comment'],
-                                    createAt: DateFormat('yyyy年MM月dd日 HH時mm分').format(DateTime.parse(comentList[index]['create_at'])),
-                                    userName: comentList[index]['name'],
-                                  ),
+                                      userComment: comentList[index]['comment'],
+                                      createAt: DateFormat('yyyy年MM月dd日 HH時mm分')
+                                          .format(DateTime.parse(
+                                              comentList[index]['create_at'])),
+                                      userName: comentList[index]['name'],
+                                      userId: comentList[index]['id'],
+                                      commentId: comentList[index]
+                                          ['comment_id'],
+                                      setState: () {
+                                        setState(() {});
+                                      }),
                                 );
                               }),
                         );

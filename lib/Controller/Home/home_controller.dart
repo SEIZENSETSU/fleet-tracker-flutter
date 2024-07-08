@@ -13,6 +13,7 @@ import 'package:fleet_tracker/Service/Package/SharedPreferences/shared_preferenc
 import 'package:intl/intl.dart';
 
 import 'package:geocoding/geocoding.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../Model/Entity/Warehouse/warehouse.dart';
 import '../../Service/API/Original/warehouse_service.dart';
@@ -143,5 +144,13 @@ class HomeController {
       }
     }
     return favoriteWarehouseList;
+  }
+
+  Future<PermissionStatus> getLocationPermission() async {
+    return Permission.location.status;
+  }
+
+  Future<void> requestLocationPermission() async {
+    openAppSettings();
   }
 }

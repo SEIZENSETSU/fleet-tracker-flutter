@@ -2,7 +2,7 @@ import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Controller/Setting/setting_top_controller.dart';
 import 'package:fleet_tracker/Model/Data/user_data.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
-import 'package:fleet_tracker/View/Component/CustomWidget/Dialog/error_dialog.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/Dialog/custom_dialog.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Setting/setting_tile_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/circular_progress_indicator_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
@@ -11,6 +11,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../Route/router.dart';
 import '../Component/CustomWidget/Modal/rename_modal.dart';
@@ -37,7 +39,8 @@ class _SettingTopViewState extends State<SettingTopView> {
       body: FutureBuilder(
         future: controller.init(),
         builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-          return Column(
+          return SingleChildScrollView(
+              child: Column(
             children: [
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -49,6 +52,7 @@ class _SettingTopViewState extends State<SettingTopView> {
                   ),
                 ),
               ),
+
               SettingTileCell().withDetail(
                 title: 'ユーザー名',
                 detail: UserData().getData().name ?? "",
@@ -70,11 +74,18 @@ class _SettingTopViewState extends State<SettingTopView> {
                   if (snapshot.connectionState != ConnectionState.done) {
                     return const CircularProgressIndicator();
                   }
+
                   return SettingTileCell().withDetail(
                     title: '位置情報取得',
                     detail: snapshot.data == true ? 'ON' : 'OFF',
                     onTap: () {
-                      ErrorDialog().showErrorDialog(
+                      if (snapshot.data == null) {
+                        Fluttertoast.showToast(
+                          msg: '位置情報の取得が許可されていません。',
+                        );
+                        return;
+                      }
+                      CustomDialog().showCustomDialog(
                         context: context,
                         title: '位置情報取得',
                         content: Icon(
@@ -95,6 +106,8 @@ class _SettingTopViewState extends State<SettingTopView> {
                           ).pop();
                         },
                         buttonText: '変更',
+                        isShowRejectButton: true,
+                        barrierDismissible: true,
                       );
                     },
                   );
@@ -108,16 +121,23 @@ class _SettingTopViewState extends State<SettingTopView> {
                     controller.showDebugModal(context: context, size: size);
                   },
                 ),
-              // const Padding(
-              //   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              //   child: Align(
-              //     alignment: Alignment.centerLeft,
-              //     child: CustomText(
-              //       text: Strings.SETTING_NOTIFICATION,
-              //       fontSize: 14,
-              //     ),
-              //   ),
-              // ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: CustomText(
+                    text: Strings.SETTING_NOTIFICATION,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+              SettingTileCell().common(
+                '端末の設定を開く',
+                onTap: () {
+                  // 通知設定画面へ遷移
+                  openAppSettings();
+                },
+              ),
               // SettingTileCell().withSwitch(
               //   subTitle: 'エリア通知',
               //   cellAction: (bool) {
@@ -198,7 +218,7 @@ class _SettingTopViewState extends State<SettingTopView> {
                         title: 'アプリバージョン', detail: '${snapshot.data}');
                   }),
             ],
-          );
+          ));
         },
       ),
     );
