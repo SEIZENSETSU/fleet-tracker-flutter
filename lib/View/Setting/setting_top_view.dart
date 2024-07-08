@@ -200,7 +200,9 @@ class _SettingTopViewState extends State<SettingTopView> {
               SettingTileCell().common(
                 'チュートリアル',
                 onTap: () {
-                  TutorialRoute().push(context);
+                  TutorialRoute(
+                    isBackButton: true,
+                  ).push(context);
                 },
               ),
               SettingTileCell().common(
