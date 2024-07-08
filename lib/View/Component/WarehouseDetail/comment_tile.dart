@@ -153,8 +153,9 @@ class CommentTile extends StatelessWidget {
             // コメントを通報する。
             if (userId != UserData().getData().uid) {
               await controller.reportComment(
-                  commentUser: userName,
-                  reportUser: UserData().getData().name,
+                  commentId: commentId,
+                  commentUserUid: userId,
+                  reportUserUid: UserData().getData().uid,
                   content: userComment);
             } else {
               Fluttertoast.showToast(msg: '自分のコメントは通報できません。');
