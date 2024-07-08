@@ -164,10 +164,10 @@ class CommentService {
       if (response.statusCode != 204) {
         throw Exception('Report failed.');
       }
+
+      return response.statusCode;
     } catch (e) {
       return null;
     }
-
-    return 1;
   }
 }
