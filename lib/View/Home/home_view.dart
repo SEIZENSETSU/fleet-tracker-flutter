@@ -13,7 +13,9 @@ import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../Model/Data/Warehouse/search_info_data.dart';
 import '../../Route/router.dart';
 import '../Component/CustomWidget/UserInput/user_input_cell.dart';
@@ -30,8 +32,21 @@ class _HomeViewState extends State<HomeView> {
   HomeController controller = HomeController();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    Future(() async {
+      if (await controller.getLocationPermission() !=
+          PermissionStatus.granted) {
+        Fluttertoast.showToast(
+          msg: '位置情報の許可が必要です！',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+      }
+    });
   }
 
   @override

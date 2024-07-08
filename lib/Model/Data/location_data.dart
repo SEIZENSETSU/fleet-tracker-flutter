@@ -17,7 +17,12 @@ class LocationData extends ChangeNotifier {
 
   /// getter
   Location getData() {
-    return _data!;
+    return _data ??
+        Location(
+          lat: 43.0,
+          lng: 141.0,
+          time: DateTime.now(),
+        );
   }
 
   /// setter

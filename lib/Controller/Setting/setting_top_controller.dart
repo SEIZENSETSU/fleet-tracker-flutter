@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:in_app_review/in_app_review.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../Constants/Enum/shared_preferences_keys_enum.dart';
 import '../../Model/Entity/user.dart';
@@ -121,13 +122,16 @@ class SettingTopController {
   }
 
   /// バックグラウンドロケーションのステータス
-  Future<bool> getBackgroundLocatorStatus() async {
-    return await BackgroundLocatorService().isRunning();
+  Future<bool?> getBackgroundLocatorStatus() async {
+    if (await Permission.location.isGranted) {
+      return await BackgroundLocatorService().isRunning();
+    }
+    return null;
   }
 
   /// バックグラウンドロケーションのステータス変更
   Future<void> changeBackgroundLocatorStatus() async {
-    if (await getBackgroundLocatorStatus()) {
+    if (await getBackgroundLocatorStatus() ?? false) {
       await BackgroundLocatorService().stop();
     } else {
       await BackgroundLocatorService().start();

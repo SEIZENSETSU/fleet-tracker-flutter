@@ -71,20 +71,6 @@ class TopLoadingController {
     await LocalNotificationsService().initialize();
 
     notificationPermissionStatus = await checkNotificationPermission();
-    if (!notificationPermissionStatus) {
-      final completer = Completer<void>();
-      CustomDialog().showCustomDialog(
-        context: context,
-        title: 'エラー',
-        buttonText: Strings.BACK_BUTTON_TEXT,
-        content: Assets.images.icons.errorDialogIcon.image(
-          color: Colors.red,
-        ),
-        detail: '通知の許可が必要です',
-        isShowButton: false,
-      );
-      return completer.future;
-    }
 
     Log.echo('SharedPreferences Initialize', symbol: '🔍');
 
@@ -164,20 +150,6 @@ class TopLoadingController {
     UserData().setData(data: userInfo);
 
     locationPermissionStatus = await checkLocationPermission();
-    if (!locationPermissionStatus) {
-      final completer = Completer<void>();
-      CustomDialog().showCustomDialog(
-        context: context,
-        title: 'エラー',
-        buttonText: Strings.BACK_BUTTON_TEXT,
-        content: Assets.images.icons.errorDialogIcon.image(
-          color: Colors.red,
-        ),
-        detail: '位置情報の許可が必要です',
-        isShowButton: false,
-      );
-      return completer.future;
-    }
 
     /// 位置情報を取得
     Location location = LocationData().getData();
