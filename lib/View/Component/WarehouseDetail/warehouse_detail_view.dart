@@ -30,8 +30,7 @@ import '../../../Model/Entity/Warehouse/info.dart';
 import '../CustomWidget/Modal/warehouse_detail_info_modal.dart';
 
 class WarehouseDetailView extends StatefulWidget {
-  const WarehouseDetailView(
-      {super.key, required this.warehouseInfo, required this.functionType});
+  const WarehouseDetailView({super.key, required this.warehouseInfo, required this.functionType});
   final String functionType;
   final WarehouseInfo warehouseInfo;
   @override
@@ -45,8 +44,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
     /// コメント投稿と遅延情報登録の可否判定
     controller.initialize(widget.functionType);
     final Size size = MediaQuery.of(context).size;
-    WarehouseDelayStateType stateType =
-        WarehouseDelayStateType(widget.warehouseInfo.averageDelayState.name);
+    WarehouseDelayStateType stateType = WarehouseDelayStateType(widget.warehouseInfo.averageDelayState.name);
 
     return Scaffold(
       backgroundColor: ColorName.scaffoldBackground,
@@ -56,8 +54,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
         actions: [
           IconButton(
             onPressed: () {
-              WarehuseDetailInfoModal()
-                  .showInfoModal(context: context, size: size);
+              WarehuseDetailInfoModal().showInfoModal(context: context, size: size);
             },
             icon: const Icon(Icons.info),
           ),
@@ -70,8 +67,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
               //
               // 倉庫のマップ表示部
               FutureBuilder(
-                future: WarehouseService().getWarehouseInfo(
-                    warehouseId: widget.warehouseInfo.warehouseId),
+                future: WarehouseService().getWarehouseInfo(warehouseId: widget.warehouseInfo.warehouseId),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState != ConnectionState.done) {
                     return const CirclarProgressIndicatorCell(height: 130);
@@ -109,10 +105,8 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                   child: CommonCard(
                     content: UserInputCell(
                       warehouseName: widget.warehouseInfo.warehouseName,
-                      traficstateCountList:
-                          widget.warehouseInfo.delayTimeDetails,
-                      delayStateType:
-                          widget.warehouseInfo.averageDelayState.name,
+                      traficstateCountList: widget.warehouseInfo.delayTimeDetails,
+                      delayStateType: widget.warehouseInfo.averageDelayState.name,
                       enableAction: controller.enableAction,
                       warehouseId: widget.warehouseInfo.warehouseId,
                       warehouseAreaId: widget.warehouseInfo.warehouseAreaId,
@@ -145,58 +139,46 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                         heightFactor: 1,
                         child: Padding(
                           padding: const EdgeInsets.all(4.0),
-                          child: CommonCard(
-                            onTap: () async {
-                              await controller.favoriteButtonAction(
-                                warehouseId: widget.warehouseInfo.warehouseId,
-                              );
-                              await controller.getIsFavorite(
-                                  warehouseId:
-                                      widget.warehouseInfo.warehouseId);
-                              setState(() {});
-                            },
-                            content: FutureBuilder<bool>(
-                                future: controller.getIsFavorite(
-                                    warehouseId:
-                                        widget.warehouseInfo.warehouseId),
-                                builder: (BuildContext context,
-                                    AsyncSnapshot<bool> snapshot) {
-                                  if (snapshot.hasData) {
-                                    bool isFavorite = snapshot.data!;
-                                    return Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10, right: 5),
-                                          child: Icon(
-                                            isFavorite
-                                                ? Icons.favorite
-                                                : Icons.favorite_border,
-                                            color: Colors.red,
+                          child: StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
+                            return CommonCard(
+                              onTap: () async {
+                                await controller.favoriteButtonAction(
+                                  warehouseId: widget.warehouseInfo.warehouseId,
+                                );
+                                await controller.getIsFavorite(warehouseId: widget.warehouseInfo.warehouseId);
+                                setState(() {});
+                              },
+                              content: FutureBuilder<bool>(
+                                  future: controller.getIsFavorite(warehouseId: widget.warehouseInfo.warehouseId),
+                                  builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                                    if (snapshot.hasData) {
+                                      bool isFavorite = snapshot.data!;
+                                      return Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 10, right: 5),
+                                            child: Icon(
+                                              isFavorite ? Icons.favorite : Icons.favorite_border,
+                                              color: Colors.red,
+                                            ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: CustomText(
-                                              text: isFavorite
-                                                  ? 'お気に入り登録済'
-                                                  : 'お気に入り'),
-                                        ),
-                                      ],
-                                    );
-                                  } else {
-                                    return const Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 10, right: 5),
-                                          child: Icon(
-                                            Icons.favorite_border,
-                                            color: Colors.red,
+                                          Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: CustomText(text: isFavorite ? 'お気に入り登録済' : 'お気に入り'),
+                                          ),
+                                        ],
+                                      );
+                                    } else {
+                                      return const Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 10, right: 5),
+                                            child: Icon(
+                                              Icons.favorite_border,
+                                              color: Colors.red,
+                                            ),
                                           ),
                                         ),
                                         Padding(
@@ -229,16 +211,14 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                 ),
               ),
               FutureBuilder(
-                  future: controller.getCommentList(
-                      warehouseId: widget.warehouseInfo.warehouseId),
+                  future: controller.getCommentList(warehouseId: widget.warehouseInfo.warehouseId),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState != ConnectionState.done) {
                       return const CirclarProgressIndicatorCell(height: 400);
                     }
 
                     if (snapshot.hasData) {
-                      final List<Map<String, dynamic>> comentList =
-                          snapshot.data!;
+                      final List<Map<String, dynamic>> comentList = snapshot.data!;
                       Log.echo(comentList.length.toString());
                       if (comentList.isNotEmpty) {
                         return Container(
@@ -248,8 +228,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                               itemCount: snapshot.data!.length,
                               itemBuilder: (context, index) {
                                 return Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 15),
+                                  padding: const EdgeInsets.symmetric(vertical: 15),
                                   child: CommentTile(
                                       userComment: comentList[index]['comment'],
                                       createAt: DateFormat('yyyy年MM月dd日 HH時mm分')
@@ -298,11 +277,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: CustomTextfield(
-                            isSerchIcon: false,
-                            hintText: '  コメントを書いてください',
-                            backgroundcolor: Colors.white,
-                            controller: controller.textEditingController),
+                        child: CustomTextfield(isSerchIcon: false, hintText: '  コメントを書いてください', backgroundcolor: Colors.white, controller: controller.textEditingController),
                       ),
                       Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -314,8 +289,7 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                               text: '投稿',
                               onTap: () async {
                                 controller.postComment(
-                                  content:
-                                      controller.textEditingController.text,
+                                  content: controller.textEditingController.text,
                                   warehouseId: widget.warehouseInfo.warehouseId,
                                 );
                                 setState(() {});

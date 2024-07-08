@@ -22,20 +22,28 @@ class TrafficInformationDetailView extends StatefulWidget {
   final bool provideSapa;
 
   @override
-  State<TrafficInformationDetailView> createState() =>
-      _TrafficInformationStateDetailView();
+  State<TrafficInformationDetailView> createState() => _TrafficInformationStateDetailView();
 }
 
-class _TrafficInformationStateDetailView
-    extends State<TrafficInformationDetailView> {
-  TrafficInformationDetailController controller =
-      TrafficInformationDetailController();
+class _TrafficInformationStateDetailView extends State<TrafficInformationDetailView> {
+  TrafficInformationDetailController controller = TrafficInformationDetailController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         title: '道路情報',
         isBackButton: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {});
+            },
+            icon: const Icon(
+              Icons.restart_alt_outlined,
+              color: Colors.blue,
+            ),
+          ),
+        ],
       ),
       backgroundColor: ColorName.scaffoldBackground,
       body: SingleChildScrollView(
@@ -43,9 +51,8 @@ class _TrafficInformationStateDetailView
           children: <Widget>[
             FutureBuilder<TrafficDetail?>(
                 future: controller.getTrafficDetail(widget.roadId),
-                builder: (BuildContext context,
-                    AsyncSnapshot<TrafficDetail?> snapshot) {
-                  if (snapshot.hasData) {
+                builder: (BuildContext context, AsyncSnapshot<TrafficDetail?> snapshot) {
+                  if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
                     TrafficDetail trafficDetail = snapshot.data!;
                     return JamInfoTitle(
                       areaName: trafficDetail.data.areaName,
@@ -61,9 +68,8 @@ class _TrafficInformationStateDetailView
             ),
             FutureBuilder<List<TrafficIssue>?>(
                 future: controller.getTrafficIssueList(widget.roadId),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<TrafficIssue>?> snapshot) {
-                  if (snapshot.hasData) {
+                builder: (BuildContext context, AsyncSnapshot<List<TrafficIssue>?> snapshot) {
+                  if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.data!.isNotEmpty) {
                       List<TrafficIssue> trafficIssueList = snapshot.data!;
                       return InfoContentCard(
@@ -117,30 +123,23 @@ class _TrafficInformationStateDetailView
             ),
             FutureBuilder<List<TrafficSapaInfo>?>(
                 future: controller.getTrafficSapaInfoList(widget.roadId),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<TrafficSapaInfo>?> snapshot) {
+                builder: (BuildContext context, AsyncSnapshot<List<TrafficSapaInfo>?> snapshot) {
                   if (widget.provideSapa) {
-                    if (snapshot.hasData) {
-                      List<TrafficSapaInfo> trafficSapaInfoList =
-                          snapshot.data!;
+                    if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+                      List<TrafficSapaInfo> trafficSapaInfoList = snapshot.data!;
                       return Column(
                         children: <Widget>[
                           InfoContentCard(
                             title: 'SAPA情報',
                             children: <Widget>[
                               const SapaInfoHeader(),
-                              for (int i = 0;
-                                  i < trafficSapaInfoList.length;
-                                  i++) ...{
+                              for (int i = 0; i < trafficSapaInfoList.length; i++) ...{
                                 SapaInfoTile(
                                   name: trafficSapaInfoList[i].name,
                                   direction: trafficSapaInfoList[i].direction,
-                                  totalCongestion:
-                                      trafficSapaInfoList[i].totalCongestion,
-                                  smallCarCongestion:
-                                      trafficSapaInfoList[i].smallCarCongestion,
-                                  largeCarCongestion:
-                                      trafficSapaInfoList[i].largeCarCongestion,
+                                  totalCongestion: trafficSapaInfoList[i].totalCongestion,
+                                  smallCarCongestion: trafficSapaInfoList[i].smallCarCongestion,
+                                  largeCarCongestion: trafficSapaInfoList[i].largeCarCongestion,
                                 ),
                               },
                             ],

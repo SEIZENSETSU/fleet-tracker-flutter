@@ -1,5 +1,6 @@
 import 'package:fleet_tracker/Constants/Enum/traffic_detail_state_enum.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
+import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
 class JamInfoPlaceTile extends StatelessWidget {
@@ -92,7 +93,7 @@ class JamInfoPlaceTile extends StatelessWidget {
                     flex: 2,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.orange,
+                        color: type == TrafficDetailState.closure ? ColorName.trafficDetailStateClosure : ColorName.trafficDetailStateJam,
                         borderRadius: BorderRadius.circular(5),
                       ),
                       height: 25,
@@ -101,8 +102,7 @@ class JamInfoPlaceTile extends StatelessWidget {
                         child: FittedBox(
                           fit: BoxFit.contain,
                           child: CustomText(
-                            text: TrafficDetailStateType(type.name)
-                                .JapaneseText(),
+                            text: TrafficDetailStateType(type.name).JapaneseText(),
                             color: Colors.white,
                             fontSize: 16,
                           ),
@@ -119,7 +119,7 @@ class JamInfoPlaceTile extends StatelessWidget {
                       child: CustomText(
                         text: content == null ? range! : '$content : $reason',
                         fontSize: 18,
-                        color: Colors.orange,
+                        color: type == TrafficDetailState.closure ? ColorName.trafficDetailStateClosure : ColorName.trafficDetailStateJam,
                         textOverflow: TextOverflow.clip,
                       ),
                     ),
