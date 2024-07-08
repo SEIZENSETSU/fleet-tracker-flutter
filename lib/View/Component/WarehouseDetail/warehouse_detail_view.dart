@@ -1,12 +1,5 @@
-import 'dart:math';
-
 import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Controller/Component/warehouse_detail_controller.dart';
-import 'package:fleet_tracker/Model/Entity/Warehouse/search_info.dart';
-import 'package:fleet_tracker/Model/Entity/comment.dart';
-import 'package:fleet_tracker/Model/Entity/delay_time_detail.dart';
-import 'package:fleet_tracker/Route/router.dart';
-import 'package:fleet_tracker/Service/API/Original/comment_service.dart';
 import 'package:fleet_tracker/Service/API/Original/warehouse_service.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Card/common_card.dart';
@@ -24,8 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
-import '../../../Constants/Enum/warehouse_delay_state_enum.dart';
-import '../../../Model/Data/Warehouse/search_info_data.dart';
 import '../../../Model/Entity/Warehouse/info.dart';
 import '../CustomWidget/Modal/warehouse_detail_info_modal.dart';
 
@@ -44,7 +35,6 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
     /// コメント投稿と遅延情報登録の可否判定
     controller.initialize(widget.functionType);
     final Size size = MediaQuery.of(context).size;
-    WarehouseDelayStateType stateType = WarehouseDelayStateType(widget.warehouseInfo.averageDelayState.name);
 
     return Scaffold(
       backgroundColor: ColorName.scaffoldBackground,
@@ -149,36 +139,35 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                                 setState(() {});
                               },
                               content: FutureBuilder<bool>(
-                                  future: controller.getIsFavorite(warehouseId: widget.warehouseInfo.warehouseId),
-                                  builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                                    if (snapshot.hasData) {
-                                      bool isFavorite = snapshot.data!;
-                                      return Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(left: 10, right: 5),
-                                            child: Icon(
-                                              isFavorite ? Icons.favorite : Icons.favorite_border,
-                                              color: Colors.red,
-                                            ),
+                                future: controller.getIsFavorite(warehouseId: widget.warehouseInfo.warehouseId),
+                                builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                                  if (snapshot.hasData) {
+                                    bool isFavorite = snapshot.data!;
+                                    return Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 10, right: 5),
+                                          child: Icon(
+                                            isFavorite ? Icons.favorite : Icons.favorite_border,
+                                            color: Colors.red,
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: CustomText(text: isFavorite ? 'お気に入り登録済' : 'お気に入り'),
-                                          ),
-                                        ],
-                                      );
-                                    } else {
-                                      return const Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(left: 10, right: 5),
-                                            child: Icon(
-                                              Icons.favorite_border,
-                                              color: Colors.red,
-                                            ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: CustomText(text: isFavorite ? 'お気に入り登録済' : 'お気に入り'),
+                                        ),
+                                      ],
+                                    );
+                                  } else {
+                                    return const Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 10, right: 5),
+                                          child: Icon(
+                                            Icons.favorite_border,
+                                            color: Colors.red,
                                           ),
                                         ),
                                         Padding(
@@ -188,8 +177,10 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                                       ],
                                     );
                                   }
-                                }),
-                          ),
+                                },
+                              ),
+                            );
+                          }),
                         ),
                       ),
                     ),
@@ -231,13 +222,10 @@ class _WarehouseDetailViewState extends State<WarehouseDetailView> {
                                   padding: const EdgeInsets.symmetric(vertical: 15),
                                   child: CommentTile(
                                       userComment: comentList[index]['comment'],
-                                      createAt: DateFormat('yyyy年MM月dd日 HH時mm分')
-                                          .format(DateTime.parse(
-                                              comentList[index]['create_at'])),
+                                      createAt: DateFormat('yyyy年MM月dd日 HH時mm分').format(DateTime.parse(comentList[index]['create_at'])),
                                       userName: comentList[index]['name'],
                                       userId: comentList[index]['id'],
-                                      commentId: comentList[index]
-                                          ['comment_id'],
+                                      commentId: comentList[index]['comment_id'],
                                       setState: () {
                                         setState(() {});
                                       }),
