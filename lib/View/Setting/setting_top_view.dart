@@ -2,7 +2,7 @@ import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Controller/Setting/setting_top_controller.dart';
 import 'package:fleet_tracker/Model/Data/user_data.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
-import 'package:fleet_tracker/View/Component/CustomWidget/Dialog/error_dialog.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/Dialog/custom_dialog.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Setting/setting_tile_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/circular_progress_indicator_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
@@ -74,7 +74,7 @@ class _SettingTopViewState extends State<SettingTopView> {
                     title: '位置情報取得',
                     detail: snapshot.data == true ? 'ON' : 'OFF',
                     onTap: () {
-                      ErrorDialog().showErrorDialog(
+                      CustomDialog().showCustomDialog(
                         context: context,
                         title: '位置情報取得',
                         content: Icon(
@@ -94,6 +94,8 @@ class _SettingTopViewState extends State<SettingTopView> {
                             rootNavigator: true,
                           ).pop();
                         },
+                        isShowRejectButton: true,
+                        barrierDismissible: true,
                         buttonText: '変更',
                       );
                     },

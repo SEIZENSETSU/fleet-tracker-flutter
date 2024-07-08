@@ -6,7 +6,7 @@ import 'package:fleet_tracker/Controller/UserInput/user_input_top_controller.dar
 import 'package:fleet_tracker/Model/Entity/delay_information.dart';
 import 'package:fleet_tracker/Model/Entity/delay_time_detail.dart';
 import 'package:fleet_tracker/Service/API/Original/delay_service.dart';
-import 'package:fleet_tracker/View/Component/CustomWidget/Dialog/error_dialog.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/Dialog/custom_dialog.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/UserInput/user_input_circle_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/circular_progress_indicator_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
@@ -259,7 +259,7 @@ class _UserInputCellState extends State<UserInputCell> {
                                 text: Strings.STATE_NORMAL_TITLE,
                                 onTap: () async {
                                   if (!widget.enableAction) {
-                                    ErrorDialog().showErrorDialog(
+                                    CustomDialog().showCustomDialog(
                                         context: context,
                                         title: 'エリア外から登録はできません',
                                         content: Assets
@@ -301,7 +301,7 @@ class _UserInputCellState extends State<UserInputCell> {
                                 text: Strings.STATE_PAUSE_TITLE,
                                 onTap: () async {
                                   if (!widget.enableAction) {
-                                    ErrorDialog().showErrorDialog(
+                                    CustomDialog().showCustomDialog(
                                         context: context,
                                         title: 'エリア外から登録はできません',
                                         content: Assets
@@ -343,7 +343,7 @@ class _UserInputCellState extends State<UserInputCell> {
                                 text: Strings.STATE_HALF_HOUR_TITLE,
                                 onTap: () async {
                                   if (!widget.enableAction) {
-                                    ErrorDialog().showErrorDialog(
+                                    CustomDialog().showCustomDialog(
                                         context: context,
                                         title: 'エリア外から登録はできません',
                                         content: Assets
@@ -385,7 +385,7 @@ class _UserInputCellState extends State<UserInputCell> {
                                 text: Strings.STATE_AN_HOUR_TITLE,
                                 onTap: () async {
                                   if (!widget.enableAction) {
-                                    ErrorDialog().showErrorDialog(
+                                    CustomDialog().showCustomDialog(
                                         context: context,
                                         title: 'エリア外から登録はできません',
                                         content: Assets
@@ -429,7 +429,7 @@ class _UserInputCellState extends State<UserInputCell> {
                                 text: Strings.STATE_IMPOSSIBLE_TITLE,
                                 onTap: () async {
                                   if (!widget.enableAction) {
-                                    ErrorDialog().showErrorDialog(
+                                    CustomDialog().showCustomDialog(
                                         context: context,
                                         title: 'エリア外から登録はできません',
                                         content: Assets
