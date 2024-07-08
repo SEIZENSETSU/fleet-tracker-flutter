@@ -17,22 +17,25 @@ class CommentTileController {
   }
 
   /// コメントを通報するをタップした時の処理
+  /// [commentId]
   /// [commentUser]
   /// [reportUser]
   /// [content]
   Future<void> reportComment({
-    required String commentUser,
-    required String reportUser,
+    required int commentId,
+    required String commentUserUid,
+    required String reportUserUid,
     required String content,
   }) async {
     int? response = await CommentService().reportComment(
-      commentUserName: commentUser,
-      reportUserName: reportUser,
+      commentUserUid: commentUserUid,
+      reportUserUid: reportUserUid,
       content: content,
+      commentId: commentId,
     );
 
     if (response == null) {
-      // 通報に失敗しました。
+      Fluttertoast.showToast(msg: '通報に失敗しました。');
       return;
     }
 
