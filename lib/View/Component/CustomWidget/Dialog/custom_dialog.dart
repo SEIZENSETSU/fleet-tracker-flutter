@@ -3,16 +3,18 @@ import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
-class ErrorDialog {
-  showErrorDialog({
+class CustomDialog {
+  showCustomDialog({
     required BuildContext context,
     required String title,
     required Widget content,
     required String detail,
     String buttonText = '閉じる',
+    String rejectButtonTest = 'キャンセル',
     Function? buttonAction,
     bool barrierDismissible = false,
     bool isShowButton = true,
+    bool isShowRejectButton = false,
   }) {
     showDialog(
       context: context,
@@ -119,6 +121,26 @@ class ErrorDialog {
                                         ).pop();
                                       },
                               ),
+                            ),
+                          ),
+                        ),
+                      ],
+                      if (isShowRejectButton) ...[
+                        Expanded(
+                          flex: 1,
+                          child: SizedBox(
+                            width: 200,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: CustomButton(
+                                  primaryColor: ColorName.textBlack,
+                                  text: rejectButtonTest,
+                                  onTap: () {
+                                    Navigator.of(
+                                      context,
+                                      rootNavigator: true,
+                                    ).pop();
+                                  }),
                             ),
                           ),
                         ),
