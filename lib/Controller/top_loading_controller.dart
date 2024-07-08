@@ -71,17 +71,21 @@ class TopLoadingController {
     await LocalNotificationsService().initialize();
 
     notificationPermissionStatus = await checkNotificationPermission();
+
     if (!notificationPermissionStatus) {
       final completer = Completer<void>();
       ErrorDialog().showErrorDialog(
         context: context,
         title: 'エラー',
-        buttonText: Strings.BACK_BUTTON_TEXT,
+        buttonText: '設定を開く',
         content: Assets.images.icons.errorDialogIcon.image(
           color: Colors.red,
         ),
         detail: '通知の許可が必要です',
-        isShowButton: false,
+        buttonAction: () {
+          openAppSettings();
+          return completer.future;
+        },
       );
       return completer.future;
     }
@@ -164,17 +168,21 @@ class TopLoadingController {
     UserData().setData(data: userInfo);
 
     locationPermissionStatus = await checkLocationPermission();
+
     if (!locationPermissionStatus) {
       final completer = Completer<void>();
       ErrorDialog().showErrorDialog(
         context: context,
         title: 'エラー',
-        buttonText: Strings.BACK_BUTTON_TEXT,
+        buttonText: '設定を開く',
         content: Assets.images.icons.errorDialogIcon.image(
           color: Colors.red,
         ),
         detail: '位置情報の許可が必要です',
-        isShowButton: false,
+        buttonAction: () {
+          openAppSettings();
+          return completer.future;
+        },
       );
       return completer.future;
     }
