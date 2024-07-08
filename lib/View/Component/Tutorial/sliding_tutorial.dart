@@ -6,6 +6,8 @@ import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../CustomWidget/Dialog/custom_dialog.dart';
+
 class SlidingTutorial extends StatefulWidget {
   final ValueNotifier<double> notifier;
   final int pageCount;
@@ -14,9 +16,9 @@ class SlidingTutorial extends StatefulWidget {
       {super.key,
       required this.notifier,
       required this.pageCount,
-      this.isBackButton = false});
+      this.showBackButton = false});
 
-  final bool isBackButton;
+  final bool showBackButton;
 
   @override
   State<SlidingTutorial> createState() => _TutorialState();
@@ -45,9 +47,25 @@ class _TutorialState extends State<SlidingTutorial> {
         await prefs.getBool(SharedPreferencesKeysEnum.isFirstBoot.name) ?? true;
     Log.echo("isFirstBoot: $isFirstBoot");
     if (isFirstBoot) {
+      await CustomDialog().showCustomDialog(
+        context: context,
+        title: '利用規約',
+        content: const Icon(Icons.info_outline_rounded, color: Colors.blue),
+        detail: '利用規約に同意しますか？',
+        buttonText: '同意する',
+        detailLink: 'https://sei-zen-setsu.web.app/terms_of_service.html',
+        buttonAction: () {
+          Navigator.of(
+            context,
+            rootNavigator: true,
+          ).pop();
+        },
+      );
+
       await prefs.setBool(SharedPreferencesKeysEnum.isFirstBoot.name, false);
       // ignore: use_build_context_synchronously, prefer_const_constructors
       HomeRoute().go(context);
+
       return;
     } else {
       // ignore: use_build_context_synchronously
@@ -80,7 +98,7 @@ class _TutorialState extends State<SlidingTutorial> {
             ),
           ),
           Visibility(
-            visible: widget.isBackButton,
+            visible: widget.showBackButton,
             child: Align(
               alignment: Alignment.topRight,
               child: GestureDetector(

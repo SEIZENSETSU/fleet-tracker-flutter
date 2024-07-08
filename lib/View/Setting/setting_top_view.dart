@@ -201,7 +201,7 @@ class _SettingTopViewState extends State<SettingTopView> {
                 'チュートリアル',
                 onTap: () {
                   TutorialRoute(
-                    isBackButton: true,
+                    showBackButton: true,
                   ).push(context);
                 },
               ),
