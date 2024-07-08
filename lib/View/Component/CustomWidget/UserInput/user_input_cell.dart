@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:fleet_tracker/Constants/Enum/warehouse_area_enum.dart';
 import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Controller/Component/user_input_circle_cell_controller.dart';
 import 'package:fleet_tracker/Controller/UserInput/user_input_top_controller.dart';
+import 'package:fleet_tracker/Model/Entity/Warehouse/area.dart';
 import 'package:fleet_tracker/Model/Entity/delay_information.dart';
 import 'package:fleet_tracker/Model/Entity/delay_time_detail.dart';
 import 'package:fleet_tracker/Service/API/Original/delay_service.dart';
@@ -50,8 +52,7 @@ class _UserInputCellState extends State<UserInputCell> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    WarehouseDelayStateType stateType =
-        WarehouseDelayStateType(widget.delayStateType);
+    WarehouseDelayStateType stateType = WarehouseDelayStateType(widget.delayStateType);
     Log.echo('size: $size');
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -78,8 +79,7 @@ class _UserInputCellState extends State<UserInputCell> {
                           child: Container(
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image:
-                                    Assets.images.icons.factoryIcon.provider(),
+                                image: Assets.images.icons.factoryIcon.provider(),
                               ),
                             ),
                           ),
@@ -110,8 +110,7 @@ class _UserInputCellState extends State<UserInputCell> {
               height: 20,
             ),
             FutureBuilder(
-                future: controller.getAverageDelayState(
-                    warehouseId: widget.warehouseId),
+                future: controller.getAverageDelayState(warehouseId: widget.warehouseId),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState != ConnectionState.done) {
                     return const CirclarProgressIndicatorCell(height: 60);
@@ -122,8 +121,7 @@ class _UserInputCellState extends State<UserInputCell> {
                     if (type == null) {
                       // エラー
                     }
-                    WarehouseDelayStateType delayStateType =
-                        WarehouseDelayStateType(type!);
+                    WarehouseDelayStateType delayStateType = WarehouseDelayStateType(type!);
 
                     return Container(
                       height: 60,
@@ -164,9 +162,7 @@ class _UserInputCellState extends State<UserInputCell> {
                                 Expanded(
                                   flex: 9,
                                   child: CustomText(
-                                    text: delayStateType
-                                        .title()
-                                        .replaceAll("\n", " "),
+                                    text: delayStateType.title().replaceAll("\n", " "),
                                   ),
                                 ),
                               ],
@@ -211,9 +207,7 @@ class _UserInputCellState extends State<UserInputCell> {
               height: 15,
             ),
             CustomText(
-              text: widget.enableAction
-                  ? '今の遅延状況は？ボタンを押して投稿！'
-                  : '現在の工場の遅延状態はこちら!',
+              text: widget.enableAction ? '今の遅延状況は？ボタンを押して投稿！' : '現在の工場の遅延状態はこちら!',
               fontSize: 14,
             ),
             SizedBox(
@@ -253,28 +247,19 @@ class _UserInputCellState extends State<UserInputCell> {
                             child: Container(
                               height: 60,
                               child: UserInputCircleCell(
-                                cellColor: onLoading
-                                    ? Colors.grey
-                                    : ColorName.stateNormal,
+                                cellColor: onLoading ? Colors.grey : ColorName.stateNormal,
                                 text: Strings.STATE_NORMAL_TITLE,
                                 onTap: () async {
                                   if (!widget.enableAction) {
                                     ErrorDialog().showErrorDialog(
-                                        context: context,
-                                        title: 'エリア外から登録はできません',
-                                        content: Assets
-                                            .images.icons.errorDialogIcon
-                                            .image(),
-                                        detail: '該当のエリア内に移動してから再試行してください。',
-                                        buttonText: '戻る');
+                                        context: context, title: 'エリア外から登録はできません', content: Assets.images.icons.errorDialogIcon.image(), detail: '該当のエリア内に移動してから再試行してください。', buttonText: '戻る');
                                   } else {
                                     //平常のボタン処理
                                     if (!onLoading) {
                                       setState(() {
                                         onLoading = true;
                                       });
-                                      await UserInputCircleCellController()
-                                          .userInputCircleCellAction(
+                                      await UserInputCircleCellController().userInputCircleCellAction(
                                         type: WarehouseDelayState.normal.name,
                                         id: widget.warehouseId,
                                       );
@@ -295,28 +280,19 @@ class _UserInputCellState extends State<UserInputCell> {
                             child: Container(
                               height: 60,
                               child: UserInputCircleCell(
-                                cellColor: onLoading
-                                    ? Colors.grey
-                                    : ColorName.statePause,
+                                cellColor: onLoading ? Colors.grey : ColorName.statePause,
                                 text: Strings.STATE_PAUSE_TITLE,
                                 onTap: () async {
                                   if (!widget.enableAction) {
                                     ErrorDialog().showErrorDialog(
-                                        context: context,
-                                        title: 'エリア外から登録はできません',
-                                        content: Assets
-                                            .images.icons.errorDialogIcon
-                                            .image(),
-                                        detail: '該当のエリア内に移動してから再試行してください。',
-                                        buttonText: '戻る');
+                                        context: context, title: 'エリア外から登録はできません', content: Assets.images.icons.errorDialogIcon.image(), detail: '該当のエリア内に移動してから再試行してください。', buttonText: '戻る');
                                   } else {
                                     //一時停止のボタン処理
                                     if (!onLoading) {
                                       setState(() {
                                         onLoading = true;
                                       });
-                                      await UserInputCircleCellController()
-                                          .userInputCircleCellAction(
+                                      await UserInputCircleCellController().userInputCircleCellAction(
                                         type: WarehouseDelayState.pause.name,
                                         id: widget.warehouseId,
                                       );
@@ -337,28 +313,19 @@ class _UserInputCellState extends State<UserInputCell> {
                             child: Container(
                               height: 60,
                               child: UserInputCircleCell(
-                                cellColor: onLoading
-                                    ? Colors.grey
-                                    : ColorName.stateHalfAnHour,
+                                cellColor: onLoading ? Colors.grey : ColorName.stateHalfAnHour,
                                 text: Strings.STATE_HALF_HOUR_TITLE,
                                 onTap: () async {
                                   if (!widget.enableAction) {
                                     ErrorDialog().showErrorDialog(
-                                        context: context,
-                                        title: 'エリア外から登録はできません',
-                                        content: Assets
-                                            .images.icons.errorDialogIcon
-                                            .image(),
-                                        detail: '該当のエリア内に移動してから再試行してください。',
-                                        buttonText: '戻る');
+                                        context: context, title: 'エリア外から登録はできません', content: Assets.images.icons.errorDialogIcon.image(), detail: '該当のエリア内に移動してから再試行してください。', buttonText: '戻る');
                                   } else {
                                     //30分未満のボタン処理
                                     if (!onLoading) {
                                       setState(() {
                                         onLoading = true;
                                       });
-                                      await UserInputCircleCellController()
-                                          .userInputCircleCellAction(
+                                      await UserInputCircleCellController().userInputCircleCellAction(
                                         type: WarehouseDelayState.halfHour.name,
                                         id: widget.warehouseId,
                                       );
@@ -379,28 +346,19 @@ class _UserInputCellState extends State<UserInputCell> {
                             child: Container(
                               height: 60,
                               child: UserInputCircleCell(
-                                cellColor: onLoading
-                                    ? Colors.grey
-                                    : ColorName.stateAnHour,
+                                cellColor: onLoading ? Colors.grey : ColorName.stateAnHour,
                                 text: Strings.STATE_AN_HOUR_TITLE,
                                 onTap: () async {
                                   if (!widget.enableAction) {
                                     ErrorDialog().showErrorDialog(
-                                        context: context,
-                                        title: 'エリア外から登録はできません',
-                                        content: Assets
-                                            .images.icons.errorDialogIcon
-                                            .image(),
-                                        detail: '該当のエリア内に移動してから再試行してください。',
-                                        buttonText: '戻る');
+                                        context: context, title: 'エリア外から登録はできません', content: Assets.images.icons.errorDialogIcon.image(), detail: '該当のエリア内に移動してから再試行してください。', buttonText: '戻る');
                                   } else {
                                     //1時間未満のボタン処理
                                     if (!onLoading) {
                                       setState(() {
                                         onLoading = true;
                                       });
-                                      await UserInputCircleCellController()
-                                          .userInputCircleCellAction(
+                                      await UserInputCircleCellController().userInputCircleCellAction(
                                         type: WarehouseDelayState.anHour.name,
                                         id: widget.warehouseId,
                                       );
@@ -423,30 +381,20 @@ class _UserInputCellState extends State<UserInputCell> {
                             child: Container(
                               height: 60,
                               child: UserInputCircleCell(
-                                cellColor: onLoading
-                                    ? Colors.grey
-                                    : ColorName.stateImpossible,
+                                cellColor: onLoading ? Colors.grey : ColorName.stateImpossible,
                                 text: Strings.STATE_IMPOSSIBLE_TITLE,
                                 onTap: () async {
                                   if (!widget.enableAction) {
                                     ErrorDialog().showErrorDialog(
-                                        context: context,
-                                        title: 'エリア外から登録はできません',
-                                        content: Assets
-                                            .images.icons.errorDialogIcon
-                                            .image(),
-                                        detail: '該当のエリア内に移動してから再試行してください。',
-                                        buttonText: '戻る');
+                                        context: context, title: 'エリア外から登録はできません', content: Assets.images.icons.errorDialogIcon.image(), detail: '該当のエリア内に移動してから再試行してください。', buttonText: '戻る');
                                   } else {
                                     //入庫不可のボタン処理
                                     if (!onLoading) {
                                       setState(() {
                                         onLoading = true;
                                       });
-                                      await UserInputCircleCellController()
-                                          .userInputCircleCellAction(
-                                        type:
-                                            WarehouseDelayState.impossible.name,
+                                      await UserInputCircleCellController().userInputCircleCellAction(
+                                        type: WarehouseDelayState.impossible.name,
                                         id: widget.warehouseId,
                                       );
                                       setState(() {
@@ -471,23 +419,20 @@ class _UserInputCellState extends State<UserInputCell> {
               height: 10,
             ),
             FutureBuilder(
-                future: DelayService().getDelayInformation(
-                    warehouseAreaId: widget.warehouseAreaId),
+                future: DelayService().getDelayInformation(warehouseAreaId: widget.warehouseAreaId),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState != ConnectionState.done) {
                     return CirclarProgressIndicatorCell(height: 30);
                   }
 
                   if (snapshot.hasData) {
-                    final List<DelayInformation>? delayInformation =
-                        snapshot.data;
+                    final List<DelayInformation>? delayInformation = snapshot.data;
 
                     if (delayInformation!.isEmpty) {
                       // エラー表示
                     }
                     // 現在の倉庫の遅延情報を抽出
-                    final currrentWarehouse = delayInformation.firstWhere(
-                        (element) => element.warehouseId == widget.warehouseId);
+                    final currrentWarehouse = delayInformation.firstWhere((element) => element.warehouseId == widget.warehouseId);
 
                     return Container(
                       child: FractionallySizedBox(
@@ -495,9 +440,7 @@ class _UserInputCellState extends State<UserInputCell> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            for (int i = 0;
-                                i < currrentWarehouse.delayTimeDetail.length;
-                                i++)
+                            for (int i = 0; i < currrentWarehouse.delayTimeDetail.length; i++)
                               Expanded(
                                 flex: 1,
                                 child: FractionallySizedBox(
@@ -509,9 +452,7 @@ class _UserInputCellState extends State<UserInputCell> {
                                     ),
                                     child: Center(
                                       child: CustomText(
-                                        text: currrentWarehouse
-                                            .delayTimeDetail[i].answerCount
-                                            .toString(),
+                                        text: currrentWarehouse.delayTimeDetail[i].answerCount.toString(),
                                       ),
                                     ),
                                   ),

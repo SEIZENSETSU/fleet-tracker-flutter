@@ -1,14 +1,12 @@
 import 'package:fleet_tracker/Constants/Enum/function_type_enum.dart';
+import 'package:fleet_tracker/Constants/Enum/warehouse_area_enum.dart';
 import 'package:fleet_tracker/Constants/strings.dart';
-import 'package:fleet_tracker/Controller/WarehouseSearch/warehouse_search_top_controller.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/circular_progress_indicator_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../Controller/WarehouseSearch/Result/warehouse_search_result_controller.dart';
 import '../../../Model/Entity/Warehouse/info.dart';
@@ -30,13 +28,11 @@ class WarehouseSearchResultView extends StatefulWidget {
   final String? keyword;
 
   @override
-  State<WarehouseSearchResultView> createState() =>
-      _WarehouseSearchResultViewState();
+  State<WarehouseSearchResultView> createState() => _WarehouseSearchResultViewState();
 }
 
 class _WarehouseSearchResultViewState extends State<WarehouseSearchResultView> {
-  WarehouseSearchResultController controller =
-      WarehouseSearchResultController();
+  WarehouseSearchResultController controller = WarehouseSearchResultController();
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -87,7 +83,7 @@ class _WarehouseSearchResultViewState extends State<WarehouseSearchResultView> {
             if (widget.keyword != null)
               Align(
                 alignment: Alignment.centerLeft,
-                child: Container(
+                child: SizedBox(
                   height: 50,
                   width: size.width * 0.5,
                   child: Row(
@@ -116,135 +112,127 @@ class _WarehouseSearchResultViewState extends State<WarehouseSearchResultView> {
                 ),
                 width: size.width,
                 color: Colors.white,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
+                child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: widget.areaIds!.length,
+                  itemBuilder: (context, index) {
+                    int areaId = widget.areaIds![index];
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.my_location),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: CustomText(
-                              text: widget.keyword == null
-                                  ? '${widget.area}エリア'
-                                  : '結果一覧'),
+                        Row(
+                          children: [
+                            const Icon(Icons.my_location),
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: CustomText(
+                                text: widget.keyword == null ? WarehouseAreaType(areaId).name() : '結果一覧',
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    FutureBuilder(
-                        future: widget.keyword == null
-                            ? controller.getWarehouseWithArea(
-                                areaIds: widget.areaIds!)
-                            : controller.getWarehouseWithKeyword(
-                                keyword: widget.keyword.toString()),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState !=
-                              ConnectionState.done) {
-                            return const CirclarProgressIndicatorCell(
-                                height: 300);
-                          }
-
-                          if (snapshot.hasData) {
-                            List<Warehouse>? warehouseList = snapshot.data;
-                            if (warehouseList!.isEmpty) {
-                              return const SizedBox(
-                                height: 400,
-                                child: Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.search_off,
-                                        size: 60,
-                                      ),
-                                      CustomText(
-                                        text: '該当する工場は見つかりませんでした。',
-                                      ),
-                                    ],
-                                  ),
+                        FutureBuilder(
+                          future: widget.keyword == null
+                              ? controller.getWarehouseWithArea(areaId: areaId)
+                              : controller.getWarehouseWithKeyword(
+                                  keyword: widget.keyword.toString(),
                                 ),
-                              );
-                            } else {
-                              return ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState != ConnectionState.done) {
+                              return const CirclarProgressIndicatorCell(height: 300);
+                            }
 
-                                // エリア内orキーワードに該当する倉庫の数
-                                itemCount: warehouseList!.length,
-                                itemBuilder: (context, index) {
-                                  return SizedBox(
-                                    height: size.height * 0.1,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 10, horizontal: 20),
-                                      child: CommonCard(
-                                        onTap: () async {
-                                          // カードをタップして倉庫詳細ページへ遷移
-                                          WarehouseInfo? extra =
-                                              await controller.getWarehouseInfo(
-                                                  warehouseId:
-                                                      warehouseList[index].id);
+                            if (snapshot.hasData) {
+                              List<Warehouse>? warehouseList = snapshot.data;
+                              if (warehouseList!.isEmpty) {
+                                return const SizedBox(
+                                  height: 400,
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.search_off,
+                                          size: 60,
+                                        ),
+                                        CustomText(
+                                          text: '該当する工場は見つかりませんでした。',
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                return ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
 
-                                          if (extra == null) {
-                                            // エラー表示
-                                            Log.toast('通信エラーです');
-                                          }
+                                  // エリア内orキーワードに該当する倉庫の数
+                                  itemCount: warehouseList.length,
+                                  itemBuilder: (context, index) {
+                                    return SizedBox(
+                                      height: size.height * 0.1,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                                        child: CommonCard(
+                                          onTap: () async {
+                                            // カードをタップして倉庫詳細ページへ遷移
+                                            WarehouseInfo? extra = await controller.getWarehouseInfo(warehouseId: warehouseList[index].id);
 
-                                          WarehouseDetailRoute(
-                                                  $extra: extra!,
-                                                  functionType: FunctionTypeEnum
-                                                      .search.name)
-                                              .push(context);
-                                        },
-                                        content: Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 1,
-                                              child: FractionallySizedBox(
-                                                heightFactor: 0.5,
-                                                child: Container(
-                                                  child: Assets
-                                                      .images.icons.factoryIcon
-                                                      .image(),
+                                            if (extra == null) {
+                                              // エラー表示
+                                              Log.toast('通信エラーです');
+                                            }
+
+                                            WarehouseDetailRoute($extra: extra!, functionType: FunctionTypeEnum.search.name).push(context);
+                                          },
+                                          content: Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: FractionallySizedBox(
+                                                  heightFactor: 0.5,
+                                                  child: Container(
+                                                    child: Assets.images.icons.factoryIcon.image(),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            Expanded(
-                                              flex: 3,
-                                              child: Container(
+                                              Expanded(
+                                                flex: 3,
                                                 child: Row(
                                                   children: [
                                                     CustomText(
-                                                      text: warehouseList[index]
-                                                          .name,
+                                                      text: warehouseList[index].name,
                                                       fontSize: 13,
                                                     ),
                                                     const Spacer(),
-                                                    Container(
+                                                    const SizedBox(
                                                       width: 30,
                                                       height: 30,
-                                                      child: const Icon(
+                                                      child: Icon(
                                                         Icons.chevron_right,
                                                       ),
                                                     )
                                                   ],
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              );
+                                    );
+                                  },
+                                );
+                              }
+                            } else {
+                              return const CirclarProgressIndicatorCell(height: 300);
                             }
-                          } else {
-                            return const CirclarProgressIndicatorCell(
-                                height: 300);
-                          }
-                        })
-                  ],
+                          },
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
             ),

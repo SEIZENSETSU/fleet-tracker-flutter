@@ -10,20 +10,28 @@ class TrafficInformationTopView extends StatefulWidget {
   const TrafficInformationTopView({super.key});
 
   @override
-  State<TrafficInformationTopView> createState() =>
-      _TrafficInformationStateTopViewState();
+  State<TrafficInformationTopView> createState() => _TrafficInformationStateTopViewState();
 }
 
-class _TrafficInformationStateTopViewState
-    extends State<TrafficInformationTopView> {
-  TrafficInformationTopController controller =
-      TrafficInformationTopController();
+class _TrafficInformationStateTopViewState extends State<TrafficInformationTopView> {
+  TrafficInformationTopController controller = TrafficInformationTopController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         title: '交通情報',
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {});
+            },
+            icon: const Icon(
+              Icons.restart_alt_outlined,
+              color: Colors.blue,
+            ),
+          ),
+        ],
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -31,9 +39,8 @@ class _TrafficInformationStateTopViewState
         ),
         child: FutureBuilder<List<TrafficArea>?>(
           future: controller.getTraffiiAreatList(),
-          builder: (BuildContext context,
-              AsyncSnapshot<List<TrafficArea>?> snapshot) {
-            if (snapshot.hasData) {
+          builder: (BuildContext context, AsyncSnapshot<List<TrafficArea>?> snapshot) {
+            if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
               List<TrafficArea> prefectureInfoList = snapshot.data!;
               return ListView.builder(
                 itemCount: prefectureInfoList.length + 1,
@@ -45,8 +52,7 @@ class _TrafficInformationStateTopViewState
                   }
                   String prefectureName = prefectureInfoList[index].name;
                   int areaId = prefectureInfoList[index].id;
-                  List<TrafficRoad> prefecturalRoadList =
-                      prefectureInfoList[index].roads;
+                  List<TrafficRoad> prefecturalRoadList = prefectureInfoList[index].roads;
                   return TrafficInformationTileCell(
                     areaId: areaId,
                     count: prefectureInfoList[index].totalIssues,
