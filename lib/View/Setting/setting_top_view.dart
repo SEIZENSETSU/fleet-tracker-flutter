@@ -74,37 +74,6 @@ class _SettingTopViewState extends State<SettingTopView> {
                   if (snapshot.connectionState != ConnectionState.done) {
                     return const CircularProgressIndicator();
                   }
-                  return SettingTileCell().withDetail(
-                    title: '位置情報取得',
-                    detail: snapshot.data == true ? 'ON' : 'OFF',
-                    onTap: () {
-                      CustomDialog().showCustomDialog(
-                        context: context,
-                        title: '',
-                        content: Container(),
-                        detail: '',
-                        isShowRejectButton: true,
-                        barrierDismissible: true,
-                        buttonText: '変更',
-                      );
-                    },
-                  );
-                },
-              ),
-              if (kDebugMode)
-                SettingTileCell().common(
-                  '開発用設定',
-                  onTap: () {
-                    Log.echo('開発ボタン');
-                    controller.showDebugModal(context: context, size: size);
-                  },
-                ),
-              FutureBuilder(
-                future: controller.getBackgroundLocatorStatus(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState != ConnectionState.done) {
-                    return const CircularProgressIndicator();
-                  }
 
                   return SettingTileCell().withDetail(
                     title: '位置情報取得',
@@ -137,6 +106,8 @@ class _SettingTopViewState extends State<SettingTopView> {
                           ).pop();
                         },
                         buttonText: '変更',
+                        isShowRejectButton: true,
+                        barrierDismissible: true,
                       );
                     },
                   );

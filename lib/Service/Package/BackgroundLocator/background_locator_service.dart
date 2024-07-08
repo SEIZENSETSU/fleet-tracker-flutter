@@ -136,7 +136,7 @@ Future<void> backgroundHandler(background_task.Location data) async {
       /// 高速道路の通知
       LocalNotificationsService().showNotification(
         title: '$highwayNameに入りました🚛',
-        body: '安全運転でお願いします！',
+        body: '最新の高速道路情報はFleet Trackerで確認👀',
       );
       await prefs.setBool(
           SharedPreferencesKeysEnum.sendHighwayNotification.name, false);

@@ -46,7 +46,7 @@ class Strings {
 
   // 設定
   static const String SETTING_ACOUNT_INFO = 'アカウント設定';
-  static const String SETTING_NOTIFICATION = '通知設定';
+  static const String SETTING_NOTIFICATION = '通知・位置情報設定';
   static const String SETTING_OTHER = 'その他';
 
   // Androidへの通知
