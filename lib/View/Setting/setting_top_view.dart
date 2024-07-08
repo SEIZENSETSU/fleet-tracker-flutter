@@ -2,7 +2,7 @@ import 'package:fleet_tracker/Constants/strings.dart';
 import 'package:fleet_tracker/Controller/Setting/setting_top_controller.dart';
 import 'package:fleet_tracker/Model/Data/user_data.dart';
 import 'package:fleet_tracker/Service/Log/log_service.dart';
-import 'package:fleet_tracker/View/Component/CustomWidget/Dialog/error_dialog.dart';
+import 'package:fleet_tracker/View/Component/CustomWidget/Dialog/custom_dialog.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Setting/setting_tile_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/circular_progress_indicator_cell.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
@@ -52,19 +52,56 @@ class _SettingTopViewState extends State<SettingTopView> {
                     ),
                   ),
                 ),
-                SettingTileCell().withDetail(
-                  title: 'ユーザー名',
-                  detail: UserData().getData().name ?? "",
-                  onTap: () async {
-                    // コメント投稿をする際の表示名を変更できる項目
-                    Log.echo('名前変更');
-                    await controller.showReNameModal(
+              ),
+              SettingTileCell().withDetail(
+                title: 'ユーザー名',
+                detail: UserData().getData().name ?? "",
+                onTap: () async {
+                  // コメント投稿をする際の表示名を変更できる項目
+                  Log.echo('名前変更');
+                  await controller.showReNameModal(
+                      context: context,
+                      size: size,
+                      setState: () {
+                        setState(() {});
+                      });
+                  setState(() {});
+                },
+              ),
+              FutureBuilder(
+                future: controller.getBackgroundLocatorStatus(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState != ConnectionState.done) {
+                    return const CircularProgressIndicator();
+                  }
+                  return SettingTileCell().withDetail(
+                    title: '位置情報取得',
+                    detail: snapshot.data == true ? 'ON' : 'OFF',
+                    onTap: () {
+                      CustomDialog().showCustomDialog(
                         context: context,
                         size: size,
                         setState: () {
                           setState(() {});
-                        });
-                    setState(() {});
+                          Navigator.of(
+                            context,
+                            rootNavigator: true,
+                          ).pop();
+                        },
+                        isShowRejectButton: true,
+                        barrierDismissible: true,
+                        buttonText: '変更',
+                      );
+                    },
+                  );
+                },
+              ),
+              if (kDebugMode)
+                SettingTileCell().common(
+                  '開発用設定',
+                  onTap: () {
+                    Log.echo('開発ボタン');
+                    controller.showDebugModal(context: context, size: size);
                   },
                 ),
                 FutureBuilder(

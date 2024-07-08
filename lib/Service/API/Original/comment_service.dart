@@ -6,7 +6,8 @@ import '../../../Model/Entity/comment.dart';
 import '../../Log/log_service.dart';
 
 class CommentService {
-  FirebaseAuthenticationService get authService => FirebaseAuthenticationService();
+  FirebaseAuthenticationService get authService =>
+      FirebaseAuthenticationService();
   late String baseUrl;
   final Map<String, String> headers = {
     'Content-type': 'application/json',
@@ -119,5 +120,18 @@ class CommentService {
       Log.echo('エラーが発生しました');
       return null;
     }
+  }
+
+  /// コメント通報
+  /// [commentUserName]  コメントした人の名前
+  /// [reportUserName]   通報した人の名前
+  /// [content]        コメントの内容
+  Future<int?> reportComment({
+    required String commentUserName,
+    required String reportUserName,
+    required String content,
+  }) async {
+    // 通報処理
+    return 1;
   }
 }
