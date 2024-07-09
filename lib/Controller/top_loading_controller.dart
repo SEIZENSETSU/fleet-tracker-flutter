@@ -67,11 +67,6 @@ class TopLoadingController {
       return completer.future;
     }
 
-    /// LocalNotifications Initialize
-    await LocalNotificationsService().initialize();
-
-    notificationPermissionStatus = await checkNotificationPermission();
-
     Log.echo('SharedPreferences Initialize', symbol: '🔍');
 
     /// SharedPreferences Initialize
@@ -139,6 +134,13 @@ class TopLoadingController {
       );
       await completer.future;
     }
+
+    Future.delayed(const Duration(milliseconds: 500));
+
+    /// LocalNotifications Initialize
+    await LocalNotificationsService().initialize();
+
+    notificationPermissionStatus = await checkNotificationPermission();
 
     /// ユーザー情報を取得
     firebase_auth.User? authUser = authenticationService.getUser();
