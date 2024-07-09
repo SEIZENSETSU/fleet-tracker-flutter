@@ -46,7 +46,10 @@
     <color name="sapa_name_color">#093816</color>
 
     <!-- 渋滞情報ページタイトルに使う色 -->
+    
     <color name="jam_info_title_color">#228769</color>
+    <color name="traffic_detail_state_jam">#FF9800</color>
+    <color name="traffic_detail_state_closure">#DA4545</color>
 
     
 </resources>
