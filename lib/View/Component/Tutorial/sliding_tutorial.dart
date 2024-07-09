@@ -42,26 +42,12 @@ class _TutorialState extends State<SlidingTutorial> {
   void _onFinishTutorial() async {
     // 設定を変更する
     // Topまで戻る
+
     SharedPreferencesService prefs = SharedPreferencesService();
     bool isFirstBoot =
         await prefs.getBool(SharedPreferencesKeysEnum.isFirstBoot.name) ?? true;
     Log.echo("isFirstBoot: $isFirstBoot");
     if (isFirstBoot) {
-      await CustomDialog().showCustomDialog(
-        context: context,
-        title: '利用規約',
-        content: const Icon(Icons.info_outline_rounded, color: Colors.blue),
-        detail: '利用規約に同意しますか？',
-        buttonText: '同意する',
-        detailLink: 'https://sei-zen-setsu.web.app/terms_of_service.html',
-        buttonAction: () {
-          Navigator.of(
-            context,
-            rootNavigator: true,
-          ).pop();
-        },
-      );
-
       await prefs.setBool(SharedPreferencesKeysEnum.isFirstBoot.name, false);
       // ignore: use_build_context_synchronously, prefer_const_constructors
       HomeRoute().go(context);
