@@ -2,6 +2,9 @@ import 'package:fleet_tracker/View/Component/CustomWidget/custom_button.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../../../Service/Log/log_service.dart';
 
 class CustomDialog {
   showCustomDialog({
@@ -15,6 +18,7 @@ class CustomDialog {
     bool barrierDismissible = false,
     bool isShowButton = true,
     bool isShowRejectButton = false,
+    String? detailLink,
   }) {
     showDialog(
       context: context,
@@ -87,8 +91,26 @@ class CustomDialog {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Flexible(
-                                    child: CustomText(
-                                      text: detail,
+                                    child: GestureDetector(
+                                      onTap: detailLink != null
+                                          ? () async {
+                                              Uri url = Uri.parse(detailLink);
+                                              if (!(await canLaunchUrl(url))) {
+                                                Log.echo('URLを開けませんでした。',
+                                                    symbol: '❌');
+                                                return;
+                                              }
+                                              await launchUrl(url);
+                                            }
+                                          : null,
+                                      child: CustomText(
+                                        underLines:
+                                            detailLink == null ? false : true,
+                                        text: detail,
+                                        color: detailLink == null
+                                            ? null
+                                            : Colors.blue,
+                                      ),
                                     ),
                                   ),
                                 ],

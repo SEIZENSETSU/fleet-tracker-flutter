@@ -293,9 +293,13 @@ class TopLoadingRoute extends GoRouteData {
 
 @TypedGoRoute<TutorialRoute>(path: '/tutorial')
 class TutorialRoute extends GoRouteData {
-  TutorialRoute();
+  TutorialRoute({this.showBackButton = false});
+
+  final bool showBackButton;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) => TutorialPage();
+  Widget build(BuildContext context, GoRouterState state) => TutorialPage(
+        showBackButton: showBackButton,
+      );
 }
 ///////////////////////////  Root  //////////////////////////////

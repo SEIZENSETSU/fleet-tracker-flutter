@@ -116,6 +116,30 @@ class TopLoadingController {
       await WarehouseSearchTopController().setMapSwitch(flag: mapSwitch);
     }
 
+    /// 利用規約ダイアログの表示
+    bool isFirstBoot =
+        await prefs.getBool(SharedPreferencesKeysEnum.isFirstBoot.name) ??
+            false;
+    if (isFirstBoot) {
+      final completer = Completer<void>();
+      await CustomDialog().showCustomDialog(
+        context: context,
+        title: '利用規約',
+        content: const Icon(Icons.info_outline_rounded, color: Colors.blue),
+        detail: '利用規約を確認してください。',
+        buttonText: '確認しました',
+        detailLink: 'https://sei-zen-setsu.web.app/terms_of_service.html',
+        buttonAction: () {
+          completer.complete();
+          Navigator.of(
+            context,
+            rootNavigator: true,
+          ).pop();
+        },
+      );
+      await completer.future;
+    }
+
     /// ユーザー情報を取得
     firebase_auth.User? authUser = authenticationService.getUser();
     User? userInfo;
@@ -166,10 +190,6 @@ class TopLoadingController {
     WarehouseSearchInfoData().setData(data: searchInfo);
 
     await Future.delayed(const Duration(seconds: 1));
-
-    bool isFirstBoot =
-        await prefs.getBool(SharedPreferencesKeysEnum.isFirstBoot.name) ??
-            false;
 
     if (isFirstBoot) {
       TutorialRoute().go(context);

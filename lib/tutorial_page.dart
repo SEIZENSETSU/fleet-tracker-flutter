@@ -7,6 +7,9 @@ import 'View/Component/CustomWidget/custom_text.dart';
 import 'View/Component/Tutorial/sliding_tutorial.dart';
 
 class TutorialPage extends StatelessWidget {
+  TutorialPage({this.showBackButton = false});
+
+  bool showBackButton;
   @override
   Widget build(BuildContext context) {
     final ValueNotifier<double> notifier = ValueNotifier(0);
@@ -26,6 +29,7 @@ class TutorialPage extends StatelessWidget {
                 child: SlidingTutorial(
                   pageCount: pageCount,
                   notifier: notifier,
+                  showBackButton: showBackButton,
                 ),
               ),
               Container(
