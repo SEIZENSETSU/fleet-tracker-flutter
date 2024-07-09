@@ -22,11 +22,13 @@ class CustomText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = TextStyle(
-        color: color ?? ColorName.textBlack,
-        fontSize: fontSize ?? 16,
-        fontWeight: fontWeight ?? FontWeight.bold,
-        fontFamily: 'Noto_Sans_JP',
-        decoration: underLines ? TextDecoration.underline : null);
+      color: color ?? ColorName.textBlack,
+      fontSize: fontSize ?? 16,
+      fontWeight: fontWeight ?? FontWeight.bold,
+      fontFamily: 'Noto_Sans_JP',
+      decoration: underLines ? TextDecoration.underline : null,
+      decorationColor: underLines ? Colors.blue : null,
+    );
     return Text(
       text,
       style: textStyle,
