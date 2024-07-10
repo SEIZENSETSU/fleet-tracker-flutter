@@ -13,7 +13,7 @@ class CustomDialog {
     required Widget content,
     required String detail,
     String buttonText = '閉じる',
-    String rejectButtonTest = 'キャンセル',
+    String rejectButtonText = 'キャンセル',
     Function? buttonAction,
     bool barrierDismissible = false,
     bool isShowButton = true,
@@ -156,7 +156,7 @@ class CustomDialog {
                               padding: const EdgeInsets.symmetric(vertical: 5),
                               child: CustomButton(
                                   primaryColor: ColorName.textBlack,
-                                  text: rejectButtonTest,
+                                  text: rejectButtonText,
                                   onTap: () {
                                     Navigator.of(
                                       context,
