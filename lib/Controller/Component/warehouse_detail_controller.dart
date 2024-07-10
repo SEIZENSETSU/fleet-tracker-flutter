@@ -154,12 +154,10 @@ class WarehouseDetailController {
     // コメントリストからブロックしたユーザーを排除
     List<String>? blockedUserList =
         await prefs.getStringList(SharedPreferencesKeysEnum.blockUserList.name);
-    print(blockedUserList);
+
     List<Comment> filteredComments = commentList.where((comment) {
       return !blockedUserList!.contains(comment.uid);
     }).toList();
-
-    print(filteredComments);
 
     for (int i = 0; i < filteredComments.length; i++) {
       User? user =
@@ -167,7 +165,6 @@ class WarehouseDetailController {
       if (user == null) {
         userName.add('名無し');
       } else {
-        print(user.name);
         userName.add(user.name);
       }
     }
@@ -181,8 +178,6 @@ class WarehouseDetailController {
           'comment_id': filteredComments[i].id,
         }
     ];
-
-    print(commentTileInfo);
 
     return commentTileInfo;
   }
