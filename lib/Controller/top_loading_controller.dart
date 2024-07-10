@@ -102,6 +102,9 @@ class TopLoadingController {
     await prefs.getBool(SharedPreferencesKeysEnum.delaySwitch.name) ??
         prefs.setBool(SharedPreferencesKeysEnum.delaySwitch.name, true);
 
+    await prefs.getStringList(SharedPreferencesKeysEnum.blockUserList.name) ??
+        prefs.setStringList(SharedPreferencesKeysEnum.blockUserList.name, []);
+
     /// 倉庫検索タブのview切り替え取得
     bool? mapSwitch =
         await prefs.getBool(SharedPreferencesKeysEnum.mapSwitch.name);

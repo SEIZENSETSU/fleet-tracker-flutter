@@ -8,4 +8,5 @@ enum SharedPreferencesKeysEnum {
   sendInputNotification,
   sendHighwayNotification,
   isFirstBoot,
+  blockUserList
 }
