@@ -1,7 +1,7 @@
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../gen/colors.gen.dart';
+import '../../../gen/colors.gen.dart';
 
 class HowToUseView extends StatefulWidget {
   const HowToUseView({super.key});
