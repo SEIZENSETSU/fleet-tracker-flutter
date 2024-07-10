@@ -81,7 +81,7 @@ class _UserBlockListViewState extends State<UserBlockListView> {
                               ).pop();
                             },
                             isShowRejectButton: true,
-                            rejectButtonTest: 'キャンセル',
+                            rejectButtonText: 'キャンセル',
                             barrierDismissible: true,
                           );
                         },
