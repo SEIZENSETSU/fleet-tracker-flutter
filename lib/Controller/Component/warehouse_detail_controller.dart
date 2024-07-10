@@ -151,24 +151,31 @@ class WarehouseDetailController {
       return null;
     }
     List<String> userName = [];
-    for (int i = 0; i < commentList.length; i++) {
-      print(commentList[i].createdAt);
-      User? user = await UserService().getUserInfo(uid: commentList[i].uid);
+    // コメントリストからブロックしたユーザーを排除
+    List<String>? blockedUserList =
+        await prefs.getStringList(SharedPreferencesKeysEnum.blockUserList.name);
+
+    List<Comment> filteredComments = commentList.where((comment) {
+      return !blockedUserList!.contains(comment.uid);
+    }).toList();
+
+    for (int i = 0; i < filteredComments.length; i++) {
+      User? user =
+          await UserService().getUserInfo(uid: filteredComments[i].uid);
       if (user == null) {
         userName.add('名無し');
       } else {
-        print(user.name);
         userName.add(user.name);
       }
     }
     commentTileInfo = [
-      for (int i = 0; i < commentList.length; i++)
+      for (int i = 0; i < filteredComments.length; i++)
         {
           'name': userName[i],
-          'id': commentList[i].uid,
-          'comment': commentList[i].contents,
-          'create_at': commentList[i].createdAt,
-          'comment_id': commentList[i].id,
+          'id': filteredComments[i].uid,
+          'comment': filteredComments[i].contents,
+          'create_at': filteredComments[i].createdAt,
+          'comment_id': filteredComments[i].id,
         }
     ];
 

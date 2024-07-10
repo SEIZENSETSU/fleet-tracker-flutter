@@ -3,6 +3,7 @@ import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
 import 'package:fleet_tracker/gen/assets.gen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -123,7 +124,35 @@ class CommentTile extends StatelessWidget {
                                             ),
                                           ),
                                         )
-                                      : const SizedBox(),
+                                      : Align(
+                                          alignment: Alignment.topRight,
+                                          child: GestureDetector(
+                                            onTap: () async {
+                                              // ユーザーをブロックリストに追加
+                                              await controller.addBlockUser(
+                                                  uid: userId);
+                                              if (setState != null) {
+                                                setState!();
+                                              }
+                                            },
+                                            child: const Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.block,
+                                                  size: 14,
+                                                ),
+                                                CustomText(
+                                                  text: 'ブロックする',
+                                                  fontSize: 10,
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
                                 ],
                               ),
                             ),
