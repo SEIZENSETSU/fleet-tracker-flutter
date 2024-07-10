@@ -3,6 +3,7 @@ import 'package:fleet_tracker/Model/Entity/user.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/Dialog/custom_dialog.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_appbar.dart';
 import 'package:fleet_tracker/View/Component/CustomWidget/custom_text.dart';
+import 'package:fleet_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -20,6 +21,7 @@ class _UserBlockListViewState extends State<UserBlockListView> {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'ブロックリスト',
+        backgroundColor: ColorName.scaffoldBackground,
       ),
       body: Column(
         children: [
