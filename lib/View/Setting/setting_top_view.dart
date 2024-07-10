@@ -113,6 +113,13 @@ class _SettingTopViewState extends State<SettingTopView> {
                   );
                 },
               ),
+              SettingTileCell().common(
+                'ブロックリスト',
+                onTap: () {
+                  // ブロックリストを表示
+                  const UserBlockListRoute().push(context);
+                },
+              ),
               if (kDebugMode)
                 SettingTileCell().common(
                   '開発用設定',

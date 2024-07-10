@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../Controller/Setting/License/license_controller.dart';
-import '../../../../../gen/assets.gen.dart';
+import '../../../Controller/Setting/License/license_controller.dart';
+import '../../../gen/assets.gen.dart';
 
 class LicenseView extends StatefulWidget {
   const LicenseView({super.key});

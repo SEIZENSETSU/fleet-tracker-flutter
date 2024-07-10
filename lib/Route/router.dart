@@ -1,5 +1,6 @@
 import 'package:fleet_tracker/Model/Entity/Warehouse/search_info.dart';
 import 'package:fleet_tracker/Model/Entity/delay_time_detail.dart';
+import 'package:fleet_tracker/View/Setting/UserBlockList/user_block_list_view.dart';
 import 'package:fleet_tracker/tutorial_page.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,8 +8,8 @@ import 'package:go_router/go_router.dart';
 
 import '../Model/Entity/Warehouse/info.dart';
 import '../Model/Entity/Warehouse/warehouse.dart';
-import '../View/Component/CustomWidget/Setting/HowToUse/how_to_use.dart';
-import '../View/Component/CustomWidget/Setting/License/license_view.dart';
+import '../View/Setting/HowToUse/how_to_use.dart';
+import '../View/Setting/License/license_view.dart';
 import '../View/Component/WarehouseDetail/warehouse_detail_view.dart';
 import '../View/Home/home_view.dart';
 import '../View/Setting/setting_top_view.dart';
@@ -99,6 +100,9 @@ final routerProvider = Provider(
         ),
         TypedGoRoute<LicenseRoute>(
           path: Routes.license,
+        ),
+        TypedGoRoute<UserBlockListRoute>(
+          path: Routes.userBlockList,
         ),
       ],
     ),
@@ -276,6 +280,14 @@ class LicenseRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const LicenseView();
+}
+
+class UserBlockListRoute extends GoRouteData {
+  const UserBlockListRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const UserBlockListView();
 }
 //////////////////////////////  Setting  //////////////////////////////
 

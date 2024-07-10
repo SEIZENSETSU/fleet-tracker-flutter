@@ -11,4 +11,5 @@ mixin Routes {
   static const String setting = '/setting';
   static const String howToUse = '/howToUse';
   static const String license = '/license';
+  static const String userBlockList = '/userBlockList';
 }
