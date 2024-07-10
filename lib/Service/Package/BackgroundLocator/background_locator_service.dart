@@ -269,8 +269,8 @@ class BackgroundLocatorService {
       return;
     }
     await background_task.BackgroundTask.instance.start(
-      iOSDesiredAccuracy: background_task.DesiredAccuracy.hundredMeters,
-    );
+        // iOSDesiredAccuracy: background_task.DesiredAccuracy.hundredMeters,
+        );
   }
 
   /// 停止
