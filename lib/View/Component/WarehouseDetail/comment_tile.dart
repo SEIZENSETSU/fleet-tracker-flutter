@@ -135,21 +135,25 @@ class CommentTile extends StatelessWidget {
                                                 setState!();
                                               }
                                             },
-                                            child: const Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons.block,
-                                                  size: 14,
-                                                ),
-                                                CustomText(
-                                                  text: 'ブロックする',
-                                                  fontSize: 10,
-                                                )
-                                              ],
+                                            child: const Padding(
+                                              padding:
+                                                  EdgeInsets.only(top: 8.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons.block,
+                                                    size: 14,
+                                                  ),
+                                                  CustomText(
+                                                    text: 'ブロックする',
+                                                    fontSize: 10,
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
