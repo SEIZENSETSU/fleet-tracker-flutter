@@ -138,7 +138,7 @@ class TopLoadingController {
       await completer.future;
     }
 
-    Future.delayed(const Duration(milliseconds: 500));
+    // Future.delayed(const Duration(milliseconds: 500));
 
     /// LocalNotifications Initialize
     await LocalNotificationsService().initialize();

@@ -21,7 +21,9 @@ class LocationData extends ChangeNotifier {
         Location(
           lat: 43.0,
           lng: 141.0,
-          time: DateTime.now(),
+          time: DateTime.now().subtract(
+            const Duration(days: 1),
+          ),
         );
   }
 
