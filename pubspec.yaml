@@ -65,7 +65,7 @@ flutter_icons:
   remove_alpha_ios: true
   android: true
   adaptive_icon_background: '#0D801E'
-  adaptive_icon_foreground: 'assets/images/icons/fleet_tracker_icon.png'
+  adaptive_icon_foreground: 'assets/images/icons/fleet_tracker_splash_icon.png'
 
 flutter_native_splash:
   color: '#008100'
