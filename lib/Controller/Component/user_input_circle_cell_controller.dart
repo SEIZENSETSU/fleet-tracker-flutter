@@ -52,7 +52,7 @@ class UserInputCircleCellController {
     }
     final DateTime currentDateTime = DateTime.now();
 
-    Duration interval = DateTime.parse(posted).difference(currentDateTime);
+    Duration interval = currentDateTime.difference(DateTime.parse(posted));
 
     Log.echo('経過時間は${interval.inHours}時間です');
 
