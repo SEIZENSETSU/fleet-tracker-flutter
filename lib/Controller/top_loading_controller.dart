@@ -217,7 +217,7 @@ class TopLoadingController {
         title: '通知を利用します',
         content: const Icon(Icons.info_outline_rounded, color: Colors.blue),
         detail: 'アプリがバックグラウンドで実行中でも、サービス提供のために通知を使用します。「常に許可」を選択してください。',
-        buttonText: '確認',
+        buttonText: '次へ',
         buttonAction: () {
           completer.complete();
           Navigator.of(
