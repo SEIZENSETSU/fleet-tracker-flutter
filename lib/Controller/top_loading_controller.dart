@@ -255,7 +255,7 @@ class TopLoadingController {
         content: const Icon(Icons.info_outline_rounded, color: Colors.blue),
         detail:
             'アプリがバックグラウンドで実行中でも、サービス提供のために位置情報を使用します。「アプリの起動中は許可」を選択してください。',
-        buttonText: '確認',
+        buttonText: '次へ',
         buttonAction: () {
           completer.complete();
           Navigator.of(

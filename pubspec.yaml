@@ -1,6 +1,6 @@
 name: fleet_tracker
 description: A new Flutter project.
-version: 1.0.2+41
+version: 1.0.2+45
 
 environment:
   sdk: '>=3.0.5 <4.0.0'
