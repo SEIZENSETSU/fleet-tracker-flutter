@@ -1,16 +1,51 @@
-# fleet_tracker
+# Fleet Tracker
 
-A new Flutter project.
+![IMG_3902](https://github.com/user-attachments/assets/9b9f8980-b31c-4684-9db3-046b91116110)
 
-## Getting Started
+Fleet Trackerは日々の日本を支えているトラックドライバーを支えるための、便利な情報を瞬時に確認することができるアプリです。
 
-This project is a starting point for a Flutter application.
+## Download
 
-A few resources to get you started if this is your first Flutter project:
+【iOS】https://apps.apple.com/jp/app/fleettracker/id6503596268
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+【Android】Comming Soon...
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## About
+
+**1. 高速情報の表示機能**
+
+- 高速道路上のサービスエリアの情報をリアルタイムで提供します。各サービスエリアの満車情報や休憩スポットの詳細を確認でき、ドライバーが最適な休憩場所を選ぶのをサポートいたします。
+- 取得可能な高速道路の交通情報：約70線
+- 取得可能なサービスエリア:約20線
+
+**2. 倉庫に関する機能**
+
+- 倉庫ごとの遅延情報を共有し、ドライバーが予定通りに業務を進められるようサポートします。倉庫での作業が遅れた際には、ドライバーがワンタップで他のドライバーに遅延情報を拡散できます。また、遅延理由などの詳細は、倉庫のコメント機能で確認できます。
+
+**3. ユーザー間での情報共有機能**
+
+- GPSを利用して、ドライバーの現在地をリアルタイムで把握し、どのドライバーがどの倉庫に向かっているかを確認できます。これにより、倉庫までの込み具合
+
+### 特徴
+
+**使いやすい画面構成**
+
+- 我々は、直感的で使いやすいデザインを採用しており、初めて使用する方でも簡単に扱うことができます。重要な情報にすぐにアクセスできるよう、シンプルで整理された画面を提供します。
+
+**リアルタイム情報**
+
+- 最新の交通情報やサービスエリアの空き状況をリアルタイムで提供します。ドライバーは常に最新の情報を元に行動できるため、予定外の遅延やトラブルを未然に防ぐことができます。
+
+**ドライバーの負担軽減**
+
+- 効率的なスケジュール管理と待ち時間の削減により、ドライバーの負担を大幅に軽減します。これにより、労働環境の改善と業務効率の向上が期待できます。
+
+### 利用シーン
+
+**長距離トラックドライバーの方々**
+
+- 長時間運転するドライバーにとって、効率的な休憩と情報共有は非常に重要です。我々は、休憩場所の選択やスケジュール管理をサポートします。
+
+**物流業務に従事する全ての方々**
+
+- 物流業界で働く全ての人々にとって、我々は欠かせないツールとなります。情報の共有と効率的なスケジュール管理により、業務全体がスムーズに進行します。
