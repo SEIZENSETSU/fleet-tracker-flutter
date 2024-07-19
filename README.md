@@ -8,7 +8,7 @@ Fleet Trackerは日々の日本を支えているトラックドライバーを�
 
 【iOS】https://apps.apple.com/jp/app/fleettracker/id6503596268
 
-【Android】Comming Soon...
+【Android】Coming Soon...
 
 ## About
 
